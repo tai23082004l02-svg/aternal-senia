@@ -77,7 +77,11 @@
       "defense": 0,
       "color": "#608dff",
       "element": "light",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "sword_2",
@@ -92,7 +96,11 @@
       "defense": 0,
       "color": "#608dff",
       "element": "light",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "dawn",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "spear_1",
@@ -107,7 +115,11 @@
       "defense": 0,
       "color": "#608dff",
       "element": "fire",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "spear_2",
@@ -122,7 +134,11 @@
       "defense": 0,
       "color": "#608dff",
       "element": "fire",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "ember",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "staff_1",
@@ -137,7 +153,11 @@
       "defense": 0,
       "color": "#608dff",
       "element": "water",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "staff_2",
@@ -152,7 +172,11 @@
       "defense": 0,
       "color": "#608dff",
       "element": "water",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "tide",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "armor_1",
@@ -167,7 +191,11 @@
       "color": "#608dff",
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "tide",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "armor_2",
@@ -182,12 +210,16 @@
       "color": "#608dff",
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "ember",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "armor_3",
       "name": "Ấn mặt trăng",
-      "slot": "armor",
+      "slot": "accessory",
       "category": "all",
       "rarity": 3,
       "summon_group": 2,
@@ -197,7 +229,11 @@
       "color": "#608dff",
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "tide",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "armor_uncommon",
@@ -212,7 +248,11 @@
       "color": "#608dff",
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "tide",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "armor_4",
@@ -228,7 +268,11 @@
       "summon_group": 3,
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "ember",
+      "secondary": {},
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "armor_5",
@@ -244,7 +288,13 @@
       "summon_group": 3,
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "dawn",
+      "secondary": {
+        "damage_reduction": 0.02
+      },
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "armor_6",
@@ -260,7 +310,13 @@
       "summon_group": 3,
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "dawn",
+      "secondary": {
+        "damage_reduction": 0.03
+      },
+      "effect": "",
+      "effect_description": ""
     },
     {
       "id": "armor_7",
@@ -276,7 +332,284 @@
       "summon_group": 3,
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ"
+      "passive": "Không có nội tại phụ",
+      "set_id": "dawn",
+      "secondary": {
+        "damage_reduction": 0.04
+      },
+      "effect": "",
+      "effect_description": ""
+    },
+    {
+      "id": "boots_3",
+      "name": "Giày thủy triều",
+      "slot": "boots",
+      "category": "all",
+      "rarity": 3,
+      "atk": 0,
+      "hp": 10,
+      "defense": 1,
+      "haste": 0.03,
+      "secondary": {},
+      "set_id": "tide",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#608dff",
+      "summon_group": 1,
+      "summon_only": false,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "boots_4",
+      "name": "Giày hỏa vũ",
+      "slot": "boots",
+      "category": "all",
+      "rarity": 4,
+      "atk": 0,
+      "hp": 15,
+      "defense": 1,
+      "haste": 0.04,
+      "secondary": {
+        "dodge": 0.01
+      },
+      "set_id": "ember",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#aa70ff",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "boots_5",
+      "name": "Giày bình minh",
+      "slot": "boots",
+      "category": "all",
+      "rarity": 5,
+      "atk": 0,
+      "hp": 20,
+      "defense": 2,
+      "haste": 0.05,
+      "secondary": {
+        "dodge": 0.02
+      },
+      "set_id": "dawn",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "boots_6",
+      "name": "Giày cổ thần",
+      "slot": "boots",
+      "category": "all",
+      "rarity": 6,
+      "atk": 0,
+      "hp": 25,
+      "defense": 2,
+      "haste": 0.06,
+      "secondary": {
+        "dodge": 0.03
+      },
+      "set_id": "dawn",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#ef5555",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "boots_7",
+      "name": "Giày thiên dực",
+      "slot": "boots",
+      "category": "all",
+      "rarity": 7,
+      "atk": 0,
+      "hp": 30,
+      "defense": 3,
+      "haste": 0.07,
+      "secondary": {
+        "dodge": 0.04
+      },
+      "set_id": "dawn",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#e5c569",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "accessory_4",
+      "name": "Bùa hỏa vũ",
+      "slot": "accessory",
+      "category": "all",
+      "rarity": 4,
+      "atk": 0,
+      "hp": 80,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.03,
+        "sp_regen": 0.0
+      },
+      "set_id": "ember",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#aa70ff",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "accessory_5",
+      "name": "Ấn bình minh",
+      "slot": "accessory",
+      "category": "all",
+      "rarity": 5,
+      "atk": 0,
+      "hp": 90,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.04,
+        "sp_regen": 0.25
+      },
+      "set_id": "dawn",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "accessory_6",
+      "name": "Ấn cổ thần",
+      "slot": "accessory",
+      "category": "all",
+      "rarity": 6,
+      "atk": 0,
+      "hp": 100,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.05,
+        "sp_regen": 0.5
+      },
+      "set_id": "dawn",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#ef5555",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "accessory_7",
+      "name": "Ấn thiên dực",
+      "slot": "accessory",
+      "category": "all",
+      "rarity": 7,
+      "atk": 0,
+      "hp": 110,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.06,
+        "sp_regen": 0.75
+      },
+      "set_id": "dawn",
+      "effect": "aegis",
+      "effect_description": "Kỹ năng Tinh linh tạo khiên bằng 8% HP trong 5 giây.",
+      "passive": "Không có nội tại phụ",
+      "color": "#e5c569",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "none"
+    },
+    {
+      "id": "sword_dawn",
+      "name": "Kiếm thiên quang",
+      "slot": "weapon",
+      "category": "sword",
+      "rarity": 5,
+      "atk": 18,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.05
+      },
+      "set_id": "dawn",
+      "effect": "radiance",
+      "effect_description": "Kiếm quang tạo khiên bằng 5% HP trong 5 giây.",
+      "passive": "Kiếm quang tạo khiên bằng 5% HP trong 5 giây.",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.92,
+      "element": "light"
+    },
+    {
+      "id": "spear_ember",
+      "name": "Thương hỏa vũ",
+      "slot": "weapon",
+      "category": "spear",
+      "rarity": 5,
+      "atk": 18,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.05
+      },
+      "set_id": "ember",
+      "effect": "burn",
+      "effect_description": "Đòn thường có 15% cơ hội thiêu đốt 3 giây; mỗi giây gây 12% ATK. Không cộng dồn.",
+      "passive": "Đòn thường có 15% cơ hội thiêu đốt 3 giây; mỗi giây gây 12% ATK. Không cộng dồn.",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.92,
+      "element": "fire"
+    },
+    {
+      "id": "staff_tide",
+      "name": "Trượng thủy triều",
+      "slot": "weapon",
+      "category": "staff",
+      "rarity": 5,
+      "atk": 18,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.05
+      },
+      "set_id": "tide",
+      "effect": "tide",
+      "effect_description": "Kỹ năng Hồi phục hoàn lại 5 SP khi thi triển thành công.",
+      "passive": "Kỹ năng Hồi phục hoàn lại 5 SP khi thi triển thành công.",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.92,
+      "element": "water"
     }
   ],
   "skills": [
@@ -520,6 +853,71 @@
       "id": "bird",
       "name": "Chim sấm",
       "rarity": 4
+    }
+  ],
+  "sets": [
+    {
+      "id": "dawn",
+      "name": "Bình Minh",
+      "icon": "set_dawn",
+      "bonuses": [
+        {
+          "pieces": 2,
+          "description": "+8% HP tối đa",
+          "stats": {
+            "hp_pct": 0.08
+          }
+        },
+        {
+          "pieces": 4,
+          "description": "+12% sát thương kỹ năng",
+          "stats": {
+            "skill_pct": 0.12
+          }
+        }
+      ]
+    },
+    {
+      "id": "ember",
+      "name": "Hỏa Vũ",
+      "icon": "set_ember",
+      "bonuses": [
+        {
+          "pieces": 2,
+          "description": "+6% tấn công",
+          "stats": {
+            "atk_pct": 0.06
+          }
+        },
+        {
+          "pieces": 4,
+          "description": "+5% chí mạng",
+          "stats": {
+            "crit": 0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "tide",
+      "name": "Thủy Triều",
+      "icon": "set_tide",
+      "bonuses": [
+        {
+          "pieces": 2,
+          "description": "+8% phòng thủ",
+          "stats": {
+            "defense_pct": 0.08
+          }
+        },
+        {
+          "pieces": 4,
+          "description": "+1 SP mỗi giây",
+          "stats": {
+            "sp_regen": 1.0
+          }
+        }
+      ]
     }
   ]
 }

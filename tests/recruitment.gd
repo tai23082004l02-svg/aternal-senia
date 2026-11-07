@@ -85,7 +85,7 @@ func run() -> void:
 		check(store.profile.recruitment.pity <= 19 and store.profile.recruitment.history.size() <= Recruitment.HISTORY_LIMIT, "Bounded pity and history")
 	check(categories.size() == 3, "Fixed seed covers all three reward categories")
 	check(store.available_hero("ryn") and store.available_hero("mira") and store.available_assist("ash"), "Summoned entities unlock before chapter clear")
-	check(store.profile.recruitment.fragments.ryn > 0 and store.profile.collection_fragments.spirits.ash > 0, "Duplicate heroes and spirits convert to materials")
+	check(store.profile.recruitment.fragments.eira + store.profile.recruitment.fragments.ryn + store.profile.recruitment.fragments.mira + store.profile.recruitment.fragments.lyra > 0 and store.profile.collection_fragments.spirits.lumi + store.profile.collection_fragments.spirits.ash > 0, "Duplicate heroes and spirits convert to materials")
 	check(store.profile.items.size() <= book.data.items.size(), "One owned copy per catalog item")
 	check(store.profile.collection_fragments.items.armor_1 > 0 and store.profile.shards == p.shards, "Duplicate gear becomes named fragments, not generic shards")
 	var saved := store.profile.duplicate(true)

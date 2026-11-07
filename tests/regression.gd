@@ -71,6 +71,7 @@ func run() -> void:
 	check(not store.begin_run(1), "Cannot start second pending run")
 	var combat := Battle.new(book)
 	combat.start(pending)
+	combat.stats.crit = 0 # Marker assertions need a nonlethal deterministic first hit.
 	combat.auto_attack = false
 	combat.attack_clock = .85
 	check(combat.attack(), "Manual combo attack")

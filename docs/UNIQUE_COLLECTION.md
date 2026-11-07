@@ -1,5 +1,7 @@
 # Sở hữu duy nhất, mảnh đúng loại và năm độ hiếm · 0.23
 
+> Quy tắc một bản/10 mảnh và năm độ hiếm tiếp tục áp dụng. [Bản0.27](EQUIPMENT_SETS.md) thêm bốn ô, bộ trang bị, cap+15 và save v9 đọc v2–v8; các mô tả v7/14 item dưới đây là lịch sử0.23.
+
 Mỗi **ID trang bị** chỉ có một bản trong kho. Kiếm sương và Kiếm nhật quang
 là hai món khác nhau; không gộp tất cả kiếm thành một món. Nhân vật và tinh
 linh cũng chỉ mở khóa một lần. Nhận lại món/nhân vật/tinh linh đã sở hữu sẽ

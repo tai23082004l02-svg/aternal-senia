@@ -23,6 +23,10 @@ func _init() -> void:
 		data[key] = expansion[key]
 	for item in data.items:
 		if item.get("rarity") not in [3, 4, 5, 6, 7]: errors.append("Độ hiếm trang bị không hợp lệ")
+		if item.get("slot") not in EquipmentSystem.SLOTS: errors.append("Ô trang bị không hợp lệ")
+		if item.get("summon_group") not in [1, 2, 3]: errors.append("Nhóm triệu hồi không hợp lệ")
+		if not item.get("set_id", "").is_empty() and find_row("sets", item.set_id).is_empty(): errors.append("Bộ trang bị không hợp lệ")
+		if item.get("effect", "") not in [""] + EquipmentSystem.EFFECTS or (not item.get("effect", "").is_empty() and item.rarity < 5): errors.append("Hiệu ứng trang bị không hợp lệ")
 		if data.traits.has(item.id): item.passive = data.traits[item.id].description
 	for hero in data.heroes:
 		if hero.get("rarity") not in [1, 2, 3, 4, 5]: errors.append("Độ hiếm gốc nhân vật không hợp lệ")
@@ -30,7 +34,7 @@ func _init() -> void:
 		if spirit.get("rarity") not in ["SR", "SSR", "UR"]: errors.append("Độ hiếm tinh linh không hợp lệ")
 	for opponent in data.opponents:
 		if opponent.get("rarity") not in [1, 2, 3, 4]: errors.append("Độ hiếm đối thủ không hợp lệ")
-	for group in ["heroes", "items", "skills", "stages", "quests", "assists", "talents", "achievements", "chapters"]:
+	for group in ["sets", "heroes", "items", "skills", "stages", "quests", "assists", "talents", "achievements", "chapters"]:
 		var ids: Array = []
 		for row in data[group]:
 			if row.id in ids:
@@ -69,13 +73,13 @@ func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 	var base := find_row("heroes", hero_id)
 	var unit: Dictionary = profile.heroes[hero_id]
 	var result := {"hp": float(base.hp) + (unit.level - 1) * 25, "atk": float(base.atk) + (unit.level - 1) * 4, "defense": float(base.defense) + unit.level - 1, "crit": float(base.crit), "element": base.element, "skill_bonus": base.skill_bonus, "hero": hero_id, "assist": profile.assist, "assist_level": profile.assists[profile.assist], "skills": unit.skills.duplicate(), "weapon": category(hero_id) + "_1", "cooldown_scale": 1.0}
-	for slot in ["weapon", "armor"]:
+	for slot in EquipmentSystem.SLOTS:
 		var uid: String = unit.equipment[slot]
 		for item in profile.items:
 			if item.uid != uid:
 				continue
 			var def := find_row("items", item.base)
-			var multiplier: float = 1.0 + item.enhance * 0.18 + (item.rank - 1) * 0.5
+			var multiplier := EquipmentSystem.multiplier(item)
 			for stat in ["hp", "atk", "defense"]:
 				result[stat] += float(def[stat]) * multiplier
 			if slot == "weapon":
@@ -88,6 +92,7 @@ func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 	result.hp += awakening * 30
 	result.atk += awakening * 3
 	result.defense += awakening
+	EquipmentSystem.apply(self, profile, hero_id, result)
 	var evolution_bonus := 1.0 + (HeroEvolution.rank(profile, hero_id) - 1) * .08
 	for stat in ["hp", "atk", "defense"]: result[stat] *= evolution_bonus
 	var look := Wardrobe.tint(profile, hero_id)

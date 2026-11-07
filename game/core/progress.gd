@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 8
+const VERSION = 9
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -23,7 +23,7 @@ func _init(book: GameCatalog, save_path: String = "") -> void:
 func fresh() -> Dictionary:
 	var units := {}
 	for hero in catalog.data.heroes:
-		units[hero.id] = {"level": 1, "skills": [1, 1, 1], "equipment": {"weapon": "starter_" + hero.id, "armor": ""}}
+		units[hero.id] = {"level": 1, "skills": [1, 1, 1], "equipment": {"weapon": "starter_" + hero.id, "armor": "", "boots": "", "accessory": ""}}
 	var bag: Array = []
 	var starters := {}
 	for hero in catalog.data.heroes:
@@ -34,11 +34,11 @@ func fresh() -> Dictionary:
 		units[hero.id].equipment.weapon = starters[base]
 	return {"collection_fragments": CollectionFragments.fresh(catalog), "expansion": Expansion.fresh(catalog), "version": VERSION, "gold": 0, "shards": 0, "xp": 0, "hero": "eira", "assist": "lumi", "heroes": units, "assists": {"lumi": 1, "ash": 1}, "items": bag, "next_uid": 1, "cleared": [], "claimed": [], "metrics": {"wins": 0, "kills": 0, "enhances": 0, "clears": 0}, "seen_story": [], "last_offline": int(Time.get_unix_time_from_system()), "pending": {}, "settled": [], "settings": {"speed": 1, "sound": true}}
 
-func valid(p: Variant, legacy: bool = false) -> bool:
-	if not p is Dictionary or p.get("version") != (6 if legacy else VERSION):
+func valid(p: Variant, legacy_version: int = 0) -> bool:
+	if not p is Dictionary or p.get("version") != (legacy_version if legacy_version > 0 else VERSION):
 		return false
 	for key in fresh():
-		if legacy and key == "collection_fragments": continue
+		if legacy_version == 6 and key == "collection_fragments": continue
 		if not p.has(key):
 			return false
 	for key in ["gold", "shards", "xp", "next_uid", "last_offline"]:
@@ -48,15 +48,16 @@ func valid(p: Variant, legacy: bool = false) -> bool:
 		return false
 	if not p.heroes is Dictionary or not p.assists is Dictionary or not p.items is Array or p.items.size() > BAG_CAP:
 		return false
-	if not legacy and not CollectionFragments.valid(self, p.collection_fragments): return false
+	if legacy_version != 6 and not CollectionFragments.valid(self, p.collection_fragments, legacy_version in [7, 8]): return false
 	var bases: Array = []
 	var uids: Array = []
 	for item in p.items:
 		if not item is Dictionary or not item.get("uid") is String or item.uid.is_empty() or item.uid in uids:
 			return false
-		if catalog.find_row("items", item.get("base")).is_empty() or not _whole(item.get("enhance"), 0, 10) or not _whole(item.get("rank"), 1, 3):
+		if legacy_version > 0 and item.get("base") not in EquipmentSystem.OLD_ITEMS: return false
+		if catalog.find_row("items", item.get("base")).is_empty() or not _whole(item.get("enhance"), 0, 10 if legacy_version > 0 else EquipmentSystem.MAX_ENHANCE) or not _whole(item.get("rank"), 1, 3):
 			return false
-		if not legacy and item.base in bases: return false
+		if legacy_version != 6 and item.base in bases: return false
 		bases.append(item.base)
 		uids.append(item.uid)
 	for hero in catalog.data.heroes:
@@ -66,7 +67,7 @@ func valid(p: Variant, legacy: bool = false) -> bool:
 		for lv in unit.skills:
 			if not _whole(lv, 1, 10):
 				return false
-		for slot in ["weapon", "armor"]:
+		for slot in (["weapon", "armor"] if legacy_version > 0 else EquipmentSystem.SLOTS):
 			var uid = unit.equipment.get(slot)
 			if not uid is String:
 				return false
@@ -76,7 +77,7 @@ func valid(p: Variant, legacy: bool = false) -> bool:
 				return false
 			var item: Dictionary = p.items[uids.find(uid)]
 			var def := catalog.find_row("items", item.base)
-			if def.slot != slot or (slot == "weapon" and def.category != catalog.category(hero.id)):
+			if ("armor" if legacy_version > 0 and item.base == "armor_3" else def.slot) != slot or (slot == "weapon" and def.category != catalog.category(hero.id)):
 				return false
 	for id in ["lumi", "ash"]:
 		if not _whole(p.assists.get(id), 1, 20):
@@ -285,7 +286,7 @@ func unequip(uid: String, hero_id: String = "") -> bool:
 	var p := profile.duplicate(true)
 	var target: String = p.hero if hero_id.is_empty() else hero_id
 	if not available_hero(target): return false
-	for slot in ["weapon", "armor"]:
+	for slot in EquipmentSystem.SLOTS:
 		if p.heroes[target].equipment[slot] == uid:
 			p.heroes[target].equipment[slot] = ""
 			return commit(p)
@@ -300,7 +301,7 @@ func enhance(uid: String, rank_up: bool = false) -> bool:
 			continue
 		var cost := (int(item.rank) * 80) if rank_up else (int(item.enhance) + 1) * 20
 		var shards := int(item.rank) * 4 if rank_up else 1
-		if p.gold < cost or p.shards < shards or (rank_up and item.rank >= 3) or (not rank_up and item.enhance >= 10):
+		if p.gold < cost or p.shards < shards or (rank_up and item.rank >= 3) or (not rank_up and item.enhance >= EquipmentSystem.MAX_ENHANCE):
 			return false
 		p.gold -= cost
 		p.shards -= shards
@@ -481,10 +482,13 @@ func _decode(file_path: String) -> Variant:
 				if entry is Dictionary and entry.get("kind") == "item" and old_item_rarities.has(entry.get("id")) and entry.get("rarity") == old_item_rarities[entry.id]:
 					entry["legacy_rarity"] = entry.rarity
 					entry.rarity = Recruitment.rarity("item", entry.id, catalog)
-		if valid(raw, true):
+		if valid(raw, 6):
 			CollectionFragments.migrate(raw, catalog)
+			EquipmentSystem.migrate(raw, catalog)
 			raw.version = VERSION
-	if raw is Dictionary and old_version == 7: raw.version = VERSION
+	if old_version in [7, 8] and valid(raw, old_version):
+		EquipmentSystem.migrate(raw, catalog)
+		raw.version = VERSION
 	return raw
 
 func _whole(value: Variant, low: float, high: float) -> bool:

@@ -3701,6 +3701,60 @@
         1,
         1
       ]
+    },
+    "sword_dawn": {
+      "file": "painted/dawnveil.png",
+      "anchor": [
+        512,
+        1225
+      ],
+      "scale": 0.14,
+      "tint": [
+        1,
+        1,
+        0.93,
+        1
+      ]
+    },
+    "spear_ember": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        444,
+        0,
+        443,
+        887
+      ],
+      "anchor": [
+        224,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "staff_tide": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        1330,
+        0,
+        444,
+        887
+      ],
+      "anchor": [
+        219,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
     }
   },
   "enemies": {
@@ -4424,6 +4478,182 @@
   "icons": {
     "atlas": "icons/resources.png",
     "regions": {
+      "boots_3": {
+        "atlas": "icons/gear.png",
+        "region": [
+          0,
+          0,
+          314,
+          314
+        ],
+        "sheet": "gear",
+        "cell": 0
+      },
+      "boots_4": {
+        "atlas": "icons/gear.png",
+        "region": [
+          314,
+          0,
+          313,
+          314
+        ],
+        "sheet": "gear",
+        "cell": 1
+      },
+      "boots_5": {
+        "atlas": "icons/gear.png",
+        "region": [
+          627,
+          0,
+          313,
+          314
+        ],
+        "sheet": "gear",
+        "cell": 2
+      },
+      "boots_6": {
+        "atlas": "icons/gear.png",
+        "region": [
+          940,
+          0,
+          314,
+          314
+        ],
+        "sheet": "gear",
+        "cell": 3
+      },
+      "boots_7": {
+        "atlas": "icons/gear.png",
+        "region": [
+          0,
+          314,
+          314,
+          313
+        ],
+        "sheet": "gear",
+        "cell": 4
+      },
+      "accessory_4": {
+        "atlas": "icons/gear.png",
+        "region": [
+          314,
+          314,
+          313,
+          313
+        ],
+        "sheet": "gear",
+        "cell": 5
+      },
+      "accessory_5": {
+        "atlas": "icons/gear.png",
+        "region": [
+          627,
+          314,
+          313,
+          313
+        ],
+        "sheet": "gear",
+        "cell": 6
+      },
+      "accessory_6": {
+        "atlas": "icons/gear.png",
+        "region": [
+          940,
+          314,
+          314,
+          313
+        ],
+        "sheet": "gear",
+        "cell": 7
+      },
+      "accessory_7": {
+        "atlas": "icons/gear.png",
+        "region": [
+          0,
+          627,
+          314,
+          313
+        ],
+        "sheet": "gear",
+        "cell": 8
+      },
+      "sword_dawn": {
+        "atlas": "icons/gear.png",
+        "region": [
+          314,
+          627,
+          313,
+          313
+        ],
+        "sheet": "gear",
+        "cell": 9
+      },
+      "spear_ember": {
+        "atlas": "icons/gear.png",
+        "region": [
+          627,
+          627,
+          313,
+          313
+        ],
+        "sheet": "gear",
+        "cell": 10
+      },
+      "staff_tide": {
+        "atlas": "icons/gear.png",
+        "region": [
+          940,
+          627,
+          314,
+          313
+        ],
+        "sheet": "gear",
+        "cell": 11
+      },
+      "set_dawn": {
+        "atlas": "icons/gear.png",
+        "region": [
+          0,
+          940,
+          314,
+          314
+        ],
+        "sheet": "gear",
+        "cell": 12
+      },
+      "set_ember": {
+        "atlas": "icons/gear.png",
+        "region": [
+          314,
+          940,
+          313,
+          314
+        ],
+        "sheet": "gear",
+        "cell": 13
+      },
+      "set_tide": {
+        "atlas": "icons/gear.png",
+        "region": [
+          627,
+          940,
+          313,
+          314
+        ],
+        "sheet": "gear",
+        "cell": 14
+      },
+      "boots_category": {
+        "atlas": "icons/gear.png",
+        "region": [
+          940,
+          940,
+          314,
+          314
+        ],
+        "sheet": "gear",
+        "cell": 15
+      },
       "journey": {
         "atlas": "icons/navigation.png",
         "region": [

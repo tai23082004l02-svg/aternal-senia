@@ -41,6 +41,7 @@ var panel: VBoxContainer
 var tab := 0
 var selected_stage := 1
 var selected_item := ""
+var equipment_target := ""
 var modal: Control
 var result_shown := false
 var result_transition := false
@@ -439,36 +440,16 @@ func _heroes_panel() -> void:
 	panel.add_child(screen)
 
 func _equipment_detail_panel() -> void:
-	var p: Dictionary = store.profile
-	_row("← Kho trang bị", _select_tab.bind(2))
-	for item in p.items:
-		if item.uid != selected_item: continue
-		var def := catalog.find_row("items", item.base)
-		var owners: Array[String] = []
-		for h in p.heroes:
-			if item.uid in p.heroes[h].equipment.values(): owners.append(catalog.find_row("heroes", h).name)
-		var owner := ", ".join(owners)
-		_item_illustration(def.id)
-		_text(def.name, 24, Color(Recruitment.RARITIES[def.rarity].color))
-		_text("%s · Cường hóa +%d · Bậc %d%s" % [_rarity("item", item.base), item.enhance, item.rank, " · " + owner if owner != "" else ""])
-		if selected_item != item.uid:
-			continue
-		var mult: float = 1 + item.enhance * .18 + (item.rank - 1) * .5
-		_text("ATK +%d · HP +%d · Thủ +%d" % [def.atk * mult, def.hp * mult, def.defense * mult])
-		_text("  " + def.passive)
-		_text("Mảnh %s · %d" % [def.name, p.collection_fragments.items[def.id]], 14)
-		if item.uid not in p.heroes[p.hero].equipment.values() and (def.slot == "armor" or def.category == catalog.category(p.hero)):
-			var candidate: Dictionary = p.duplicate(true)
-			candidate.heroes[p.hero].equipment[def.slot] = item.uid
-			var old_stats := catalog.stats(p)
-			var new_stats := catalog.stats(candidate)
-			_text("  Nếu mặc: ATK %d→%d · HP %d→%d · Thủ %d→%d" % [old_stats.atk, new_stats.atk, old_stats.hp, new_stats.hp, old_stats.defense, new_stats.defense])
-		if item.uid in p.heroes[p.hero].equipment.values():
-			_row("Tháo về túi", _unequip.bind(item.uid), _locked())
-		_row("Trang bị cho " + catalog.find_row("heroes", p.hero).name, _equip.bind(item.uid), _locked() or item.uid in p.heroes[p.hero].equipment.values() or (def.slot == "weapon" and def.category != catalog.category(p.hero)))
-		_row("Cường hóa · %d vàng + 1 tinh thạch" % ((item.enhance + 1) * 20), _enhance.bind(item.uid, false), _locked() or item.enhance >= 10 or p.gold < (item.enhance + 1) * 20 or p.shards < 1)
-		_row("Tiến bậc · %d vàng + %d tinh thạch" % [item.rank * 80, item.rank * 4], _enhance.bind(item.uid, true), _locked() or item.rank >= 3 or p.gold < item.rank * 80 or p.shards < item.rank * 4)
-		_row("Phân giải · +%d tinh thạch" % (1 + item.rank), _dismantle_confirm.bind(item.uid), _locked() or not owner.is_empty())
+	var item := EquipmentSystem.item_for(store.profile, selected_item)
+	if item.is_empty():
+		_row("← Kho trang bị", _bag_open.bind("equipment"))
+		_text("Trang bị không còn trong kho.")
+		return
+	var screen := EquipmentDetailScreen.new()
+	screen.game = self
+	screen.item = item
+	screen.definition = catalog.find_row("items", item.base)
+	panel.add_child(screen)
 
 func _quests_panel() -> void:
 	var screen := MissionScreen.new()
@@ -539,7 +520,13 @@ func _upgrade(kind: String, index: int) -> void:
 	_outcome(store.upgrade(kind, index), "Đã nâng cấp. Chỉ số mới được áp dụng từ trận tiếp theo.", "upgrade")
 
 func _item_detail(uid: String) -> void:
+	equipment_target = store.profile.hero
 	selected_item = uid
+	_select_tab(17)
+
+func _character_item_detail(uid: String, hero: String) -> void:
+	selected_item = uid
+	equipment_target = hero
 	_select_tab(17)
 
 func _equip(uid: String) -> void:
@@ -1252,15 +1239,15 @@ func _equipment_inventory() -> void:
 	for is_rarity in [false, true]:
 		var select := OptionButton.new()
 		select.custom_minimum_size = Vector2(235, 44)
-		var titles: Array = ["Mọi độ hiếm"] if is_rarity else ["Tất cả trang bị", "Vũ khí", "Giáp"]
+		var titles: Array = ["Mọi độ hiếm"] if is_rarity else ["Tất cả trang bị", "Vũ khí", "Giáp", "Giày", "Phụ kiện"]
 		if is_rarity:
 			for tier in Recruitment.RARITIES: titles.append(Recruitment.RARITIES[tier].name)
 		for title in titles: select.add_item(title)
-		select.selected = ([0] + Recruitment.RARITIES.keys()).find(bag_rarity) if is_rarity else ["all", "weapon", "armor"].find(bag_kind)
+		select.selected = ([0] + Recruitment.RARITIES.keys()).find(bag_rarity) if is_rarity else ["all", "weapon", "armor", "boots", "accessory"].find(bag_kind)
 		select.item_selected.connect(_bag_filter.bind(is_rarity))
 		filters.add_child(select)
 	var grid := GridContainer.new()
-	grid.columns = 4
+	grid.columns = 3
 	grid.add_theme_constant_override("h_separation", 6)
 	grid.add_theme_constant_override("v_separation", 8)
 	panel.add_child(grid)
@@ -1278,14 +1265,27 @@ func _equipment_inventory() -> void:
 		for hero in p.heroes:
 			if item.uid in p.heroes[hero].equipment.values(): owners.append(catalog.find_row("heroes", hero).name)
 		var owner := ", ".join(owners)
-		var card := _inventory_card(grid, "slash" if def.slot == "weapon" else "guard", def.name, (owner if owner != "" else _rarity("item", item.base)) + " +%d" % item.enhance, Color(Recruitment.RARITIES[def.rarity].color), _item_detail.bind(item.uid))
+		var card := _button(grid, "", Vector2.ZERO, Vector2(158, 202), _item_detail.bind(item.uid))
+		card.tooltip_text = def.name + " · " + _rarity("item", item.base) + (" · " + owner if owner != "" else "")
+		card.add_theme_stylebox_override("normal", _style(Color("112532"), Color(Recruitment.RARITIES[def.rarity].color).darkened(.4), 12))
+		var art := EquipmentArt.add_to(card, self, def.id, def.rarity, 144)
+		art.position = Vector2(7, 0)
+		var title: Label = _label(card, def.name + " +%d" % item.enhance, Vector2(5, 140), 13, Recruitment.color("item", def.id, catalog))
+		title.size = Vector2(148, 40)
+		title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var note: Label = _label(card, owner if owner != "" else _rarity("item", item.base), Vector2(5, 180), 10)
+		note.size.x = 148
+		note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		note.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		shown += 1
 	if shown == 0: _text("Không có trang bị phù hợp bộ lọc.")
 	_text("%d món hiển thị · chạm để xem hoặc trang bị" % shown, 13)
 
 func _bag_filter(index: int, is_rarity: bool) -> void:
 	if is_rarity: bag_rarity = ([0] + Recruitment.RARITIES.keys())[index]
-	else: bag_kind = ["all", "weapon", "armor"][index]
+	else: bag_kind = ["all", "weapon", "armor", "boots", "accessory"][index]
 	_refresh_panel()
 
 func _open_spirit(id: String) -> void:

@@ -45,6 +45,8 @@ var barrier := 0.0
 var barrier_left := 0.0
 var empowered := 0.0
 var marked := false
+var burn_left := 0.0
+var burn_clock := 0.0
 
 func _init(book: GameCatalog) -> void:
 	catalog = book
@@ -89,6 +91,8 @@ func _barrier(amount: float) -> void:
 	_emit("guard", "Khiên bảo hộ", 0, "guard_ready")
 
 func _spawn() -> void:
+	burn_left = 0
+	burn_clock = 0
 	marked = false
 	if stage.has("waves"):
 		stage.mechanic = stage.waves[wave].mechanic
@@ -126,7 +130,7 @@ func _step() -> void:
 	guard_cd = maxf(0, guard_cd - STEP)
 	for i in range(3):
 		cooldowns[i] = maxf(0, float(cooldowns[i]) - STEP)
-	sp = minf(100, sp + STEP * 6)
+	sp = minf(100, sp + STEP * (6 + stats.get("sp_regen", 0)))
 	if move_clock > 0:
 		var before_move := move_clock
 		move_clock -= STEP
@@ -139,7 +143,14 @@ func _step() -> void:
 		return
 	if hero_pose_time > 0.7 and actions.is_empty():
 		hero_pose = "idle"
-	attack_clock += STEP
+	if burn_left > 0:
+		burn_left = maxf(0, burn_left - STEP)
+		burn_clock += STEP
+		if burn_clock + .00001 >= 1:
+			burn_clock -= 1
+			_hit(stats.atk * .12, false, "burn")
+			if state != "battle" or move_clock > 0: return
+	attack_clock += STEP * (1 + stats.get("haste", 0))
 	assist_clock += STEP
 	enemy_clock += STEP
 	if enemy_clock >= 2.0 and enemy_clock - STEP < 2.0:
@@ -177,7 +188,10 @@ func _step() -> void:
 			action.hit = true
 			if action.wave == wave:
 				if action.skill and has_trait("conduit"): sp = minf(100, sp + 4)
+				if action.skill and not action.burst and action.kind != "heal" and "radiance" in stats.get("gear_effects", []): _barrier(stats.hp * .05)
+				if action.burst and "aegis" in stats.get("gear_effects", []): _barrier(stats.hp * .08)
 				if action.kind == "heal":
+					if "tide" in stats.get("gear_effects", []): sp = minf(100, sp + 5)
 					var healed: float = stats.hp * action.power * (1.25 if stats.hero == "mira" else 1.0)
 					if has_trait("mending"): healed *= 1.15
 					if variant("barrier"): _barrier(stats.hp * .15)
@@ -282,6 +296,10 @@ func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: i
 	var visual: Dictionary = last_action.duplicate(true) if last_action.get("id", -1) == action_id else {}
 	visual.source = source
 	_emit("critical" if critical else "hit", "%d%s" % [amount, "!" if critical else ""], 1, cue, action_id, visual)
+	if source == "weapon" and not last_action.get("skill", false) and "burn" in stats.get("gear_effects", []) and enemy_hp > 0 and rng.randf() < .15:
+		burn_left = 3.0
+		burn_clock = 0.0
+		_emit("warning", "Thiêu đốt", 1)
 	if enemy_hp <= 0:
 		kills += 1
 		_sound("enemy_down", action_id)
@@ -298,7 +316,10 @@ func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: i
 
 func _take_damage(amount: float) -> void:
 	last_enemy_strike = time
-	amount = maxf(1, amount - stats.defense)
+	if stats.get("dodge", 0) > 0 and rng.randf() < stats.dodge:
+		_emit("guard", "Né tránh", 0, "guard_hit")
+		return
+	amount = maxf(1, amount - stats.defense) * (1 - stats.get("damage_reduction", 0))
 	if guard_left > 0:
 		amount *= .2
 		if has_trait("riposte"): empowered = 4

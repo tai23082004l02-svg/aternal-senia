@@ -164,8 +164,8 @@ class TeamField extends Control:
 		for event in model.events:
 			var age: float = model.time - event.time
 			if age < 0 or age > .7 or event.wave != model.wave or event.target < 0: continue
-			if event.kind not in ["hit","critical","hurt","heal"]: continue
-			var ally_target: bool = event.kind in ["hurt","heal"]
+			if event.kind not in ["hit","critical","hurt","heal","guard"]: continue
+			var ally_target: bool = event.kind in ["hurt","heal","guard"]
 			if ally_target and event.target >= model.allies.size() or not ally_target and event.target >= model.enemies.size(): continue
 			if not ally_target and event.get("target_uid", -1) != model.enemies[event.target].id: continue
 			var point: Vector2 = ALLY_FEET[model.allies[event.target].slot] if ally_target else ENEMY_FEET[event.target]

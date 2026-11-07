@@ -45,7 +45,10 @@ for i,name in enumerate(armor_names):
 # The shared UI/item registry is regenerated from preserved source PNGs.
 icon_registry=runpy.run_path(str(root/'tools/build_icon_manifest.py'))['build']()
 p['icons']=dict(atlas='icons/resources.png',regions=icon_registry['regions'])
+for new,old in [('sword_dawn','sword_2'),('spear_ember','spear_2'),('staff_tide','staff_2')]:
+ p['weapons'][new]=p['weapons'][old].copy()
 p['version']=4
 (root/'art/painted/manifest.json').write_text(json.dumps(p,indent=2)+'\n')
 (root/'art/complete/provenance.json').write_text(json.dumps(dict(method='Original image generation with existing Eira/forest as style reference. Reviewed regions and sockets; source PNG unchanged.',date='2026-11-07',sources=[dict(file=f.name,sha256=hashlib.sha256(f.read_bytes()).hexdigest()) for f in sorted((root/'art/complete').glob('*.png'))]),indent=2)+'\n')
 print('Complete painted roster, weapons, environments, enemies, companion and UI icons')
+runpy.run_path(str(root/'tools/build_equipment_art.py'))

@@ -13,7 +13,7 @@ func capture(name: String) -> void:
 	assert(root.get_texture().get_image().save_png(output.path_join(name + ".png")) == OK)
 
 func button(prefix: String) -> Button:
-	for child in game.panel.get_children():
+	for child in game.panel.find_children("*", "Button", true, false):
 		if child is Button and child.text.begins_with(prefix): return child
 	assert(false, "Missing button: " + prefix)
 	return null

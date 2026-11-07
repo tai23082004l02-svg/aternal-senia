@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-07",
+  "method": "Original image generation in the project fantasy style. Six reviewed ornamental panels: five equipment rarity frames and one set decoration. PNG retained byte-for-byte; no source pixel edits.",
+  "sources": [
+    {
+      "file": "art/equipment/frames.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "6130f97f81e3852872bbe14f83be5d839751ed2265617afda81d329cf751c554"
+    }
+  ]
+}

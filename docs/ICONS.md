@@ -1,5 +1,7 @@
 # Bộ icon giao diện và đạo cụ · 0.22
 
+> Từ [0.27](EQUIPMENT_SETS.md) registry có80 icon với sheet `gear.png` bổ sung16 ô. Catalogue có26 item. Danh mục64 icon dưới đây mô tả bộ nền0.22.
+
 64 icon gốc được tạo bằng image generation, cùng nét fantasy anime vẽ tay,
 kim loại vàng/ngà, vải xanh đêm và ngọc teal của game. PNG trong suốt, không
 nhập asset từ Eternal Senia hoặc tải bộ icon bên ngoài. Nguồn ảnh tham chiếu

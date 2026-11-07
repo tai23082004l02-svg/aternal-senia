@@ -146,16 +146,39 @@ func info() -> void:
 func equipment() -> void:
 	var p: Dictionary = game.store.profile
 	text("Trang bị riêng cho " + game.catalog.find_row("heroes", hero).name, 14)
-	for slot in ["weapon", "armor"]:
-		var uid: String = p.heroes[hero].equipment[slot]
-		var current: Dictionary = {}
-		for item in p.items:
-			if item.uid == uid: current = item
-		text("VŨ KHÍ" if slot == "weapon" else "GIÁP", 14, Color("e5cd9e"))
-		if current.is_empty(): text("Chưa trang bị", 13)
+	var slots := GridContainer.new()
+	slots.columns = 2
+	slots.add_theme_constant_override("h_separation", 8)
+	slots.add_theme_constant_override("v_separation", 8)
+	body.add_child(slots)
+	for slot in EquipmentSystem.SLOTS:
+		var current := EquipmentSystem.item_for(p, p.heroes[hero].equipment[slot])
+		var tile: Button = game._button(slots, "", Vector2.ZERO, Vector2(128, 160), game._bag_open.bind("equipment") if current.is_empty() else game._character_item_detail.bind(current.uid, hero))
+		tile.name = "EquipmentSlot_" + slot
+		var heading: Label = game._label(tile, EquipmentSystem.SLOT_NAMES[slot], Vector2(0, 5), 12, Color("d6c28e"))
+		heading.size.x = 128
+		heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		heading.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if not current.is_empty():
+			var def: Dictionary = game.catalog.find_row("items", current.base)
+			var art := EquipmentArt.add_to(tile, game, def.id, def.rarity, 104)
+			art.position = Vector2(12, 23)
+			var name_label: Label = game._label(tile, def.name + " +%d" % current.enhance, Vector2(4, 126), 11, Recruitment.color("item", def.id, game.catalog))
+			name_label.size = Vector2(120, 30)
+			name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		else:
-			text(game.catalog.find_row("items", current.base).name + " +%d" % current.enhance, 14)
-			button("Tháo trang bị", game._character_unequip.bind(uid, hero), locked())
+			var empty: Label = game._label(tile, "+\nChọn trang bị", Vector2(0, 55), 16, Color("8aa6aa"))
+			empty.size.x = 128
+			empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			empty.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var counts := EquipmentSystem.set_counts(game.catalog, p, hero)
+	for set_def in game.catalog.data.sets:
+		if not counts.has(set_def.id): continue
+		text("BỘ " + set_def.name.to_upper() + " · %d/4" % counts[set_def.id], 14, Color("e5cd9e"))
+		for bonus in set_def.bonuses:
+			text(("✓ " if counts[set_def.id] >= bonus.pieces else "○ ") + "%d món: %s" % [bonus.pieces, bonus.description], 12)
 	text("Có thể trang bị", 15, Color("a2e5d6"))
 	var found := false
 	for item in p.items:

@@ -9,9 +9,12 @@ static func fresh(book: GameCatalog) -> Dictionary:
 	for row in book.data.assists: result.spirits[row.id] = 0
 	return result
 
-static func valid(store: ProgressStore, value: Variant) -> bool:
+static func valid(store: ProgressStore, value: Variant, legacy: bool = false) -> bool:
 	if not value is Dictionary or value.size() != 2: return false
 	var expected := fresh(store.catalog)
+	if legacy:
+		for id in expected.items.keys():
+			if id not in EquipmentSystem.OLD_ITEMS: expected.items.erase(id)
 	for kind in expected:
 		if not value.get(kind) is Dictionary or value[kind].size() != expected[kind].size(): return false
 		for id in expected[kind]:

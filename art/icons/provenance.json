@@ -1,7 +1,15 @@
 {
   "date": "2026-11-07",
-  "method": "Original image generation referenced art/ui/icons.png. Four reviewed transparent 4x4 source atlases, retained byte-for-byte. No pixel edits or extracted reference-game assets.",
+  "method": "Original image generation referenced art/ui/icons.png. Five reviewed transparent 4x4 source atlases, retained byte-for-byte. No pixel edits or extracted reference-game assets.",
   "sources": [
+    {
+      "file": "art/icons/gear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "bc1a8f1bc0536a01b17aa766fc22ead816193e1ad00873a940b85d758e532152"
+    },
     {
       "file": "art/icons/navigation.png",
       "size": [

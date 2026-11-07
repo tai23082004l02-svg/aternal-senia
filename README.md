@@ -1,4 +1,12 @@
-# Aternal Senia — First Light · 0.26
+# Aternal Senia — First Light · 0.27
+
+## Trang bị bốn ô, thưởng bộ & khung mỹ thuật · 0.27
+
+Trang chi tiết theo mẫu tham khảo: chỉ số/hiệu ứng, mốc bộ đang kích hoạt,
+chi phí thật và nút nâng cấp. Bốn ô Vũ khí/Giáp/Giày/Phụ kiện; ba bộ Bình Minh,
+Hỏa Vũ, Thủy Triều có thưởng2/4 món. Năm độ hiếm có năm khung hoa văn riêng.
+26 item,80 icon, cường hóa đến+15; save v9 đọc v2–v8 và giữ trận đang dở.
+[Xem ảnh, công thức và chuyển save](docs/EQUIPMENT_SETS.md).
 
 ## Giao diện Nhiệm vụ fantasy · 0.26
 

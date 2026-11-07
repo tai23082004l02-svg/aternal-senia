@@ -27,8 +27,9 @@ for item in items:
 for stage,element in zip(stages,['nature','fire','water','nature','dark']):
  stage['element']=element
 data=dict(version=1,heroes=heroes,items=items,skills=skills,stages=stages,quests=quests,assists=[dict(id='lumi',name='Lumi',rarity='SR',role='Hồi phục',unlock=1,power=.09,interval=4.),dict(id='ash',name='Ash',rarity='SSR',role='Xạ thủ',unlock=2,power=.9,interval=2.2)],opponents=[dict(id=id,name=name,rarity=rank) for id,name,rank in [('slime','Slime rừng',1),('wolf','Sói rừng',2),('golem','Cổ thụ',3),('guardian','Hộ vệ',4),('bird','Chim sấm',4)]])
-(root/'game/data/catalog.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
 
 # Additive roster expansion: preserve existing hero IDs and append Lyra.
 data['heroes'].append(dict(id='lyra',name='Lyra',title='Thương thủ hoàng hôn',element='fire',hp=225,atk=22,defense=3,crit=.15,color='#dca58b',unlock=4,passive='Dư hỏa: +8% sát thương kỹ năng',skill_bonus=1.08,rarity=5,age=24))
+from build_equipment import extend
+extend(data)
 (root/'game/data/catalog.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')

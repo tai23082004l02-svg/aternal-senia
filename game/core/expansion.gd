@@ -113,6 +113,7 @@ static func claim(store: ProgressStore, id: String) -> bool:
 	return store.commit(p)
 
 static func valid_snapshot(store: ProgressStore, snapshot: Dictionary) -> bool:
+	if not EquipmentSystem.valid_snapshot(store, snapshot): return false
 	if snapshot.has("look_tint"):
 		if not snapshot.look_tint is Array or snapshot.look_tint.size() != 4: return false
 		for value in snapshot.look_tint:

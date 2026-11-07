@@ -116,3 +116,5 @@ không tự đổi đội hình hoặc cấp các nhân vật đó cho tài kho�
 ![Boss và lính](previews/team-boss-adds.png)
 
 Từ0.25, giao diện đội hình đổi sang một ô trước/hai ô sau, thanh chọn tinh linh và lưới chân dung theo sơ đồ người dùng. Slot/model/save không đổi; xem [FORMATION_SCREEN.md](FORMATION_SCREEN.md).
+
+Từ0.27, trang bị bốn ô và bộ được nối vào stats từng hero; save v9 đọc v2–v8 và giữ team snapshot cũ. Xem [EQUIPMENT_SETS.md](EQUIPMENT_SETS.md) về hồi nộ, burn/khiên/né và migration.

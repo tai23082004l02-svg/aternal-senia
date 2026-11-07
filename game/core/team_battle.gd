@@ -77,6 +77,9 @@ func _add_enemy(row: Dictionary) -> void:
 	enemy.summoned = false
 	enemy.marked = false
 	enemy.target = -1
+	enemy.burn_until = 0.0
+	enemy.burn_next = 0.0
+	enemy.burn_source = -1
 	var reused := false
 	for i in range(enemies.size()):
 		if enemies[i].hp <= 0:
@@ -95,15 +98,22 @@ func _step() -> void:
 		move_clock = maxf(0, move_clock - STEP)
 		if move_clock == 0: _spawn()
 		return
+	for index in range(enemies.size()):
+		var enemy: Dictionary = enemies[index]
+		if enemy.hp > 0 and enemy.burn_source >= 0 and enemy.burn_next <= enemy.burn_until + .00001 and time + .00001 >= enemy.burn_next:
+			enemy.burn_next += 1
+			var caster: Dictionary = allies[enemy.burn_source]
+			_damage_enemy(index, caster.stats.atk*.12, caster, false, false, true)
+			if state != "battle" or move_clock > 0: return
 	for ally in allies:
 		if ally.hp <= 0: continue
-		ally.energy = minf(100, ally.energy + STEP * 8)
+		ally.energy = minf(100, ally.energy + STEP * (8 + ally.stats.get("sp_regen", 0)))
 		ally.basic_cd = maxf(0, ally.basic_cd - STEP)
 		if time >= ally.barrier_until: ally.barrier = 0
 		if not ally.action.is_empty():
 			_advance_ally(ally)
 		else:
-			ally.clock += STEP
+			ally.clock += STEP * (1 + ally.stats.get("haste", 0))
 			if auto_ultimate and ally.energy >= 100: ultimate(allies.find(ally))
 			elif ally.basic_cd <= 0 and ally.clock >= .95:
 				_basic(ally)
@@ -216,6 +226,10 @@ func _advance_ally(ally: Dictionary) -> void:
 	var action: Dictionary = ally.action
 	if not action.hit and time >= action.started + action.marker:
 		action.hit = true
+		if action.kind == "basic" and "radiance" in ally.stats.get("gear_effects", []):
+			ally.barrier = maxf(ally.barrier, ally.stats.hp*.05)
+			ally.barrier_until = time+5
+		if action.kind == "heal" and "tide" in ally.stats.get("gear_effects", []): ally.energy = minf(100, ally.energy+5)
 		if action.kind == "heal":
 			var target: int = action.target if action.target >= 0 and allies[action.target].hp > 0 else _lowest()
 			if target >= 0:
@@ -247,21 +261,21 @@ func _advance_ally(ally: Dictionary) -> void:
 		ally.energy = minf(100, ally.energy + (8 if action.kind == "attack" else (12 if action.kind != "ultimate" else 0)))
 	if time >= action.started + action.duration: ally.action = {}
 
-func _damage_enemy(index: int, amount: float, ally: Dictionary, ability: bool, spirit: bool = false) -> void:
+func _damage_enemy(index: int, amount: float, ally: Dictionary, ability: bool, spirit: bool = false, dot: bool = false) -> void:
 	if state != "battle" or move_clock > 0 or index >= enemies.size(): return
 	var enemy: Dictionary = enemies[index]
 	if enemy.hp <= 0: return
 	var s: Dictionary = ally.stats
 	var weapon_trait: String = s.get("weapon_trait", "")
-	var critical: bool = not spirit and rng.randf() < s.crit
+	var critical: bool = not spirit and not dot and rng.randf() < s.crit
 	if critical: amount *= 1.6
 	var advantage := {"fire":"nature", "nature":"water", "water":"fire", "light":"dark", "dark":"light"}
 	if advantage.get(("fire" if stats.assist == "ash" else "light") if spirit else s.element) == enemy.element: amount *= 1.2
-	if not spirit and weapon_trait == "execute" and enemy.hp < enemy.max_hp * .35: amount *= 1.2
-	if not spirit and enemy.marked:
+	if not spirit and not dot and weapon_trait == "execute" and enemy.hp < enemy.max_hp * .35: amount *= 1.2
+	if not spirit and not dot and enemy.marked:
 		amount *= 1.2
 		enemy.marked = false
-	if not spirit and ally.empowered:
+	if not spirit and not dot and ally.empowered:
 		amount *= 1.3
 		ally.empowered = false
 	var shielded: bool = enemy.boss and enemy.mechanic == "shield" and not enemy.shield_broken
@@ -273,8 +287,12 @@ func _damage_enemy(index: int, amount: float, ally: Dictionary, ability: bool, s
 	enemy.hurt = time
 	var source: int = -1 if spirit else allies.find(ally)
 	_team_emit("critical" if critical else "hit", source, index, str(int(amount)), "arrow_hit" if spirit else ("critical" if critical else "impact_" + str(s.weapon).get_slice("_", 0)))
-	if weapon_trait == "spring" and not ability: ally.energy = minf(100, ally.energy + 2)
-	if weapon_trait == "conduit" and ability: ally.energy = minf(100, ally.energy + 4)
+	if not spirit and not dot and weapon_trait == "spring" and not ability: ally.energy = minf(100, ally.energy + 2)
+	if not spirit and not dot and weapon_trait == "conduit" and ability: ally.energy = minf(100, ally.energy + 4)
+	if not spirit and not dot and not ability and enemy.hp > 0 and "burn" in s.get("gear_effects", []) and rng.randf() < .15:
+		enemy.burn_until = time+3
+		enemy.burn_next = time+1
+		enemy.burn_source = allies.find(ally)
 	if enemy.hp <= 0:
 		kills += 1
 		enemy.action = {}
@@ -293,7 +311,10 @@ func _damage_enemy(index: int, amount: float, ally: Dictionary, ability: bool, s
 func _damage_ally(index: int, amount: float, source: int) -> void:
 	var ally: Dictionary = allies[index]
 	if ally.hp <= 0: return
-	amount = maxf(1, amount - ally.stats.defense)
+	if ally.stats.get("dodge", 0) > 0 and rng.randf() < ally.stats.dodge:
+		_team_emit("guard", index, index, "Né tránh", "guard_hit", true)
+		return
+	amount = maxf(1, amount - ally.stats.defense) * (1-ally.stats.get("damage_reduction",0))
 	if ally.id == "ryn": amount *= .9
 	var absorbed := minf(ally.barrier, amount)
 	ally.barrier -= absorbed
@@ -325,6 +346,10 @@ func _spirit(ultimate_cast: bool) -> void:
 	var rank: int = stats.get("assist_rank", 1)
 	var scale: float = 1.0 + (stats.assist_level - 1) * .12
 	if ultimate_cast:
+		for ally in allies:
+			if ally.hp > 0 and "aegis" in ally.stats.get("gear_effects", []):
+				ally.barrier = maxf(ally.barrier, ally.stats.hp*.08)
+				ally.barrier_until = time+5
 		scale *= 1.0 + stats.skills[2] * .12
 		if "nova" in stats.get("variants", []): scale *= 1.25
 		if stats.get("spirit_advanced", "") == "echo": scale *= 1.15
