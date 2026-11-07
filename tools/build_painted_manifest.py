@@ -36,23 +36,25 @@ painted=dict(version=1,heroes={'eira':clips},weapons={
  'golem':dict(atlas='painted/forest_enemies.png',region=[24,590,580,605],anchor=[276,582],scale=.35),
  'golem_charge':dict(atlas='painted/forest_enemies.png',region=[615,580,620,620],anchor=[340,592],scale=.35)},
  backgrounds={'forest':'painted/forest.png','ruins':'painted/ruins.png','lake':'painted/lake.png'},companions={'lumi':'painted/lumi.png','ash':'painted/ash.png'})
-# Adult Ryn: reviewed 1254x1254 source, four columns / three rows.
-# Two thrust cells extend slightly past a nominal column; explicit regions
-# retain spear tips without taking the neighboring actor.
+# Ryn 0.18: new coherent painted design; retired raw files are not referenced.
 ryn_edges=[0,314,627,940,1254]
-ryn_regions=[[ryn_edges[c],r*418,ryn_edges[c+1]-ryn_edges[c],418] for r in range(3) for c in range(4)]
-ryn_regions[5]=[314,418,327,418]
-ryn_regions[8]=[0,836,327,418]
-ryn_anchors=[[166,405],[166,405],[218,403],[218,403],[180,397],[168,397],[180,397],[171,397],[170,397],[170,397],[171,397],[176,397]]
+ryn_regions=[[ryn_edges[c],ryn_edges[r],ryn_edges[c+1]-ryn_edges[c],ryn_edges[r+1]-ryn_edges[r]] for r in range(4) for c in range(4)]
+ryn_hands=[[220,194],[228,194],[211,160],[230,139],[209,145],[211,142],[103,35],[82,98],[263,125],[134,161],[185,140],[123,212],[219,132],[215,205],[129,278],[236,279]]
+ryn_anchors=[[172,304],[172,304],[166,303],[188,303],[170,303],[188,303],[172,303],[172,303],[172,303],[172,303],[172,303],[172,303],[172,303],[172,303],[172,303],[172,303]]
+ryn_angles=[18,18,55,60,55,60,-55,-70,90,30,25,25,25,30,0,0]
 def ryn_frame(i,d):
- return dict(file=f'painted/ryn_{i:02}',atlas='painted/ryn_atlas.png',region=ryn_regions[i],size=ryn_regions[i][2:],anchor=ryn_anchors[i],source_size=[512,512],source_anchor=[256,460],trim_offset=[256-ryn_anchors[i][0],460-ryn_anchors[i][1]],hand=[0,0],angle=0,render_scale=.5,duration=d,embedded_weapon=True)
+ region=ryn_regions[i][:]
+ if i in [2,4,13,14]:region[2]=280
+ x,y=ryn_hands[i]
+ return dict(file=f'ryn/pose_{i:02}',atlas='ryn/atlas.png',region=region,size=region[2:],anchor=ryn_anchors[i],source_size=[512,512],source_anchor=[256,460],trim_offset=[256-ryn_anchors[i][0],460-ryn_anchors[i][1]],hand=[x,y],angle=ryn_angles[i],grip_rect=[x-7,y-7,14,14],render_scale=.64,duration=d,embedded_weapon=False)
+def ryn_clip(loop,seq,**extra):return dict(loop=loop,frames=[ryn_frame(i,d) for i,d in seq],**extra)
 painted['heroes']['ryn']={
- 'idle':dict(loop=True,frames=[ryn_frame(0,.65),ryn_frame(1,.65)]),
- 'run':dict(loop=True,frames=[ryn_frame(2,.11),ryn_frame(3,.11)]),
- 'attack':dict(loop=False,hit_time=.22,frames=[ryn_frame(4,.22),ryn_frame(5,.08),ryn_frame(6,.16),ryn_frame(0,.06)]),
- 'skill':dict(loop=False,hit_time=.5,frames=[ryn_frame(7,.5),ryn_frame(8,.18),ryn_frame(6,.17),ryn_frame(0,.1)]),
- 'guard':dict(loop=False,frames=[ryn_frame(9,.7)]),
- 'hurt':dict(loop=False,frames=[ryn_frame(10,.25)]),
- 'death':dict(loop=False,frames=[ryn_frame(11,1)])}
-painted['portraits']={'ryn':dict(file='painted/ryn_portrait.png',face=[330,130,240,250],adult_age=27,layers={'body':'painted/ryn_body.png','back':'painted/ryn_back.png','hair':'painted/ryn_hair.png','cloth':'painted/ryn_cloth.png'})}
+ 'idle':ryn_clip(True,[(0,.6),(1,.6)]),
+ 'run':ryn_clip(True,[(i,.1) for i in [2,3,4,5]]),
+ 'attack':ryn_clip(False,[(6,.12),(7,.1),(8,.12),(9,.1),(0,.08)],hit_time=.22),
+ 'skill':ryn_clip(False,[(10,.25),(11,.25),(11,.15),(9,.15),(0,.15)],hit_time=.5),
+ 'guard':ryn_clip(False,[(7,.7)]),
+ 'hurt':ryn_clip(False,[(12,.125),(13,.125)]),
+ 'death':ryn_clip(False,[(14,.28),(15,.72)])}
+painted['portraits']={'ryn':dict(file='ryn/portrait.png',face=[460,245,220,220],adult_age=27,layers={'body':'ryn/body.png','hair':'ryn/hair.png','cloth':'ryn/cloth.png'})}
 (root/'art/painted/manifest.json').write_text(json.dumps(painted,indent=2)+'\n')

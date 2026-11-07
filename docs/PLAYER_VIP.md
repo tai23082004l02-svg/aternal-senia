@@ -1,10 +1,10 @@
-# Hồ sơ và VIP · 0.15–0.19
+# Hồ sơ và VIP · 0.15–0.20
 
 Theo phác thảo: avatar tròn ở góc trái, tên bên phải phía trên, trạng thái VIP
 phía dưới. Chạm cụm hồ sơ để đổi tên (1–20 ký tự, hỗ trợ tiếng Việt) và chọn
 avatar từ nhân vật đã sở hữu. Avatar hồ sơ độc lập với hero ra trận.
 
-Từ0.19, người dùng đổi yêu cầu: nhiệm vụ ngày/tuần cấp VIP EXP thật khi nhận
+Từ0.20, người dùng đổi yêu cầu: nhiệm vụ ngày/tuần cấp VIP EXP thật khi nhận
 thưởng. EXP được lưu và hiển thị trong hồ sơ, chưa tự xếp cấp VIP. Bảng có đủ
 VIP1–10, chọn từng bậc để xem trạng thái. Tài khoản hiện ghi “Chưa kích hoạt”.
 Mốc nạp và quyền lợi chờ cấu hình; nút nạp bị vô hiệu và ghi “Sắp ra mắt”.

@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "date": "2026-11-07",
+  "method": "Original image generation referenced the current Eira/Mira style. New 27-year-old Ryn design; separate transparent portrait body/hair/cape layers and a 16-pose unarmed atlas. No pixel edits by code.",
+  "sources": [
+    {
+      "file": "art/ryn/atlas.png",
+      "sha256": "e99203995ab94047a8d4cbc61f440db9107ebd2a730ea1b0bb59cc3f77a3960b"
+    },
+    {
+      "file": "art/ryn/body.png",
+      "sha256": "e855582b01a699dc4d3f8c790f396cc781eada623a4425eb2921827708fbf531"
+    },
+    {
+      "file": "art/ryn/cloth.png",
+      "sha256": "05d73580f02ce27bb0f2a888e5a9dd890e71542991c9996e203a7180fb955167"
+    },
+    {
+      "file": "art/ryn/hair.png",
+      "sha256": "ccc8e17ab3cd03a3f4d7a2eebcc129947d8e3fb09a830d3f4dec1abb192eca79"
+    },
+    {
+      "file": "art/ryn/portrait.png",
+      "sha256": "859fd0cc2c2549c4c060bbf759e359bf5be91440967718599b47e52bc87303bd"
+    }
+  ],
+  "retired": [
+    "art/painted/ryn_back.png",
+    "art/painted/ryn_provenance.json",
+    "art/painted/ryn_back.png.import",
+    "art/painted/ryn_atlas.png",
+    "art/painted/ryn_body.png.import",
+    "art/painted/ryn_body.png",
+    "art/painted/ryn_cloth.png.import",
+    "art/painted/ryn_cloth.png",
+    "art/painted/ryn_hair.png",
+    "art/painted/ryn_portrait.png.import",
+    "art/painted/ryn_portrait.png",
+    "art/painted/ryn_hair.png.import",
+    "art/painted/ryn_atlas.png.import",
+    "art/ryn_run_2.svg",
+    "art/ryn_death_2.svg",
+    "art/ryn_death_1.svg",
+    "art/ryn_run_3.svg",
+    "art/ryn_run_5.svg",
+    "art/ryn_idle_0.svg",
+    "art/ryn_idle_1.svg",
+    "art/ryn_attack_4.svg",
+    "art/ryn_hurt_1.svg",
+    "art/ryn_skill_1.svg",
+    "art/ryn_run_4.svg",
+    "art/ryn_skill_0.svg",
+    "art/ryn_run_0.svg",
+    "art/ryn_hurt_0.svg",
+    "art/ryn_attack_1.svg",
+    "art/ryn_skill_3.svg",
+    "art/ryn_attack_5.svg",
+    "art/ryn_skill_4.svg",
+    "art/ryn_death_0.svg",
+    "art/ryn_attack_3.svg",
+    "art/ryn_attack_0.svg",
+    "art/ryn_idle_3.svg",
+    "art/ryn_death_3.svg",
+    "art/ryn_run_1.svg",
+    "art/ryn_attack_2.svg",
+    "art/ryn_idle_2.svg",
+    "art/ryn_skill_5.svg",
+    "art/ryn_skill_2.svg"
+  ],
+  "scope": "Old source PNG/SVG files removed from the current repository tree. Git history is not rewritten."
+}

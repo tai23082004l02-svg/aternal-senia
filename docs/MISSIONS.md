@@ -1,4 +1,4 @@
-# Nhiệm vụ & Phần thưởng · 0.19
+# Nhiệm vụ & Phần thưởng · 0.20
 
 Ba tab Hằng ngày / Hằng tuần / Tiến trình, giữ tông màu game. Ngày và tuần có
 thanh hoạt động0–100; mỗi nhiệm vụ hoàn thành cho20 điểm, không cần nhận nhiệm
@@ -42,7 +42,8 @@ Kiểm thử missions: event thật, rollback ghi lỗi, reload/nhận lặp, re
 thứ Hai, đồng hồ lùi, pending lock và save cũ. missions_ui: ba tab, hoạt động,
 rương, nhận quà và VIP EXP hồ sơ. Regression87, mechanics72, campaign5,
 recruitment451, summon_batch, skill_effects, progression_ui, skill_gallery,
-utilities_ui, player_profile, ui_flow, animation_gallery đạt. Đã xem ảnh Godot
+utilities_ui, player_profile, ui_flow, animation_gallery đạt. Đã gộp Ryn0.19,
+kiểm lại ryn_art, complete_art và visual_ui. Đã xem ảnh Godot
 Linux; chưa thử điện thoại thật.
 
 ![Hoạt động60 điểm](previews/missions-active.png)

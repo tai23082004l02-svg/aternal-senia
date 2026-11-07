@@ -29,4 +29,4 @@ render Godot Linux; chưa thử màn hình/touch điện thoại thật.
 ![Huy hiệu nhiệm vụ thật từ fixture](previews/utilities-ready.png)
 ![Cài đặt](previews/utilities-settings.png)
 
-Từ0.19, Nhiệm vụ có ngày/tuần/tiến trình và VIP EXP; huy hiệu cộng nhiệm vụ và rương đủ điều kiện chưa nhận. Xem MISSIONS.md.
+Từ0.20, Nhiệm vụ có ngày/tuần/tiến trình và VIP EXP; huy hiệu cộng nhiệm vụ và rương đủ điều kiện chưa nhận. Xem MISSIONS.md.

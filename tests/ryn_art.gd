@@ -7,7 +7,7 @@ func run() -> void:
 	var frames := FrameLibrary.new()
 	assert(frames.painted.portraits.ryn.adult_age == 27)
 	assert(frames.textures.has("portrait_ryn"))
-	assert(frames.textures.has("portrait_ryn_back") and frames.textures.has("portrait_ryn_body"))
+	assert(frames.textures.has("portrait_ryn_hair") and frames.textures.has("portrait_ryn_body") and not frames.textures.has("portrait_ryn_back"))
 	var seen := {}
 	for state in ["idle", "run", "attack", "skill", "guard", "hurt", "death"]:
 		var clip: Dictionary = frames.manifest.heroes.ryn[state]
@@ -17,10 +17,13 @@ func run() -> void:
 			var tex: AtlasTexture = frames.textures[frame.file]
 			assert(tex.region.position.x >= 0 and tex.region.position.y >= 0)
 			assert(tex.region.end.x <= tex.atlas.get_width() and tex.region.end.y <= tex.atlas.get_height())
-			assert(frame.duration > 0 and frame.embedded_weapon)
+			assert(frame.duration > 0 and not frame.embedded_weapon)
 			assert(Vector2(frame.source_size[0], frame.source_size[1]) == Vector2(512, 512))
 			assert(Vector2(frame.source_anchor[0], frame.source_anchor[1]) - Vector2(frame.trim_offset[0], frame.trim_offset[1]) == Vector2(frame.anchor[0], frame.anchor[1]))
-	assert(seen.size() == 12)
+	assert(seen.size() == 16)
+	for file in ["ryn_atlas.png", "ryn_portrait.png", "ryn_body.png", "ryn_back.png", "ryn_hair.png", "ryn_cloth.png", "ryn_provenance.json"]:
+		assert(not FileAccess.file_exists("res://art/painted/" + file))
+	assert(not frames.manifest.heroes.ryn.idle.frames[0].file.ends_with(".svg"))
 	var ryn := HeroPortrait.new()
 	var eira := HeroPortrait.new()
 	ryn.library = frames
@@ -56,5 +59,5 @@ func run() -> void:
 	assert(ryn_peak > eira_peak * 2)
 	ryn.free()
 	eira.free()
-	print("PASS: adult Ryn portrait, 12 bounded poses, embedded spear, stronger capped rebound and settle")
+	print("PASS: adult Ryn portrait, 16 bounded poses, separate painted spear, stronger capped rebound and settle")
 	quit()

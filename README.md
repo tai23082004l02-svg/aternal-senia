@@ -1,17 +1,17 @@
-# Aternal Senia — First Light · 0.19
+# Aternal Senia — First Light · 0.20
 
-## Nhiệm vụ & VIP EXP · 0.19
+## Nhiệm vụ & VIP EXP · 0.20
 
 Ba tab Hằng ngày / Hằng tuần / Tiến trình. Có điểm hoạt động0–100, năm rương
 mốc, nhiệm vụ theo thao tác chơi thật và VIP EXP khi nhận quà. Tiến trình cũ
 được giữ; VIP EXP được lưu nhưng mốc lên VIP1–10 chờ cấu hình.
 [Xem nhiệm vụ, phần thưởng và reset](docs/MISSIONS.md).
 
-## Tiện ích · 0.18
+## Ryn đồng bộ phong cách · 0.19
 
-Menu chia ba nhóm Hoạt động / Khám phá / Hệ thống, đủ tám mục với icon, mô tả
-và mũi tên. Huy hiệu Nhiệm vụ đếm thưởng có thể nhận thật. Hộp thư/Giftcode chưa
-mở dịch vụ; Cài đặt gom âm thanh, hiển thị và hồ sơ. [Ảnh và phạm vi](docs/UTILITIES_MENU.md).
+Vẽ lại Ryn theo phong cách Eira/Mira/Lyra: giáp ngà, áo choàng đỏ rượu, tóc ngang vai có bím nhỏ. Bộ mới có chân dung/layer tóc–vải và 16 pose chiến đấu, thương rời đổi hình theo trang bị. Giữ tương tác và tiến trình Ryn; đã xóa 7 file raw/metadata cũ cùng 28 SVG mẫu khỏi bản hiện tại.
+
+[Xem Ryn mới, GIF và toàn bộ pose](docs/RYN_ART.md).
 
 ## Triệu hồi · 0.17
 
