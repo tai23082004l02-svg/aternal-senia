@@ -1,3 +1,5 @@
+> Từ0.32 có [nhạc nền chill và8 hiệu ứng mới](AUDIO_ADDITIONS.md), ba thanh âm lượng riêng và hỗ trợ pause khi app ra nền. Phần0.5 bên dưới ghi lại batch/timeline gốc, tiếp tục áp dụng cho38 SFX cũ.
+
 # Âm thanh 0.5 · ElevenLabs
 
 ## Quy tắc rút từ repo tham khảo
@@ -116,7 +118,7 @@ preview không ghi file theo từng tick slider. Save lỗi không trừ/đổi 
   [ảnh menu](previews/audio-settings.png). Capture thử: xem số đo thực tế trong verification.json; số đo không thay thế đánh giá chất âm bằng người nghe.
 
 Chưa nghe qua loa vật lý hoặc thử điện thoại; không tuyên bố âm đã được mastering
-cho thiết bị thật. Chưa có nhạc nền dài, voice hay reverb theo phòng động.
+cho thiết bị thật. Từ0.32 có nhạc nền riêng; chưa có voice hoặc reverb theo phòng động.
 
 ```sh
 godot --headless --path . --editor --quit

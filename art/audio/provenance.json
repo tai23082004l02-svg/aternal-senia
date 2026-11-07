@@ -537,6 +537,126 @@
         "aligned_seconds": 1.3723125,
         "tempo_factor": 1
       }
+    },
+    {
+      "file": "menu_open.wav",
+      "raw_file": "elevenlabs/v2/raw/menu_open.mp3",
+      "raw_sha256": "04ebaf9869edcb615f51731065ad0e362e9d1e41909edcd9e7552c54cb661e54",
+      "sha256": "764edd3501d6966e0c0c106b2e6ba1aaaaf609bd9ce655e2235de40abbe03975",
+      "duration": 0.24,
+      "processing": {
+        "trim_start_seconds": 0.0,
+        "aligned_seconds": 0.45375,
+        "tempo_factor": 1.890625
+      },
+      "batch": "aternal-senia-audio-v2-20261107",
+      "receipt": "elevenlabs/v2/receipt.json",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499"
+    },
+    {
+      "file": "menu_back.wav",
+      "raw_file": "elevenlabs/v2/raw/menu_back.mp3",
+      "raw_sha256": "328f2972d9b516e8c7dc9a5b38760c38b193bf492d516d9dc3b61d7d0692d9b9",
+      "sha256": "5a97e54abfdaea77963554814fddbd7b91de8b26cbd06381a101e2bc70d466a4",
+      "duration": 0.196375,
+      "processing": {
+        "trim_start_seconds": 0.0,
+        "aligned_seconds": 0.45640625,
+        "tempo_factor": 2.2820312499999997
+      },
+      "batch": "aternal-senia-audio-v2-20261107",
+      "receipt": "elevenlabs/v2/receipt.json",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499"
+    },
+    {
+      "file": "quest_claim.wav",
+      "raw_file": "elevenlabs/v2/raw/quest_claim.mp3",
+      "raw_sha256": "928a6796e8c7ae8d7757fe9a4a6546ea442117be9abf1bcc370d2ea4c795bc14",
+      "sha256": "0c7aa59b44615fc7d78d6a58f3dccea30c2e22775764a157e82c03566944e5a6",
+      "duration": 0.77178125,
+      "processing": {
+        "trim_start_seconds": 0.0,
+        "aligned_seconds": 0.77178125,
+        "tempo_factor": 1
+      },
+      "batch": "aternal-senia-audio-v2-20261107",
+      "receipt": "elevenlabs/v2/receipt.json",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499"
+    },
+    {
+      "file": "summon_reveal.wav",
+      "raw_file": "elevenlabs/v2/raw/summon_reveal.mp3",
+      "raw_sha256": "ce185dd5a27a72d7f63761ad8b416f7a148cc81923bb98f900699ca771ca6b0c",
+      "sha256": "3c1f3a0a49be8733b3931e351e23acb2340cf76b20ce7d30868b4f62171f7c18",
+      "duration": 0.92084375,
+      "processing": {
+        "trim_start_seconds": 0.0,
+        "aligned_seconds": 0.92084375,
+        "tempo_factor": 1
+      },
+      "batch": "aternal-senia-audio-v2-20261107",
+      "receipt": "elevenlabs/v2/receipt.json",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499"
+    },
+    {
+      "file": "rarity_reveal.wav",
+      "raw_file": "elevenlabs/v2/raw/rarity_reveal.mp3",
+      "raw_sha256": "4d304b89bd4086a3cc9eb87c827ef18550863b82ca84ebaeb41cd45763632a86",
+      "sha256": "e74340436a6fa9ffe6760bd3188da1d4d0b9e875ba274aab9497b4864c4e9914",
+      "duration": 0.846125,
+      "processing": {
+        "trim_start_seconds": 0.0,
+        "aligned_seconds": 0.846125,
+        "tempo_factor": 1
+      },
+      "batch": "aternal-senia-audio-v2-20261107",
+      "receipt": "elevenlabs/v2/receipt.json",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499"
+    },
+    {
+      "file": "equipment_fuse.wav",
+      "raw_file": "elevenlabs/v2/raw/equipment_fuse.mp3",
+      "raw_sha256": "5042b2a44836ec43e19873363cc24d83e22cee7c9c29d24e2c551d28336744c8",
+      "sha256": "84aa3aab2ac3b1d8507b6dd53678723195c38bd7841a3c4c9b9284b89a283eaf",
+      "duration": 0.870125,
+      "processing": {
+        "trim_start_seconds": 0.0,
+        "aligned_seconds": 0.870125,
+        "tempo_factor": 1
+      },
+      "batch": "aternal-senia-audio-v2-20261107",
+      "receipt": "elevenlabs/v2/receipt.json",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499"
+    },
+    {
+      "file": "dismantle.wav",
+      "raw_file": "elevenlabs/v2/raw/dismantle.mp3",
+      "raw_sha256": "1f26d0f6616881a5ca34881702342ebc34f0041184ca1298294d8fcecbbd2d7b",
+      "sha256": "a67d923e35b82fef3cb40e87d9914f63e30ab7dc87d0e80557f9b9f1e587c0cd",
+      "duration": 0.51090625,
+      "processing": {
+        "trim_start_seconds": 0.00521875,
+        "aligned_seconds": 0.51090625,
+        "tempo_factor": 1
+      },
+      "batch": "aternal-senia-audio-v2-20261107",
+      "receipt": "elevenlabs/v2/receipt.json",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499"
+    },
+    {
+      "file": "spirit_select.wav",
+      "raw_file": "elevenlabs/v2/raw/spirit_select.mp3",
+      "raw_sha256": "bad2ee40d471df92767eb9b717ec6f404647f3c2fd1bb5315fb927d03abd2c1c",
+      "sha256": "7280bcd7c24271c1528593063933acd550fb05839b8e0d6e57bf4904a6d3dada",
+      "duration": 0.7,
+      "processing": {
+        "trim_start_seconds": 0.0,
+        "aligned_seconds": 0.7035625,
+        "tempo_factor": 1.0050892857142857
+      },
+      "batch": "aternal-senia-audio-v2-20261107",
+      "receipt": "elevenlabs/v2/receipt.json",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499"
     }
   ],
   "ambience": {
@@ -546,5 +666,29 @@
     "sha256": "4c3a12247e3165dc64621d26a216b4285eae10a693790f7494c8a8635824c273",
     "duration": 12.0,
     "loop_requested": true
+  },
+  "additional_batches": [
+    {
+      "id": "aternal-senia-audio-v2-20261107",
+      "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381344499",
+      "generated_sfx": 8,
+      "music_state": "http_error_no_retry",
+      "music_diagnostic": "missing_permissions"
+    }
+  ],
+  "music": {
+    "file": "moonlit_rest.ogg",
+    "provider": "ElevenLabs",
+    "model": "music_v1",
+    "batch": "aternal-senia-music-v1-20261107",
+    "raw_file": "elevenlabs/music-v1/raw/moonlit_rest.mp3",
+    "raw_sha256": "1c188d5300d3632310ee644e1a7e78b4653b9cfb537a01c393aa3b5a0c5d5e2e",
+    "sha256": "8660af0b1d876e9046cb66e599761500e7dba8fb4bd8553ac5c3b949bf7d80af",
+    "receipt": "elevenlabs/music-v1/receipt.json",
+    "workflow_run": "https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42381654487",
+    "requested_seconds": 60,
+    "duration": 57.08163265306123,
+    "force_instrumental": true,
+    "processing": "3s equal-power tail/head overlap, DC removal, loudnorm I=-20 TP=-3 LRA=7, stereo Vorbis44100Hz q4"
   }
 }

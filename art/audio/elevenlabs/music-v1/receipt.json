@@ -1,0 +1,23 @@
+{
+  "provider": "ElevenLabs",
+  "batch": "aternal-senia-music-v1-20261107",
+  "models": [
+    "eleven_text_to_sound_v2",
+    "music_v1"
+  ],
+  "format": "mp3_44100_128",
+  "results": [
+    {
+      "asset": "moonlit_rest",
+      "state": "generated",
+      "requested_seconds": 60,
+      "loop": true,
+      "kind": "music",
+      "model": "music_v1",
+      "http_status": 200,
+      "bytes": 961350,
+      "sha256": "1c188d5300d3632310ee644e1a7e78b4653b9cfb537a01c393aa3b5a0c5d5e2e"
+    }
+  ],
+  "status": "complete"
+}

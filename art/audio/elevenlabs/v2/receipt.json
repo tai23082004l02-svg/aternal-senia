@@ -1,0 +1,118 @@
+{
+  "provider": "ElevenLabs",
+  "batch": "aternal-senia-audio-v2-20261107",
+  "models": [
+    "eleven_text_to_sound_v2",
+    "music_v1"
+  ],
+  "format": "mp3_44100_128",
+  "results": [
+    {
+      "asset": "menu_open",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "kind": "sfx",
+      "model": "eleven_text_to_sound_v2",
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "04ebaf9869edcb615f51731065ad0e362e9d1e41909edcd9e7552c54cb661e54",
+      "character_cost": 5
+    },
+    {
+      "asset": "menu_back",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "kind": "sfx",
+      "model": "eleven_text_to_sound_v2",
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "328f2972d9b516e8c7dc9a5b38760c38b193bf492d516d9dc3b61d7d0692d9b9",
+      "character_cost": 5
+    },
+    {
+      "asset": "quest_claim",
+      "state": "generated",
+      "requested_seconds": 1.2,
+      "loop": false,
+      "kind": "sfx",
+      "model": "eleven_text_to_sound_v2",
+      "http_status": 200,
+      "bytes": 20105,
+      "sha256": "928a6796e8c7ae8d7757fe9a4a6546ea442117be9abf1bcc370d2ea4c795bc14",
+      "character_cost": 12
+    },
+    {
+      "asset": "summon_reveal",
+      "state": "generated",
+      "requested_seconds": 1.5,
+      "loop": false,
+      "kind": "sfx",
+      "model": "eleven_text_to_sound_v2",
+      "http_status": 200,
+      "bytes": 24702,
+      "sha256": "ce185dd5a27a72d7f63761ad8b416f7a148cc81923bb98f900699ca771ca6b0c",
+      "character_cost": 15
+    },
+    {
+      "asset": "rarity_reveal",
+      "state": "generated",
+      "requested_seconds": 2.0,
+      "loop": false,
+      "kind": "sfx",
+      "model": "eleven_text_to_sound_v2",
+      "http_status": 200,
+      "bytes": 33061,
+      "sha256": "4d304b89bd4086a3cc9eb87c827ef18550863b82ca84ebaeb41cd45763632a86",
+      "character_cost": 20
+    },
+    {
+      "asset": "equipment_fuse",
+      "state": "generated",
+      "requested_seconds": 1.2,
+      "loop": false,
+      "kind": "sfx",
+      "model": "eleven_text_to_sound_v2",
+      "http_status": 200,
+      "bytes": 20105,
+      "sha256": "5042b2a44836ec43e19873363cc24d83e22cee7c9c29d24e2c551d28336744c8",
+      "character_cost": 12
+    },
+    {
+      "asset": "dismantle",
+      "state": "generated",
+      "requested_seconds": 0.8,
+      "loop": false,
+      "kind": "sfx",
+      "model": "eleven_text_to_sound_v2",
+      "http_status": 200,
+      "bytes": 13835,
+      "sha256": "1f26d0f6616881a5ca34881702342ebc34f0041184ca1298294d8fcecbbd2d7b",
+      "character_cost": 8
+    },
+    {
+      "asset": "spirit_select",
+      "state": "generated",
+      "requested_seconds": 0.8,
+      "loop": false,
+      "kind": "sfx",
+      "model": "eleven_text_to_sound_v2",
+      "http_status": 200,
+      "bytes": 13835,
+      "sha256": "bad2ee40d471df92767eb9b717ec6f404647f3c2fd1bb5315fb927d03abd2c1c",
+      "character_cost": 8
+    },
+    {
+      "asset": "moonlit_rest",
+      "state": "http_error_no_retry",
+      "requested_seconds": 60,
+      "loop": true,
+      "kind": "music",
+      "model": "music_v1",
+      "http_status": 401,
+      "diagnostic": "missing_permissions"
+    }
+  ],
+  "status": "stopped"
+}

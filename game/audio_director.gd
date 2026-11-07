@@ -4,11 +4,17 @@ extends Node
 const VOICES := 12
 const SFX_BUS := "FirstLightSFX"
 const AIR_BUS := "FirstLightAmbience"
+const MUSIC_BUS := "FirstLightMusic"
 var manifest: Dictionary
 var streams: Dictionary = {}
 var players: Array[AudioStreamPlayer] = []
 var slots: Array[Dictionary] = []
 var ambience: AudioStreamPlayer
+var music: AudioStreamPlayer
+var music_level := .35
+var music_target_db := -4.0
+var backgrounded := false
+var owns_music_bus := false
 var enabled := true
 var effects_level := .8
 var air_level := .35
@@ -31,6 +37,7 @@ func _ready() -> void:
 	manifest = JSON.parse_string(FileAccess.get_file_as_string("res://art/audio/manifest.json"))
 	owns_sfx_bus = _make_bus(SFX_BUS)
 	owns_air_bus = _make_bus(AIR_BUS)
+	owns_music_bus = _make_bus(MUSIC_BUS)
 	if owns_sfx_bus:
 		var limiter := AudioEffectLimiter.new()
 		limiter.ceiling_db = -3
@@ -53,7 +60,32 @@ func _ready() -> void:
 	ambience.stream = stream
 	ambience.volume_db = manifest.ambience.gain_db
 	add_child(ambience)
+	if manifest.has("music"):
+		music = AudioStreamPlayer.new()
+		music.bus = MUSIC_BUS
+		var song: AudioStreamOggVorbis = load("res://art/audio/" + manifest.music.file)
+		song.loop = true
+		music.stream = song
+		music.volume_db = -45
+		music_target_db = manifest.music.gain_db
+		add_child(music)
 	configure(true, .8, .35)
+
+func _process(delta: float) -> void:
+	if shutting_down or backgrounded or not is_instance_valid(music): return
+	music.volume_db = move_toward(music.volume_db,music_target_db,15*delta)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_PAUSED:
+		backgrounded = true
+		for player in players: player.stream_paused = true
+		if is_instance_valid(ambience): ambience.stream_paused = true
+		if is_instance_valid(music): music.stream_paused = true
+	elif what == NOTIFICATION_APPLICATION_RESUMED:
+		backgrounded = false
+		for i in range(players.size()): players[i].stream_paused = slots[i].world and world_paused
+		if is_instance_valid(ambience): ambience.stream_paused = false
+		if is_instance_valid(music): music.stream_paused = false
 
 func _make_bus(bus_name: String) -> bool:
 	if AudioServer.get_bus_index(bus_name) >= 0:
@@ -63,13 +95,21 @@ func _make_bus(bus_name: String) -> bool:
 	AudioServer.set_bus_send(AudioServer.get_bus_index(bus_name), "Master")
 	return true
 
-func configure(master_enabled: bool, sfx: float, air: float) -> void:
+func configure(master_enabled: bool, sfx: float, air: float, song_level: float = -1) -> void:
 	if shutting_down:
 		return
 	var previously_audible := enabled and effects_level > 0
 	enabled = master_enabled
 	effects_level = clampf(sfx, 0, 1)
 	air_level = clampf(air, 0, 1)
+	if song_level >= 0: music_level = clampf(song_level,0,1)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS),linear_to_db(maxf(.00001,music_level)))
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(MUSIC_BUS),not enabled or music_level <= 0)
+	if is_instance_valid(music):
+		if not enabled or music_level <= 0: music.stop()
+		elif not backgrounded and not music.playing:
+			music.volume_db = -45
+			music.play()
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(SFX_BUS), linear_to_db(maxf(.00001, effects_level)))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(AIR_BUS), linear_to_db(maxf(.00001, air_level)))
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(SFX_BUS), not enabled or effects_level <= 0)
@@ -83,12 +123,14 @@ func configure(master_enabled: bool, sfx: float, air: float) -> void:
 		ambience.stop()
 
 func apply_profile(profile: Dictionary) -> void:
-	configure(profile.settings.sound, profile.settings.get("sfx_volume", .8), profile.settings.get("ambience_volume", .35))
+	configure(profile.settings.sound, profile.settings.get("sfx_volume", .8), profile.settings.get("ambience_volume", .35), profile.settings.get("music_volume", .35))
 
-func context(zone: String, paused: bool, visible_world: bool = true) -> void:
+func context(zone: String, paused: bool, visible_world: bool = true, combat: bool = false) -> void:
 	if shutting_down:
 		return
 	world_paused = paused
+	if is_instance_valid(music): music_target_db = manifest.music.gain_db - (9 if combat else 0)
+	if backgrounded: return
 	for i in range(players.size()):
 		if slots[i].world:
 			players[i].stream_paused = paused
@@ -209,14 +251,17 @@ func shutdown() -> void:
 	for player in players:
 		player.stop()
 		player.stream = null
+	if is_instance_valid(music):
+		music.stop()
+		music.stream = null
 	if is_instance_valid(ambience):
 		ambience.stop()
 		ambience.stream = null
 
 func _exit_tree() -> void:
 	shutdown()
-	for bus_name in [SFX_BUS, AIR_BUS]:
-		if (bus_name == SFX_BUS and owns_sfx_bus) or (bus_name == AIR_BUS and owns_air_bus):
+	for bus_name in [SFX_BUS, AIR_BUS, MUSIC_BUS]:
+		if (bus_name == SFX_BUS and owns_sfx_bus) or (bus_name == AIR_BUS and owns_air_bus) or (bus_name == MUSIC_BUS and owns_music_bus):
 			var index := AudioServer.get_bus_index(bus_name)
 			if index >= 0:
 				AudioServer.remove_bus(index)

@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.31.1
+# Aternal Senia — First Light · 0.32
+
+## Nhạc nền chill &8 SFX mới · 0.32
+
+Moonlit Rest không lời từ ElevenLabs Music, phát lặp nhẹ và giảm khi vào trận.
+Thêm âm điều hướng, nhiệm vụ, triệu hồi, tinh linh, hợp thành/phân giải; nhạc có
+thanh âm lượng riêng và giữ save cũ. [Nghe thử, nguồn và quy tắc](docs/AUDIO_ADDITIONS.md).
 
 ## Vuốt cuộn trên điện thoại · 0.31.1
 

@@ -1,0 +1,17 @@
+{
+  "id": "aternal-senia-music-v1-20261107",
+  "max_requests": 1,
+  "max_total_duration_seconds": 60,
+  "output_format": "mp3_44100_128",
+  "sfx_model": "eleven_text_to_sound_v2",
+  "music_model": "music_v1",
+  "assets": [
+    {
+      "id": "moonlit_rest",
+      "kind": "music",
+      "duration_seconds": 60,
+      "loop": true,
+      "text": "Original instrumental cozy fantasy RPG menu background music. Gentle chill 68 BPM, warm felt piano with sparse lyrical notes, delicate plucked harp, soft airy sustained strings and subtle celesta. Peaceful moonlit forest sanctuary, comforting and dreamy, light wistfulness and hope. Very restrained dynamics, no drums, no percussion hits, no choir, no vocals, no spoken words, no dramatic builds or loud accents. Consistent gentle texture throughout, simple cyclical harmony, soft beginning and ending designed to blend into a repeating background loop. Do not imitate any existing artist or song."
+    }
+  ]
+}

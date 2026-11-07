@@ -30,7 +30,7 @@ func run() -> void:
 	root.add_child(audio)
 	audio.apply_profile(store.profile)
 	check(audio.players.size() == 12, "Bounded voice pool")
-	check(audio.manifest.cues.size() == 34, "Every named cue loads")
+	check(audio.manifest.cues.size() == 42, "Every named cue loads")
 	for cue in audio.manifest.cues.values():
 		for file in cue.files:
 			check(audio.streams[file] != null, "Stream loads " + file)

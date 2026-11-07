@@ -383,8 +383,102 @@
       "cooldown": 0.035,
       "pitch_variation": 0,
       "bus": "ui"
+    },
+    "menu_open": {
+      "files": [
+        "menu_open.wav"
+      ],
+      "gain_db": -16,
+      "priority": 3,
+      "max_instances": 1,
+      "cooldown": 0.12,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "menu_back": {
+      "files": [
+        "menu_back.wav"
+      ],
+      "gain_db": -16,
+      "priority": 3,
+      "max_instances": 1,
+      "cooldown": 0.12,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "quest_claim": {
+      "files": [
+        "quest_claim.wav"
+      ],
+      "gain_db": -12,
+      "priority": 3,
+      "max_instances": 1,
+      "cooldown": 0.3,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "summon_reveal": {
+      "files": [
+        "summon_reveal.wav"
+      ],
+      "gain_db": -12,
+      "priority": 3,
+      "max_instances": 1,
+      "cooldown": 0.3,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "rarity_reveal": {
+      "files": [
+        "rarity_reveal.wav"
+      ],
+      "gain_db": -12,
+      "priority": 3,
+      "max_instances": 1,
+      "cooldown": 0.3,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "equipment_fuse": {
+      "files": [
+        "equipment_fuse.wav"
+      ],
+      "gain_db": -12,
+      "priority": 3,
+      "max_instances": 1,
+      "cooldown": 0.3,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "dismantle": {
+      "files": [
+        "dismantle.wav"
+      ],
+      "gain_db": -12,
+      "priority": 3,
+      "max_instances": 1,
+      "cooldown": 0.3,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "spirit_select": {
+      "files": [
+        "spirit_select.wav"
+      ],
+      "gain_db": -12,
+      "priority": 3,
+      "max_instances": 1,
+      "cooldown": 0.3,
+      "pitch_variation": 0,
+      "bus": "ui"
     }
   },
   "provider": "ElevenLabs",
-  "provider_model": "eleven_text_to_sound_v2"
+  "provider_model": "eleven_text_to_sound_v2",
+  "music": {
+    "file": "moonlit_rest.ogg",
+    "title": "Moonlit Rest",
+    "gain_db": -4,
+    "loop": true
+  }
 }

@@ -470,7 +470,7 @@ func _mission_tab(index: int) -> void:
 	_refresh_panel()
 
 func _mission_claim(period: String, id: String) -> void:
-	_outcome(MissionBoard.claim(store, period, id), "Đã nhận tài nguyên và VIP EXP.", "reward")
+	_outcome(MissionBoard.claim(store, period, id), "Đã nhận tài nguyên và VIP EXP.", "quest_claim")
 
 func _mission_chest(period: String, threshold: int) -> void:
 	var section: Dictionary = MissionBoard.state(store.profile)[period]
@@ -483,7 +483,7 @@ func _mission_chest(period: String, threshold: int) -> void:
 
 func _mission_claim_chest(period: String, threshold: int) -> void:
 	_close_modal()
-	_outcome(MissionBoard.claim(store, period, "", threshold), "Đã nhận rương hoạt động.", "reward")
+	_outcome(MissionBoard.claim(store, period, "", threshold), "Đã nhận rương hoạt động.", "quest_claim")
 
 func _mission_go(id: String) -> void:
 	match id:
@@ -522,7 +522,7 @@ func _hero(id: String) -> void:
 		_outcome(false, "")
 
 func _assist(id: String) -> void:
-	_outcome(store.change_assist(id), "Đã đổi trợ chiến.")
+	_outcome(store.change_assist(id), "Đã đổi trợ chiến.", "spirit_select")
 
 func _upgrade(kind: String, index: int) -> void:
 	_outcome(store.upgrade(kind, index), "Đã nâng cấp. Chỉ số mới được áp dụng từ trận tiếp theo.", "upgrade")
@@ -559,10 +559,10 @@ func _dismantle(uid: String) -> void:
 		selected_item = ""
 		bag_section = "equipment"
 		tab = 2
-	_outcome(success, "Đã phân giải trang bị.")
+	_outcome(success, "Đã phân giải trang bị.", "dismantle")
 
 func _quest(id: String) -> void:
-	_outcome(store.claim_quest(id), "Đã nhận thưởng nhiệm vụ.", "reward")
+	_outcome(store.claim_quest(id), "Đã nhận thưởng nhiệm vụ.", "quest_claim")
 
 func _offline() -> void:
 	_outcome(store.claim_offline(int(Time.get_unix_time_from_system())), "Đã nhận tiếp tế. Đồng hồ máy ảnh hưởng lượng nhận; tối đa 2 giờ.", "reward")
@@ -770,7 +770,12 @@ func _close_modal() -> void:
 	modal = null
 
 func _on_button(action: Callable) -> void:
-	if action.get_method() not in ["_attack", "_skill", "_guard"]:
+	var method := action.get_method()
+	if method in ["_select_tab", "_bag_open", "_mission_tab", "_forge_tab", "_character_section", "_shop_section", "_select_summon_kind"]:
+		audio.play("menu_open")
+	elif method in ["_close_modal", "_cancel_audio_settings"]:
+		audio.play("menu_back")
+	elif method not in ["_attack", "_skill", "_guard"]:
 		audio.play("ui_click")
 	action.call()
 
@@ -778,7 +783,7 @@ func _sync_audio() -> void:
 	if not audio_menu_open:
 		audio.apply_profile(store.profile)
 	var zone: String = catalog.find_row("stages", selected_stage).zone
-	audio.context(zone, battle != null and battle.paused, tab == 0)
+	audio.context(zone, battle != null and battle.paused, tab == 0, tab == 0 and battle != null and battle.state == "battle")
 
 func _play_events() -> void:
 	audio.consume(battle)
@@ -793,8 +798,8 @@ func _audio_settings() -> void:
 	var column := _dialog("ÂM THANH", "Chỉnh mức âm, nghe thử rồi áp dụng. Trận được tạm dừng khi mở bảng này.", [{"text": "Áp dụng", "call": _apply_audio_settings}, {"text": "Hủy", "call": _cancel_audio_settings}])
 	audio_notice = column.get_child(1)
 	var box: PanelContainer = column.get_parent().get_parent()
-	box.position.y = 175
-	box.size.y = 610
+	box.position.y = 140
+	box.size.y = 680
 	var insert := 2
 	sound_enabled = CheckButton.new()
 	sound_enabled.text = "Bật âm thanh"
@@ -804,7 +809,7 @@ func _audio_settings() -> void:
 	insert += 1
 	sound_sliders.clear()
 	sound_labels.clear()
-	for key in ["sfx_volume", "ambience_volume"]:
+	for key in ["sfx_volume", "ambience_volume", "music_volume"]:
 		var label := _label(column, "")
 		column.move_child(label, insert)
 		insert += 1
@@ -824,18 +829,18 @@ func _audio_settings() -> void:
 	var preview_button := _button(column, "Nghe thử: kiếm / hồi phục / thủ thế", Vector2.ZERO, Vector2(400, 42), _audition)
 	column.move_child(preview_button, insert)
 	_preview_audio_levels(0)
-	box.set_deferred("size", Vector2(472, 610))
+	box.set_deferred("size", Vector2(472, 680))
 
 func _preview_audio_levels(_value: Variant) -> void:
 	for key in sound_sliders:
-		sound_labels[key].text = ("Hiệu ứng" if key == "sfx_volume" else "Không gian rừng") + " · %d%%" % roundi(sound_sliders[key].value * 100)
-	audio.configure(sound_enabled.button_pressed, sound_sliders.sfx_volume.value, sound_sliders.ambience_volume.value)
+		sound_labels[key].text = {"sfx_volume":"Hiệu ứng", "ambience_volume":"Không gian rừng", "music_volume":"Nhạc nền"}[key] + " · %d%%" % roundi(sound_sliders[key].value * 100)
+	audio.configure(sound_enabled.button_pressed, sound_sliders.sfx_volume.value, sound_sliders.ambience_volume.value, sound_sliders.music_volume.value)
 
 func _audition() -> void:
 	audio.audition()
 
 func _apply_audio_settings() -> void:
-	if store.audio_settings(sound_enabled.button_pressed, sound_sliders.sfx_volume.value, sound_sliders.ambience_volume.value):
+	if store.audio_settings(sound_enabled.button_pressed, sound_sliders.sfx_volume.value, sound_sliders.ambience_volume.value, sound_sliders.music_volume.value):
 		_close_audio_settings()
 		audio.play("confirm")
 	else:
@@ -1033,8 +1038,16 @@ func _summon_execute(count: int) -> void:
 		return
 	_refresh_panel()
 	_refresh_hud()
-	audio.play("reward")
+	_summon_sound(Recruitment.state(store.profile).history.slice(0, 10))
 	SummonScreen.show_results(self, "KẾT QUẢ ×10", Recruitment.state(store.profile).history.slice(0, 10))
+
+func _summon_sound(results: Array) -> void:
+	var rare := false
+	for result in results:
+		var rarity := Recruitment.rarity(result.kind,result.id,catalog)
+		if rarity >= (2 if result.kind == "spirit" else 5): rare = true
+	# One reveal for the complete committed batch; viewing history is silent.
+	audio.play("rarity_reveal" if rare else "summon_reveal")
 
 func _summon_history() -> void:
 	SummonScreen.show_results(self, "LỊCH SỬ TRIỆU HỒI", Recruitment.state(store.profile).history)
@@ -1055,8 +1068,8 @@ func _summon() -> void:
 		_outcome(false, "")
 		return
 	_refresh_panel()
-	audio.play("reward")
 	var result: Dictionary = store.profile.recruitment.history[0]
+	_summon_sound([result])
 	var detail := "Trang bị đã vào túi." if result.kind == "item" else "Đã mở khóa để chọn trong Nhân vật."
 	if result["duplicate"]: detail = "Nhận trùng" + CollectionFragments.reward_suffix(result) + " · " + _entity_name(result.kind, result.id)
 	var column := _dialog(Recruitment.label(result.kind, result.id, catalog) + " · " + _entity_name(result.kind, result.id), detail, [{"text": "Đóng", "call": _close_modal}])
@@ -1188,7 +1201,7 @@ func _bag_dismantle_execute(uids: Array) -> void:
 	if ok:
 		bag_selected.clear()
 		bag_selecting = false
-	_outcome(ok,"Đã phân giải các bản đã chọn.","forge")
+	_outcome(ok,"Đã phân giải các bản đã chọn.","dismantle")
 
 func _bag_claim_loot() -> void:
 	_outcome(store.claim_bag_rewards(),"Đã chuyển chiến lợi phẩm vào chỗ trống trong túi.","reward")
@@ -1238,7 +1251,7 @@ func _forge_fuse_confirm(uid: String) -> void:
 
 func _forge_fuse_execute(uid: String, donors: Array) -> void:
 	_close_modal()
-	_outcome(store.fuse(uid,donors),"Đã hợp thành, giữ nguyên cường hóa của bản chính.","forge")
+	_outcome(store.fuse(uid,donors),"Đã hợp thành, giữ nguyên cường hóa của bản chính.","equipment_fuse")
 
 func _items_panel() -> void:
 	var screen := BagScreen.new()

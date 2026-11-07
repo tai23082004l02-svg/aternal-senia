@@ -120,7 +120,7 @@ func valid(p: Variant, legacy_version: int = 0) -> bool:
 				return false
 		if catalog.find_row("items", snapshot.get("weapon")).is_empty():
 			return false
-	for key in ["sfx_volume", "ambience_volume"]:
+	for key in ["sfx_volume", "ambience_volume", "music_volume"]:
 		if p.settings.has(key) and not _number(p.settings[key], 0, 1):
 			return false
 	if not Expansion.valid(self, p.get("expansion")): return false
@@ -559,13 +559,14 @@ func _decode(file_path: String) -> Variant:
 func _whole(value: Variant, low: float, high: float) -> bool:
 	return _number(value, low, high) and float(value) == floor(float(value))
 
-func audio_settings(sound_enabled: bool, sfx: float, ambience: float) -> bool:
-	if not _number(sfx, 0, 1) or not _number(ambience, 0, 1):
+func audio_settings(sound_enabled: bool, sfx: float, ambience: float, music: float = -1) -> bool:
+	if not _number(sfx, 0, 1) or not _number(ambience, 0, 1) or (music != -1 and not _number(music,0,1)):
 		return false
 	var p := profile.duplicate(true)
 	p.settings.sound = sound_enabled
 	p.settings.sfx_volume = sfx
 	p.settings.ambience_volume = ambience
+	if music >= 0: p.settings.music_volume = music
 	return commit(p)
 
 func can_enter(id: int) -> bool:

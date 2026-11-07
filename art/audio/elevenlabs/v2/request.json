@@ -1,0 +1,73 @@
+{
+  "id": "aternal-senia-audio-v2-20261107",
+  "max_requests": 9,
+  "max_total_duration_seconds": 75,
+  "output_format": "mp3_44100_128",
+  "sfx_model": "eleven_text_to_sound_v2",
+  "music_model": "music_v1",
+  "assets": [
+    {
+      "id": "menu_open",
+      "kind": "sfx",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "A single soft magical parchment opening with a tiny warm wooden tap and delicate crystal shimmer. Gentle cozy fantasy game menu, no voice, no music, one isolated clean effect."
+    },
+    {
+      "id": "menu_back",
+      "kind": "sfx",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "A single gentle airy page closing and soft muted wooden tick, subtle fantasy UI back navigation, isolated clean short effect, no voice, no music."
+    },
+    {
+      "id": "quest_claim",
+      "kind": "sfx",
+      "duration_seconds": 1.2,
+      "loop": false,
+      "text": "One warm satisfying fantasy quest completed reward: tiny gold coin sparkle followed by a gentle rising three-note bell chime, soft rounded attack, no voice, no background music."
+    },
+    {
+      "id": "summon_reveal",
+      "kind": "sfx",
+      "duration_seconds": 1.5,
+      "loop": false,
+      "text": "A magical summoning portal gently swells with airy crystal particles then a clear soft reveal chime. Fantasy game item reveal, no explosive impact, no voice, no music."
+    },
+    {
+      "id": "rarity_reveal",
+      "kind": "sfx",
+      "duration_seconds": 2.0,
+      "loop": false,
+      "text": "Elegant rare treasure reveal: luminous ascending glass bells, a warm shimmering golden bloom and delicate sparkling decay. Original fantasy game UI fanfare, gentle not loud, no voice, no background music."
+    },
+    {
+      "id": "equipment_fuse",
+      "kind": "sfx",
+      "duration_seconds": 1.2,
+      "loop": false,
+      "text": "Three tiny magical crystals converge with a soft swirl and one satisfying warm metallic chime, fantasy equipment fusion success, no harsh explosion, isolated effect, no voice or music."
+    },
+    {
+      "id": "dismantle",
+      "kind": "sfx",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "text": "Gentle magical equipment disassembly, brief small metallic click dissolves into a handful of crystalline sparkles. Clean single fantasy UI effect, no voice or music."
+    },
+    {
+      "id": "spirit_select",
+      "kind": "sfx",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "text": "Tiny friendly magical companion selected, airy flutter and delicate soft bell sparkle. Warm inviting fantasy UI effect, no animal speech, no voice or music."
+    },
+    {
+      "id": "moonlit_rest",
+      "kind": "music",
+      "duration_seconds": 60,
+      "loop": true,
+      "text": "Original instrumental cozy fantasy RPG menu background music. Gentle chill 68 BPM, warm felt piano with sparse lyrical notes, delicate plucked harp, soft airy sustained strings and subtle celesta. Peaceful moonlit forest sanctuary, comforting and dreamy, light wistfulness and hope. Very restrained dynamics, no drums, no percussion hits, no choir, no vocals, no spoken words, no dramatic builds or loud accents. Consistent gentle texture throughout, simple cyclical harmony, soft beginning and ending designed to blend into a repeating background loop. Do not imitate any existing artist or song."
+    }
+  ]
+}

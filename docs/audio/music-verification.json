@@ -1,0 +1,11 @@
+{
+  "music_loop": {
+    "duration": 0.8359183673469388,
+    "sample_rate": 44100,
+    "channels": 2,
+    "peak": 0.1658935546875,
+    "rms": 0.04522294159853941,
+    "clipped_samples": 0
+  },
+  "notes": "Godot AudioEffectRecord through loop boundary; signal check is not human listening or physical-device verification."
+}
