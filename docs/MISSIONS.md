@@ -50,3 +50,5 @@ Linux; chưa thử điện thoại thật.
 ![Nhiệm vụ tuần](previews/missions-weekly.png)
 ![Tiến trình cũ](previews/missions-progress.png)
 ![Quà rương](previews/missions-chest.png)
+
+Từ0.26, giao diện đổi khung fantasy/viền vàng, rương lớn và thẻ ngang; logic và thưởng giữ nguyên. Xem [MISSION_VISUALS.md](MISSION_VISUALS.md).

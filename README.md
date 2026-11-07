@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.25
+# Aternal Senia — First Light · 0.26
+
+## Giao diện Nhiệm vụ fantasy · 0.26
+
+Tab viền vàng phát sáng, bảng hoạt động nền rừng, thanh tiến độ vàng và rương
+mốc lớn. Thẻ nhiệm vụ có icon, tiến độ và nút nhận bên phải; trạng thái chưa đạt/
+nhận được/đã nhận lấy từ save. [Ảnh và chi tiết](docs/MISSION_VISUALS.md).
 
 ## Bố cục Đội hình · 0.25
 

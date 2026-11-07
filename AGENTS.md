@@ -43,3 +43,5 @@
 - Nhiệm vụ0.20: đọc docs/MISSIONS.md; chạy missions/missions_ui và utilities_ui/player_profile khi sửa. Người dùng đã cho nhiệm vụ ngày/tuần nhận VIP EXP; mốc xếp cấp VIP chưa chốt. Record và reward/EXP/claimed cùng transaction, chu kỳ UTC chỉ tiến, bảo toàn claimed vĩnh viễn và save v6 cũ.
 
 - Đội hình0.25: đọc docs/FORMATION_SCREEN.md, chạy formation_layout/team_ui khi sửa bố cục/chọn tướng/tinh linh. Một ô trước, hai ô sau là slot0/1/2 cũ; không thay targeting/nghề/save vì hình minh họa. Khóa chỉnh sửa pending/read-only và hero chưa sở hữu.
+
+- Giao diện nhiệm vụ0.26: đọc docs/MISSION_VISUALS.md; chạy mission_polish/missions_ui khi sửa. Rương/icon/nút chỉ phản ánh trạng thái model, không sao chép số liệu hoặc nhiệm vụ mới từ ảnh minh họa. Không đổi thưởng/reset/claimed vì chỉnh đồ họa.
