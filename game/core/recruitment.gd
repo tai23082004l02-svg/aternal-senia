@@ -78,21 +78,25 @@ static func summon(store: ProgressStore) -> bool:
 	if r.history.size() > 10: r.history.pop_back()
 	return store.commit(p)
 
-static func awaken(store: ProgressStore) -> bool:
+static func awaken(store: ProgressStore, hero_id: String = "") -> bool:
 	if store.read_only or not store.profile.pending.is_empty(): return false
 	var p := store.profile.duplicate(true)
 	ensure(store, p)
-	var rank: int = p.recruitment.awakening[p.hero]
-	if rank >= 3 or p.heroes[p.hero].level < rank * 10 or p.gold < rank * 200 or p.recruitment.fragments[p.hero] < rank * 20: return false
+	var target: String = p.hero if hero_id.is_empty() else hero_id
+	if not store.available_hero(target): return false
+	var rank: int = p.recruitment.awakening[target]
+	if rank >= 3 or p.heroes[target].level < rank * 10 or p.gold < rank * 200 or p.recruitment.fragments[target] < rank * 20: return false
 	p.gold -= rank * 200
-	p.recruitment.fragments[p.hero] -= rank * 20
-	p.recruitment.awakening[p.hero] += 1
+	p.recruitment.fragments[target] -= rank * 20
+	p.recruitment.awakening[target] += 1
 	return store.commit(p)
 
-static func level_batch(store: ProgressStore, count: int = 5) -> bool:
+static func level_batch(store: ProgressStore, count: int = 5, hero_id: String = "") -> bool:
 	if count < 1 or count > 5 or store.read_only or not store.profile.pending.is_empty(): return false
 	var p := store.profile.duplicate(true)
-	var unit: Dictionary = p.heroes[p.hero]
+	var target: String = p.hero if hero_id.is_empty() else hero_id
+	if not store.available_hero(target): return false
+	var unit: Dictionary = p.heroes[target]
 	if unit.level >= 100: return false
 	for i in range(mini(count, 100 - unit.level)):
 		if p.gold < unit.level * 30 or p.xp < unit.level * 15: return false

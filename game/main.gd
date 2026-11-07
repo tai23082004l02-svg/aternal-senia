@@ -58,6 +58,8 @@ var bag_section := ""
 var bag_kind := "all"
 var bag_rarity := 0
 var selected_spirit := "lumi"
+var character_inspected := ""
+var character_page := 0
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
@@ -251,6 +253,10 @@ func _refresh_hud() -> void:
 	mute_button.text = "Âm: bật" if p.settings.sound else "Âm: tắt"
 
 func _select_tab(index: int) -> void:
+	if index == 12:
+		character_inspected = store.profile.hero
+		character_page = 2
+		index = 1
 	if result_transition:
 		return
 	if battle != null and battle.state == "battle":
@@ -299,7 +305,6 @@ func _refresh_panel() -> void:
 		9: _training_panel()
 		10: _boss_guide_panel()
 		11: _summon_panel()
-		12: _hero_upgrade_panel()
 		13: _spirit_tree_panel()
 		15: _map_panel()
 		16: _journal_panel()
@@ -349,33 +354,13 @@ func _choose_stage(id: int) -> void:
 	_refresh_panel()
 
 func _heroes_panel() -> void:
-	_row("NÂNG CẤP & THỨC TỈNH NHÂN VẬT →", _select_tab.bind(12))
-	_row("CÂY KỸ NĂNG TINH LINH →", _select_tab.bind(13))
-	_row("ĐIỂM THUỘC TÍNH · còn %d →" % AttributeTraining.remaining(store.profile, store.profile.hero), _select_tab.bind(9))
-	_row("CÂY KỸ NĂNG →", _select_tab.bind(6))
-	_row("TIẾN HÓA ĐỒNG HÀNH →", _select_tab.bind(7))
-	var p: Dictionary = store.profile
-	var hero := catalog.find_row("heroes", p.hero)
-	var unit: Dictionary = p.heroes[p.hero]
-	var stats := catalog.stats(p)
-	_text("%s · %s · cấp %d" % [hero.name, hero.title, unit.level], 18, Color("e5cd9e"))
-	_text("ATK %d · HP %d · Thủ %d · Chí mạng %d%%" % [stats.atk, stats.hp, stats.defense, stats.crit * 100])
-	_text(hero.passive)
-	var portrait := HeroPortrait.new()
-	portrait.library = frames
-	portrait.hero = p.hero
-	portrait.weapon = stats.weapon
-	portrait.custom_minimum_size = Vector2(180, 205)
-	panel.add_child(portrait)
-	_row("Tăng cấp · %d vàng + %d XP" % [unit.level * 30, unit.level * 15], _upgrade.bind("hero", 0), _locked() or unit.level >= 100 or p.gold < unit.level * 30 or p.xp < unit.level * 15)
-	for h in catalog.data.heroes:
-		_row(("✓ " if p.hero == h.id else "") + h.name + " · " + _rarity("hero", h.id) + (" · Khóa sau ải %d hoặc triệu hồi" % (h.unlock - 1) if not store.available_hero(h.id) else ""), _hero.bind(h.id), _locked() or not store.available_hero(h.id) or p.hero == h.id)
-	for i in range(2):
-		_row("%s cấp %d · nâng %d vàng" % [catalog.data.skills[i].name, unit.skills[i], unit.skills[i] * 25], _upgrade.bind("skill", i), _locked() or unit.skills[i] >= 10 or p.gold < unit.skills[i] * 25)
-	_text("TRỢ CHIẾN", 16, Color("e5cd9e"))
-	for assist in catalog.data.assists:
-		_row(("✓ " if p.assist == assist.id else "") + assist.name + " · " + _rarity("spirit", assist.id) + " · " + assist.role, _assist.bind(assist.id), _locked() or not store.available_assist(assist.id) or p.assist == assist.id)
-	_row("Nâng trợ chiến cấp %d · %d vàng" % [p.assists[p.assist], p.assists[p.assist] * 35], _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
+	if character_inspected == "" or catalog.find_row("heroes", character_inspected).is_empty():
+		character_inspected = store.profile.hero
+	var screen := CharacterScreen.new()
+	screen.game = self
+	screen.hero = character_inspected
+	screen.section = character_page
+	panel.add_child(screen)
 
 func _equipment_detail_panel() -> void:
 	var p: Dictionary = store.profile
@@ -437,6 +422,7 @@ func _outcome(success: bool, text: String, cue: String = "confirm") -> void:
 
 func _hero(id: String) -> void:
 	if store.change_hero(id):
+		character_inspected = id
 		battle = null
 		view.battle = null
 		_outcome(true, "Đã đổi nhân vật.")
@@ -905,7 +891,7 @@ func _summon_panel() -> void:
 	_text("Đã triệu hồi %d lượt · bảo đảm Sử thi trong tối đa %d lượt" % [r.count, 20 - r.pity], 17, Color("d7a4ff"))
 	_row("Triệu hồi 1 lần · 120 vàng", _summon, _locked() or store.profile.gold < Recruitment.PRICE)
 	_text("NHÂN VẬT / TINH LINH / TRANG BỊ", 18, Color("e5cd9e"))
-	_text("Nhân vật và tinh linh còn mở miễn phí qua chương. Nhân vật trùng: +10 mảnh thức tỉnh. Tinh linh trùng: +2 lõi tiến hóa. Trang bị có UID riêng; túi đầy đổi thành 3 tinh thạch.")
+	_text("Nhân vật và tinh linh còn mở miễn phí qua chương. Nhân vật trùng: +10 mảnh tăng sao. Tinh linh trùng: +2 lõi tiến hóa. Túi đầy đổi trang bị thành 3 tinh thạch.")
 	for tier in [1, 2, 3]:
 		var names: Array[String] = []
 		for entry in Recruitment.pool(catalog, tier): names.append(_entity_name(entry.kind, entry.id))
@@ -925,7 +911,7 @@ func _summon() -> void:
 	var result: Dictionary = store.profile.recruitment.history[0]
 	var detail := "Trang bị đã vào túi." if result.kind == "item" else "Đã mở khóa để chọn trong Nhân vật."
 	if result.kind == "item" and full: detail = "Túi đầy: đã đổi thành 3 tinh thạch."
-	if result["duplicate"]: detail = "+10 mảnh thức tỉnh nhân vật." if result.kind == "hero" else "+2 lõi tiến hóa tinh linh."
+	if result["duplicate"]: detail = "+10 mảnh nhân vật để tăng sao." if result.kind == "hero" else "+2 lõi tiến hóa tinh linh."
 	var column := _dialog(_rarity(result.kind, result.id) + " · " + _entity_name(result.kind, result.id), detail, [{"text": "Đóng", "call": _close_modal}])
 	column.get_child(0).modulate = Color(Recruitment.RARITIES[result.rarity].color)
 	var image := TextureRect.new()
@@ -938,33 +924,6 @@ func _summon() -> void:
 	column.move_child(image, 1)
 	image.modulate.a = 0
 	image.create_tween().tween_property(image, "modulate:a", 1.0, .25)
-
-func _hero_upgrade_panel() -> void:
-	_row("← Trở về nhân vật", _select_tab.bind(1))
-	var p: Dictionary = store.profile
-	var hero := catalog.find_row("heroes", p.hero)
-	var unit: Dictionary = p.heroes[p.hero]
-	var r := Recruitment.state(p)
-	var rank: int = r.awakening[p.hero]
-	_text(hero.name + " · " + _rarity("hero", p.hero), 24, Color(Recruitment.RARITIES[Recruitment.rarity("hero", p.hero, catalog)].color))
-	_text("Cấp %d/100 · Thức tỉnh %d/3 · %d mảnh nhân vật" % [unit.level, rank, r.fragments[p.hero]])
-	var current := catalog.stats(p)
-	_text("HP %.0f · ATK %.1f · Thủ %.2f" % [current.hp, current.atk, current.defense], 18, Color("e5cd9e"))
-	if unit.level < 100:
-		var preview: Dictionary = p.duplicate(true)
-		preview.heroes[p.hero].level += 1
-		var next := catalog.stats(preview)
-		_text("Cấp tiếp theo: HP %.0f → %.0f · ATK %.1f → %.1f · Thủ %.2f → %.2f" % [current.hp, next.hp, current.atk, next.atk, current.defense, next.defense])
-	_row("Tăng 1 cấp · %d vàng + %d XP" % [unit.level * 30, unit.level * 15], _upgrade.bind("hero", 0), _locked() or unit.level >= 100 or p.gold < unit.level * 30 or p.xp < unit.level * 15)
-	var count: int = mini(5, 100 - unit.level)
-	var sum_levels: int = count * unit.level + count * (count - 1) / 2
-	_row("Tăng %d cấp · %d vàng + %d XP" % [count, sum_levels * 30, sum_levels * 15], _batch_level, _locked() or count == 0 or p.gold < sum_levels * 30 or p.xp < sum_levels * 15)
-	_text("THỨC TỈNH", 20, Color("d7a4ff"))
-	_text("Mỗi bậc thêm 30 HP, 3 ATK, 1 phòng thủ. Bậc 2 cần cấp 10; bậc 3 cần cấp 20. Mảnh lấy từ nhân vật trùng khi triệu hồi. Độ hiếm gốc giữ nguyên.")
-	_row("Đã thức tỉnh tối đa" if rank == 3 else "Thức tỉnh · cấp %d / %d vàng + %d mảnh" % [rank * 10, rank * 200, rank * 20], _awaken, _locked() or rank >= 3 or unit.level < rank * 10 or p.gold < rank * 200 or r.fragments[p.hero] < rank * 20)
-	_row("Phân bổ điểm thuộc tính →", _select_tab.bind(9))
-	_row("Cây kỹ năng nhân vật →", _select_tab.bind(6))
-	_row("Cây kỹ năng tinh linh →", _select_tab.bind(13))
 
 func _batch_level() -> void:
 	_outcome(Recruitment.level_batch(store), "Đã tăng cấp nhân vật.", "upgrade")
@@ -1052,13 +1011,13 @@ func _items_panel() -> void:
 			_text("Tinh thạch · %d" % p.shards, 19, Color("86caff"))
 			_text("Cường hóa, tiến bậc, rèn và học nhánh kỹ năng.")
 			_text("Lõi tinh linh · %d" % p.expansion.cores, 19, Color("a2e5d6"))
-			_text("Dùng tiến hóa đồng hành; kiếm từ phụ bản, thành tựu hoặc tinh linh trùng.")
+			_text("Dùng tiến hóa nhân vật và đồng hành; kiếm từ phụ bản, thành tựu hoặc tinh linh trùng.")
 			var r := Recruitment.state(p)
 			for hero in catalog.data.heroes:
 				_text("Mảnh %s · %d" % [hero.name, r.fragments[hero.id]], 18, Color("e5cd9e"))
-			_text("Mảnh nhân vật dùng để thức tỉnh đúng nhân vật đó.")
+			_text("Mảnh nhân vật dùng mở rộng, tăng sao đúng nhân vật đó.")
 			_text("Kinh nghiệm nhân vật · %d XP" % p.xp, 18)
-			_row("Nâng cấp & Thức tỉnh →", _select_tab.bind(12))
+			_row("Cường hóa & Mở rộng →", _select_tab.bind(12))
 			_row("Tiến hóa đồng hành →", _select_tab.bind(7))
 			_row("Đến lò rèn →", _select_tab.bind(19))
 
@@ -1182,3 +1141,29 @@ func _dungeons_panel() -> void:
 		if not record.is_empty(): _text("Kỷ lục %d điểm · %.1f giây" % [record.score, record.time])
 		_stage_entry(stage)
 	_row("Chương truyện & Ký ức →", _select_tab.bind(5))
+
+func _inspect_character(id: String) -> void:
+	if catalog.find_row("heroes", id).is_empty(): return
+	character_inspected = id
+	_refresh_panel()
+
+func _character_section(index: int) -> void:
+	if index < 0 or index > 4: return
+	character_page = index
+	_refresh_panel()
+
+func _character_level(id: String, count: int) -> void:
+	var success: bool = store.upgrade("hero", 0, id) if count == 1 else Recruitment.level_batch(store, count, id)
+	_outcome(success, "Đã cường hóa, tăng LV nhân vật.", "upgrade")
+
+func _character_stars(id: String) -> void:
+	_outcome(Recruitment.awaken(store, id), "Đã mở rộng, tăng sao nhân vật.", "upgrade")
+
+func _character_evolve(id: String) -> void:
+	_outcome(HeroEvolution.evolve(store, id), "Nhân vật đã tiến hóa.", "upgrade")
+
+func _character_equip(uid: String, id: String) -> void:
+	_outcome(store.equip(uid, id), "Đã trang bị cho nhân vật.", "equip")
+
+func _character_unequip(uid: String, id: String) -> void:
+	_outcome(store.unequip(uid, id), "Đã tháo trang bị.", "equip")

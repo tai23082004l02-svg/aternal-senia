@@ -74,6 +74,8 @@ func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 	result.hp += awakening * 30
 	result.atk += awakening * 3
 	result.defense += awakening
+	var evolution_bonus := 1.0 + (HeroEvolution.rank(profile, hero_id) - 1) * .08
+	for stat in ["hp", "atk", "defense"]: result[stat] *= evolution_bonus
 	return normalize(result)
 
 static func normalize(value: Variant) -> Variant:

@@ -112,6 +112,7 @@ func valid(p: Variant) -> bool:
 	if not Expansion.valid(self, p.get("expansion")): return false
 	if not AttributeTraining.valid(self, p): return false
 	if not SpiritSkills.valid(self, p) or not Recruitment.valid(self, p): return false
+	if not HeroEvolution.valid(self, p): return false
 	return p.settings.get("speed") in [1, 2, 3] and p.settings.get("sound") is bool
 
 func _number(value: Variant, low: float, high: float) -> bool:
@@ -208,12 +209,14 @@ func change_assist(id: String) -> bool:
 	p.assist = id
 	return commit(p)
 
-func upgrade(kind: String, index: int = 0) -> bool:
+func upgrade(kind: String, index: int = 0, hero_id: String = "") -> bool:
 	if kind == "skill" and index == 2: return SpiritSkills.upgrade(self)
 	if not profile.pending.is_empty():
 		return false
 	var p := profile.duplicate(true)
-	var unit: Dictionary = p.heroes[p.hero]
+	var target: String = p.hero if hero_id.is_empty() else hero_id
+	if not available_hero(target): return false
+	var unit: Dictionary = p.heroes[target]
 	var cost := 0
 	var xp_cost := 0
 	match kind:
@@ -241,30 +244,34 @@ func upgrade(kind: String, index: int = 0) -> bool:
 	p.xp -= xp_cost
 	return commit(p)
 
-func equip(uid: String) -> bool:
+func equip(uid: String, hero_id: String = "") -> bool:
 	if not profile.pending.is_empty():
 		return false
 	var p := profile.duplicate(true)
+	var target: String = p.hero if hero_id.is_empty() else hero_id
+	if not available_hero(target): return false
 	for item in p.items:
 		if item.uid != uid:
 			continue
 		var def := catalog.find_row("items", item.base)
-		if def.slot == "weapon" and def.category != catalog.category(p.hero):
+		if def.slot == "weapon" and def.category != catalog.category(target):
 			return false
 		for hero in p.heroes:
 			if uid in p.heroes[hero].equipment.values():
 				return false
-		p.heroes[p.hero].equipment[def.slot] = uid
+		p.heroes[target].equipment[def.slot] = uid
 		return commit(p)
 	return false
 
-func unequip(uid: String) -> bool:
+func unequip(uid: String, hero_id: String = "") -> bool:
 	if not profile.pending.is_empty():
 		return false
 	var p := profile.duplicate(true)
+	var target: String = p.hero if hero_id.is_empty() else hero_id
+	if not available_hero(target): return false
 	for slot in ["weapon", "armor"]:
-		if p.heroes[p.hero].equipment[slot] == uid:
-			p.heroes[p.hero].equipment[slot] = ""
+		if p.heroes[target].equipment[slot] == uid:
+			p.heroes[target].equipment[slot] = ""
 			return commit(p)
 	return false
 

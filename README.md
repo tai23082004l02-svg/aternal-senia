@@ -1,4 +1,15 @@
-# Aternal Senia — First Light · 0.10
+# Aternal Senia — First Light · 0.11
+
+## Mục Nhân vật ba cột · 0.11
+
+Theo phác thảo người dùng: cột ảnh chân dung chọn hero ở trái, năm mục ở giữa,
+khung nội dung cuộn riêng ở phải. **Thông tin · Trang bị · Cường hóa (LV) ·
+Mở rộng (mảnh tăng sao) · Tiến hóa**. Có thể xem và nâng một hero mà không đổi
+người đang ra trận; chọn ra trận là thao tác riêng.
+
+Tiến hóa nhân vật có ba bậc, điều kiện LV/sao và phí vàng/tinh thạch/lõi hiển thị
+trước khi nâng; tách biệt tăng sao. Giữ tiến trình tăng sao cũ và save v4.
+[Ảnh và quy tắc](docs/CHARACTER_SCREEN.md).
 
 ## Giao diện mobile & Túi đồ · 0.10
 
