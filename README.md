@@ -1,10 +1,9 @@
-# Aternal Senia — First Light · 0.21
+# Aternal Senia — First Light · 0.20
 
-## Hành trình · 0.21
+## Hồ sơ tạo hình cho phiên chat tiếp theo
 
-Màn hành trình có tiến độ chương, cảnh đội hình, thông tin ải, thưởng lần đầu
-và nút Thách đấu. Tự chiến mở sau1-3; kho AFK xem trước lượng tích lũy, Bản đồ/
-Đội hình nằm bên dưới. [Giao diện và quy tắc](docs/JOURNEY_SCREEN.md).
+Đọc [phong cách và canon nhân vật](docs/CHARACTER_BIBLE.md) cùng [quy trình tạo ảnh, tích hợp và kiểm tra](docs/CHARACTER_CREATION_GUIDE.md) trước khi làm nhân vật. Hồ sơ phân biệt thiết kế riêng với tham khảo Eternal Senia, Ryn hiện tại với Lyra và các raw đã loại bỏ.
+
 
 ## Nhiệm vụ & VIP EXP · 0.20
 

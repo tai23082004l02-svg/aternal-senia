@@ -1,5 +1,8 @@
 # Hướng dẫn dự án
 
+- Trước mọi việc tạo/thay/đổi tên nhân vật, bắt buộc đọc [CHARACTER_BIBLE](docs/CHARACTER_BIBLE.md) và [CHARACTER_CREATION_GUIDE](docs/CHARACTER_CREATION_GUIDE.md). Đây là hồ sơ phong cách, canon, nguồn tham khảo và pipeline cho các phiên chat sau. Ryn0.19 tóc ngang vai và Lyra đuôi ngựa cao là hai hero riêng; không phục hồi raw Ryn cũ. Khi đổi thiết kế, cập nhật hồ sơ cùng commit. Yêu cầu mới nhất của người dùng được ưu tiên; tài liệu phiên bản cũ là lịch sử.
+
+
 - Đây là game mới Godot 4, main hero + assist, màn hình dọc đang là mặc định.
 - Đọc README và docs trước khi sửa. Nội dung riêng, không nhập nguyên asset game gốc.
 - Giữ save người chơi; test bằng profile riêng. Không đổi tên project tùy tiện.
@@ -32,5 +35,3 @@
 - Tiện ích0.18: đọc docs/UTILITIES_MENU.md; chạy utilities_ui khi sửa menu/badge. Badge chỉ từ quest đủ điều kiện chưa nhận; Hộp thư/Giftcode chưa có dịch vụ, không tạo thư/quà/mã thưởng giả.
 
 - Nhiệm vụ0.20: đọc docs/MISSIONS.md; chạy missions/missions_ui và utilities_ui/player_profile khi sửa. Người dùng đã cho nhiệm vụ ngày/tuần nhận VIP EXP; mốc xếp cấp VIP chưa chốt. Record và reward/EXP/claimed cùng transaction, chu kỳ UTC chỉ tiến, bảo toàn claimed vĩnh viễn và save v6 cũ.
-
-- Hành trình0.21: đọc docs/JOURNEY_SCREEN.md; chạy journey_ui khi sửa thẻ chương/AFK/Tự chiến. Preview chỉ vẽ, tiến độ theo ba ải thật/chương; Tự chiến dùng trận thật và dừng ở kết quả, không quét thưởng.
