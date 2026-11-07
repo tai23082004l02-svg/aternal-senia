@@ -8,7 +8,10 @@ nhưng không cho nâng cấp/trang bị/áp dụng phối màu.
 
 Theo yêu cầu tiếp theo, thanh chính Shop/Nhân vật/Hành trình/Phó bản/Túi đồ
 ẩn khi mở Nhân vật (bao gồm mọi tab con) và hiện lại ở màn khác. Giữ năm tab
-riêng của Nhân vật; nút thoát sẽ thiết kế sau theo yêu cầu người dùng.
+riêng của Nhân vật. Nút **← Thoát** nằm dưới hàng tab, trở về Hành trình qua
+luồng chuyển màn hiện có (tiếp tục trận đang tạm dừng khi cần). Nội dung cao
+674px, tab ở686px, nút thoát ở764px trong vùng808px; cân lại khoảng trống
+đến viền dưới và không cần cuộn toàn màn để tìm nút. Nội dung dài cuộn riêng.
 
 ## Năm tab
 

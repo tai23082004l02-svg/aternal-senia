@@ -11,6 +11,7 @@ var detail_scroll: ScrollContainer
 var faces: Array[Button] = []
 var face_buttons: Dictionary = {}
 var section_buttons: Array[Button] = []
+var exit_button: Button
 
 const TAB_NAMES := ["Thông tin", "Trang bị", "Phát triển", "Kỹ năng", "Trang phục"]
 const TAB_PAGES := [0, 1, 2, 5, 6]
@@ -18,7 +19,10 @@ const TAB_ICONS := ["journal", "equipment", "evolution", "talents", "wardrobe"]
 var development_buttons: Array[Button] = []
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(492, 720)
+	custom_minimum_size = Vector2(492, 808)
+	exit_button = game._button(self, "← Thoát", Vector2(0, 764), Vector2(492, 44), game._select_tab.bind(0))
+	exit_button.tooltip_text = "Trở về Hành trình"
+	exit_button.add_theme_stylebox_override("normal", gold_style())
 	var roster := VBoxContainer.new()
 	roster.position = Vector2.ZERO
 	roster.size = Vector2(66, 640)
@@ -51,7 +55,7 @@ func _ready() -> void:
 		faces.append(face_button)
 		face_buttons[row.id] = face_button
 	var menu := HBoxContainer.new()
-	menu.position = Vector2(0, 654)
+	menu.position = Vector2(0, 686)
 	menu.size = Vector2(492, 66)
 	menu.add_theme_constant_override("separation", 6)
 	add_child(menu)
@@ -66,7 +70,7 @@ func _ready() -> void:
 		section_buttons.append(b)
 	var frame := PanelContainer.new()
 	frame.position = Vector2(76, 0)
-	frame.size = Vector2(416, 642)
+	frame.size = Vector2(416, 674)
 	frame.add_theme_stylebox_override("panel", game._style(Color(.035,.1,.14,.87), Color("69715f"), 13))
 	add_child(frame)
 	detail_scroll = ScrollContainer.new()

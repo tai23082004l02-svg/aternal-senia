@@ -346,7 +346,7 @@ func _refresh_panel() -> void:
 	for control in skill_group_labels:
 		control.visible = campaign and fighting and not battle is TeamBattle
 	scroll.position.y = 710 if campaign and fighting else 132
-	scroll.size.y = 150 if campaign and fighting else 732
+	scroll.size.y = 150 if campaign and fighting else (808 if tab == 1 else 732)
 	scroll.visible = not (campaign and battle is TeamBattle)
 	scroll.set_deferred("scroll_vertical", previous_scroll)
 	for i in range(tabs.size()):
