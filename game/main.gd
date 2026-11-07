@@ -350,6 +350,7 @@ func _refresh_panel() -> void:
 	scroll.visible = not (campaign and battle is TeamBattle)
 	scroll.set_deferred("scroll_vertical", previous_scroll)
 	for i in range(tabs.size()):
+		tabs[i].visible = tab != 1
 		tabs[i].position.y = 876
 		var section: int = 20 if tab in [20, 11] else (2 if tab in [2, 17, 18, 19] else (1 if tab in [1, 6, 7, 9, 12, 13, 22] else (21 if tab in [5, 21] else 0)))
 		tabs[i].modulate = Color("e3c998") if NAV_PAGES[i] == section else Color.WHITE

@@ -6,6 +6,10 @@ art riêng của Eira/Mira/Ryn/Lyra. Chọn chân dung chỉ đổi nhân vật 
 không thay hero ra trận hoặc đội hình. Chân dung chưa sở hữu vẫn xem được,
 nhưng không cho nâng cấp/trang bị/áp dụng phối màu.
 
+Theo yêu cầu tiếp theo, thanh chính Shop/Nhân vật/Hành trình/Phó bản/Túi đồ
+ẩn khi mở Nhân vật (bao gồm mọi tab con) và hiện lại ở màn khác. Giữ năm tab
+riêng của Nhân vật; nút thoát sẽ thiết kế sau theo yêu cầu người dùng.
+
 ## Năm tab
 
 - **Thông tin:** hero lớn, hệ, độ hiếm catalogue, lực chiến ước tính, LV,

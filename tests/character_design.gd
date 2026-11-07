@@ -40,6 +40,7 @@ func run() -> void:
 	for i in range(5):
 		screen().section_buttons[i].pressed.emit()
 		assert(game.character_page == CharacterScreen.TAB_PAGES[i])
+		for nav in game.tabs: assert(not nav.visible, "Character pages hide the main bottom navigation")
 		await capture(["character-info","character-gear","character-development","character-skills","character-wardrobe"][i])
 		for b in screen().section_buttons:
 			assert(b.get_global_rect().end.x <= 540 and b.get_global_rect().end.y < game.tabs[0].global_position.y)
@@ -69,6 +70,8 @@ func run() -> void:
 	assert(game.store.profile.heroes.mira.equipment.boots == "" and game.store.profile.hero == "eira")
 	game._character_choose_gear(uid,"mira",false)
 	assert(game.store.profile.heroes.mira.equipment.boots == uid)
+	game._select_tab(0)
+	for nav in game.tabs: assert(nav.visible, "Main navigation returns outside Character")
 	game.audio.shutdown()
 	for player in game.audio_players:
 		player.stop()
