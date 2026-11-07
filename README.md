@@ -1,4 +1,4 @@
-# Aternal Senia — First Light · 0.6
+# Aternal Senia — First Light · 0.7
 
 Game Godot 4 màn hình dọc, chiến đấu một nhân vật chính + một trợ chiến.
 Tham khảo cấu trúc Eternal Senia 2; nội dung, công thức và hình ảnh trong game
@@ -23,12 +23,12 @@ Hoặc `godot --path .` sau khi import. Chọn Hành trình → Vào ải → Ti
 |---|---|
 | Nhân vật | Eira, Ryn, Mira; nội tại và chỉ số riêng; mở sau ải 1/2 |
 | Trợ chiến | Lumi hồi máu, Ash tấn công; tăng cấp riêng |
-| Vũ khí | 6 mẫu kiếm/thương/trượng; giới hạn theo nhân vật; đổi hình khi trang bị |
+| Vũ khí | 6 mẫu kiếm/thương/trượng; 6 nội tại riêng tác động chiến đấu; đổi hình khi trang bị |
 | Trang bị | 3 món giáp; UID riêng; cường hóa +10, tiến bậc 3, rèn, phân giải |
-| Kỹ năng | 3 kỹ năng × 10 cấp; SP, cooldown, windup/hit/recovery |
-| Bản đồ | 5 khu vực, mỗi khu 2 đợt quái + boss; mở tuần tự, đánh lại |
+| Kỹ năng | 3 kỹ năng × 10 cấp; 6 nhánh chọn theo nhân vật, 1 nhánh/kỹ năng |
+| Bản đồ | 5 chương chính + 10 màn truyện nhánh; 3 phụ bản gồm săn boss, 6 đợt và 3 boss liên tiếp |
 | Phần thưởng | Vàng, XP, tinh thạch, loot; thưởng lần đầu; túi 40 ô, đổi loot dư |
-| Mục tiêu | 5 nhiệm vụ nhận một lần; 10 đoạn truyện và nhật ký xem lại |
+| Mục tiêu | 5 nhiệm vụ + 6 thành tựu; bộ sưu tập trang bị/boss/đồng hành; 30 đoạn truyện trước/sau màn chính và nhánh |
 | Tiếp tế | Tích theo thời gian thực, kể cả khi đóng game; trần 2 giờ |
 | Trình bày | Eira 32 pose PNG / 7 trạng thái, boss cây 8 pose, 16 mẫu VFX, kiếm Dawnveil, Lumi, rừng đêm và quái rừng mới; Ryn/Mira và các vùng khác còn SVG; 38 SFX ElevenLabs + loop tiếng rừng ElevenLabs |
 
@@ -39,7 +39,7 @@ bị dùng vàng + tinh thạch. Vũ khí bậc hiếm giảm hồi chiêu 8%; h
 ## Lưu tiến trình
 
 Save mới: `user://first_light_v2.json`; tự chuyển vàng và cấp Eira từ v1, giữ
-nguyên file cũ. Ghi qua file tạm, kiểm dữ liệu, tạo `.bak` rồi thay file chính.
+nguyên file cũ. Schema hiện tại v3, đọc save v2 tại cùng đường dẫn; ghi bản mới có backup v2. Ghi qua file tạm, kiểm dữ liệu, tạo `.bak` rồi thay file chính.
 Save lỗi được giữ lại; nếu backup hợp lệ sẽ phục hồi. Save của phiên bản mới hơn
 bị khóa ghi. Lỗi nâng cấp/nhận thưởng không đổi ví trong RAM; có thể thử lại.
 
@@ -65,7 +65,7 @@ godot --path . --script tests/animation_gallery.gd
 Tests dùng profile riêng. Có thể đặt `FIRST_LIGHT_CAPTURE_DIR` để chọn nơi lưu
 ảnh. `tests/smoke.gd` vẫn chạy được và chuyển sang bộ regression mới.
 
-Đã kiểm trên Godot 4.6.3 / Linux: 81 assertions hồi quy, cơ chế boss, 15 tổ hợp
+Đã kiểm trên Godot 4.6.3 / Linux: 81 assertions hồi quy, cơ chế boss, 54 tổ hợp
 nhân vật/ải, chiến dịch đủ 5 ải từ profile mới chỉ dùng thưởng kiếm được; kiểm UI
 render thực với X11/Mesa và xem ảnh. Chưa thử Android/iOS, touch thật hoặc đo
 FPS/nhiệt. Audio đã được ghi từ mixer thật qua AudioEffectRecord với driver Dummy, kiểm PCM và clipping; chưa nghe qua loa thật.
@@ -123,3 +123,13 @@ Thêm vệt kiếm, va chạm, hồi phục, khiên/vỡ khiên, cảnh báo đ�
 - [Video một trận đầy đủ có âm thanh](docs/previews/combat-demo.mp4)
 - [Ảnh hiệu ứng trong game](docs/previews/combat-impact.png)
 - [Chi tiết và cách kiểm tra](docs/COMBAT_FEEL.md)
+
+## Tính năng 0.7 · Ký ức & Đồng hành
+
+- **Nhân vật → Cây kỹ năng**: ba tầng mở ở cấp 2/3/4, mỗi tầng chọn một nhánh; đã học thì đổi miễn phí ngoài trận.
+- **Nhân vật → Tiến hóa đồng hành**: ba bậc; nâng cấp đồng hành và kiếm lõi tinh linh để mở nội tại mới.
+- **Hành trình → Chương truyện & phụ bản**: 10 màn nhánh nối từ 5 chương chính; Săn cổ thụ, Tháp sáu đợt, Tam vệ bình minh. Có kỷ lục điểm/thời gian và thưởng lõi.
+- **Trang bị**: xem sáu nội tại vũ khí, có tác dụng thực ở marker chiến đấu.
+- **Nhiệm vụ → Bộ sưu tập & thành tựu**: ghi nhớ đồ đã tìm, boss đã hạ, bậc đồng hành; nhận sáu mốc thưởng một lần.
+
+[Hướng dẫn, công thức và bằng chứng kiểm tra](docs/EXPANSION.md). Nội dung mới dùng artwork/âm hiện có; đây là mở rộng hệ thống, chưa bổ sung tranh riêng cho từng màn.

@@ -1,0 +1,623 @@
+{
+  "version": 1,
+  "talents": [
+    {
+      "id": "focus",
+      "name": "Hội tụ",
+      "description": "Kiếm quang +25% sát thương.",
+      "slot": 0,
+      "level": 2,
+      "gold": 40,
+      "shards": 1
+    },
+    {
+      "id": "breaker",
+      "name": "Phá giáp",
+      "description": "Kiếm quang phá khiên như Tinh linh.",
+      "slot": 0,
+      "level": 2,
+      "gold": 40,
+      "shards": 1
+    },
+    {
+      "id": "restoration",
+      "name": "Nguồn sống",
+      "description": "Hồi phục +35% lượng máu.",
+      "slot": 1,
+      "level": 3,
+      "gold": 60,
+      "shards": 2
+    },
+    {
+      "id": "barrier",
+      "name": "Che chở",
+      "description": "Hồi phục tạo khiên bằng 15% HP tối đa, tồn tại 5 giây.",
+      "slot": 1,
+      "level": 3,
+      "gold": 60,
+      "shards": 2
+    },
+    {
+      "id": "nova",
+      "name": "Bùng sáng",
+      "description": "Tinh linh +25% sát thương.",
+      "slot": 2,
+      "level": 4,
+      "gold": 80,
+      "shards": 3
+    },
+    {
+      "id": "flow",
+      "name": "Lưu chuyển",
+      "description": "Tinh linh chỉ tốn 25 SP và hồi chiêu nhanh hơn 20%.",
+      "slot": 2,
+      "level": 4,
+      "gold": 80,
+      "shards": 3
+    }
+  ],
+  "traits": {
+    "sword_1": {
+      "id": "spring",
+      "description": "Mỗi đòn thường trúng hồi thêm 2 SP."
+    },
+    "sword_2": {
+      "id": "riposte",
+      "description": "Thủ đòn thành công tăng 30% sát thương đòn vũ khí tiếp theo trong 4 giây; kỹ năng hồi nhanh hơn 8%."
+    },
+    "spear_1": {
+      "id": "execute",
+      "description": "Tăng 20% sát thương vũ khí khi mục tiêu còn dưới 35% HP."
+    },
+    "spear_2": {
+      "id": "pierce",
+      "description": "Đòn vũ khí xuyên một phần khiên: gây 70% thay vì 35%; kỹ năng hồi nhanh hơn 8%."
+    },
+    "staff_1": {
+      "id": "mending",
+      "description": "Kỹ năng hồi phục mạnh hơn 15%."
+    },
+    "staff_2": {
+      "id": "conduit",
+      "description": "Kỹ năng hoàn lại 4 SP tại marker trúng; kỹ năng hồi nhanh hơn 8%."
+    }
+  },
+  "stages": [
+    {
+      "id": 6,
+      "name": "Suối lạc quang",
+      "zone": "forest",
+      "enemy_hp": 61,
+      "enemy_atk": 14,
+      "boss_hp": 275,
+      "boss_atk": 35,
+      "boss": "Cổ thụ thức tỉnh",
+      "mechanic": "smash",
+      "gold": 50,
+      "xp": 40,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Lumi: Có tiếng gọi nhỏ bên dòng suối.",
+      "after": "Eira: Ta sẽ đưa hạt sáng này về nơi nó thuộc về.",
+      "element": "nature",
+      "base_stage": 1,
+      "kind": "branch",
+      "requires": [
+        1
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Gốc rễ ký ức",
+      "zone": "forest",
+      "enemy_hp": 69,
+      "enemy_atk": 14,
+      "boss_hp": 312,
+      "boss_atk": 35,
+      "boss": "Cổ thụ thức tỉnh",
+      "mechanic": "smash",
+      "gold": 50,
+      "xp": 40,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Cổ thụ: Rễ cây nhớ cả những bước chân đã mất.",
+      "after": "Eira: Ký ức không cần phải trở thành xiềng xích.",
+      "element": "nature",
+      "base_stage": 1,
+      "kind": "branch",
+      "requires": [
+        6
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Đường than nguội",
+      "zone": "ruins",
+      "enemy_hp": 102,
+      "enemy_atk": 20,
+      "boss_hp": 435,
+      "boss_atk": 47,
+      "boss": "Hộ vệ than hồng",
+      "mechanic": "shield",
+      "gold": 65,
+      "xp": 50,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Ash: Những dấu chân này dẫn khỏi chiến trường.",
+      "after": "Ryn: Vẫn có người từng chọn cứu lấy nhau.",
+      "element": "fire",
+      "base_stage": 2,
+      "kind": "branch",
+      "requires": [
+        2
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Lò lửa cuối cùng",
+      "zone": "ruins",
+      "enemy_hp": 116,
+      "enemy_atk": 20,
+      "boss_hp": 494,
+      "boss_atk": 47,
+      "boss": "Hộ vệ than hồng",
+      "mechanic": "shield",
+      "gold": 65,
+      "xp": 50,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Ryn: Lò rèn chưa tắt, chỉ đang đợi một bàn tay.",
+      "after": "Ash: Ngọn lửa này sẽ sưởi ấm, thay vì thiêu đốt.",
+      "element": "fire",
+      "base_stage": 2,
+      "kind": "branch",
+      "requires": [
+        8
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Bờ hồ lặng",
+      "zone": "lake",
+      "enemy_hp": 144,
+      "enemy_atk": 26,
+      "boss_hp": 594,
+      "boss_atk": 59,
+      "boss": "Ảo ảnh thủy triều",
+      "mechanic": "counter",
+      "gold": 80,
+      "xp": 60,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Mira: Một gợn sóng đang đi ngược chiều gió.",
+      "after": "Lumi: Đó là lời chào từ phía bên kia.",
+      "element": "water",
+      "base_stage": 3,
+      "kind": "branch",
+      "requires": [
+        3
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Dưới mặt gương",
+      "zone": "lake",
+      "enemy_hp": 164,
+      "enemy_atk": 26,
+      "boss_hp": 675,
+      "boss_atk": 59,
+      "boss": "Ảo ảnh thủy triều",
+      "mechanic": "counter",
+      "gold": 80,
+      "xp": 60,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Mira: Đừng rút kiếm với bóng mình. Hãy lắng nghe.",
+      "after": "Mira: Ta có thể mang theo nỗi buồn mà vẫn bước tiếp.",
+      "element": "water",
+      "base_stage": 3,
+      "kind": "branch",
+      "requires": [
+        10
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Lối chuông gió",
+      "zone": "mountain",
+      "enemy_hp": 186,
+      "enemy_atk": 32,
+      "boss_hp": 754,
+      "boss_atk": 71,
+      "boss": "Chim sấm",
+      "mechanic": "smash",
+      "gold": 95,
+      "xp": 70,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Eira: Mỗi chiếc chuông mang một cái tên.",
+      "after": "Ryn: Hôm nay chúng lại được gọi thành tiếng.",
+      "element": "nature",
+      "base_stage": 4,
+      "kind": "branch",
+      "requires": [
+        4
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Tàn tinh rơi",
+      "zone": "mountain",
+      "enemy_hp": 211,
+      "enemy_atk": 32,
+      "boss_hp": 856,
+      "boss_atk": 71,
+      "boss": "Chim sấm",
+      "mechanic": "smash",
+      "gold": 95,
+      "xp": 70,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Ash: Ngôi sao rơi xuống đây từ rất lâu.",
+      "after": "Eira: Ánh sáng nhỏ cũng đủ chỉ đường trong đêm.",
+      "element": "nature",
+      "base_stage": 4,
+      "kind": "branch",
+      "requires": [
+        12
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Hành lang cũ",
+      "zone": "tower",
+      "enemy_hp": 228,
+      "enemy_atk": 38,
+      "boss_hp": 913,
+      "boss_atk": 83,
+      "boss": "Người giữ ánh sáng",
+      "mechanic": "shield",
+      "gold": 110,
+      "xp": 80,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Mira: Những bức tường này lưu giữ tiếng cười.",
+      "after": "Eira: Nơi này từng là một mái nhà.",
+      "element": "dark",
+      "base_stage": 5,
+      "kind": "branch",
+      "requires": [
+        5
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Lời hứa bình minh",
+      "zone": "tower",
+      "enemy_hp": 259,
+      "enemy_atk": 38,
+      "boss_hp": 1038,
+      "boss_atk": 83,
+      "boss": "Người giữ ánh sáng",
+      "mechanic": "shield",
+      "gold": 110,
+      "xp": 80,
+      "first_gold": 40,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Eira: Mình đã hứa sẽ quay lại cùng mọi người.",
+      "after": "Lumi: Vậy thì bình minh của chúng ta đã bắt đầu.",
+      "element": "dark",
+      "base_stage": 5,
+      "kind": "branch",
+      "requires": [
+        14
+      ]
+    },
+    {
+      "id": 101,
+      "name": "Săn cổ thụ",
+      "zone": "forest",
+      "enemy_hp": 55,
+      "enemy_atk": 14,
+      "boss_hp": 250,
+      "boss_atk": 35,
+      "boss": "Cổ thụ thức tỉnh",
+      "mechanic": "smash",
+      "gold": 60,
+      "xp": 35,
+      "first_gold": 0,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Ash: Thử thách này dành cho những người đã sẵn sàng. Hãy chuẩn bị kỹ năng và đồng hành.",
+      "after": "Eira: Chúng ta đã tiến thêm một bước.",
+      "element": "nature",
+      "base_stage": 1,
+      "kind": "challenge",
+      "requires": [
+        1
+      ],
+      "waves": [
+        {
+          "boss": true,
+          "hp": 250,
+          "atk": 35,
+          "mechanic": "smash"
+        }
+      ],
+      "cores": 1
+    },
+    {
+      "id": 102,
+      "name": "Tháp sáu đợt",
+      "zone": "ruins",
+      "enemy_hp": 93,
+      "enemy_atk": 20,
+      "boss_hp": 395,
+      "boss_atk": 47,
+      "boss": "Hộ vệ than hồng",
+      "mechanic": "shield",
+      "gold": 90,
+      "xp": 50,
+      "first_gold": 0,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Ash: Thử thách này dành cho những người đã sẵn sàng. Hãy chuẩn bị kỹ năng và đồng hành.",
+      "after": "Eira: Chúng ta đã tiến thêm một bước.",
+      "element": "fire",
+      "base_stage": 2,
+      "kind": "challenge",
+      "requires": [
+        2
+      ],
+      "waves": [
+        {
+          "boss": false,
+          "hp": 93,
+          "atk": 20,
+          "mechanic": "shield"
+        },
+        {
+          "boss": false,
+          "hp": 104,
+          "atk": 20,
+          "mechanic": "shield"
+        },
+        {
+          "boss": false,
+          "hp": 115,
+          "atk": 20,
+          "mechanic": "shield"
+        },
+        {
+          "boss": false,
+          "hp": 126,
+          "atk": 20,
+          "mechanic": "shield"
+        },
+        {
+          "boss": false,
+          "hp": 138,
+          "atk": 20,
+          "mechanic": "shield"
+        },
+        {
+          "boss": true,
+          "hp": 632,
+          "atk": 47,
+          "mechanic": "shield"
+        }
+      ],
+      "cores": 2
+    },
+    {
+      "id": 103,
+      "name": "Tam vệ bình minh",
+      "zone": "lake",
+      "enemy_hp": 131,
+      "enemy_atk": 26,
+      "boss_hp": 540,
+      "boss_atk": 59,
+      "boss": "Ảo ảnh thủy triều",
+      "mechanic": "counter",
+      "gold": 120,
+      "xp": 65,
+      "first_gold": 0,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Ash: Thử thách này dành cho những người đã sẵn sàng. Hãy chuẩn bị kỹ năng và đồng hành.",
+      "after": "Eira: Chúng ta đã tiến thêm một bước.",
+      "element": "water",
+      "base_stage": 3,
+      "kind": "challenge",
+      "requires": [
+        3
+      ],
+      "waves": [
+        {
+          "boss": true,
+          "hp": 540,
+          "atk": 59,
+          "mechanic": "smash",
+          "name": "Cổ thụ thức tỉnh",
+          "enemy_type": "golem",
+          "zone": "forest",
+          "element": "nature"
+        },
+        {
+          "boss": true,
+          "hp": 605,
+          "atk": 59,
+          "mechanic": "shield",
+          "name": "Hộ vệ than hồng",
+          "enemy_type": "guardian",
+          "zone": "ruins",
+          "element": "fire"
+        },
+        {
+          "boss": true,
+          "hp": 670,
+          "atk": 59,
+          "mechanic": "counter",
+          "name": "Ảo ảnh thủy triều",
+          "enemy_type": "wolf",
+          "zone": "lake",
+          "element": "water"
+        }
+      ],
+      "cores": 3
+    }
+  ],
+  "achievements": [
+    {
+      "id": "arms",
+      "name": "Kho vũ khí",
+      "metric": "items",
+      "target": 6,
+      "gold": 100,
+      "shards": 4,
+      "cores": 1
+    },
+    {
+      "id": "wardens",
+      "name": "Năm người giữ cửa",
+      "metric": "bosses",
+      "target": 5,
+      "gold": 180,
+      "shards": 6,
+      "cores": 2
+    },
+    {
+      "id": "bonds",
+      "name": "Bạn đồng hành",
+      "metric": "ranks",
+      "target": 4,
+      "gold": 120,
+      "shards": 4,
+      "cores": 2
+    },
+    {
+      "id": "paths",
+      "name": "Người tìm ký ức",
+      "metric": "branches",
+      "target": 10,
+      "gold": 200,
+      "shards": 8,
+      "cores": 3
+    },
+    {
+      "id": "trial_100",
+      "name": "Bước vào thử thách",
+      "metric": "score",
+      "target": 100,
+      "gold": 80,
+      "shards": 3,
+      "cores": 1
+    },
+    {
+      "id": "trial_500",
+      "name": "Ánh sáng bền bỉ",
+      "metric": "score",
+      "target": 500,
+      "gold": 180,
+      "shards": 6,
+      "cores": 2
+    }
+  ],
+  "chapters": [
+    {
+      "id": 1,
+      "name": "Tiếng gọi trong rừng"
+    },
+    {
+      "id": 2,
+      "name": "Lửa còn trong tro"
+    },
+    {
+      "id": 3,
+      "name": "Mặt hồ ký ức"
+    },
+    {
+      "id": 4,
+      "name": "Chuông trên đỉnh sao"
+    },
+    {
+      "id": 5,
+      "name": "Bình minh trở lại"
+    }
+  ]
+}

@@ -73,8 +73,8 @@ func draw(canvas: CanvasItem, library: FrameLibrary, floor_layer: bool, hero_foo
 		var p: float = age / item.duration
 		var fade := pow(1 - p, 1.4)
 		var event: Dictionary = item.event
-		var aim := CombatPresentation.target(int(event.wave))
 		var visual: Dictionary = event.get("visual", {})
+		var aim := CombatPresentation.target(int(visual.get("presentation_wave", event.wave)))
 		if floor_layer:
 			match item.kind:
 				"heal":

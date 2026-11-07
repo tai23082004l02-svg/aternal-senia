@@ -75,5 +75,5 @@ func _initialize() -> void:
 				if battle.state != "battle":
 					break
 			assert(battle.state == "won", "%s stage %s" % [hero.id, stage.id])
-	print("PASS: guard, defeat, shield reduction, shield break, counter, 15 hero/stage combinations")
+	print("PASS: guard, defeat, shield reduction, shield break, counter, %d hero/stage combinations" % (book.data.heroes.size() * book.data.stages.size()))
 	quit()

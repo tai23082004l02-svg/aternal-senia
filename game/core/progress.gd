@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 2
+const VERSION = 3
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -27,7 +27,7 @@ func fresh() -> Dictionary:
 	var bag: Array = []
 	for hero in catalog.data.heroes:
 		bag.append({"uid": "starter_" + hero.id, "base": catalog.category(hero.id) + "_1", "enhance": 0, "rank": 1})
-	return {"version": VERSION, "gold": 0, "shards": 0, "xp": 0, "hero": "eira", "assist": "lumi", "heroes": units, "assists": {"lumi": 1, "ash": 1}, "items": bag, "next_uid": 1, "cleared": [], "claimed": [], "metrics": {"wins": 0, "kills": 0, "enhances": 0, "clears": 0}, "seen_story": [], "last_offline": int(Time.get_unix_time_from_system()), "pending": {}, "settled": [], "settings": {"speed": 1, "sound": true}}
+	return {"expansion": Expansion.fresh(catalog), "version": VERSION, "gold": 0, "shards": 0, "xp": 0, "hero": "eira", "assist": "lumi", "heroes": units, "assists": {"lumi": 1, "ash": 1}, "items": bag, "next_uid": 1, "cleared": [], "claimed": [], "metrics": {"wins": 0, "kills": 0, "enhances": 0, "clears": 0}, "seen_story": [], "last_offline": int(Time.get_unix_time_from_system()), "pending": {}, "settled": [], "settings": {"speed": 1, "sound": true}}
 
 func valid(p: Variant) -> bool:
 	if not p is Dictionary or p.get("version") != VERSION:
@@ -96,6 +96,7 @@ func valid(p: Variant) -> bool:
 		for key in ["hp", "atk", "defense", "crit", "skill_bonus", "assist_level"]:
 			if not _number(snapshot.get(key), 0, 1e8):
 				return false
+		if not Expansion.valid_snapshot(self, snapshot): return false
 		if snapshot.hp <= 0 or snapshot.atk <= 0 or not snapshot.get("skills") is Array or snapshot.skills.size() != 3:
 			return false
 		if catalog.find_row("heroes", snapshot.get("hero")).is_empty() or catalog.find_row("assists", snapshot.get("assist")).is_empty():
@@ -108,6 +109,7 @@ func valid(p: Variant) -> bool:
 	for key in ["sfx_volume", "ambience_volume"]:
 		if p.settings.has(key) and not _number(p.settings[key], 0, 1):
 			return false
+	if not Expansion.valid(self, p.get("expansion")): return false
 	return p.settings.get("speed") in [1, 2, 3] and p.settings.get("sound") is bool
 
 func _number(value: Variant, low: float, high: float) -> bool:
@@ -157,7 +159,7 @@ func commit(candidate: Dictionary) -> bool:
 	if file == null:
 		error = "Không mở được file lưu."
 		return false
-	file.store_string(JSON.stringify(candidate))
+	file.store_string(JSON.stringify(candidate, "", true, true))
 	file.flush()
 	var write_error := file.get_error()
 	file.close()
@@ -179,7 +181,7 @@ func commit(candidate: Dictionary) -> bool:
 func unlocked_stage() -> int:
 	var highest := 1
 	for id in profile.cleared:
-		highest = maxi(highest, int(id) + 1)
+		if id <= 5: highest = maxi(highest, int(id) + 1)
 	return mini(5, highest)
 
 func available_hero(id: String) -> bool:
@@ -306,33 +308,41 @@ func _add_item(p: Dictionary, base: String) -> void:
 	if p.items.size() >= BAG_CAP:
 		p.shards += 3
 		return
+	if base not in p.expansion.discovered: p.expansion.discovered.append(base)
 	p.items.append({"uid": "item_%d" % int(p.next_uid), "base": base, "enhance": 0, "rank": 1})
 	p.next_uid += 1
 
 func begin_run(stage_id: int) -> bool:
-	if not profile.pending.is_empty() or stage_id < 1 or stage_id > unlocked_stage():
+	if not profile.pending.is_empty() or not can_enter(stage_id):
 		return false
 	var p := profile.duplicate(true)
 	p.pending = {"id": "%d_%d" % [Time.get_unix_time_from_system(), Time.get_ticks_usec()], "stage": stage_id, "seed": randi_range(1, 2147483646), "stats": catalog.stats(p)}
 	return commit(p)
 
-func settle(run_id: String, won: bool, kills: int) -> bool:
+func settle(run_id: String, won: bool, kills: int, elapsed: float = 0) -> bool:
+	if not _whole(kills, 0, 100) or not _number(elapsed, 0, 1e8): return false
 	if run_id in profile.settled:
 		return true
 	if profile.pending.is_empty() or profile.pending.id != run_id:
 		return false
 	var p := profile.duplicate(true)
 	var run: Dictionary = p.pending
-	p.metrics.kills += clampi(kills, 0, 3)
+	var stage := catalog.find_row("stages", run.stage)
+	p.metrics.kills += clampi(kills, 0, stage.get("waves", [0, 0, 0]).size())
 	if won:
-		var stage := catalog.find_row("stages", run.stage)
 		p.gold += stage.gold
 		p.xp += stage.xp
 		p.shards += 2
 		if run.stage not in p.cleared:
 			p.gold += stage.first_gold
 			p.cleared.append(run.stage)
-			p.metrics.clears = p.cleared.size()
+			p.metrics.clears = Expansion.metric(p, "bosses")
+		if stage.get("kind") == "challenge":
+			p.expansion.cores += stage.cores
+			var score := kills * 100 + maxi(0, 300 - int(elapsed * 3))
+			var key := str(run.stage)
+			var previous: Dictionary = p.expansion.records.get(key, {"score": 0, "time": 1e8})
+			p.expansion.records[key] = {"score": maxi(previous.score, score), "time": minf(previous.time, elapsed)}
 		p.metrics.wins += 1
 		var story_key := "%d_after" % run.stage
 		if story_key not in p.seen_story:
@@ -384,7 +394,15 @@ func setting(key: String, value: Variant) -> bool:
 	return commit(p)
 
 func _decode(file_path: String) -> Variant:
-	return GameCatalog.normalize(JSON.parse_string(FileAccess.get_file_as_string(file_path)))
+	var raw = GameCatalog.normalize(JSON.parse_string(FileAccess.get_file_as_string(file_path)))
+	if raw is Dictionary and raw.get("version") == 2:
+		raw.version = VERSION
+		raw.expansion = Expansion.fresh(catalog)
+		if raw.get("items") is Array:
+			for item in raw.items:
+				if item is Dictionary and item.get("base") is String and item.base not in raw.expansion.discovered:
+					raw.expansion.discovered.append(item.base)
+	return raw
 
 func _whole(value: Variant, low: float, high: float) -> bool:
 	return _number(value, low, high) and float(value) == floor(float(value))
@@ -397,3 +415,11 @@ func audio_settings(sound_enabled: bool, sfx: float, ambience: float) -> bool:
 	p.settings.sfx_volume = sfx
 	p.settings.ambience_volume = ambience
 	return commit(p)
+
+func can_enter(id: int) -> bool:
+	var stage := catalog.find_row("stages", id)
+	if stage.is_empty(): return false
+	if id <= 5: return id <= unlocked_stage()
+	for required in stage.requires:
+		if required not in profile.cleared: return false
+	return true

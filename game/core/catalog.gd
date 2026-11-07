@@ -10,7 +10,13 @@ func _init() -> void:
 		errors.append("Catalog không đọc được")
 		return
 	data = normalize(parsed)
-	for group in ["heroes", "items", "skills", "stages", "quests", "assists"]:
+	var expansion: Dictionary = normalize(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/expansion.json")))
+	data.stages.append_array(expansion.stages)
+	for key in ["talents", "traits", "achievements", "chapters"]:
+		data[key] = expansion[key]
+	for item in data.items:
+		if data.traits.has(item.id): item.passive = data.traits[item.id].description
+	for group in ["heroes", "items", "skills", "stages", "quests", "assists", "talents", "achievements", "chapters"]:
 		var ids: Array = []
 		for row in data[group]:
 			if row.id in ids:
@@ -23,6 +29,16 @@ func _init() -> void:
 		for id in row.drops:
 			if find_row("items", id).is_empty():
 				errors.append("Drop thiếu: " + id)
+
+	for row in data.stages:
+		for required in row.get("requires", []):
+			if required == row.id or find_row("stages", required).is_empty(): errors.append("Điều kiện ải không hợp lệ")
+		if row.has("waves"):
+			if row.waves.is_empty() or row.waves.size() > 12: errors.append("Số đợt không hợp lệ")
+			for wave in row.waves:
+				if wave.hp <= 0 or wave.atk <= 0 or wave.mechanic not in ["smash", "shield", "counter"]: errors.append("Đợt không hợp lệ")
+	for row in data.talents:
+		if row.slot not in [0, 1, 2] or row.level < 2 or row.gold < 0 or row.shards < 0: errors.append("Nhánh kỹ năng không hợp lệ")
 
 func find_row(group: String, id: Variant) -> Dictionary:
 	for row in data[group]:
@@ -52,7 +68,8 @@ func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 				result.weapon = item.base
 				result.element = def.element
 				result.cooldown_scale = .92 if def.rarity >= 2 else 1.0
-	return result
+	Expansion.stats(self, profile, hero_id, result)
+	return normalize(result)
 
 static func normalize(value: Variant) -> Variant:
 	if value is float and is_finite(value) and value == floor(value):

@@ -49,3 +49,7 @@ tên, truyện, data và âm thanh ở repo triển khai được tạo riêng.
 
 Bản này bao phủ các nhóm hệ thống chính bằng nội dung nhỏ có thể chơi; không
 chuyển nguyên hàng nghìn dữ liệu/asset từ catalog sang game mới.
+
+## Mở rộng 0.7
+
+Đã áp dụng thêm cấu trúc `skillclass`/`passive`/`rune_*`, `ability`/`partner_rankup`, `realm`/`godRealm`/`platinumTrial`, hai nhóm skill trong `weapon`, `partner_collect`, `chapter`/`section`. Triển khai sáu nhánh chọn kỹ năng cho từng hero, ba bậc đồng hành, ba phụ bản, sáu trait vũ khí, bộ sưu tập/sáu thành tựu và mười màn truyện nhánh. Công thức, chi phí, nội dung và cân bằng đều thiết kế riêng; xem [EXPANSION.md](EXPANSION.md).

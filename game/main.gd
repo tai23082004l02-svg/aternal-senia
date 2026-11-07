@@ -209,19 +209,19 @@ func _refresh_hud() -> void:
 	var hero := catalog.find_row("heroes", stats.hero)
 	hp_label.text = "%s · %d / %d HP" % [hero.name, battle.hp if active else stats.hp, stats.hp]
 	hp_bar.value = (battle.hp if active else stats.hp) / stats.hp * 100
-	enemy_label.text = "%s · %d / %d" % [(battle.stage.boss if battle.wave == 2 else "Bóng tối") if active else "Bóng tối", battle.enemy_hp if active else 55, battle.enemy_max if active else 55]
+	enemy_label.text = "%s · %d / %d" % [(battle.stage.boss if battle.is_boss() else "Bóng tối") if active else "Bóng tối", battle.enemy_hp if active else 55, battle.enemy_max if active else 55]
 	if active and battle.move_clock > 0:
 		enemy_label.text = "Đang tiến sang đợt tiếp theo…"
 	enemy_bar.value = battle.enemy_hp / battle.enemy_max * 100 if active else 100
 	sp_bar.value = battle.sp if active else 100
-	stage_label.text = "%02d / %s%s" % [selected_stage, catalog.find_row("stages", selected_stage).name, (" · %d/3" % (battle.wave + 1)) if active else ""]
+	stage_label.text = "%s%s" % [catalog.find_row("stages", selected_stage).name, (" · %d/%d" % [battle.wave + 1, battle.wave_count()]) if active else ""]
 	warning_label.text = battle.warning() if active else "Một kiếm sĩ. Một tinh linh. Một bình minh mới."
 	var can_play := active and battle.state == "battle" and modal == null and not battle.paused
 	for i in range(3):
 		var def: Dictionary = catalog.data.skills[i]
 		var cd: float = battle.cooldowns[i] if active else 0.0
-		skill_buttons[i].text = def.name + (" · %ds" % ceili(cd) if cd > 0 else " · %d SP" % def.cost)
-		skill_buttons[i].disabled = not can_play or cd > 0 or battle.sp < def.cost or not battle.actions.is_empty() or battle.move_clock > 0 if active else true
+		skill_buttons[i].text = def.name + (" · %ds" % ceili(cd) if cd > 0 else " · %d SP" % (25 if active and i == 2 and battle.variant("flow") else def.cost))
+		skill_buttons[i].disabled = not can_play or cd > 0 or battle.sp < (25 if i == 2 and battle.variant("flow") else def.cost) or not battle.actions.is_empty() or battle.move_clock > 0 if active else true
 	attack_button.disabled = not can_play
 	guard_button.disabled = not can_play or (active and battle.guard_cd > 0)
 	guard_button.text = "Thủ · %ds" % ceili(battle.guard_cd) if active and battle.guard_cd > 0 else "Thủ thế"
@@ -272,6 +272,7 @@ func _refresh_panel() -> void:
 		2: _items_panel()
 		3: _quests_panel()
 		4: _journal_panel()
+		_: _expansion_panel(tab)
 
 func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) -> void:
 	var label := _label(panel, text, Vector2.ZERO, font_size, color)
@@ -287,11 +288,13 @@ func _locked() -> bool:
 	return not store.profile.pending.is_empty() or store.read_only or result_transition
 
 func _campaign_panel() -> void:
+	_row("CHƯƠNG TRUYỆN & PHỤ BẢN →", _select_tab.bind(5))
 	if _locked() and battle != null and battle.state == "battle":
 		_row("Rút lui · không nhận thưởng", _confirm_abandon)
 	else:
 		_row("VÀO ẢI · " + catalog.find_row("stages", selected_stage).name, _enter_stage.bind(selected_stage), _locked())
 	for stage in catalog.data.stages:
+		if stage.id > 5: continue
 		var available: bool = stage.id <= store.unlocked_stage()
 		_row("%02d   %s   %s" % [stage.id, stage.name, "✓" if stage.id in store.profile.cleared else ("Mở" if available else "Khóa")], _choose_stage.bind(int(stage.id)), not available or _locked())
 	var supplies := store.offline_preview(int(Time.get_unix_time_from_system()))
@@ -305,6 +308,8 @@ func _choose_stage(id: int) -> void:
 	_refresh_panel()
 
 func _heroes_panel() -> void:
+	_row("CÂY KỸ NĂNG →", _select_tab.bind(6))
+	_row("TIẾN HÓA ĐỒNG HÀNH →", _select_tab.bind(7))
 	var p: Dictionary = store.profile
 	var hero := catalog.find_row("heroes", p.hero)
 	var unit: Dictionary = p.heroes[p.hero]
@@ -360,6 +365,7 @@ func _items_panel() -> void:
 		_row("Rèn · " + def.name, _forge.bind(def.id), _locked() or p.gold < 65 or p.shards < 3 or p.items.size() >= Store.BAG_CAP)
 
 func _quests_panel() -> void:
+	_row("BỘ SƯU TẬP & THÀNH TỰU →", _select_tab.bind(8))
 	for quest in catalog.data.quests:
 		var count: int = mini(int(store.profile.metrics[quest.metric]), int(quest.target))
 		_text("%s · %d/%d" % [quest.name, count, quest.target], 17, Color("e5cd9e"))
@@ -429,7 +435,7 @@ func _offline() -> void:
 	_outcome(store.claim_offline(int(Time.get_unix_time_from_system())), "Đã nhận tiếp tế. Đồng hồ máy ảnh hưởng lượng nhận; tối đa 2 giờ.", "reward")
 
 func _enter_stage(id: int) -> void:
-	if _locked():
+	if _locked() or not store.can_enter(id):
 		return
 	selected_stage = id
 	var stage := catalog.find_row("stages", id)
@@ -441,6 +447,7 @@ func _begin() -> void:
 	if not store.begin_run(selected_stage):
 		_outcome(false, "")
 		return
+	_select_tab(0)
 	_resume()
 
 func _resume() -> void:
@@ -465,7 +472,7 @@ func _finish() -> void:
 	var old_uids: Array = []
 	for item in store.profile.items:
 		old_uids.append(item.uid)
-	if not store.settle(battle.run.id, won, battle.kills):
+	if not store.settle(battle.run.id, won, battle.kills, battle.time):
 		_dialog("Chưa lưu được kết quả", store.error + "\nTrận vẫn được giữ. Hãy thử ghi lại; không nhận thưởng hai lần.", [{"text": "Thử lưu lại", "call": _retry_settle}])
 		return
 	if won:
@@ -474,7 +481,7 @@ func _finish() -> void:
 		for item in store.profile.items:
 			if item.uid not in old_uids:
 				loot = "Nhận trang bị: " + catalog.find_row("items", item.base).name
-		_queue_result("CHIẾN THẮNG", "%s\n\n+%d vàng · +%d XP · +%d tinh thạch\n%s" % [stage.after, store.profile.gold - gold_before, stage.xp, store.profile.shards - shards_before, loot], [{"text": "Về hành trình", "call": _return_to_camp}, {"text": "Đánh lại", "call": _replay}])
+		_queue_result("CHIẾN THẮNG", "%s\n\n+%d vàng · +%d XP · +%d tinh thạch\n%s" % [(stage.after + ("\n+%d lõi tinh linh · Điểm tốt nhất %d" % [stage.cores, store.profile.expansion.records[str(stage.id)].score] if stage.get("kind") == "challenge" else "")), store.profile.gold - gold_before, stage.xp, store.profile.shards - shards_before, loot], [{"text": "Về hành trình", "call": _return_to_camp}, {"text": "Đánh lại", "call": _replay}])
 	else:
 		_queue_result("ÁNH SÁNG CHƯA TẮT", "Chưa nhận thưởng. Hãy nâng vũ khí, đổi trợ chiến hoặc dùng Thủ thế đúng nhịp.", [{"text": "Chuẩn bị lại", "call": _return_to_camp}, {"text": "Thử lại", "call": _replay}])
 	_refresh_panel()
@@ -705,3 +712,81 @@ func _request_quit() -> void:
 		audio.shutdown()
 	await get_tree().create_timer(.2).timeout
 	get_tree().quit()
+
+func _expansion_panel(page: int) -> void:
+	_row("← Trở về " + ("nhân vật" if page in [6, 7] else "hành trình"), _select_tab.bind(1 if page in [6, 7] else 0))
+	var p: Dictionary = store.profile
+	match page:
+		5:
+			_text("THỬ THÁCH", 21, Color("e5cd9e"))
+			_text("Săn boss kiếm lõi tinh linh để tiến hóa đồng hành. Điểm = số quái hạ × 100 + tối đa 300 điểm tốc độ. Không tiêu vé; thua không nhận thưởng.")
+			for stage in catalog.data.stages:
+				if stage.get("kind") != "challenge": continue
+				var record: Dictionary = p.expansion.records.get(str(stage.id), {})
+				_text(stage.name + " · %d đợt · +%d lõi" % [stage.waves.size(), stage.cores], 18, Color("e5cd9e"))
+				_text("%d vàng · %d XP · 2 tinh thạch + loot" % [stage.gold, stage.xp])
+				if not record.is_empty(): _text("Kỷ lục %d điểm · nhanh nhất %.1f giây mô phỏng" % [record.score, record.time])
+				_stage_entry(stage)
+			_text("CHƯƠNG TRUYỆN", 21, Color("e5cd9e"))
+			_text("Mỗi chương có một màn chính và hai màn ký ức nối tiếp. Nhánh mới có thưởng đầu, loot và đối thoại riêng.")
+			for chapter in catalog.data.chapters:
+				_text("%d · %s" % [chapter.id, chapter.name], 18, Color("e5cd9e"))
+				_stage_entry(catalog.find_row("stages", chapter.id))
+				for id in [6 + (chapter.id - 1) * 2, 7 + (chapter.id - 1) * 2]: _stage_entry(catalog.find_row("stages", id))
+		6:
+			_text("CÂY KỸ NĂNG · " + catalog.find_row("heroes", p.hero).name, 21, Color("e5cd9e"))
+			_text("Mỗi kỹ năng chọn một trong hai nhánh. Học một lần bằng vàng/tinh thạch; đổi hoặc bỏ chọn miễn phí ngoài trận. Nhánh đã học được giữ riêng theo nhân vật.")
+			var build: Dictionary = p.expansion.builds[p.hero]
+			for i in range(3):
+				_text(catalog.data.skills[i].name.to_upper(), 18, Color("e5cd9e"))
+				for row in catalog.data.talents:
+					if row.slot != i: continue
+					_text(row.name + " · " + row.description)
+					var learned: bool = row.id in build.learned
+					var selected: bool = build.selected[i] == row.id
+					_row(("✓ Bỏ chọn · " if selected else ("Chọn · " if learned else "Học · ")) + row.name + ("" if learned else " · cấp %d / %d vàng + %d tinh thạch" % [row.level, row.gold, row.shards]), _talent.bind(row.id), _locked() or p.heroes[p.hero].level < row.level or (not learned and (p.gold < row.gold or p.shards < row.shards)))
+		7:
+			_text("TIẾN HÓA ĐỒNG HÀNH", 21, Color("e5cd9e"))
+			_text("Lõi tinh linh: %d · kiếm từ phụ bản hoặc thành tựu." % p.expansion.cores)
+			for assist in catalog.data.assists:
+				var rank: int = p.expansion.ranks[assist.id]
+				_text("%s · cấp %d · bậc %d/3" % [assist.name, p.assists[assist.id], rank], 18, Color("e5cd9e"))
+				_text("Bậc 2: mỗi lần hồi máu tạo khiên 8% HP trong 5 giây. Bậc 3: lượng hồi +25%." if assist.id == "lumi" else "Bậc 2: đòn trợ chiến gây 70% sát thương qua khiên. Bậc 3: đánh dấu, đòn vũ khí tiếp theo +20% sát thương.")
+				_row("✓ Đang đi cùng" if p.assist == assist.id else "Đi cùng " + assist.name, _assist.bind(assist.id), _locked() or assist.unlock > store.unlocked_stage() or p.assist == assist.id)
+				if p.assist == assist.id:
+					_row("Nâng cấp · %d vàng" % (p.assists[p.assist] * 35), _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
+					_row("Đã đạt bậc tối đa" if rank == 3 else "Tiến hóa · cần cấp %d / %d vàng + %d lõi" % [rank * 3, rank * 80, 2 if rank == 1 else 5], _rank_assist, _locked() or rank == 3 or p.assists[p.assist] < rank * 3 or p.gold < rank * 80 or p.expansion.cores < (2 if rank == 1 else 5))
+		8:
+			_text("BỘ SƯU TẬP & THÀNH TỰU", 21, Color("e5cd9e"))
+			_text("Vũ khí/giáp đã tìm thấy được ghi nhớ kể cả khi phân giải. Thành tựu nhận một lần, lưu cùng tài nguyên.")
+			for achievement in catalog.data.achievements:
+				var count := Expansion.metric(p, achievement.metric)
+				_text("%s · %d/%d" % [achievement.name, mini(count, achievement.target), achievement.target], 18, Color("e5cd9e"))
+				_row("Đã nhận" if achievement.id in p.expansion.claimed else "Nhận %d vàng + %d tinh thạch + %d lõi" % [achievement.gold, achievement.shards, achievement.cores], _achievement.bind(achievement.id), store.read_only or achievement.id in p.expansion.claimed or count < achievement.target)
+			_text("TRANG BỊ ĐÃ KHÁM PHÁ · %d/%d" % [p.expansion.discovered.size(), catalog.data.items.size()], 18, Color("e5cd9e"))
+			for item in catalog.data.items:
+				_text(("✓ " if item.id in p.expansion.discovered else "○ Chưa tìm · ") + item.name + " · " + item.passive)
+			_text("BOSS ĐÃ HẠ", 18, Color("e5cd9e"))
+			for stage in catalog.data.stages:
+				if stage.id <= 5: _text(("✓ " if stage.id in p.cleared else "○ ") + stage.boss)
+			_text("ĐỒNG HÀNH", 18, Color("e5cd9e"))
+			for assist in catalog.data.assists:
+				_text("%s · %s · bậc %d" % [assist.name, "Đã mở" if assist.unlock <= store.unlocked_stage() else "Chưa mở", p.expansion.ranks[assist.id]])
+
+func _stage_entry(stage: Dictionary) -> void:
+	var available := store.can_enter(stage.id)
+	var requirement := ""
+	if not available:
+		var id: int = stage.requires[0] if stage.has("requires") else stage.id - 1
+		requirement = " · cần qua " + catalog.find_row("stages", id).name
+	if not requirement.is_empty(): _text(requirement.trim_prefix(" · "), 14)
+	_row(("✓ " if stage.id in store.profile.cleared else "") + stage.name, _enter_stage.bind(stage.id), _locked() or not available)
+
+func _talent(id: String) -> void:
+	_outcome(Expansion.talent(store, id), "Đã cập nhật nhánh kỹ năng.", "upgrade")
+
+func _rank_assist() -> void:
+	_outcome(Expansion.rank_up(store), "Đồng hành đã tiến hóa!", "upgrade")
+
+func _achievement(id: String) -> void:
+	_outcome(Expansion.claim(store, id), "Đã nhận thành tựu.", "reward")

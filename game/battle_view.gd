@@ -74,7 +74,7 @@ func draw_world(canvas: CanvasItem) -> void:
 	_companion(canvas, stats)
 	_enemy(canvas, stage, enemy_foot)
 	if active:
-		if battle.guard_left > 0:
+		if battle.guard_left > 0 or battle.barrier > 0:
 			CombatEffects.stamp(canvas, library, "guard_arc", hero_foot + Vector2(34, -78), Vector2(125, 177), .55)
 		if battle.shield:
 			CombatEffects.stamp(canvas, library, "guard_arc", enemy_foot + Vector2(-30, -83), Vector2(166, 205), .43)
@@ -92,10 +92,10 @@ func _companion(canvas: CanvasItem, stats: Dictionary) -> void:
 
 func _enemy(canvas: CanvasItem, stage: Dictionary, enemy_foot: Vector2) -> void:
 	var active := battle != null and battle.state != "idle"
-	var wave: int = battle.wave if active else 0
+	var wave: int = (2 if battle.is_boss() else battle.wave % 2) if active else 0
 	var alpha := 1.0
 	if active and battle.move_clock > 0:
-		wave = maxi(0, wave - 1)
+		wave = 2 if active and stage.has("waves") and stage.waves[maxi(0, battle.wave - 1)].boss else maxi(0, (battle.wave - 1) % 2)
 		var age := .8 - battle.move_clock
 		alpha = 1 - smoothstep(0, .29, age)
 		enemy_foot += Vector2(4 * age, 12 * age)
@@ -104,7 +104,10 @@ func _enemy(canvas: CanvasItem, stage: Dictionary, enemy_foot: Vector2) -> void:
 		enemy_foot.y += post_time * 12
 	if alpha <= 0:
 		return
-	var enemy_type: String = ["slime", "wolf", ["golem", "guardian", "wolf", "bird", "guardian"][int(stage.id) - 1]][wave]
+	var enemy_type: String = ["slime", "wolf", ["golem", "guardian", "wolf", "bird", "guardian"][int(stage.get("base_stage", stage.id)) - 1]][wave]
+	if active and stage.has("waves"):
+		var index := maxi(0, battle.wave - 1) if battle.move_clock > 0 else battle.wave
+		enemy_type = stage.waves[index].get("enemy_type", enemy_type)
 	var key := "enemy_" + enemy_type
 	var spec: Dictionary = library.enemy_specs.get(enemy_type, {"anchor": [96, 216], "scale": 1.03 if wave == 2 else .8})
 	var texture: Texture2D = library.textures[key]
@@ -114,7 +117,7 @@ func _enemy(canvas: CanvasItem, stage: Dictionary, enemy_foot: Vector2) -> void:
 		texture = library.textures[spec.file]
 	var impact_age := 1000.0
 	for effect in effects.items:
-		if effect.kind in ["impact", "critical", "burst"] and effect.event.wave == wave:
+		if effect.kind in ["impact", "critical", "burst"] and effect.event.wave == (battle.wave - 1 if battle.move_clock > 0 else battle.wave):
 			impact_age = minf(impact_age, world_time - effect.start)
 	if impact_age >= 0 and impact_age < .18:
 		enemy_foot.x += sin(impact_age / .18 * PI) * 6
@@ -131,7 +134,7 @@ func _telegraph(canvas: CanvasItem, hero_foot: Vector2) -> void:
 	if battle.state != "battle" or battle.move_clock > 0 or battle.enemy_clock < 2:
 		return
 	var progress := clampf(battle.enemy_clock - 2, 0, 1)
-	var size := Vector2(174, 69) if battle.wave == 2 else Vector2(125, 43)
+	var size := Vector2(174, 69) if battle.is_boss() else Vector2(125, 43)
 	CombatEffects.stamp(canvas, library, "telegraph", hero_foot + Vector2(0, -1), size, .28 + progress * .47)
 	canvas.draw_set_transform(hero_foot, 0, Vector2(1, .30))
 	canvas.draw_arc(Vector2.ZERO, size.x * .41, -PI / 2, -PI / 2 + TAU * progress, 48, Color(1, .69, .38, .65), 3, true)

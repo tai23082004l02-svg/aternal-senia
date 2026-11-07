@@ -73,3 +73,7 @@ và 15 tổ hợp hero/stage với build mạnh; campaign kiểm profile mới v
 dùng thưởng thu được, reload giữa ải. UI flow dùng X11/Mesa thực, thao tác signal
 nút, chụp màn hình tab/truyện/trận/boss/result/quest/đổi nhân vật. Kiểm hình trực
 tiếp đã phát hiện và sửa bar overlap và crop pose chết. Chưa thử thiết bị thật.
+
+## Mở rộng 0.7
+
+`Expansion` quản lý các giao dịch học/chọn nhánh, tiến hóa đồng hành, thành tựu và schema mở rộng. `game/data/expansion.json` ghép với catalogue nền; có builder `tools/build_expansion.py`. Save hiện v3 tại đường dẫn cũ, đọc v2 và giữ pending snapshot; chi tiết công thức, mode, phần thưởng và migration ở [EXPANSION.md](EXPANSION.md).
