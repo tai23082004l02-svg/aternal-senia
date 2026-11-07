@@ -1,4 +1,4 @@
-# Triệu hồi · 0.16
+# Triệu hồi · 0.17
 
 Theo phác thảo người dùng: banner bên trái, ba nút Thường/Cao cấp/Sự kiện xếp
 dọc bên phải. Dưới banner là x1/x10, bên dưới có thanh mở lịch sử. Banner đang
@@ -20,8 +20,8 @@ cơ chế Thường cũ được bảo toàn nội bộ và công bố ở mục
 làm bộ đếm cho Cao cấp/Sự kiện. Chưa có reset/chuyển tiếp giữa các mùa sự kiện.
 
 Lịch sử mở modal cuộn, mới nhất ở trên, giữ tối đa100 lượt thay cho10 lượt cũ;
-quay x10 có bảng kết quả đủ10 dòng. Save v5 cũ vẫn đọc được, UID/phần thưởng cũ
-giữ nguyên. Bản game cũ trước0.16 không hỗ trợ lịch sử dài hơn10 lượt.
+quay x10 có bảng kết quả đủ10 dòng. Đã gộp bản đồ họa/Lyra, save v6 đọc save v2–v5 cũ, UID/phần thưởng cũ
+giữ nguyên. Bản game cũ trước0.17 không hỗ trợ lịch sử dài hơn10 lượt.
 
 ![Thường](previews/summon-normal.png)
 ![Cao cấp](previews/summon-premium.png)
@@ -30,6 +30,6 @@ giữ nguyên. Bản game cũ trước0.16 không hỗ trợ lịch sử dài h�
 
 Kiểm thử: summon_batch so sánh x10 với10 lần đơn, lỗi ghi/reload, thiếu vàng,
 giữ hai bộ đếm riêng; summon_ui kiểm bố cục, xác nhận, khóa banner chưa mở,
-lịch sử và tỷ lệ. Recruitment451, regression81, mechanics54 tổ hợp, campaign5,
-skill_effects, progression_ui, skill_gallery, shop_ui, ui_flow và animation_gallery
+lịch sử và tỷ lệ. Recruitment451, regression87, mechanics72 tổ hợp, campaign5,
+lyra, complete_art, visual_ui, skill_effects, progression_ui, skill_gallery, shop_ui, ui_flow và animation_gallery
 đạt. Đã xem ảnh Godot Linux; chưa test điện thoại thật.

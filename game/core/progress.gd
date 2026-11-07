@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 5
+const VERSION = 6
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -413,6 +413,7 @@ func setting(key: String, value: Variant) -> bool:
 
 func _decode(file_path: String) -> Variant:
 	var raw = GameCatalog.normalize(JSON.parse_string(FileAccess.get_file_as_string(file_path)))
+	var old_version: int = raw.get("version", 0) if raw is Dictionary else 0
 	if raw is Dictionary and raw.get("version") == 2:
 		raw.version = VERSION
 		raw.expansion = Expansion.fresh(catalog)
@@ -432,6 +433,19 @@ func _decode(file_path: String) -> Variant:
 				if entry.get("rarity") == old_rarity:
 					entry["grade"] = old_rarity
 					entry.rarity = Recruitment.rarity(entry.kind, id, catalog)
+	if raw is Dictionary and old_version in [2, 3, 4, 5]:
+		raw.version = VERSION
+		if raw.get("heroes") is Dictionary and not raw.heroes.has("lyra"):
+			raw.heroes["lyra"] = {"level": 1, "skills": [1, 1, 1], "equipment": {"weapon": "", "armor": ""}}
+		if raw.get("expansion") is Dictionary and raw.expansion.get("builds") is Dictionary and not raw.expansion.builds.has("lyra"):
+			raw.expansion.builds["lyra"] = {"learned": [], "selected": ["", "", ""]}
+		for field in ["training", "evolution", "outfits"]:
+			if raw.get(field) is Dictionary and not raw[field].has("lyra"):
+				raw[field]["lyra"] = {"hp": 0, "atk": 0, "defense": 0} if field == "training" else ("original" if field == "outfits" else 1)
+		if raw.get("recruitment") is Dictionary:
+			for field in ["fragments", "awakening"]:
+				if raw.recruitment.get(field) is Dictionary and not raw.recruitment[field].has("lyra"):
+					raw.recruitment[field]["lyra"] = 0 if field == "fragments" else 1
 	return raw
 
 func _whole(value: Variant, low: float, high: float) -> bool:

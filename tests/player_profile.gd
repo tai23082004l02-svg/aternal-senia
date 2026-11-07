@@ -50,6 +50,9 @@ func run() -> void:
 			assert(game.modal.find_child("VipTier%d" % level, true, false) != null)
 		assert(store.profile == saved)
 	await capture("vip-tiers")
+	game._close_modal()
+	game.audio.shutdown()
+	await create_timer(.2).timeout
 	game.queue_free()
 	await process_frame
 	print("PASS: legacy profile, Vietnamese name, owned avatars, persistence/write failure, VIP 1–10 read-only preview")

@@ -45,6 +45,22 @@
       "passive": "Dòng chảy: hồi phục mạnh hơn 25%",
       "skill_bonus": 1.0,
       "rarity": 5
+    },
+    {
+      "id": "lyra",
+      "name": "Lyra",
+      "title": "Thương thủ hoàng hôn",
+      "element": "fire",
+      "hp": 225,
+      "atk": 22,
+      "defense": 3,
+      "crit": 0.15,
+      "color": "#dca58b",
+      "unlock": 4,
+      "passive": "Dư hỏa: +8% sát thương kỹ năng",
+      "skill_bonus": 1.08,
+      "rarity": 5,
+      "age": 24
     }
   ],
   "items": [

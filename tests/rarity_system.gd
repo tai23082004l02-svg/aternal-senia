@@ -38,7 +38,7 @@ func run() -> void:
 	file.close()
 	var bytes := FileAccess.get_file_as_bytes(legacy_path)
 	var migrated := ProgressStore.new(book, legacy_path)
-	assert(not migrated.read_only and migrated.profile.version == 5)
+	assert(not migrated.read_only and migrated.profile.version == ProgressStore.VERSION)
 	for i in range(4): assert(migrated.profile.recruitment.history[i].rarity == [4, 3, 5, 1][i])
 	assert(migrated.profile.gold == legacy.gold and migrated.profile.items == legacy.items)
 	assert(migrated.profile.recruitment.awakening == legacy.recruitment.awakening)

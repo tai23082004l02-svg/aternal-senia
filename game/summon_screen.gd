@@ -31,9 +31,11 @@ func _ready() -> void:
 	add_child(banner)
 	var title: String = ["CỔNG BÌNH MINH", "TRIỆU HỒI CAO CẤP", "TRIỆU HỒI SỰ KIỆN"][game.summon_kind]
 	game._label(banner, title, Vector2(14, 12), 17, Color("e5cd9e"))
-	var portrait := HeroPortrait.new()
-	portrait.library = game.frames
-	portrait.hero = "ryn"
+	var portrait := TextureRect.new()
+	portrait.texture = game.frames.textures["portrait_ryn"]
+	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	portrait.position = Vector2(12, 31)
 	portrait.size = Vector2(280, 285)
 	banner.add_child(portrait)

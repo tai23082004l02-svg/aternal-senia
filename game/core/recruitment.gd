@@ -31,7 +31,7 @@ static func color(kind: String, id: String, book: GameCatalog, profile: Dictiona
 	return Color(RARITIES[tier].color)
 
 static func fresh() -> Dictionary:
-	return {"seed": 17, "count": 0, "pity": 0, "heroes": [], "spirits": [], "fragments": {"eira": 0, "ryn": 0, "mira": 0}, "awakening": {"eira": 1, "ryn": 1, "mira": 1}, "history": []}
+	return {"seed": 17, "count": 0, "pity": 0, "heroes": [], "spirits": [], "fragments": {"eira": 0, "ryn": 0, "mira": 0, "lyra": 0}, "awakening": {"eira": 1, "ryn": 1, "mira": 1, "lyra": 1}, "history": []}
 
 static func state(p: Dictionary) -> Dictionary:
 	return p.get("recruitment", fresh())

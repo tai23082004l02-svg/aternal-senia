@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 4,
   "heroes": {
     "eira": {
       "idle": {
@@ -1857,6 +1857,1386 @@
           }
         ]
       }
+    },
+    "lyra": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "complete/lyra_00",
+            "atlas": "complete/lyra.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              223,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              216,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.6
+          },
+          {
+            "file": "complete/lyra_01",
+            "atlas": "complete/lyra.png",
+            "region": [
+              314,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              177,
+              303
+            ],
+            "hand": [
+              230,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              223,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.6
+          }
+        ]
+      },
+      "run": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "complete/lyra_02",
+            "atlas": "complete/lyra.png",
+            "region": [
+              627,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              160,
+              301
+            ],
+            "hand": [
+              216,
+              159
+            ],
+            "angle": 55,
+            "grip_rect": [
+              209,
+              152,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/lyra_03",
+            "atlas": "complete/lyra.png",
+            "region": [
+              940,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              194,
+              299
+            ],
+            "hand": [
+              248,
+              136
+            ],
+            "angle": 60,
+            "grip_rect": [
+              241,
+              129,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/lyra_04",
+            "atlas": "complete/lyra.png",
+            "region": [
+              0,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              171,
+              299
+            ],
+            "hand": [
+              235,
+              143
+            ],
+            "angle": 55,
+            "grip_rect": [
+              228,
+              136,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/lyra_05",
+            "atlas": "complete/lyra.png",
+            "region": [
+              314,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              194,
+              293
+            ],
+            "hand": [
+              236,
+              139
+            ],
+            "angle": 60,
+            "grip_rect": [
+              229,
+              132,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          }
+        ]
+      },
+      "attack": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/lyra_06",
+            "atlas": "complete/lyra.png",
+            "region": [
+              627,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              117,
+              28
+            ],
+            "angle": -55,
+            "grip_rect": [
+              110,
+              21,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12
+          },
+          {
+            "file": "complete/lyra_07",
+            "atlas": "complete/lyra.png",
+            "region": [
+              940,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              181,
+              303
+            ],
+            "hand": [
+              88,
+              96
+            ],
+            "angle": -70,
+            "grip_rect": [
+              81,
+              89,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/lyra_08",
+            "atlas": "complete/lyra.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              285,
+              133
+            ],
+            "angle": 90,
+            "grip_rect": [
+              278,
+              126,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12
+          },
+          {
+            "file": "complete/lyra_09",
+            "atlas": "complete/lyra.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              235,
+              173
+            ],
+            "angle": 30,
+            "grip_rect": [
+              228,
+              166,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/lyra_00",
+            "atlas": "complete/lyra.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              223,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              216,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.08
+          }
+        ],
+        "hit_time": 0.22
+      },
+      "skill": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/lyra_10",
+            "atlas": "complete/lyra.png",
+            "region": [
+              627,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              229,
+              116
+            ],
+            "angle": 25,
+            "grip_rect": [
+              222,
+              109,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25
+          },
+          {
+            "file": "complete/lyra_11",
+            "atlas": "complete/lyra.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              248,
+              64
+            ],
+            "angle": 25,
+            "grip_rect": [
+              241,
+              57,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25
+          },
+          {
+            "file": "complete/lyra_11",
+            "atlas": "complete/lyra.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              248,
+              64
+            ],
+            "angle": 25,
+            "grip_rect": [
+              241,
+              57,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15
+          },
+          {
+            "file": "complete/lyra_09",
+            "atlas": "complete/lyra.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              235,
+              173
+            ],
+            "angle": 30,
+            "grip_rect": [
+              228,
+              166,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15
+          },
+          {
+            "file": "complete/lyra_00",
+            "atlas": "complete/lyra.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              223,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              216,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15
+          }
+        ],
+        "hit_time": 0.5
+      },
+      "guard": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/lyra_00",
+            "atlas": "complete/lyra.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              223,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              216,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.7
+          }
+        ]
+      },
+      "hurt": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/lyra_12",
+            "atlas": "complete/lyra.png",
+            "region": [
+              0,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              220,
+              126
+            ],
+            "angle": 25,
+            "grip_rect": [
+              213,
+              119,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.125
+          },
+          {
+            "file": "complete/lyra_13",
+            "atlas": "complete/lyra.png",
+            "region": [
+              314,
+              940,
+              280,
+              314
+            ],
+            "size": [
+              280,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              225,
+              209
+            ],
+            "angle": 30,
+            "grip_rect": [
+              218,
+              202,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.125
+          }
+        ]
+      },
+      "death": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/lyra_14",
+            "atlas": "complete/lyra.png",
+            "region": [
+              627,
+              940,
+              280,
+              314
+            ],
+            "size": [
+              280,
+              314
+            ],
+            "anchor": [
+              174,
+              296
+            ],
+            "hand": [
+              207,
+              219
+            ],
+            "angle": 0,
+            "grip_rect": [
+              200,
+              212,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.28
+          },
+          {
+            "file": "complete/lyra_15",
+            "atlas": "complete/lyra.png",
+            "region": [
+              940,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              240,
+              260
+            ],
+            "angle": 0,
+            "grip_rect": [
+              233,
+              253,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.72
+          }
+        ]
+      }
+    },
+    "mira": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "complete/mira_00",
+            "atlas": "complete/mira.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              120,
+              185
+            ],
+            "angle": 18,
+            "grip_rect": [
+              113,
+              178,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.6
+          },
+          {
+            "file": "complete/mira_01",
+            "atlas": "complete/mira.png",
+            "region": [
+              314,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              177,
+              303
+            ],
+            "hand": [
+              120,
+              185
+            ],
+            "angle": 18,
+            "grip_rect": [
+              113,
+              178,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.6
+          }
+        ]
+      },
+      "run": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "complete/mira_02",
+            "atlas": "complete/mira.png",
+            "region": [
+              627,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              160,
+              301
+            ],
+            "hand": [
+              139,
+              162
+            ],
+            "angle": 55,
+            "grip_rect": [
+              132,
+              155,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/mira_03",
+            "atlas": "complete/mira.png",
+            "region": [
+              940,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              194,
+              299
+            ],
+            "hand": [
+              140,
+              164
+            ],
+            "angle": 60,
+            "grip_rect": [
+              133,
+              157,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/mira_04",
+            "atlas": "complete/mira.png",
+            "region": [
+              0,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              171,
+              299
+            ],
+            "hand": [
+              132,
+              168
+            ],
+            "angle": 55,
+            "grip_rect": [
+              125,
+              161,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/mira_05",
+            "atlas": "complete/mira.png",
+            "region": [
+              314,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              194,
+              293
+            ],
+            "hand": [
+              208,
+              142
+            ],
+            "angle": 60,
+            "grip_rect": [
+              201,
+              135,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          }
+        ]
+      },
+      "attack": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/mira_06",
+            "atlas": "complete/mira.png",
+            "region": [
+              627,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              111,
+              33
+            ],
+            "angle": -55,
+            "grip_rect": [
+              104,
+              26,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12
+          },
+          {
+            "file": "complete/mira_07",
+            "atlas": "complete/mira.png",
+            "region": [
+              940,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              181,
+              303
+            ],
+            "hand": [
+              81,
+              89
+            ],
+            "angle": -70,
+            "grip_rect": [
+              74,
+              82,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/mira_08",
+            "atlas": "complete/mira.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              264,
+              122
+            ],
+            "angle": 90,
+            "grip_rect": [
+              257,
+              115,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12
+          },
+          {
+            "file": "complete/mira_09",
+            "atlas": "complete/mira.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              119,
+              160
+            ],
+            "angle": 30,
+            "grip_rect": [
+              112,
+              153,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "complete/mira_00",
+            "atlas": "complete/mira.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              120,
+              185
+            ],
+            "angle": 18,
+            "grip_rect": [
+              113,
+              178,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.08
+          }
+        ],
+        "hit_time": 0.22
+      },
+      "skill": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/mira_10",
+            "atlas": "complete/mira.png",
+            "region": [
+              627,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              145,
+              153
+            ],
+            "angle": 25,
+            "grip_rect": [
+              138,
+              146,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25
+          },
+          {
+            "file": "complete/mira_11",
+            "atlas": "complete/mira.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              254,
+              64
+            ],
+            "angle": 25,
+            "grip_rect": [
+              247,
+              57,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25
+          },
+          {
+            "file": "complete/mira_11",
+            "atlas": "complete/mira.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              254,
+              64
+            ],
+            "angle": 25,
+            "grip_rect": [
+              247,
+              57,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15
+          },
+          {
+            "file": "complete/mira_09",
+            "atlas": "complete/mira.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              119,
+              160
+            ],
+            "angle": 30,
+            "grip_rect": [
+              112,
+              153,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15
+          },
+          {
+            "file": "complete/mira_00",
+            "atlas": "complete/mira.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              120,
+              185
+            ],
+            "angle": 18,
+            "grip_rect": [
+              113,
+              178,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15
+          }
+        ],
+        "hit_time": 0.5
+      },
+      "guard": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/mira_00",
+            "atlas": "complete/mira.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              120,
+              185
+            ],
+            "angle": 18,
+            "grip_rect": [
+              113,
+              178,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.7
+          }
+        ]
+      },
+      "hurt": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/mira_12",
+            "atlas": "complete/mira.png",
+            "region": [
+              0,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              139,
+              154
+            ],
+            "angle": 25,
+            "grip_rect": [
+              132,
+              147,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.125
+          },
+          {
+            "file": "complete/mira_13",
+            "atlas": "complete/mira.png",
+            "region": [
+              314,
+              940,
+              280,
+              314
+            ],
+            "size": [
+              280,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              186,
+              197
+            ],
+            "angle": 30,
+            "grip_rect": [
+              179,
+              190,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.125
+          }
+        ]
+      },
+      "death": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/mira_14",
+            "atlas": "complete/mira.png",
+            "region": [
+              627,
+              940,
+              280,
+              314
+            ],
+            "size": [
+              280,
+              314
+            ],
+            "anchor": [
+              174,
+              296
+            ],
+            "hand": [
+              128,
+              280
+            ],
+            "angle": 0,
+            "grip_rect": [
+              121,
+              273,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.28
+          },
+          {
+            "file": "complete/mira_15",
+            "atlas": "complete/mira.png",
+            "region": [
+              940,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              242,
+              280
+            ],
+            "angle": 0,
+            "grip_rect": [
+              235,
+              273,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.72
+          }
+        ]
+      }
     }
   },
   "weapons": {
@@ -1885,6 +3265,86 @@
         1,
         1,
         0.93,
+        1
+      ]
+    },
+    "spear_1": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        0,
+        0,
+        444,
+        887
+      ],
+      "anchor": [
+        251,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "spear_2": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        444,
+        0,
+        443,
+        887
+      ],
+      "anchor": [
+        224,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "staff_1": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        887,
+        0,
+        443,
+        887
+      ],
+      "anchor": [
+        220,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "staff_2": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        1330,
+        0,
+        444,
+        887
+      ],
+      "anchor": [
+        219,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
         1
       ]
     }
@@ -1945,12 +3405,94 @@
         592
       ],
       "scale": 0.35
+    },
+    "guardian": {
+      "file": "complete/guardian_0",
+      "atlas": "complete/enemies.png",
+      "region": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "anchor": [
+        156,
+        304
+      ],
+      "scale": 0.63,
+      "duration": 1
+    },
+    "mirror": {
+      "file": "complete/mirror_0",
+      "atlas": "complete/enemies.png",
+      "region": [
+        0,
+        314,
+        314,
+        313
+      ],
+      "anchor": [
+        156,
+        264
+      ],
+      "scale": 0.65,
+      "duration": 1
+    },
+    "bird": {
+      "file": "complete/bird_0",
+      "atlas": "complete/enemies.png",
+      "region": [
+        0,
+        627,
+        314,
+        313
+      ],
+      "anchor": [
+        156,
+        260
+      ],
+      "scale": 0.66,
+      "duration": 1
+    },
+    "sentinel": {
+      "file": "complete/sentinel_0",
+      "atlas": "complete/enemies.png",
+      "region": [
+        0,
+        0,
+        314,
+        314
+      ],
+      "anchor": [
+        156,
+        304
+      ],
+      "scale": 0.65,
+      "duration": 1
     }
   },
   "backgrounds": {
     "forest": "painted/forest.png",
     "ruins": "painted/ruins.png",
-    "lake": "painted/lake.png"
+    "lake": "painted/lake.png",
+    "mountain": {
+      "atlas": "complete/worlds.png",
+      "region": [
+        0,
+        512,
+        768,
+        512
+      ]
+    },
+    "tower": {
+      "atlas": "complete/worlds.png",
+      "region": [
+        768,
+        512,
+        768,
+        512
+      ]
+    }
   },
   "companions": {
     "lumi": "painted/lumi.png",
@@ -2133,6 +3675,602 @@
           "duration": 0.1
         }
       ]
+    }
+  },
+  "enemy_clips": {
+    "guardian": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "complete/guardian_0",
+            "atlas": "complete/enemies.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.63,
+            "duration": 1
+          }
+        ]
+      },
+      "charge": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/guardian_1",
+            "atlas": "complete/enemies.png",
+            "region": [
+              314,
+              0,
+              313,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.63,
+            "duration": 0.55
+          },
+          {
+            "file": "complete/guardian_2",
+            "atlas": "complete/enemies.png",
+            "region": [
+              627,
+              0,
+              313,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.63,
+            "duration": 0.45
+          }
+        ]
+      },
+      "slam": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/guardian_3",
+            "atlas": "complete/enemies.png",
+            "region": [
+              940,
+              0,
+              314,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.63,
+            "duration": 0.22
+          },
+          {
+            "file": "complete/guardian_0",
+            "atlas": "complete/enemies.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.63,
+            "duration": 0.3
+          }
+        ]
+      }
+    },
+    "mirror": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "complete/mirror_0",
+            "atlas": "complete/enemies.png",
+            "region": [
+              0,
+              314,
+              314,
+              313
+            ],
+            "anchor": [
+              156,
+              264
+            ],
+            "scale": 0.65,
+            "duration": 1
+          }
+        ]
+      },
+      "charge": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/mirror_1",
+            "atlas": "complete/enemies.png",
+            "region": [
+              314,
+              314,
+              313,
+              313
+            ],
+            "anchor": [
+              156,
+              264
+            ],
+            "scale": 0.65,
+            "duration": 0.55
+          },
+          {
+            "file": "complete/mirror_2",
+            "atlas": "complete/enemies.png",
+            "region": [
+              627,
+              314,
+              313,
+              313
+            ],
+            "anchor": [
+              156,
+              264
+            ],
+            "scale": 0.65,
+            "duration": 0.45
+          }
+        ]
+      },
+      "slam": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/mirror_3",
+            "atlas": "complete/enemies.png",
+            "region": [
+              940,
+              314,
+              314,
+              313
+            ],
+            "anchor": [
+              156,
+              264
+            ],
+            "scale": 0.65,
+            "duration": 0.22
+          },
+          {
+            "file": "complete/mirror_0",
+            "atlas": "complete/enemies.png",
+            "region": [
+              0,
+              314,
+              314,
+              313
+            ],
+            "anchor": [
+              156,
+              264
+            ],
+            "scale": 0.65,
+            "duration": 0.3
+          }
+        ]
+      }
+    },
+    "bird": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "complete/bird_0",
+            "atlas": "complete/enemies.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "anchor": [
+              156,
+              260
+            ],
+            "scale": 0.66,
+            "duration": 1
+          }
+        ]
+      },
+      "charge": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/bird_1",
+            "atlas": "complete/enemies.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "anchor": [
+              156,
+              260
+            ],
+            "scale": 0.66,
+            "duration": 0.55
+          },
+          {
+            "file": "complete/bird_2",
+            "atlas": "complete/enemies.png",
+            "region": [
+              627,
+              627,
+              313,
+              313
+            ],
+            "anchor": [
+              156,
+              260
+            ],
+            "scale": 0.66,
+            "duration": 0.45
+          }
+        ]
+      },
+      "slam": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/bird_3",
+            "atlas": "complete/enemies.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "anchor": [
+              156,
+              260
+            ],
+            "scale": 0.66,
+            "duration": 0.22
+          },
+          {
+            "file": "complete/bird_0",
+            "atlas": "complete/enemies.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "anchor": [
+              156,
+              260
+            ],
+            "scale": 0.66,
+            "duration": 0.3
+          }
+        ]
+      }
+    },
+    "sentinel": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "complete/sentinel_0",
+            "atlas": "complete/enemies.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.65,
+            "duration": 1
+          }
+        ]
+      },
+      "charge": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/sentinel_1",
+            "atlas": "complete/enemies.png",
+            "region": [
+              314,
+              0,
+              313,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.65,
+            "duration": 0.55
+          },
+          {
+            "file": "complete/sentinel_2",
+            "atlas": "complete/enemies.png",
+            "region": [
+              627,
+              0,
+              313,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.65,
+            "duration": 0.45
+          }
+        ]
+      },
+      "slam": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "complete/sentinel_3",
+            "atlas": "complete/enemies.png",
+            "region": [
+              940,
+              0,
+              314,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.65,
+            "duration": 0.22
+          },
+          {
+            "file": "complete/sentinel_0",
+            "atlas": "complete/enemies.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "anchor": [
+              156,
+              304
+            ],
+            "scale": 0.65,
+            "duration": 0.3
+          }
+        ]
+      }
+    }
+  },
+  "companion_clips": {},
+  "icons": {
+    "atlas": "complete/items.png",
+    "regions": {
+      "sword_1": {
+        "region": [
+          0,
+          0,
+          315,
+          300
+        ]
+      },
+      "sword_2": {
+        "region": [
+          315,
+          0,
+          315,
+          300
+        ]
+      },
+      "spear_1": {
+        "region": [
+          630,
+          0,
+          316,
+          300
+        ]
+      },
+      "spear_2": {
+        "region": [
+          946,
+          0,
+          315,
+          300
+        ]
+      },
+      "staff_1": {
+        "region": [
+          0,
+          312,
+          315,
+          300
+        ]
+      },
+      "staff_2": {
+        "region": [
+          315,
+          312,
+          315,
+          300
+        ]
+      },
+      "armor_1": {
+        "region": [
+          630,
+          312,
+          316,
+          300
+        ]
+      },
+      "armor_2": {
+        "region": [
+          946,
+          312,
+          315,
+          300
+        ]
+      },
+      "armor_3": {
+        "region": [
+          0,
+          624,
+          315,
+          300
+        ]
+      },
+      "slash": {
+        "region": [
+          315,
+          624,
+          315,
+          300
+        ]
+      },
+      "heal": {
+        "region": [
+          630,
+          624,
+          316,
+          300
+        ]
+      },
+      "burst": {
+        "region": [
+          946,
+          624,
+          315,
+          300
+        ]
+      },
+      "gold": {
+        "region": [
+          0,
+          936,
+          315,
+          299
+        ]
+      },
+      "shards": {
+        "region": [
+          315,
+          936,
+          315,
+          299
+        ]
+      },
+      "xp": {
+        "region": [
+          630,
+          936,
+          316,
+          299
+        ]
+      },
+      "cores": {
+        "region": [
+          946,
+          936,
+          315,
+          299
+        ]
+      },
+      "armor_uncommon": {
+        "atlas": "complete/armor.png",
+        "region": [
+          0,
+          0,
+          444,
+          443
+        ]
+      },
+      "armor_4": {
+        "atlas": "complete/armor.png",
+        "region": [
+          444,
+          0,
+          443,
+          443
+        ]
+      },
+      "armor_5": {
+        "atlas": "complete/armor.png",
+        "region": [
+          887,
+          0,
+          443,
+          443
+        ]
+      },
+      "armor_6": {
+        "atlas": "complete/armor.png",
+        "region": [
+          1330,
+          0,
+          444,
+          443
+        ]
+      },
+      "armor_7": {
+        "atlas": "complete/armor.png",
+        "region": [
+          0,
+          443,
+          444,
+          444
+        ]
+      },
+      "victory": {
+        "atlas": "complete/armor.png",
+        "region": [
+          444,
+          443,
+          443,
+          444
+        ]
+      },
+      "training": {
+        "atlas": "complete/armor.png",
+        "region": [
+          887,
+          443,
+          443,
+          444
+        ]
+      },
+      "fragments": {
+        "atlas": "complete/armor.png",
+        "region": [
+          1330,
+          443,
+          444,
+          444
+        ]
+      }
     }
   }
 }

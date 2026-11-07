@@ -128,10 +128,10 @@ func _draw() -> void:
 			draw_arc(foot - Vector2(0, 83), 83 + (1 - touch_glow) * 8, 0, TAU, 64, Color(.8, .9, 1, touch_glow * .3), 2, true)
 		var breath := sin(idle_time * 2.1) * .006
 		var stretch := clampf(-motion.y * .001, -.012, .012)
-		var actor_scale := (.56 if hero == "eira" else .76) * (1 + breath + stretch)
+		var actor_scale := (.56 if hero in ["eira", "mira", "lyra"] else .76) * (1 + breath + stretch)
 		library.draw_actor(self, library.frame_at(hero, "idle", idle_time), foot + motion, weapon, palette_tint, true, actor_scale)
 	else:
-		library.draw_actor(self, library.frame_at(hero, "idle", 0), foot, weapon, palette_tint, true, .56 if hero == "eira" else .76)
+		library.draw_actor(self, library.frame_at(hero, "idle", 0), foot, weapon, palette_tint, true, .56 if hero in ["eira", "mira", "lyra"] else .76)
 
 # Cached grid: attachment rows stay fixed; only the free ends bend.
 # No skeleton, external runtime, or simulation state is involved.

@@ -2,7 +2,7 @@ class_name HeroEvolution
 extends RefCounted
 
 static func fresh() -> Dictionary:
-	return {"eira": 1, "ryn": 1, "mira": 1}
+	return {"eira": 1, "ryn": 1, "mira": 1, "lyra": 1}
 
 static func rank(p: Dictionary, hero: String) -> int:
 	return int(p.get("evolution", fresh())[hero])
