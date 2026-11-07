@@ -24,7 +24,7 @@ func run() -> void:
 	await process_frame
 	game._close_modal()
 	game.tabs[1].pressed.emit()
-	assert(screen().faces.size() == 3 and screen().section_buttons.size() == 5)
+	assert(screen().faces.size() == 3 and screen().section_buttons.size() == 7)
 	screen().faces[1].pressed.emit()
 	assert(game.character_inspected == "ryn" and game.store.profile.hero == "eira")
 	await capture("character-locked")
@@ -41,11 +41,24 @@ func run() -> void:
 	assert(game.store.commit(p))
 	game._inspect_character("ryn")
 	var original: Dictionary = game.store.profile.duplicate(true)
-	for i in range(5):
+	for i in range(7):
 		screen().section_buttons[i].pressed.emit()
 		assert(game.character_page == i)
-		await capture(["character-info", "character-equipment", "character-level", "character-stars", "character-evolution"][i])
+		await capture(["character-info", "character-equipment", "character-level", "character-stars", "character-evolution", "character-skills", "character-outfits"][i])
 	assert(game.store.profile == original, "Browsing portraits/sections never mutates the profile")
+	game._character_section(5)
+	game._character_talent("ryn", "focus")
+	assert(game.store.profile.expansion.builds.ryn.selected[0] == "focus" and game.store.profile.expansion.builds.eira.selected[0] == "")
+	game._character_skill_level("ryn", 0)
+	assert(game.store.profile.heroes.ryn.skills[0] == 2 and game.store.profile.hero == "eira")
+	await capture("character-skills-learned")
+	game._character_section(6)
+	var before_look: Dictionary = game.store.profile.duplicate(true)
+	game._preview_character_outfit("moon")
+	assert(game.store.profile == before_look)
+	game._apply_character_outfit("ryn", "moon")
+	assert(Wardrobe.selected(game.store.profile, "ryn") == "moon" and game.store.profile.hero == "eira")
+	await capture("character-outfit-applied")
 	game._character_section(2)
 	game._character_level("ryn", 1)
 	assert(game.store.profile.heroes.ryn.level == 15 and game.store.profile.hero == "eira")
@@ -73,6 +86,31 @@ func run() -> void:
 	assert(game.store.profile == frozen)
 	game.tabs[2].pressed.emit()
 	assert(not game.battle.paused)
+	assert(game.store.settle(game.store.profile.pending.id, false, 0))
+	game._return_to_camp()
+	p = game.store.profile.duplicate(true)
+	p.heroes.ryn.level = 40
+	p.recruitment.awakening.ryn = 1
+	assert(game.store.commit(p))
+	game.tabs[1].pressed.emit()
+	game._inspect_character("ryn")
+	game._character_section(0)
+	var definition: Dictionary = game.catalog.find_row("heroes", "ryn")
+	definition.rarity = 4
+	game._inspect_character("ryn")
+	for child in screen().body.get_children():
+		if child is HeroPortrait: assert(not child.interactive, "Low-rarity template stays static")
+	definition.rarity = 5
+	game._inspect_character("ryn")
+	assert(game.store.profile.recruitment.awakening.ryn == 1, "Touch is independent of expansion progress")
+	for child in screen().body.get_children():
+		if child is HeroPortrait:
+			assert(child.interactive)
+			child.begin_touch(Vector2(100, 100), 0)
+			child.move_touch(Vector2(170, 70))
+	await capture("character-5star-touch")
+	game._character_section(6)
+	await capture("character-5star-outfits")
 	game.audio.shutdown()
 	for player in game.audio_players:
 		player.stop()
@@ -80,5 +118,5 @@ func run() -> void:
 	await create_timer(.2).timeout
 	game.queue_free()
 	await process_frame
-	print("PASS: portrait rail, five sections, independent hero inspection, targeted upgrades/equip, evolution and pending lock rendered")
+	print("PASS: seven sections, skill tree, wardrobe, target actions, pending lock and native-five-star touch independent of expansion")
 	quit()

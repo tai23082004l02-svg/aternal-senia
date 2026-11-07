@@ -57,9 +57,12 @@ var skill_group_labels: Array[Label] = []
 var bag_section := ""
 var bag_kind := "all"
 var bag_rarity := 0
+var bag_spirit_rarity := 0
 var selected_spirit := "lumi"
 var character_inspected := ""
 var character_page := 0
+var character_outfit_preview := ""
+var shop_page := 0
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
@@ -253,6 +256,9 @@ func _refresh_hud() -> void:
 	mute_button.text = "Âm: bật" if p.settings.sound else "Âm: tắt"
 
 func _select_tab(index: int) -> void:
+	if index == 11:
+		shop_page = 2
+		index = 20
 	if index == 12:
 		character_inspected = store.profile.hero
 		character_page = 2
@@ -878,28 +884,29 @@ func _boss_guide_panel() -> void:
 		_text("Có thể rơi: " + ", ".join(drops), 14)
 
 func _rarity(kind: String, id: String) -> String:
-	return Recruitment.RARITIES[Recruitment.rarity(kind, id, catalog)].name
+	return Recruitment.label(kind, id, catalog, store.profile)
 
 func _entity_name(kind: String, id: String) -> String:
 	return catalog.find_row({"hero": "heroes", "spirit": "assists", "item": "items"}[kind], id).name
 
-func _summon_panel() -> void:
-	_row("← Trở về hành trình", _select_tab.bind(0))
+func _summon_panel(embedded: bool = false) -> void:
+	if not embedded: _row("← Trở về hành trình", _select_tab.bind(0))
 	_text("CỔNG TRIỆU HỒI", 23, Color("e5cd9e"))
 	var r := Recruitment.state(store.profile)
-	_text("120 vàng / lượt. Dùng vàng kiếm trong game. Tỷ lệ cơ bản: Thường 70% · Hiếm 25% · Sử thi 5%. Sau 19 lượt liên tiếp chưa ra Sử thi, lượt kế tiếp bảo đảm Sử thi.")
-	_text("Đã triệu hồi %d lượt · bảo đảm Sử thi trong tối đa %d lượt" % [r.count, 20 - r.pity], 17, Color("d7a4ff"))
+	_text("120 vàng / lượt. Ba nhóm triệu hồi: Cơ bản 70%, Nâng cao 25%, Cao cấp 5%. Sau 19 lượt chưa ra nhóm Cao cấp, lượt tiếp theo bảo đảm nhóm này. Nhóm là tỷ lệ triệu hồi, không phải hệ độ hiếm.")
+	_text("Đã triệu hồi %d lượt · bảo đảm Cao cấp trong tối đa %d lượt" % [r.count, 20 - r.pity], 17, Color("d7a4ff"))
 	_row("Triệu hồi 1 lần · 120 vàng", _summon, _locked() or store.profile.gold < Recruitment.PRICE)
 	_text("NHÂN VẬT / TINH LINH / TRANG BỊ", 18, Color("e5cd9e"))
 	_text("Nhân vật và tinh linh còn mở miễn phí qua chương. Nhân vật trùng: +10 mảnh tăng sao. Tinh linh trùng: +2 lõi tiến hóa. Túi đầy đổi trang bị thành 3 tinh thạch.")
 	for tier in [1, 2, 3]:
 		var names: Array[String] = []
-		for entry in Recruitment.pool(catalog, tier): names.append(_entity_name(entry.kind, entry.id))
-		_text(Recruitment.RARITIES[tier].name + " · các mục đồng xác suất trong bậc", 17, Color(Recruitment.RARITIES[tier].color))
+		for entry in Recruitment.pool(catalog, tier): names.append(_entity_name(entry.kind, entry.id) + " [" + Recruitment.label(entry.kind, entry.id, catalog) + "] ×%d" % entry.weight)
+		_text(Recruitment.GROUP_NAMES[tier] + " · trọng số từng mục", 17, Color("d7a4ff"))
 		_text(", ".join(names), 14)
+	_text("Trong nhóm: xác suất mỗi mục = trọng số mục / tổng trọng số. Nhân vật chơi hiện tại có độ hiếm 5★ gốc; mảnh dùng tăng sao mở rộng riêng. Tinh linh dùng SR/SSR/UR; hiện có Lumi SR, Ash SSR, chưa có mẫu UR.", 13)
 	_text("LỊCH SỬ · 10 LƯỢT GẦN NHẤT", 18, Color("e5cd9e"))
 	for entry in r.history:
-		_text(_rarity(entry.kind, entry.id) + " · " + _entity_name(entry.kind, entry.id) + (" · bản sao" if entry["duplicate"] else ""), 15, Color(Recruitment.RARITIES[entry.rarity].color))
+		_text(Recruitment.label(entry.kind, entry.id, catalog) + " · " + _entity_name(entry.kind, entry.id) + (" · bản sao" if entry["duplicate"] else ""), 15, Recruitment.color(entry.kind, entry.id, catalog))
 
 func _summon() -> void:
 	var full: bool = store.profile.items.size() >= Store.BAG_CAP
@@ -912,8 +919,8 @@ func _summon() -> void:
 	var detail := "Trang bị đã vào túi." if result.kind == "item" else "Đã mở khóa để chọn trong Nhân vật."
 	if result.kind == "item" and full: detail = "Túi đầy: đã đổi thành 3 tinh thạch."
 	if result["duplicate"]: detail = "+10 mảnh nhân vật để tăng sao." if result.kind == "hero" else "+2 lõi tiến hóa tinh linh."
-	var column := _dialog(_rarity(result.kind, result.id) + " · " + _entity_name(result.kind, result.id), detail, [{"text": "Đóng", "call": _close_modal}])
-	column.get_child(0).modulate = Color(Recruitment.RARITIES[result.rarity].color)
+	var column := _dialog(Recruitment.label(result.kind, result.id, catalog) + " · " + _entity_name(result.kind, result.id), detail, [{"text": "Đóng", "call": _close_modal}])
+	column.get_child(0).modulate = Recruitment.color(result.kind, result.id, catalog)
 	var image := TextureRect.new()
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -1002,10 +1009,21 @@ func _items_panel() -> void:
 		"spirits":
 			_text("KHO TINH LINH", 22, Color("a2e5d6"))
 			_text("Chọn để xem chi tiết, đi cùng, nâng cấp hoặc mở cây kỹ năng.")
+			var select := OptionButton.new()
+			select.custom_minimum_size = Vector2(464, 44)
+			for title in ["Tất cả tinh linh", "SR", "SSR", "UR"]: select.add_item(title)
+			select.selected = bag_spirit_rarity
+			select.item_selected.connect(_spirit_rarity_filter)
+			panel.add_child(select)
+			var shown := 0
 			for spirit in catalog.data.assists:
+				if bag_spirit_rarity != 0 and Recruitment.rarity("spirit", spirit.id, catalog) != bag_spirit_rarity: continue
 				var available := store.available_assist(spirit.id)
 				var b := _row(spirit.name + " · " + _rarity("spirit", spirit.id) + (" · cấp %d · bậc %d" % [p.assists[spirit.id], p.expansion.ranks[spirit.id]] if available else " · Chưa mở"), _open_spirit.bind(spirit.id))
 				icons.apply(b, "companion", 36)
+				b.add_theme_color_override("font_color", Recruitment.color("spirit", spirit.id, catalog))
+				shown += 1
+			if shown == 0: _text("Chưa có tinh linh phù hợp. Hệ phân loại hỗ trợ SR / SSR / UR.")
 		"materials":
 			_text("KHO NGUYÊN LIỆU", 22, Color("d7a4ff"))
 			_text("Tinh thạch · %d" % p.shards, 19, Color("86caff"))
@@ -1053,7 +1071,10 @@ func _equipment_inventory() -> void:
 	for is_rarity in [false, true]:
 		var select := OptionButton.new()
 		select.custom_minimum_size = Vector2(235, 44)
-		for title in (["Mọi độ hiếm", "Thường", "Hiếm", "Sử thi"] if is_rarity else ["Tất cả trang bị", "Vũ khí", "Giáp"]): select.add_item(title)
+		var titles: Array = ["Mọi độ hiếm"] if is_rarity else ["Tất cả trang bị", "Vũ khí", "Giáp"]
+		if is_rarity:
+			for tier in range(1, 8): titles.append("%d · %s" % [tier, Recruitment.RARITIES[tier].name])
+		for title in titles: select.add_item(title)
 		select.selected = bag_rarity if is_rarity else ["all", "weapon", "armor"].find(bag_kind)
 		select.item_selected.connect(_bag_filter.bind(is_rarity))
 		filters.add_child(select)
@@ -1089,11 +1110,15 @@ func _open_spirit(id: String) -> void:
 	selected_spirit = id
 	_select_tab(18)
 
+func _spirit_rarity_filter(index: int) -> void:
+	bag_spirit_rarity = index
+	_refresh_panel()
+
 func _spirit_inventory_detail() -> void:
 	_row("← Kho tinh linh", _bag_open.bind("spirits"))
 	var p: Dictionary = store.profile
 	var spirit := catalog.find_row("assists", selected_spirit)
-	_text(spirit.name + " · " + _rarity("spirit", spirit.id), 24, Color("a2e5d6"))
+	_text(spirit.name + " · " + _rarity("spirit", spirit.id), 24, Recruitment.color("spirit", spirit.id, catalog))
 	var image := TextureRect.new()
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.texture = frames.textures["companion_" + spirit.id]
@@ -1114,25 +1139,36 @@ func _spirit_inventory_detail() -> void:
 func _forge_panel() -> void:
 	_row("← Túi đồ", _bag_open.bind(""))
 	_text("LÒ RÈN", 23, Color("e5cd9e"))
-	_text("65 vàng + 3 tinh thạch / món. Trang bị Sử thi triệu hồi không nằm trong danh sách rèn.")
+	_text("65 vàng + 3 tinh thạch / món. Trang bị bậc 4–7 chỉ từ triệu hồi, không nằm trong danh sách rèn.")
 	var p: Dictionary = store.profile
 	for def in catalog.data.items:
 		if def.get("summon_only", false): continue
 		_row("Rèn · " + def.name + " · " + _rarity("item", def.id), _forge.bind(def.id), _locked() or p.gold < 65 or p.shards < 3 or p.items.size() >= Store.BAG_CAP)
 
 func _shop_panel() -> void:
-	_text("SHOP", 25, Color("e5cd9e"))
-	_text("Triệu hồi đồng hành và chế tạo trang bị bằng tài nguyên kiếm trong hành trình.")
-	var grid := GridContainer.new()
-	grid.columns = 2
-	grid.add_theme_constant_override("h_separation", 10)
-	panel.add_child(grid)
-	_inventory_card(grid, "spirit", "Triệu hồi", "120 vàng / lượt", Color("d7a4ff"), _select_tab.bind(11), 232)
-	_inventory_card(grid, "forge", "Lò rèn", "65 vàng + 3 tinh thạch", Color("e5cd9e"), _select_tab.bind(19), 232)
+	var screen := ShopScreen.new()
+	screen.game = self
+	screen.selected = shop_page
+	panel.add_child(screen)
+
+func _shop_section(index: int) -> void:
+	if index < 0 or index >= ShopScreen.SECTIONS.size(): return
+	shop_page = index
+	_refresh_panel()
+
+func _shop_buy_confirm(id: String) -> void:
+	if id not in LocalShop.OFFERS: return
+	var offer: Dictionary = LocalShop.OFFERS[id]
+	_dialog(offer.name, "Mua với %d vàng?" % offer.gold, [{"text": "Mua", "call": _shop_buy.bind(id)}, {"text": "Hủy", "call": _close_modal}])
+
+func _shop_buy(id: String) -> void:
+	_close_modal()
+	_outcome(LocalShop.buy(store, id), "Đã nhận hàng từ cửa hàng vàng.", "reward")
 
 func _dungeons_panel() -> void:
 	_text("PHÓ BẢN", 25, Color("e5cd9e"))
 	_text("Thử thách để kiếm lõi tinh linh. Không tiêu vé; phần thưởng nhận khi thắng.")
+	_text("Đối thủ thuộc nhóm 1–4★; tách khỏi nhân vật chơi 5★.", 13)
 	for stage in catalog.data.stages:
 		if stage.get("kind") != "challenge": continue
 		_text(stage.name, 20, Color("e5cd9e"))
@@ -1145,10 +1181,11 @@ func _dungeons_panel() -> void:
 func _inspect_character(id: String) -> void:
 	if catalog.find_row("heroes", id).is_empty(): return
 	character_inspected = id
+	character_outfit_preview = ""
 	_refresh_panel()
 
 func _character_section(index: int) -> void:
-	if index < 0 or index > 4: return
+	if index < 0 or index > 6: return
 	character_page = index
 	_refresh_panel()
 
@@ -1167,3 +1204,17 @@ func _character_equip(uid: String, id: String) -> void:
 
 func _character_unequip(uid: String, id: String) -> void:
 	_outcome(store.unequip(uid, id), "Đã tháo trang bị.", "equip")
+
+func _character_skill_level(hero: String, index: int) -> void:
+	_outcome(store.upgrade("skill", index, hero), "Đã nâng kỹ năng nhân vật.", "upgrade")
+
+func _character_talent(hero: String, id: String) -> void:
+	_outcome(Expansion.talent(store, id, hero), "Đã cập nhật cây kỹ năng.", "upgrade")
+
+func _preview_character_outfit(id: String) -> void:
+	if id not in Wardrobe.LOOKS: return
+	character_outfit_preview = id
+	_refresh_panel()
+
+func _apply_character_outfit(hero: String, id: String) -> void:
+	_outcome(Wardrobe.apply(store, hero, id), "Đã áp dụng phối màu.")

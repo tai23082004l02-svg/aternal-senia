@@ -13,7 +13,8 @@
       "color": "#a9b9ed",
       "unlock": 1,
       "passive": "Kiếm quang: +12% sát thương kỹ năng",
-      "skill_bonus": 1.12
+      "skill_bonus": 1.12,
+      "rarity": 5
     },
     {
       "id": "ryn",
@@ -27,7 +28,8 @@
       "color": "#efaa87",
       "unlock": 2,
       "passive": "Liều lĩnh: chí mạng 18%",
-      "skill_bonus": 1.0
+      "skill_bonus": 1.0,
+      "rarity": 5
     },
     {
       "id": "mira",
@@ -41,7 +43,8 @@
       "color": "#88d6d1",
       "unlock": 3,
       "passive": "Dòng chảy: hồi phục mạnh hơn 25%",
-      "skill_bonus": 1.0
+      "skill_bonus": 1.0,
+      "rarity": 5
     }
   ],
   "items": [
@@ -63,13 +66,13 @@
       "name": "Kiếm nhật quang",
       "slot": "weapon",
       "category": "sword",
-      "rarity": 2,
+      "rarity": 3,
       "atk": 12,
       "hp": 0,
       "defense": 0,
       "color": "#edc58a",
       "element": "light",
-      "passive": "Kỹ năng hồi nhanh hơn 8%"
+      "passive": "Không có nội tại phụ"
     },
     {
       "id": "spear_1",
@@ -89,13 +92,13 @@
       "name": "Thương phượng",
       "slot": "weapon",
       "category": "spear",
-      "rarity": 2,
+      "rarity": 3,
       "atk": 12,
       "hp": 0,
       "defense": 0,
       "color": "#edc58a",
       "element": "fire",
-      "passive": "Kỹ năng hồi nhanh hơn 8%"
+      "passive": "Không có nội tại phụ"
     },
     {
       "id": "staff_1",
@@ -115,13 +118,13 @@
       "name": "Trượng tinh tú",
       "slot": "weapon",
       "category": "staff",
-      "rarity": 2,
+      "rarity": 3,
       "atk": 12,
       "hp": 0,
       "defense": 0,
       "color": "#edc58a",
       "element": "water",
-      "passive": "Kỹ năng hồi nhanh hơn 8%"
+      "passive": "Không có nội tại phụ"
     },
     {
       "id": "armor_1",
@@ -141,7 +144,7 @@
       "name": "Giáp hoàng hôn",
       "slot": "armor",
       "category": "all",
-      "rarity": 2,
+      "rarity": 3,
       "atk": 0,
       "hp": 50,
       "defense": 3,
@@ -154,7 +157,7 @@
       "name": "Ấn mặt trăng",
       "slot": "armor",
       "category": "all",
-      "rarity": 2,
+      "rarity": 3,
       "atk": 0,
       "hp": 70,
       "defense": 4,
@@ -163,15 +166,70 @@
       "passive": "Không có nội tại phụ"
     },
     {
+      "id": "armor_uncommon",
+      "name": "Áo choàng sương sớm",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 2,
+      "atk": 0,
+      "hp": 40,
+      "defense": 2,
+      "color": "#69b875",
+      "element": "none",
+      "passive": "Không có nội tại phụ"
+    },
+    {
       "id": "armor_4",
       "name": "Giáp tinh vân",
       "slot": "armor",
       "category": "all",
-      "rarity": 3,
+      "rarity": 4,
       "atk": 0,
       "hp": 90,
       "defense": 5,
-      "color": "#d7a4ff",
+      "color": "#aa70ff",
+      "summon_only": true,
+      "element": "none",
+      "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "armor_5",
+      "name": "Giáp thiên quang",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 5,
+      "atk": 0,
+      "hp": 115,
+      "defense": 6,
+      "color": "#efa52c",
+      "summon_only": true,
+      "element": "none",
+      "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "armor_6",
+      "name": "Giáp cổ thần",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 6,
+      "atk": 0,
+      "hp": 145,
+      "defense": 7,
+      "color": "#ef5555",
+      "summon_only": true,
+      "element": "none",
+      "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "armor_7",
+      "name": "Giáp thần thánh",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 7,
+      "atk": 0,
+      "hp": 180,
+      "defense": 9,
+      "color": "#e5c569",
       "summon_only": true,
       "element": "none",
       "passive": "Không có nội tại phụ"
@@ -377,6 +435,7 @@
     {
       "id": "lumi",
       "name": "Lumi",
+      "rarity": "SR",
       "role": "Hồi phục",
       "unlock": 1,
       "power": 0.09,
@@ -385,10 +444,38 @@
     {
       "id": "ash",
       "name": "Ash",
+      "rarity": "SSR",
       "role": "Xạ thủ",
       "unlock": 2,
       "power": 0.9,
       "interval": 2.2
+    }
+  ],
+  "opponents": [
+    {
+      "id": "slime",
+      "name": "Slime rừng",
+      "rarity": 1
+    },
+    {
+      "id": "wolf",
+      "name": "Sói rừng",
+      "rarity": 2
+    },
+    {
+      "id": "golem",
+      "name": "Cổ thụ",
+      "rarity": 3
+    },
+    {
+      "id": "guardian",
+      "name": "Hộ vệ",
+      "rarity": 4
+    },
+    {
+      "id": "bird",
+      "name": "Chim sấm",
+      "rarity": 4
     }
   ]
 }

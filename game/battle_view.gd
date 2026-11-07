@@ -68,9 +68,10 @@ func draw_world(canvas: CanvasItem) -> void:
 		_telegraph(canvas, hero_foot)
 	_shadow(canvas, hero_foot, 36)
 	hero_frame = library.motion_frame(stats.hero, pose.state, pose.time, pose.marker, pose.duration)
-	var tint := Color.WHITE
+	var look: Array = stats.get("look_tint", [1, 1, 1, 1])
+	var tint := Color(look[0], look[1], look[2], look[3])
 	if active and battle.hurt_left > .18:
-		tint = Color("ffd3c4")
+		tint *= Color("ffd3c4")
 	library.draw_actor(canvas, hero_frame, hero_foot, stats.weapon, tint, pose.state != "death")
 	_companion(canvas, stats)
 	_enemy(canvas, stage, enemy_foot)

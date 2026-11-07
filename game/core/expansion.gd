@@ -58,13 +58,15 @@ static func stats(book: GameCatalog, profile: Dictionary, hero: String, result: 
 		if item.uid == profile.heroes[hero].equipment.weapon:
 			result["weapon_trait"] = book.data.traits.get(item.base, {}).get("id", "")
 
-static func talent(store: ProgressStore, id: String) -> bool:
+static func talent(store: ProgressStore, id: String, hero_id: String = "") -> bool:
 	if id in ["nova", "flow"]: return SpiritSkills.choose(store, id)
 	var row := store.catalog.find_row("talents", id)
 	if row.is_empty() or not store.profile.pending.is_empty(): return false
 	var p := store.profile.duplicate(true)
-	var build: Dictionary = p.expansion.builds[p.hero]
-	if row.level > p.heroes[p.hero].level: return false
+	var target: String = p.hero if hero_id.is_empty() else hero_id
+	if not store.available_hero(target): return false
+	var build: Dictionary = p.expansion.builds[target]
+	if row.level > p.heroes[target].level: return false
 	if id not in build.learned:
 		if p.gold < row.gold or p.shards < row.shards: return false
 		p.gold -= row.gold
@@ -111,6 +113,10 @@ static func claim(store: ProgressStore, id: String) -> bool:
 	return store.commit(p)
 
 static func valid_snapshot(store: ProgressStore, snapshot: Dictionary) -> bool:
+	if snapshot.has("look_tint"):
+		if not snapshot.look_tint is Array or snapshot.look_tint.size() != 4: return false
+		for value in snapshot.look_tint:
+			if not store._number(value, 0, 1): return false
 	if snapshot.has("spirit_advanced") and snapshot.spirit_advanced not in ["", "echo", "aegis"]: return false
 	var fields := ["variants", "assist_rank", "weapon_trait"]
 	var present := 0

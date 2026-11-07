@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 4
+const VERSION = 5
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -113,6 +113,7 @@ func valid(p: Variant) -> bool:
 	if not AttributeTraining.valid(self, p): return false
 	if not SpiritSkills.valid(self, p) or not Recruitment.valid(self, p): return false
 	if not HeroEvolution.valid(self, p): return false
+	if not Wardrobe.valid(self, p): return false
 	return p.settings.get("speed") in [1, 2, 3] and p.settings.get("sound") is bool
 
 func _number(value: Variant, low: float, high: float) -> bool:
@@ -418,8 +419,18 @@ func _decode(file_path: String) -> Variant:
 			for item in raw.items:
 				if item is Dictionary and item.get("base") is String and item.base not in raw.expansion.discovered:
 					raw.expansion.discovered.append(item.base)
-	elif raw is Dictionary and raw.get("version") == 3:
+	elif raw is Dictionary and raw.get("version") in [3, 4]:
 		raw.version = VERSION
+		if raw.get("recruitment") is Dictionary and raw.recruitment.get("history") is Array:
+			for entry in raw.recruitment.history:
+				if not entry is Dictionary or entry.get("kind") not in ["hero", "spirit", "item"]: continue
+				var id = entry.get("id")
+				var group: String = {"hero": "heroes", "spirit": "assists", "item": "items"}[entry.kind]
+				if catalog.find_row(group, id).is_empty(): continue
+				var old_rarity: int = (1 if str(id).ends_with("_1") else (3 if id == "armor_4" else 2)) if entry.kind == "item" else (2 if id in ["eira", "lumi"] else 3)
+				if entry.get("rarity") == old_rarity:
+					entry["grade"] = old_rarity
+					entry.rarity = Recruitment.rarity(entry.kind, id, catalog)
 	return raw
 
 func _whole(value: Variant, low: float, high: float) -> bool:

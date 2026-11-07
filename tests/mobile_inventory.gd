@@ -55,7 +55,7 @@ func run() -> void:
 	game._bag_open("equipment")
 	await capture("mobile-equipment")
 	game._bag_filter(2, false)
-	game._bag_filter(3, true)
+	game._bag_filter(4, true)
 	await capture("mobile-filter")
 	assert(game.store.profile == original, "Browsing and filtering cannot mutate storage")
 	game._item_detail("item_1")
@@ -93,7 +93,7 @@ func run() -> void:
 	count = game.store.profile.items.size()
 	# Empty filter keeps navigation visible and does not discard items.
 	game._bag_filter(1, false)
-	game._bag_filter(3, true)
+	game._bag_filter(4, true)
 	assert(game.store.profile.items.size() == count)
 	await capture("mobile-empty-filter")
 	game._select_tab(15)
@@ -121,5 +121,6 @@ func run() -> void:
 	await create_timer(.2).timeout
 	game.queue_free()
 	await process_frame
+	await RenderingServer.frame_post_draw
 	print("PASS: mobile navigation, inventory categories, filters, equip, spirit select, materials, forge/dismantle, persistence and battle lock")
 	quit()

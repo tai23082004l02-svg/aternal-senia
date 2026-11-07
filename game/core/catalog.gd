@@ -15,7 +15,14 @@ func _init() -> void:
 	for key in ["talents", "traits", "achievements", "chapters"]:
 		data[key] = expansion[key]
 	for item in data.items:
+		if item.get("rarity") not in [1, 2, 3, 4, 5, 6, 7]: errors.append("Độ hiếm trang bị không hợp lệ")
 		if data.traits.has(item.id): item.passive = data.traits[item.id].description
+	for hero in data.heroes:
+		if hero.get("rarity") not in [1, 2, 3, 4, 5]: errors.append("Độ hiếm gốc nhân vật không hợp lệ")
+	for spirit in data.assists:
+		if spirit.get("rarity") not in ["SR", "SSR", "UR"]: errors.append("Độ hiếm tinh linh không hợp lệ")
+	for opponent in data.opponents:
+		if opponent.get("rarity") not in [1, 2, 3, 4]: errors.append("Độ hiếm đối thủ không hợp lệ")
 	for group in ["heroes", "items", "skills", "stages", "quests", "assists", "talents", "achievements", "chapters"]:
 		var ids: Array = []
 		for row in data[group]:
@@ -76,6 +83,8 @@ func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 	result.defense += awakening
 	var evolution_bonus := 1.0 + (HeroEvolution.rank(profile, hero_id) - 1) * .08
 	for stat in ["hp", "atk", "defense"]: result[stat] *= evolution_bonus
+	var look := Wardrobe.tint(profile, hero_id)
+	result["look_tint"] = [look.r, look.g, look.b, look.a]
 	return normalize(result)
 
 static func normalize(value: Variant) -> Variant:

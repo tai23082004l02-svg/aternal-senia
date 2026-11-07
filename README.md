@@ -1,4 +1,20 @@
-# Aternal Senia — First Light · 0.11
+# Aternal Senia — First Light · 0.12
+
+## Shop, độ hiếm & nhân vật · 0.12
+
+- Nhân vật có thêm hai mục **Kỹ năng** (cây nhánh ngay trong khung phải) và
+  **Trang phục** (xem trước/áp dụng phối màu, không đổi chỉ số).
+- **5★ là độ hiếm gốc**, không phải điều kiện nâng sao để mở tương tác. Ba hero
+  chơi hiện tại là mẫu 5★; đối thủ 1–4★ được phân loại riêng. Chân dung 5★ có
+  bản thử chạm/kéo/nhún toàn sprite, chưa có tóc/vải tách lớp như clip tham khảo.
+- Trang bị đủ **7 bậc**; Tinh linh dùng **SR/SSR/UR** riêng (Lumi SR, Ash SSR;
+  chưa thêm mẫu UR). Kho có bộ lọc tương ứng.
+- Shop có sáu mục cuộn ngang: **Vàng, Kim cương, Triệu hồi, Sự kiện, Gói ưu đãi,
+  Quảng cáo thưởng**. Vàng và Triệu hồi hoạt động; bốn dịch vụ còn lại hiện là
+  giao diện chờ cấu hình, không có SDK quảng cáo/thanh toán thật.
+- Save v5 đọc v2/v3/v4, giữ ví, vật phẩm, sao mở rộng và pending snapshot.
+
+[Ảnh, công thức và kiểm chứng](docs/SHOP_RARITY_CHARACTER.md).
 
 ## Mục Nhân vật ba cột · 0.11
 

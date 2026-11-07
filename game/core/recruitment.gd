@@ -2,11 +2,32 @@ class_name Recruitment
 extends RefCounted
 
 const PRICE := 120
-const RARITIES := {1: {"name": "Thường", "color": "b8c4c9"}, 2: {"name": "Hiếm", "color": "86caff"}, 3: {"name": "Sử thi", "color": "d7a4ff"}}
+const RARITIES := {
+	1: {"name": "Thường", "color": "a4aab5"},
+	2: {"name": "Không phổ biến", "color": "69b875"},
+	3: {"name": "Hiếm", "color": "608dff"},
+	4: {"name": "Sử thi", "color": "aa70ff"},
+	5: {"name": "Huyền thoại", "color": "efa52c"},
+	6: {"name": "Thần thoại", "color": "ef5555"},
+	7: {"name": "Thần thánh", "color": "e5c569"}
+}
+const SPIRIT_RARITIES := {1: {"name": "SR", "color": "86caff"}, 2: {"name": "SSR", "color": "d7a4ff"}, 3: {"name": "UR", "color": "e5c569"}}
+const GROUP_NAMES := {1: "Cơ bản", 2: "Nâng cao", 3: "Cao cấp"}
 
 static func rarity(kind: String, id: String, book: GameCatalog) -> int:
 	if kind == "item": return int(book.find_row("items", id).get("rarity", 1))
-	return 2 if id in ["eira", "lumi"] else 3
+	if kind == "spirit": return {"SR": 1, "SSR": 2, "UR": 3}.get(book.find_row("assists", id).get("rarity", "SR" if id == "lumi" else "SSR"), 1)
+	return int(book.find_row("heroes", id).get("rarity", 5))
+
+static func label(kind: String, id: String, book: GameCatalog, profile: Dictionary = {}) -> String:
+	if kind == "item": return RARITIES[rarity(kind, id, book)].name
+	if kind == "spirit": return SPIRIT_RARITIES[rarity(kind, id, book)].name
+	return "%d★" % rarity(kind, id, book)
+
+static func color(kind: String, id: String, book: GameCatalog, profile: Dictionary = {}) -> Color:
+	if kind == "spirit": return Color(SPIRIT_RARITIES[rarity(kind, id, book)].color)
+	var tier := rarity(kind, id, book)
+	return Color(RARITIES[tier].color)
 
 static func fresh() -> Dictionary:
 	return {"seed": 17, "count": 0, "pity": 0, "heroes": [], "spirits": [], "fragments": {"eira": 0, "ryn": 0, "mira": 0}, "awakening": {"eira": 1, "ryn": 1, "mira": 1}, "history": []}
@@ -33,7 +54,7 @@ static func valid(store: ProgressStore, p: Dictionary) -> bool:
 			if store.catalog.find_row("heroes" if key == "heroes" else "assists", id).is_empty(): return false
 	if not r.fragments is Dictionary or not r.awakening is Dictionary: return false
 	for hero in store.catalog.data.heroes:
-		if not store._whole(r.fragments.get(hero.id), 0, 1e12) or not store._whole(r.awakening.get(hero.id), 1, 3): return false
+		if not store._whole(r.fragments.get(hero.id), 0, 1e12) or not store._whole(r.awakening.get(hero.id), 1, 5): return false
 	if not r.history is Array or r.history.size() > 10: return false
 	for entry in r.history:
 		if not entry is Dictionary or entry.get("kind") not in ["hero", "spirit", "item"] or not entry.get("duplicate") is bool: return false
@@ -45,7 +66,12 @@ static func pool(book: GameCatalog, tier: int) -> Array:
 	var result: Array = []
 	for pair in [["hero", "heroes"], ["spirit", "assists"], ["item", "items"]]:
 		for row in book.data[pair[1]]:
-			if rarity(pair[0], row.id, book) == tier: result.append({"kind": pair[0], "id": row.id, "rarity": tier})
+			var rank := rarity(pair[0], row.id, book)
+			var grade := 2 if row.id in ["eira", "lumi"] else 3
+			if pair[0] == "item": grade = 1 if rank <= 2 else (2 if rank == 3 else 3)
+			if grade != tier: continue
+			var weight: int = {4: 12, 5: 6, 6: 3, 7: 1}.get(rank, 12) if grade == 3 else 1
+			result.append({"kind": pair[0], "id": row.id, "rarity": rank, "grade": grade, "weight": weight})
 	return result
 
 static func summon(store: ProgressStore) -> bool:
@@ -59,7 +85,16 @@ static func summon(store: ProgressStore) -> bool:
 	var roll := rng.randi_range(0, 9999)
 	var tier := 3 if r.pity >= 19 or roll >= 9500 else (2 if roll >= 7000 else 1)
 	var candidates := pool(store.catalog, tier)
-	var reward: Dictionary = candidates[rng.randi_range(0, candidates.size() - 1)].duplicate(true)
+	var total := 0
+	for entry in candidates: total += int(entry.weight)
+	var choice := rng.randi_range(1, total)
+	var reward: Dictionary = {}
+	for entry in candidates:
+		choice -= int(entry.weight)
+		if choice <= 0:
+			reward = entry.duplicate(true)
+			break
+	reward.erase("weight")
 	reward["duplicate"] = false
 	p.gold -= PRICE
 	match reward.kind:
@@ -85,7 +120,7 @@ static func awaken(store: ProgressStore, hero_id: String = "") -> bool:
 	var target: String = p.hero if hero_id.is_empty() else hero_id
 	if not store.available_hero(target): return false
 	var rank: int = p.recruitment.awakening[target]
-	if rank >= 3 or p.heroes[target].level < rank * 10 or p.gold < rank * 200 or p.recruitment.fragments[target] < rank * 20: return false
+	if rank >= 5 or p.heroes[target].level < rank * 10 or p.gold < rank * 200 or p.recruitment.fragments[target] < rank * 20: return false
 	p.gold -= rank * 200
 	p.recruitment.fragments[target] -= rank * 20
 	p.recruitment.awakening[target] += 1

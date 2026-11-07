@@ -11,6 +11,7 @@
 - Fetch/status trước khi đẩy; không force push, không ghi đè thay đổi của người khác.
 - Thuộc tính 0.8: chạy tests/attribute_training.gd khi sửa điểm hoặc stats; tests/training_ui.gd khi sửa màn thuộc tính/sổ tay. Trường training bổ sung trong save v3 là tùy chọn; save cũ giữ nguyên và có điểm chưa phân bổ theo cấp. Khóa build khi còn pending run.
 - Từ 0.9 save v4 đọc v2/v3, giữ nguyên pending snapshot; cây Tinh linh lưu riêng theo assist. Chạy tests/recruitment.gd, tests/skill_effects.gd, tests/progression_ui.gd và tests/skill_gallery.gd khi sửa tính năng mới. Triệu hồi dùng RNG riêng seed/count đã lưu, chi phí + pity + reward cùng transaction; không thêm RNG vào renderer.
+- Từ 0.12 save v5 đọc v2/v3/v4. Hero 5★ là độ hiếm catalogue, tương tác thiết kế sẵn theo mẫu; không dùng awakening/sao mở rộng để mở khóa tương tác. Nhóm đối thủ 1–4★ ở catalogue opponents. Trang bị 1–7, tinh linh SR/SSR/UR; ba hệ độc lập. Shop quảng cáo/gói thanh toán chưa có dịch vụ, không tự thêm SDK hoặc phát thưởng giả. Đọc docs/SHOP_RARITY_CHARACTER.md và chạy rarity_system, wardrobe, portrait_touch, shop_ui, character_ui khi sửa các phần này.
 
 - Âm thanh: đọc docs/AUDIO.md. Model phát cue theo marker; View/Pose Lab không phát âm.
 - Không dùng RNG chiến đấu để chọn âm. Mute phải dừng voice và tiêu thụ cursor; không phát lại backlog.

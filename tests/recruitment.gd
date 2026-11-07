@@ -40,7 +40,7 @@ func run() -> void:
 	file.close()
 	var legacy_bytes := FileAccess.get_file_as_bytes(legacy_path)
 	var migrated := ProgressStore.new(book, legacy_path)
-	check(not migrated.read_only and migrated.profile.version == 4 and migrated.profile.gold == legacy.gold, "v3 migration keeps wallets")
+	check(not migrated.read_only and migrated.profile.version == ProgressStore.VERSION and migrated.profile.gold == legacy.gold, "v3 migration keeps wallets")
 	check(SpiritSkills.upgrade(migrated) and FileAccess.get_file_as_bytes(legacy_path + ".bak") == legacy_bytes, "First v4 write backs up original v3 bytes")
 	check(SpiritSkills.builds(p).lumi.level == 6 and SpiritSkills.builds(p).ash.level == 6, "Both spirits inherit highest paid legacy level")
 	check(SpiritSkills.builds(p).lumi.selected == "nova", "Legacy branch retained")
@@ -67,7 +67,7 @@ func run() -> void:
 	check(is_equal_approx(battle.barrier, battle.stats.hp * .1), "Aegis creates actual barrier at marker")
 	for tier in [1, 2, 3]:
 		check(not Recruitment.pool(book, tier).is_empty(), "Every rarity has candidates")
-	check(Recruitment.rarity("item", "armor_4", book) == 3 and not store.forge("armor_4"), "Epic armor is classified and summon-only")
+	check(Recruitment.rarity("item", "armor_4", book) == 4 and not store.forge("armor_4"), "Epic armor is classified and summon-only")
 	p = store.profile.duplicate(true)
 	p.recruitment = Recruitment.fresh()
 	p.recruitment.seed = 17
@@ -75,7 +75,7 @@ func run() -> void:
 	check(store.commit(p), "Pity fixture")
 	var gold: int = store.profile.gold
 	check(Recruitment.summon(store), "Guaranteed epic draw")
-	check(store.profile.recruitment.history[0].rarity == 3 and store.profile.recruitment.pity == 0, "Pity guarantees and resets")
+	check(store.profile.recruitment.history[0].grade == 3 and store.profile.recruitment.pity == 0, "Pity guarantees and resets")
 	check(store.profile.gold == gold - 120, "Exactly one summon cost")
 	var categories := {}
 	for i in range(200):
