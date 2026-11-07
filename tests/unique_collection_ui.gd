@@ -27,7 +27,6 @@ func run() -> void:
 	p.recruitment.seed = 17
 	for item in game.catalog.data.items:
 		game.store._add_item(p, item.id)
-		game.store._add_item(p, item.id)
 	p.collection_fragments.spirits.lumi = 20
 	p.collection_fragments.spirits.ash = 10
 	assert(game.store.commit(p))
@@ -49,9 +48,10 @@ func run() -> void:
 	game._select_tab(11)
 	var count: int = game.store.profile.items.size()
 	game._summon_execute(10)
-	assert(game.store.profile.items.size() == count)
+	assert(game.store.profile.items.size() >= count)
 	for result in game.store.profile.recruitment.history:
-		assert(result["duplicate"] and result.fragment_amount == 10)
+		if result.kind == "item": assert(not result["duplicate"])
+		else: assert(result["duplicate"] and result.fragment_amount == 10)
 	await capture("unique-summon-results")
 	game._close_modal()
 	game.audio.shutdown()

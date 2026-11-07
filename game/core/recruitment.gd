@@ -89,11 +89,13 @@ static func summon(store: ProgressStore, count: int = 1) -> bool:
 	ensure(store, p)
 	if p.recruitment.count > 2147483647 - count: return false
 	for i in range(count):
-		_draw(store, p)
+		if not _draw(store, p):
+			store.error = "Túi trang bị đầy. Hãy phân giải hoặc hợp thành rồi thử lại; chưa trừ vàng."
+			return false
 	MissionBoard.record(p, "summon", count)
 	return store.commit(p)
 
-static func _draw(store: ProgressStore, p: Dictionary) -> void:
+static func _draw(store: ProgressStore, p: Dictionary) -> bool:
 	var r: Dictionary = p.recruitment
 	var rng := RandomNumberGenerator.new()
 	rng.seed = int(r.seed) + int(r.count) * 7919
@@ -113,7 +115,8 @@ static func _draw(store: ProgressStore, p: Dictionary) -> void:
 	reward["duplicate"] = false
 	p.gold -= PRICE
 	match reward.kind:
-		"item": reward["duplicate"] = store._add_item(p, reward.id)
+		"item":
+			if not store._add_item(p, reward.id): return false
 		"hero":
 			reward["duplicate"] = (store.available_hero(reward.id) or reward.id in r.heroes)
 			if reward.id not in r.heroes: r.heroes.append(reward.id)
@@ -127,6 +130,7 @@ static func _draw(store: ProgressStore, p: Dictionary) -> void:
 	r.pity = 0 if tier == 3 else r.pity + 1
 	r.history.push_front(reward)
 	if r.history.size() > HISTORY_LIMIT: r.history.pop_back()
+	return true
 
 static func awaken(store: ProgressStore, hero_id: String = "") -> bool:
 	if store.read_only or not store.profile.pending.is_empty(): return false

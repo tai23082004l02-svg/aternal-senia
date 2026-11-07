@@ -150,7 +150,7 @@ Khi bàn giao phiên sau, ghi: commit đang làm, yêu cầu người dùng, ID 
 động, hình chuẩn, file đã đổi, builder cần chạy, kiểm tra đã thực hiện và giới
 hạn còn lại. Giữ tài liệu này cùng thay đổi art để không phải đoán từ chat cũ.
 
-Quy tắc sở hữu/mảnh và save hiện hành từ0.23: [UNIQUE_COLLECTION.md](UNIQUE_COLLECTION.md). Trang bị mỗi ID một bản, nhận trùng gear/hero/spirit thành10 mảnh đúng ID.
+Quy tắc sở hữu/save hiện hành từ0.30: [BAG_INVENTORY.md](BAG_INVENTORY.md). Trang bị có nhiều bản cùng ID, UID/nâng cấp độc lập; hero/spirit trùng thành10 mảnh đúng ID. Quy tắc singleton0.23 là lịch sử.
 
 ## Banner màn Nhân vật · 0.29
 

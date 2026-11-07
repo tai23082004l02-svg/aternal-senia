@@ -64,6 +64,11 @@ var details_paused := false
 var icons := UIIcons.new()
 var skill_group_labels: Array[Label] = []
 var bag_section := ""
+var bag_sort := 0
+var bag_selecting := false
+var bag_selected: Array[String] = []
+var forge_page := 0
+var forge_count := 1
 var bag_kind := "all"
 var bag_rarity := 0
 var bag_spirit_rarity := 0
@@ -542,10 +547,7 @@ func _enhance(uid: String, rank_up: bool) -> void:
 	_outcome(store.enhance(uid, rank_up), "Đã nâng trang bị.", "forge")
 
 func _forge(id: String) -> void:
-	var owned := false
-	for item in store.profile.items:
-		if item.base == id: owned = true
-	_outcome(store.forge(id), "Trang bị trùng: +10 mảnh " + catalog.find_row("items", id).name if owned else "Đã rèn một món mới.", "forge")
+	_outcome(store.forge(id), "Đã chế tạo một bản trang bị mới.", "forge")
 
 func _dismantle_confirm(uid: String) -> void:
 	_dialog("Phân giải trang bị?", "Món đồ chưa trang bị sẽ đổi thành tinh thạch. Không thể lấy lại món cũ.", [{"text": "Phân giải", "call": _dismantle.bind(uid)}, {"text": "Giữ lại", "call": _close_modal}])
@@ -602,6 +604,7 @@ func _finish() -> void:
 	var won := battle.state == "won"
 	var gold_before: int = store.profile.gold
 	var shards_before: int = store.profile.shards
+	var queued_before: int = store.profile.bag_rewards.size()
 	var fragments_before: Dictionary = store.profile.collection_fragments.items.duplicate()
 	var old_uids: Array = []
 	for item in store.profile.items:
@@ -611,7 +614,7 @@ func _finish() -> void:
 		return
 	if won:
 		var stage: Dictionary = battle.stage
-		var loot := ""
+		var loot := "Trang bị đã được giữ ở Chiến lợi phẩm chờ nhận." if store.profile.bag_rewards.size() > queued_before else ""
 		for id in store.profile.collection_fragments.items:
 			var amount: int = store.profile.collection_fragments.items[id] - fragments_before[id]
 			if amount > 0: loot = "Trang bị trùng: +%d mảnh %s" % [amount, catalog.find_row("items", id).name]
@@ -1017,7 +1020,7 @@ func _select_summon_kind(index: int) -> void:
 
 func _summon_confirm(count: int) -> void:
 	if summon_kind != 0 or _locked(): return
-	_dialog("Triệu hồi ×%d?" % count, "Chi phí: %d vàng.\nMỗi lượt có bảo hiểm riêng theo bộ đếm. Mỗi món sở hữu một bản. Nhận trùng đổi thành 10 mảnh đúng trang bị, nhân vật hoặc tinh linh đó." % (Recruitment.PRICE * count), [{"text": "Triệu hồi", "call": _summon_execute.bind(count)}, {"text": "Hủy", "call": _close_modal}])
+	_dialog("Triệu hồi ×%d?" % count, "Chi phí: %d vàng.\nMỗi lượt có bảo hiểm riêng theo bộ đếm. Trang bị nhận riêng từng bản; nhân vật/tinh linh trùng đổi thành10 mảnh. Nếu túi không đủ chỗ cho cả lượt quay, giao dịch không trừ vàng." % (Recruitment.PRICE * count), [{"text": "Triệu hồi", "call": _summon_execute.bind(count)}, {"text": "Hủy", "call": _close_modal}])
 
 func _summon_execute(count: int) -> void:
 	if summon_kind != 0 or _locked(): return
@@ -1037,7 +1040,7 @@ func _summon_history() -> void:
 	SummonScreen.show_results(self, "LỊCH SỬ TRIỆU HỒI", Recruitment.state(store.profile).history)
 
 func _summon_rates() -> void:
-	var text := "Sở hữu tối đa một bản mỗi món/nhân vật/tinh linh. Trùng đổi thành 10 mảnh đúng loại.\nThường: 70% · Nâng cao: 25% · Cao cấp: 5%. Sau 19 lượt chưa ra nhóm Cao cấp, lượt 20 bảo đảm nhóm này. Đây là nhóm quay, độc lập độ hiếm.\n"
+	var text := "Trang bị nhận thành từng bản riêng. Nhân vật/tinh linh trùng đổi thành10 mảnh đúng loại.\nThường: 70% · Nâng cao: 25% · Cao cấp: 5%. Sau 19 lượt chưa ra nhóm Cao cấp, lượt 20 bảo đảm nhóm này. Đây là nhóm quay, độc lập độ hiếm.\n"
 	for tier in [1, 2, 3]:
 		var candidates := Recruitment.pool(catalog, tier)
 		var total := 0
@@ -1143,66 +1146,104 @@ func _bag_open(section: String) -> void:
 	bag_section = section
 	_select_tab(2)
 
+func _bag_type_count() -> int:
+	var types := {}
+	for item in store.profile.items: types[item.base] = true
+	return types.size()
+
+func _bag_help() -> void:
+	SummonScreen.show_text(self,"HƯỚNG DẪN TÚI ĐỒ","Trang bị có thể có nhiều bản cùng tên. Mỗi bản có UID, cường hóa và bậc riêng. Túi có40 ô.\n\nE: đang được nhân vật sử dụng. Chọn Tách để phân giải nhiều món; trang bị đang dùng được bảo vệ.\n\nHợp thành: giữ một bản, dùng hai bản +0 cùng món/cùng bậc để tăng một bậc; tối đa bậc3.\n\nNhân vật/tinh linh trùng vẫn đổi thành10 mảnh đúng loại. Mảnh trang bị cũ vẫn giữ. Đồ rơi khi túi đầy nằm ở Chiến lợi phẩm chờ nhận.")
+
+func _bag_sort_next() -> void:
+	bag_sort = (bag_sort+1)%3
+	_refresh_panel()
+
+func _bag_select_mode() -> void:
+	bag_selecting = not bag_selecting
+	bag_selected.clear()
+	_refresh_panel()
+
+func _bag_toggle_uid(uid: String) -> void:
+	if _locked(): return
+	for hero in store.profile.heroes.values():
+		if uid in hero.equipment.values(): return
+	if uid in bag_selected: bag_selected.erase(uid)
+	else: bag_selected.append(uid)
+	_refresh_panel()
+
+func _bag_dismantle_confirm() -> void:
+	if _locked() or bag_selected.is_empty(): return
+	var lines: Array[String] = []
+	var amount := 0
+	for uid in bag_selected:
+		var item := EquipmentSystem.item_for(store.profile,uid)
+		if item.is_empty(): return
+		amount += 1+int(item.rank)
+		lines.append("%s +%d · bậc%d · %s" % [catalog.find_row("items",item.base).name,item.enhance,item.rank,uid])
+	_dialog("Phân giải %d trang bị?" % bag_selected.size(),"Nhận %d tinh thạch. Các bản được chọn và nâng cấp của chúng sẽ bị tiêu thụ.\n\n" % amount+"\n".join(lines),[{"text":"Phân giải","call":_bag_dismantle_execute.bind(bag_selected.duplicate())},{"text":"Hủy","call":_close_modal}])
+
+func _bag_dismantle_execute(uids: Array) -> void:
+	_close_modal()
+	var ok := store.dismantle_many(uids)
+	if ok:
+		bag_selected.clear()
+		bag_selecting = false
+	_outcome(ok,"Đã phân giải các bản đã chọn.","forge")
+
+func _bag_claim_loot() -> void:
+	_outcome(store.claim_bag_rewards(),"Đã chuyển chiến lợi phẩm vào chỗ trống trong túi.","reward")
+
+func _bag_spirit_select(id: String) -> void:
+	selected_spirit = id
+	_refresh_panel()
+
+func _bag_upgrade_spirit(id: String) -> void:
+	_outcome(store.upgrade_assist(id),"Đã nâng cấp "+catalog.find_row("assists",id).name,"upgrade")
+
+func _bag_material_detail(key: String) -> void:
+	var title := "NGUYÊN LIỆU"
+	var lines: Array[String] = []
+	match key:
+		"gold": lines.append("Vàng: %d\nDùng nâng cấp, chế tạo và triệu hồi." % store.profile.gold)
+		"shards": lines.append("Tinh thạch: %d\nDùng cường hóa, tiến bậc, chế tạo và học kỹ năng." % store.profile.shards)
+		"xp": lines.append("XP: %d\nDùng tăng cấp nhân vật cùng với vàng." % store.profile.xp)
+		"cores": lines.append("Lõi tinh linh: %d\nDùng tiến hóa nhân vật và tinh linh." % store.profile.expansion.cores)
+		"fragments":
+			for row in catalog.data.heroes: lines.append("Mảnh %s: %d" % [row.name,Recruitment.state(store.profile).fragments[row.id]])
+		"spirit":
+			for row in catalog.data.assists: lines.append("Mảnh %s: %d" % [row.name,store.profile.collection_fragments.spirits[row.id]])
+		"weapon_category":
+			for row in catalog.data.items: lines.append("Mảnh %s: %d" % [row.name,store.profile.collection_fragments.items[row.id]])
+	SummonScreen.show_text(self,title,"\n\n".join(lines))
+
+func _forge_tab(index: int) -> void:
+	forge_page = index
+	_refresh_panel()
+
+func _forge_batch_confirm(id: String) -> void:
+	if _locked(): return
+	var count := forge_count
+	_dialog("Chế tạo %d × %s?" % [count,catalog.find_row("items",id).name],"Cần %d vàng +%d tinh thạch và %d ô túi. Mỗi bản có nâng cấp riêng." % [65*count,3*count,count],[{"text":"Chế tạo","call":_forge_batch_execute.bind(id,count)},{"text":"Hủy","call":_close_modal}])
+
+func _forge_batch_execute(id: String, count: int) -> void:
+	_close_modal()
+	_outcome(store.forge(id,count),"Đã chế tạo %d bản trang bị." % count,"forge")
+
+func _forge_fuse_confirm(uid: String) -> void:
+	if _locked(): return
+	var donors := store.fusion_donors(uid)
+	var item := EquipmentSystem.item_for(store.profile,uid)
+	if donors.size() != 2 or item.is_empty(): return
+	_dialog("Hợp thành "+catalog.find_row("items",item.base).name+"?","Giữ %s +%d và nâng bậc%d → %d.\nTiêu thụ hai bản +0: %s. Các bản bị tiêu thụ không thể lấy lại." % [uid,item.enhance,item.rank,item.rank+1,", ".join(donors)],[{"text":"Hợp thành","call":_forge_fuse_execute.bind(uid,donors)},{"text":"Hủy","call":_close_modal}])
+
+func _forge_fuse_execute(uid: String, donors: Array) -> void:
+	_close_modal()
+	_outcome(store.fuse(uid,donors),"Đã hợp thành, giữ nguyên cường hóa của bản chính.","forge")
+
 func _items_panel() -> void:
-	var p: Dictionary = store.profile
-	if bag_section == "":
-		_text("TÚI ĐỒ", 25, Color("e5cd9e"))
-		_text("Trang bị, tinh linh và nguyên liệu được quản lý trong các kho riêng.")
-		var grid := GridContainer.new()
-		grid.columns = 2
-		grid.add_theme_constant_override("h_separation", 10)
-		grid.add_theme_constant_override("v_separation", 10)
-		panel.add_child(grid)
-		var owned := 0
-		for spirit in catalog.data.assists:
-			if store.available_assist(spirit.id): owned += 1
-		_inventory_card(grid, "equipment", "Trang bị", "%d loại · mỗi món một bản" % p.items.size(), Color("86caff"), _bag_open.bind("equipment"), 232)
-		_inventory_card(grid, "companion", "Tinh linh", "%d / %d đã mở" % [owned, catalog.data.assists.size()], Color("a2e5d6"), _bag_open.bind("spirits"), 232)
-		_inventory_card(grid, "crystal", "Nguyên liệu", "Tinh thạch · lõi · mảnh", Color("d7a4ff"), _bag_open.bind("materials"), 232)
-		_inventory_card(grid, "forge", "Lò rèn", "Chế tạo trang bị", Color("e5cd9e"), _select_tab.bind(19), 232)
-		return
-	_row("← Các kho trong Túi đồ", _bag_open.bind(""))
-	match bag_section:
-		"equipment": _equipment_inventory()
-		"spirits":
-			_text("KHO TINH LINH", 22, Color("a2e5d6"))
-			_text("Chọn để xem chi tiết, đi cùng, nâng cấp hoặc mở cây kỹ năng.")
-			var select := OptionButton.new()
-			select.custom_minimum_size = Vector2(464, 44)
-			for title in ["Tất cả tinh linh", "SR", "SSR", "UR"]: select.add_item(title)
-			select.selected = bag_spirit_rarity
-			select.item_selected.connect(_spirit_rarity_filter)
-			panel.add_child(select)
-			var shown := 0
-			for spirit in catalog.data.assists:
-				if bag_spirit_rarity != 0 and Recruitment.rarity("spirit", spirit.id, catalog) != bag_spirit_rarity: continue
-				var available := store.available_assist(spirit.id)
-				var b := _row(spirit.name + " · " + _rarity("spirit", spirit.id) + (" · cấp %d · bậc %d" % [p.assists[spirit.id], p.expansion.ranks[spirit.id]] if available else " · Chưa mở"), _open_spirit.bind(spirit.id))
-				icons.apply(b, "companion", 36)
-				b.add_theme_color_override("font_color", Recruitment.color("spirit", spirit.id, catalog))
-				shown += 1
-			if shown == 0: _text("Chưa có tinh linh phù hợp. Hệ phân loại hỗ trợ SR / SSR / UR.")
-		"materials":
-			_text("KHO NGUYÊN LIỆU", 22, Color("d7a4ff"))
-			_material_text("Tinh thạch · %d" % p.shards, "shards", Color("86caff"))
-			_text("Cường hóa, tiến bậc, rèn và học nhánh kỹ năng.")
-			_material_text("Lõi tinh linh · %d" % p.expansion.cores, "cores", Color("a2e5d6"))
-			_text("Dùng tiến hóa nhân vật và đồng hành; kiếm từ phụ bản hoặc thành tựu.")
-			var r := Recruitment.state(p)
-			for hero in catalog.data.heroes:
-				_material_text("Mảnh %s · %d" % [hero.name, r.fragments[hero.id]], "fragments", Color("e5cd9e"))
-			_text("Mảnh nhân vật dùng mở rộng, tăng sao đúng nhân vật đó.")
-			_text("MẢNH TINH LINH", 18, Color("a2e5d6"))
-			for spirit in catalog.data.assists:
-				_material_text("Mảnh %s · %d" % [spirit.name, p.collection_fragments.spirits[spirit.id]], "fragments", Color("a2e5d6"))
-			_text("MẢNH TRANG BỊ", 18, Color("e5cd9e"))
-			for item in catalog.data.items:
-				_material_text("%s · %d mảnh" % [item.name, p.collection_fragments.items[item.id]], item.id, Color("e5cd9e"))
-			_text("Mảnh giữ riêng từng loại. Tính năng dùng mảnh trang bị/tinh linh chưa mở.", 13)
-			_material_text("Kinh nghiệm nhân vật · %d XP" % p.xp, "xp", Color("c0d0cb"))
-			_row("Cường hóa & Mở rộng →", _select_tab.bind(12))
-			_row("Tiến hóa đồng hành →", _select_tab.bind(7))
-			_row("Đến lò rèn →", _select_tab.bind(19))
+	var screen := BagScreen.new()
+	screen.game = self
+	panel.add_child(screen)
 
 func _inventory_card(parent: Node, key: String, title: String, subtitle: String, color: Color, action: Callable, width: int = 112) -> Button:
 	var card := _button(parent, "", Vector2.ZERO, Vector2(width, 118), action)
@@ -1236,12 +1277,12 @@ func _inventory_card(parent: Node, key: String, title: String, subtitle: String,
 
 func _equipment_inventory() -> void:
 	var p: Dictionary = store.profile
-	_text("KHO TRANG BỊ · %d loại" % p.items.size(), 21, Color("e5cd9e"))
+	_text("%d loại · %d món trang bị" % [_bag_type_count(),p.items.size()], 16, Color("b4c8bf"))
 	var filters := HBoxContainer.new()
 	panel.add_child(filters)
 	for is_rarity in [false, true]:
 		var select := OptionButton.new()
-		select.custom_minimum_size = Vector2(235, 44)
+		select.custom_minimum_size = Vector2(214, 44)
 		var titles: Array = ["Mọi độ hiếm"] if is_rarity else ["Tất cả trang bị", "Vũ khí", "Giáp", "Giày", "Phụ kiện"]
 		if is_rarity:
 			for tier in Recruitment.RARITIES: titles.append(Recruitment.RARITIES[tier].name)
@@ -1254,8 +1295,12 @@ func _equipment_inventory() -> void:
 	grid.add_theme_constant_override("h_separation", 6)
 	grid.add_theme_constant_override("v_separation", 8)
 	panel.add_child(grid)
+	var sort_button := _button(filters,"↕",Vector2.ZERO,Vector2(48,44),_bag_sort_next)
+	sort_button.tooltip_text = ["Sắp xếp: Độ hiếm","Sắp xếp: Cường hóa","Sắp xếp: Mới nhận"][bag_sort]
 	var items: Array = p.items.duplicate()
-	items.sort_custom(func(a, b):
+	if bag_sort == 2: items.reverse()
+	else: items.sort_custom(func(a, b):
+		if bag_sort == 1 and a.enhance != b.enhance: return a.enhance > b.enhance
 		var ra := int(catalog.find_row("items", a.base).rarity)
 		var rb := int(catalog.find_row("items", b.base).rarity)
 		return ra > rb if ra != rb else str(a.uid) < str(b.uid))
@@ -1268,7 +1313,8 @@ func _equipment_inventory() -> void:
 		for hero in p.heroes:
 			if item.uid in p.heroes[hero].equipment.values(): owners.append(catalog.find_row("heroes", hero).name)
 		var owner := ", ".join(owners)
-		var card := _button(grid, "", Vector2.ZERO, Vector2(158, 202), _item_detail.bind(item.uid))
+		var card := _button(grid, "", Vector2.ZERO, Vector2(158, 202), _bag_toggle_uid.bind(item.uid) if bag_selecting else _item_detail.bind(item.uid))
+		card.disabled = bag_selecting and not owner.is_empty()
 		card.tooltip_text = def.name + " · " + _rarity("item", item.base) + (" · " + owner if owner != "" else "")
 		card.add_theme_stylebox_override("normal", _style(Color("112532"), Color(Recruitment.RARITIES[def.rarity].color).darkened(.4), 12))
 		var art := EquipmentArt.add_to(card, self, def.id, def.rarity, 144)
@@ -1282,6 +1328,8 @@ func _equipment_inventory() -> void:
 		note.size.x = 148
 		note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		note.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var badge := _label(card,("✓" if item.uid in bag_selected else "○") if bag_selecting else ("E" if not owner.is_empty() else "+%d" % item.enhance),Vector2(127,7),14,Color("f4d486"))
+		badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		shown += 1
 	if shown == 0: _text("Không có trang bị phù hợp bộ lọc.")
 	_text("%d món hiển thị · chạm để xem hoặc trang bị" % shown, 13)
@@ -1323,13 +1371,9 @@ func _spirit_inventory_detail() -> void:
 		_row("Tiến hóa tinh linh →", _select_tab.bind(7))
 
 func _forge_panel() -> void:
-	_row("← Túi đồ", _bag_open.bind(""))
-	_text("LÒ RÈN", 23, Color("e5cd9e"))
-	_text("65 vàng + 3 tinh thạch / lượt. Món đã có đổi thành 10 mảnh đúng món đó. Trang bị từ Sử thi trở lên chỉ từ triệu hồi.")
-	var p: Dictionary = store.profile
-	for def in catalog.data.items:
-		if def.get("summon_only", false): continue
-		_row("Rèn · " + def.name + " · " + _rarity("item", def.id), _forge.bind(def.id), _locked() or p.gold < 65 or p.shards < 3)
+	var screen := BagScreen.new()
+	screen.game = self
+	panel.add_child(screen)
 
 func _shop_panel() -> void:
 	var screen := ShopScreen.new()

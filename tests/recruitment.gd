@@ -78,7 +78,17 @@ func run() -> void:
 	check(store.profile.recruitment.history[0].grade == 3 and store.profile.recruitment.pity == 0, "Pity guarantees and resets")
 	check(store.profile.gold == gold - 120, "Exactly one summon cost")
 	var categories := {}
+	var dismantled_gain := 0
 	for i in range(200):
+		if store.profile.items.size() >= 38:
+			for gear in store.profile.items:
+				var equipped := false
+				for hero in store.profile.heroes.values():
+					if gear.uid in hero.equipment.values(): equipped = true
+				if not equipped:
+					dismantled_gain += 1+int(gear.rank)
+					assert(store.dismantle(gear.uid))
+					break
 		check(Recruitment.summon(store), "Funded deterministic draw %d" % i)
 		var reward: Dictionary = store.profile.recruitment.history[0]
 		categories[reward.kind] = true
@@ -86,8 +96,8 @@ func run() -> void:
 	check(categories.size() == 3, "Fixed seed covers all three reward categories")
 	check(store.available_hero("ryn") and store.available_hero("mira") and store.available_assist("ash"), "Summoned entities unlock before chapter clear")
 	check(store.profile.recruitment.fragments.eira + store.profile.recruitment.fragments.ryn + store.profile.recruitment.fragments.mira + store.profile.recruitment.fragments.lyra > 0 and store.profile.collection_fragments.spirits.lumi + store.profile.collection_fragments.spirits.ash > 0, "Duplicate heroes and spirits convert to materials")
-	check(store.profile.items.size() <= book.data.items.size(), "One owned copy per catalog item")
-	check(store.profile.collection_fragments.items.armor_1 > 0 and store.profile.shards == p.shards, "Duplicate gear becomes named fragments, not generic shards")
+	check(store.profile.items.size() <= ProgressStore.BAG_CAP, "Equipment copies fit physical capacity")
+	check(store.profile.collection_fragments.items.armor_1 == 0 and store.profile.shards == p.shards+dismantled_gain, "Duplicate gear stays physical, no automatic fragment conversion")
 	var saved := store.profile.duplicate(true)
 	store = ProgressStore.new(book, path)
 	check(store.profile == saved and not store.read_only, "Recruitment and trees survive restart")

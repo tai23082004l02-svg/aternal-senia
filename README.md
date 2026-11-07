@@ -1,4 +1,12 @@
-# Aternal Senia — First Light · 0.29
+# Aternal Senia — First Light · 0.30
+
+## Túi đồ và Lò rèn · 0.30
+
+Bốn cửa vào Trang bị / Tinh linh / Nguyên liệu / Lò rèn, tranh rương rừng và
+xưởng rèn riêng. Trang bị được sở hữu nhiều bản cùng tên, mỗi UID có cường hóa
+riêng; lọc/sắp xếp, tách nhiều món, chế tạo theo số lượng và hợp thành ba bản.
+Túi đầy giữ chiến lợi phẩm thật để nhận sau; save v10 giữ dữ liệu cũ.
+[Xem ảnh, công thức và quy tắc](docs/BAG_INVENTORY.md).
 
 ## Banner nhân vật · 0.29
 

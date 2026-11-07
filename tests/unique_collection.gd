@@ -33,10 +33,10 @@ func run() -> void:
 	assert(store.commit(p))
 	var uid_counter: int = store.profile.next_uid
 	assert(store.forge("sword_1"))
-	assert(store.profile.items.size() == 3 and store.profile.next_uid == uid_counter)
-	assert(store.profile.collection_fragments.items.sword_1 == 10)
+	assert(store.profile.items.size() == 4 and store.profile.next_uid == uid_counter+1)
+	assert(store.profile.collection_fragments.items.sword_1 == 0)
 	assert(store.profile.collection_fragments.items.sword_2 == 0)
-	assert(store.forge("sword_2") and store.profile.items.size() == 4)
+	assert(store.forge("sword_2") and store.profile.items.size() == 5)
 	assert(store.profile.collection_fragments.items.sword_2 == 0)
 	var before := store.profile.duplicate(true)
 	store.fail_writes = true
@@ -48,15 +48,16 @@ func run() -> void:
 		assert(not first.recruitment.history[0]["duplicate"])
 		assert(store.commit(first))
 		var second := draw(store, kind, id)
-		assert(second.recruitment.history[0]["duplicate"] and second.recruitment.history[0].fragment_amount == 10)
+		if kind == "item": assert(not second.recruitment.history[0]["duplicate"])
+		else: assert(second.recruitment.history[0]["duplicate"] and second.recruitment.history[0].fragment_amount == 10)
 		if kind == "hero": assert(second.recruitment.fragments.ryn == first.recruitment.fragments.ryn + 10)
 		elif kind == "spirit":
 			assert(second.collection_fragments.spirits.ash == first.collection_fragments.spirits.ash + 10)
 			assert(second.collection_fragments.spirits.lumi == first.collection_fragments.spirits.lumi)
 			assert(second.expansion.cores == first.expansion.cores)
 		else:
-			assert(second.items.size() == first.items.size() and second.next_uid == first.next_uid)
-			assert(second.collection_fragments.items.armor_5 == first.collection_fragments.items.armor_5 + 10)
+			assert(second.items.size() == first.items.size()+1 and second.next_uid == first.next_uid+1)
+			assert(second.collection_fragments.items.armor_5 == first.collection_fragments.items.armor_5)
 		assert(store.commit(second))
 	assert(store.begin_run(1))
 	var pending: Dictionary = store.profile.pending.duplicate(true)
@@ -71,7 +72,7 @@ func run() -> void:
 	assert(store.settle(pending.id, true, 3))
 	var gained := 0
 	for id in before.collection_fragments.items: gained += store.profile.collection_fragments.items[id] - before.collection_fragments.items[id]
-	assert(gained == 10)
+	assert(gained == 0)
 	var settled := store.profile.duplicate(true)
 	assert(store.settle(pending.id, true, 3) and store.profile == settled)
 	assert(ProgressStore.new(book, store.path).profile == settled)
@@ -97,9 +98,9 @@ func run() -> void:
 	var original := FileAccess.get_file_as_bytes(path)
 	var migrated := ProgressStore.new(book, path)
 	assert(not migrated.read_only and migrated.profile.version == ProgressStore.VERSION)
-	assert(migrated.profile.items.size() == 3 and migrated.profile.items[1].enhance == 8 and migrated.profile.items[1].rank == 3)
-	assert(migrated.profile.collection_fragments.items.spear_1 == 10)
-	assert(migrated.profile.heroes.lyra.equipment.weapon == migrated.profile.heroes.ryn.equipment.weapon)
+	assert(migrated.profile.items.size() == 4 and migrated.profile.items[1].enhance == 8 and migrated.profile.items[1].rank == 1 and migrated.profile.items[-1].rank == 3)
+	assert(migrated.profile.collection_fragments.items.spear_1 == 0)
+	assert(migrated.profile.heroes.lyra.equipment.weapon == "paid_spear")
 	assert(migrated.profile.pending == pending and migrated.profile.gold == 321 and migrated.profile.next_uid == 250)
 	assert(migrated.profile.recruitment.fragments.ryn == 27 and migrated.profile.expansion.cores == 13)
 	assert(migrated.profile.recruitment.history[0].rarity == 3 and migrated.profile.recruitment.history[1].rarity == 3)
@@ -114,10 +115,10 @@ func run() -> void:
 		legacy.version = version
 		write(path + str(version), legacy)
 		var older := ProgressStore.new(book, path + str(version))
-		assert(not older.read_only and older.profile.pending == pending and older.profile.collection_fragments.items.spear_1 == 10)
+		assert(not older.read_only and older.profile.pending == pending and older.profile.collection_fragments.items.spear_1 == 0)
 	# Bad current/legacy data must never be silently repaired or credited.
 	var bad := migrated.profile.duplicate(true)
-	bad.items.append({"uid": "bad_copy", "base": "spear_1", "enhance": 0, "rank": 1})
+	bad.items.append({"uid": "starter_ryn", "base": "spear_1", "enhance": 0, "rank": 1})
 	assert(not migrated.valid(bad))
 	write(path + ".invalid", bad)
 	assert(ProgressStore.new(book, path + ".invalid").read_only)
@@ -132,5 +133,5 @@ func run() -> void:
 	bad.collection_fragments.items.unknown = 10
 	assert(not migrated.valid(bad))
 	assert(CollectionFragments.reward_suffix({"kind": "spirit", "duplicate": true}) == " · +2 lõi (lượt cũ)")
-	print("PASS: unique gear, three duplicate kinds, named ledgers, forge/loot, atomic failure/retry, v2-v6 migration, upgrade maxima, shared gear, unchanged snapshots/backups and strict invalid-save rejection")
+	print("PASS: multiple gear copies, hero/spirit duplicate fragments, named ledgers, forge/loot, atomic failure/retry, v2-v6 migration, separate paid upgrades, shared gear, unchanged snapshots/backups and strict invalid-save rejection")
 	quit()

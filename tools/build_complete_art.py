@@ -52,3 +52,6 @@ p['version']=4
 (root/'art/complete/provenance.json').write_text(json.dumps(dict(method='Original image generation with existing Eira/forest as style reference. Reviewed regions and sockets; source PNG unchanged.',date='2026-11-07',sources=[dict(file=f.name,sha256=hashlib.sha256(f.read_bytes()).hexdigest()) for f in sorted((root/'art/complete').glob('*.png'))]),indent=2)+'\n')
 print('Complete painted roster, weapons, environments, enemies, companion and UI icons')
 runpy.run_path(str(root/'tools/build_equipment_art.py'))
+
+# Inventory illustrations remain original; register dimensions/provenance only.
+runpy.run_path(str(root/'tools/build_bag_art.py'))

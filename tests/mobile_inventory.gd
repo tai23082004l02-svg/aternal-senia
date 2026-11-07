@@ -81,13 +81,14 @@ func run() -> void:
 	assert(game.tab == 2 and game.bag_section == "equipment")
 	assert(game.store.profile.items.size() == count)
 	p = game.store.profile.duplicate(true)
+	var before_all: int = p.items.size()
 	for row in game.catalog.data.items: game.store._add_item(p, row.id)
 	assert(game.store.commit(p))
 	game.bag_kind = "all"
 	game.bag_rarity = 0
 	game._bag_open("equipment")
 	await capture("mobile-full-bag")
-	assert(game.store.profile.items.size() == game.catalog.data.items.size())
+	assert(game.store.profile.items.size() == before_all+game.catalog.data.items.size())
 	assert(game.scroll.position.y + game.scroll.size.y <= game.tabs[4].position.y)
 	count = game.store.profile.items.size()
 	# Empty filter keeps navigation visible and does not discard items.

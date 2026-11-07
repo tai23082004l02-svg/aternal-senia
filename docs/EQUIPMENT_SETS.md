@@ -1,3 +1,5 @@
+> Cập nhật0.30: trang bị được sở hữu nhiều bản độc lập; quy tắc mỗi ID một món/chuyển trang bị trùng thành mảnh trong tài liệu cũ đã được thay bằng [Túi đồ hiện hành](BAG_INVENTORY.md). Năm độ hiếm, bốn slot và thưởng bộ vẫn áp dụng.
+
 # Trang bị bốn ô, bộ và khung độ hiếm · 0.27
 
 Tham khảo bố cục người dùng gửi: ảnh món ở trái, độ hiếm/tên/lớp/nhân vật đang

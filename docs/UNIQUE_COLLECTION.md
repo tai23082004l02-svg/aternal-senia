@@ -1,3 +1,5 @@
+> Cập nhật0.30: trang bị được sở hữu nhiều bản độc lập; quy tắc mỗi ID một món/chuyển trang bị trùng thành mảnh trong tài liệu cũ đã được thay bằng [Túi đồ hiện hành](BAG_INVENTORY.md). Năm độ hiếm, bốn slot và thưởng bộ vẫn áp dụng.
+
 # Sở hữu duy nhất, mảnh đúng loại và năm độ hiếm · 0.23
 
 > Quy tắc một bản/10 mảnh và năm độ hiếm tiếp tục áp dụng. [Bản0.27](EQUIPMENT_SETS.md) thêm bốn ô, bộ trang bị, cap+15 và save v9 đọc v2–v8; các mô tả v7/14 item dưới đây là lịch sử0.23.
