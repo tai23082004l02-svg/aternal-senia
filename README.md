@@ -1,4 +1,11 @@
-# Aternal Senia — First Light · 0.20
+# Aternal Senia — First Light · 0.22
+
+## Icon giao diện & đạo cụ · 0.22
+
+64 icon mới đồng bộ fantasy vẽ tay: điều hướng, hệ thống, toàn bộ14 trang bị,
+tài nguyên và phần thưởng. Gắn vào Nhân vật, Shop, triệu hồi, nhiệm vụ, tiện ích,
+AFK/VIP và kho đồ; dùng chung registry để UI và item không lệch hình.
+[Xem danh mục, ảnh thực tế và cách bổ sung icon](docs/ICONS.md).
 
 ## Hồ sơ tạo hình cho phiên chat tiếp theo
 

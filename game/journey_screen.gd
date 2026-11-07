@@ -73,6 +73,7 @@ func _ready() -> void:
 	auto_play.disabled = not auto_unlocked(p) or challenge.disabled
 	var afk: Button = game._button(self, "KHO TIẾP TẾ AFK  →\nTích lũy tối đa 2 giờ · Xem và nhận", Vector2.ZERO, Vector2(492, 66), game._journey_afk)
 	afk.add_theme_font_size_override("font_size", 16)
+	game.icons.apply(afk, "afk", 34)
 	var shortcuts := HBoxContainer.new()
 	shortcuts.add_theme_constant_override("separation", 8)
 	add_child(shortcuts)

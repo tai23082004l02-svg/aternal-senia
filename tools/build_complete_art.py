@@ -42,6 +42,9 @@ armor_names=['armor_uncommon','armor_4','armor_5','armor_6','armor_7','victory',
 ax=[0,444,887,1330,1774];ay=[0,443,887]
 for i,name in enumerate(armor_names):
  p['icons']['regions'][name]=dict(atlas='complete/armor.png',region=[ax[i%4],ay[i//4],ax[i%4+1]-ax[i%4],ay[i//4+1]-ay[i//4]])
+# The shared UI/item registry is regenerated from preserved source PNGs.
+icon_registry=runpy.run_path(str(root/'tools/build_icon_manifest.py'))['build']()
+p['icons']=dict(atlas='icons/resources.png',regions=icon_registry['regions'])
 p['version']=4
 (root/'art/painted/manifest.json').write_text(json.dumps(p,indent=2)+'\n')
 (root/'art/complete/provenance.json').write_text(json.dumps(dict(method='Original image generation with existing Eira/forest as style reference. Reviewed regions and sockets; source PNG unchanged.',date='2026-11-07',sources=[dict(file=f.name,sha256=hashlib.sha256(f.read_bytes()).hexdigest()) for f in sorted((root/'art/complete').glob('*.png'))]),indent=2)+'\n')

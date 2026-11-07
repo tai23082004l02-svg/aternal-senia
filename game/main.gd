@@ -371,6 +371,20 @@ func _row(text: String, callback: Callable, disabled: bool = false) -> Button:
 	b.disabled = disabled
 	return b
 
+func _material_text(text: String, key: String, color: Color) -> void:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	panel.add_child(row)
+	var picture := TextureRect.new()
+	picture.texture = icons.textures[key]
+	picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	picture.custom_minimum_size = Vector2(32, 32)
+	row.add_child(picture)
+	var label := _label(row, text, Vector2.ZERO, 18, color)
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+
 func _locked() -> bool:
 	return not store.profile.pending.is_empty() or store.read_only or result_transition
 
@@ -1147,15 +1161,15 @@ func _items_panel() -> void:
 			if shown == 0: _text("Chưa có tinh linh phù hợp. Hệ phân loại hỗ trợ SR / SSR / UR.")
 		"materials":
 			_text("KHO NGUYÊN LIỆU", 22, Color("d7a4ff"))
-			_text("Tinh thạch · %d" % p.shards, 19, Color("86caff"))
+			_material_text("Tinh thạch · %d" % p.shards, "shards", Color("86caff"))
 			_text("Cường hóa, tiến bậc, rèn và học nhánh kỹ năng.")
-			_text("Lõi tinh linh · %d" % p.expansion.cores, 19, Color("a2e5d6"))
+			_material_text("Lõi tinh linh · %d" % p.expansion.cores, "cores", Color("a2e5d6"))
 			_text("Dùng tiến hóa nhân vật và đồng hành; kiếm từ phụ bản, thành tựu hoặc tinh linh trùng.")
 			var r := Recruitment.state(p)
 			for hero in catalog.data.heroes:
-				_text("Mảnh %s · %d" % [hero.name, r.fragments[hero.id]], 18, Color("e5cd9e"))
+				_material_text("Mảnh %s · %d" % [hero.name, r.fragments[hero.id]], "fragments", Color("e5cd9e"))
 			_text("Mảnh nhân vật dùng mở rộng, tăng sao đúng nhân vật đó.")
-			_text("Kinh nghiệm nhân vật · %d XP" % p.xp, 18)
+			_material_text("Kinh nghiệm nhân vật · %d XP" % p.xp, "xp", Color("c0d0cb"))
 			_row("Cường hóa & Mở rộng →", _select_tab.bind(12))
 			_row("Tiến hóa đồng hành →", _select_tab.bind(7))
 			_row("Đến lò rèn →", _select_tab.bind(19))

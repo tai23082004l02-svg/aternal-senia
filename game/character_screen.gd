@@ -2,7 +2,7 @@ class_name CharacterScreen
 extends Control
 
 const SECTIONS := ["Thông tin", "Trang bị", "Cường hóa", "Mở rộng", "Tiến hóa", "Kỹ năng", "Trang phục"]
-const ICONS := ["hero", "equipment", "training", "crystal", "talents", "spirit", "equipment"]
+const ICONS := ["hero", "equipment", "training", "awakening", "evolution", "talents", "wardrobe"]
 var game
 var hero := "eira"
 var section := 0
@@ -100,6 +100,7 @@ func button(title: String, action: Callable, disabled: bool = false) -> Button:
 	b.clip_text = true
 	b.tooltip_text = title
 	b.disabled = disabled
+	game.icons.action(b, action)
 	return b
 
 func locked() -> bool:

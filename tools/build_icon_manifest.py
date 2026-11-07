@@ -1,0 +1,40 @@
+"""Register reviewed icon cells without modifying source PNG pixels."""
+from pathlib import Path
+import hashlib
+import json
+import struct
+
+ROOT = Path(__file__).resolve().parents[1]
+SHEETS = {
+    'navigation': ['journey', 'hero', 'equipment', 'quest', 'journal', 'slash', 'heal', 'spirit', 'guard', 'training', 'talents', 'companion', 'boss', 'forge', 'gold_ui', 'crystal_ui'],
+    'systems': ['mail', 'gift', 'settings', 'help', 'achievement', 'wardrobe', 'evolution', 'awakening', 'summon', 'afk', 'daily', 'weekly', 'chest', 'chest_open', 'vip', 'event'],
+    'equipment': ['sword_1', 'sword_2', 'spear_1', 'spear_2', 'staff_1', 'staff_2', 'armor_1', 'armor_2', 'armor_3', 'armor_uncommon', 'armor_4', 'armor_5', 'armor_6', 'armor_7', 'weapon_category', 'armor_category'],
+    'resources': ['gold', 'shards', 'xp', 'cores', 'fragments', 'potion', 'victory', 'training_item', 'slash_spell', 'heal_spell', 'burst', 'ticket', 'fire', 'water', 'light', 'vip_exp'],
+}
+ALIASES = {'crystal': 'shards', 'shop': 'gold', 'utilities': 'settings', 'dungeon': 'boss', 'collection': 'achievement'}
+
+
+def build():
+    regions, sources = {}, []
+    for sheet, names in SHEETS.items():
+        path = ROOT / 'art/icons' / (sheet + '.png')
+        raw = path.read_bytes()
+        assert raw[:8] == b'\x89PNG\r\n\x1a\n'
+        width, height = struct.unpack('>II', raw[16:24])
+        # The four source atlases were reviewed as regular 4x4 layouts.
+        xs = [round(width * i / 4) for i in range(5)]
+        ys = [round(height * i / 4) for i in range(5)]
+        for i, name in enumerate(names):
+            x, y = i % 4, i // 4
+            assert name not in regions
+            regions[name] = {'atlas': 'icons/' + sheet + '.png', 'region': [xs[x], ys[y], xs[x+1]-xs[x], ys[y+1]-ys[y]], 'sheet': sheet, 'cell': i}
+        sources.append({'file': 'art/icons/' + sheet + '.png', 'size': [width, height], 'sha256': hashlib.sha256(raw).hexdigest()})
+    manifest = {'version': 1, 'regions': regions, 'aliases': ALIASES}
+    (ROOT / 'art/icons/manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    provenance = {'date': '2026-11-07', 'method': 'Original image generation referenced art/ui/icons.png. Four reviewed transparent 4x4 source atlases, retained byte-for-byte. No pixel edits or extracted reference-game assets.', 'sources': sources}
+    (ROOT / 'art/icons/provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
+    return manifest
+
+
+if __name__ == '__main__':
+    print('Registered %d original icon cells' % len(build()['regions']))

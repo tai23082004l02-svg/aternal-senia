@@ -1,31 +1,62 @@
 extends SceneTree
 
+var output := "user://first_light_previews/icons"
+
 func _initialize() -> void:
 	call_deferred("run")
 
 func run() -> void:
-	root.size = Vector2i(800, 680)
-	root.content_scale_size = Vector2i(800, 680)
-	var board := Board.new()
-	root.add_child(board)
-	await process_frame
-	await RenderingServer.frame_post_draw
-	var output := OS.get_environment("FIRST_LIGHT_CAPTURE_DIR")
-	if output.is_empty(): output = "user://first_light_previews"
+	if not OS.get_environment("FIRST_LIGHT_CAPTURE_DIR").is_empty(): output = OS.get_environment("FIRST_LIGHT_CAPTURE_DIR")
 	DirAccess.make_dir_recursive_absolute(output)
-	assert(root.get_texture().get_image().save_png(output.path_join("icon-gallery.png")) == OK)
-	board.queue_free()
-	await process_frame
-	print("PASS: 16 icons rendered at 32px and 64px on dark background")
-	quit()
-
-class Board extends Node2D:
+	root.size = Vector2i(540, 960)
 	var icons := UIIcons.new()
-	func _draw() -> void:
-		draw_rect(Rect2(0, 0, 800, 680), Color("0c1421"))
-		draw_string(ThemeDB.fallback_font, Vector2(24, 34), "FIRST LIGHT / UI ICONS / 64 + 32 px", HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color("e5cd9e"))
-		for i in range(16):
-			var origin := Vector2((i % 4) * 200, (i / 4) * 155 + 50)
-			draw_texture_rect(icons.textures[UIIcons.NAMES[i]], Rect2(origin + Vector2(35, 12), Vector2(64, 64)), false)
-			draw_texture_rect(icons.textures[UIIcons.NAMES[i]], Rect2(origin + Vector2(121, 32), Vector2(32, 32)), false)
-			draw_string(ThemeDB.fallback_font, origin + Vector2(28, 108), UIIcons.NAMES[i], HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color("c0d0cb"))
+	var frames := FrameLibrary.new()
+	assert(icons.manifest.regions.size() == 64)
+	var catalog := GameCatalog.new()
+	for item in catalog.data.items:
+		assert(icons.textures.has(item.id))
+		assert(frames.textures["icon_" + item.id].region == icons.textures[item.id].region)
+	for key in icons.manifest.regions:
+		var texture: AtlasTexture = icons.textures[key]
+		assert(texture.region.position.x >= 0 and texture.region.position.y >= 0)
+		assert(texture.region.end.x <= texture.atlas.get_width() and texture.region.end.y <= texture.atlas.get_height())
+		assert(texture.filter_clip)
+		assert(not texture.get_image().is_invisible())
+	for sheet in ["navigation", "systems", "equipment", "resources"]:
+		var canvas := Control.new()
+		root.add_child(canvas)
+		var title := Label.new()
+		title.text = "FIRST LIGHT · " + sheet.to_upper()
+		title.position = Vector2(18, 18)
+		title.add_theme_font_size_override("font_size", 24)
+		canvas.add_child(title)
+		for key in icons.manifest.regions:
+			var spec: Dictionary = icons.manifest.regions[key]
+			if spec.sheet != sheet: continue
+			var cell := Panel.new()
+			cell.position = Vector2(14 + (int(spec.cell) % 4) * 130, 64 + (int(spec.cell) / 4) * 218)
+			cell.size = Vector2(122, 208)
+			canvas.add_child(cell)
+			for size in [104, 28]:
+				var picture := TextureRect.new()
+				picture.texture = icons.textures[key]
+				picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+				picture.position = Vector2(9 if size == 104 else 47, 8 if size == 104 else 124)
+				picture.size = Vector2.ONE * size
+				cell.add_child(picture)
+			var label := Label.new()
+			label.text = key
+			label.position = Vector2(0, 168)
+			label.size.x = 122
+			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			label.add_theme_font_size_override("font_size", 13)
+			cell.add_child(label)
+		await process_frame
+		await process_frame
+		await RenderingServer.frame_post_draw
+		assert(root.get_texture().get_image().save_png(output.path_join("icons-" + sheet + ".png")) == OK)
+		canvas.queue_free()
+		await process_frame
+	print("PASS: 64 visible bounded icon cells, all catalog items covered, shared UI/item regions and 28px/104px galleries")
+	quit()

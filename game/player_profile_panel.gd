@@ -47,7 +47,8 @@ static func show_profile(game) -> void:
 			game._close_modal()
 		else:
 			notice.text = game.store.error).disabled = game.store.read_only
-	game._button(column, "Xem VIP 1–10  →", Vector2.ZERO, Vector2(400, 46), game._show_vip.bind(1))
+	var vip_button: Button = game._button(column, "Xem VIP 1–10  →", Vector2.ZERO, Vector2(400, 46), game._show_vip.bind(1))
+	game.icons.apply(vip_button, "vip", 28)
 	game._button(column, "Đóng", Vector2.ZERO, Vector2(400, 46), game._close_modal)
 
 static func show_vip(game, tier: int) -> void:

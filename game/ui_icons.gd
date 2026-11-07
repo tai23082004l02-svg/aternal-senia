@@ -1,21 +1,21 @@
 class_name UIIcons
 extends RefCounted
 
-const NAMES := ["journey", "hero", "equipment", "quest", "journal", "slash", "heal", "spirit", "guard", "training", "talents", "companion", "boss", "forge", "gold", "crystal"]
-const EDGES := [0, 314, 627, 940, 1254]
-var atlas: Texture2D = preload("res://art/ui/icons.png")
+var manifest: Dictionary
+var sources: Dictionary = {}
 var textures: Dictionary = {}
 
 func _init() -> void:
-	# Source cells reviewed visually, source image retained without pixel edits.
-	for i in range(NAMES.size()):
-		var col := i % 4
-		var row := i / 4
+	manifest = JSON.parse_string(FileAccess.get_file_as_string("res://art/icons/manifest.json"))
+	for key in manifest.regions:
+		var spec: Dictionary = manifest.regions[key]
+		if not sources.has(spec.atlas): sources[spec.atlas] = load("res://art/" + spec.atlas)
 		var texture := AtlasTexture.new()
-		texture.atlas = atlas
-		texture.region = Rect2(EDGES[col], EDGES[row], EDGES[col + 1] - EDGES[col], EDGES[row + 1] - EDGES[row])
+		texture.atlas = sources[spec.atlas]
+		texture.region = Rect2(spec.region[0], spec.region[1], spec.region[2], spec.region[3])
 		texture.filter_clip = true
-		textures[NAMES[i]] = texture
+		textures[key] = texture
+	for key in manifest.aliases: textures[key] = textures[manifest.aliases[key]]
 
 func apply(button: Button, key: String, width: int = 28) -> void:
 	button.tooltip_text = button.text
@@ -55,10 +55,22 @@ func action(button: Button, callback: Callable) -> void:
 	var method := callback.get_method()
 	var args := callback.get_bound_arguments()
 	if method == "_select_tab" and not args.is_empty():
-		key = {0: "journey", 1: "hero", 2: "equipment", 3: "quest", 4: "journal", 5: "journey", 6: "talents", 7: "companion", 8: "quest", 9: "training", 10: "boss", 11: "spirit", 12: "training", 13: "companion"}.get(args[0], "")
+		key = {0: "journey", 1: "hero", 2: "equipment", 3: "quest", 4: "settings", 5: "journey", 6: "talents", 7: "companion", 8: "achievement", 9: "training", 10: "boss", 11: "summon", 12: "training", 13: "companion", 15: "journey", 16: "journal", 19: "forge", 20: "gold", 21: "boss"}.get(args[0], "")
 	elif method == "_upgrade" and not args.is_empty():
 		key = {"hero": "training", "skill": "talents", "assist": "companion"}.get(args[0], "")
 	else:
 		key = {"_hero": "hero", "_assist": "companion", "_equip": "equipment", "_unequip": "equipment", "_item_detail": "equipment", "_enhance": "crystal", "_forge": "forge", "_dismantle_confirm": "forge", "_quest": "quest", "_offline": "gold", "_talent": "talents", "_rank_assist": "companion", "_achievement": "quest", "_choose_stage": "journey", "_enter_stage": "journey", "_train_attribute": "training", "_reset_attributes": "training", "_replay_story": "journal"}.get(method, "")
 	if not key.is_empty():
 		apply(button, key)
+	elif method in ["_character_level", "_batch_level", "_train_attribute", "_reset_attributes"]:
+		apply(button, "training", 22)
+	elif method in ["_character_stars", "_awaken"]:
+		apply(button, "awakening", 22)
+	elif method == "_character_evolve":
+		apply(button, "evolution", 22)
+	elif method in ["_character_talent", "_character_skill_level", "_spirit_talent"]:
+		apply(button, "talents", 22)
+	elif method in ["_apply_character_outfit", "_preview_character_outfit"]:
+		apply(button, "wardrobe", 22)
+	elif method in ["_character_equip", "_character_unequip"]:
+		apply(button, "equipment", 22)

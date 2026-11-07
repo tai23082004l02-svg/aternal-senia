@@ -19,7 +19,7 @@ func _ready() -> void:
 	group("KHÁM PHÁ")
 	entry("story", "Nhật ký câu chuyện", "Xem lại cốt truyện đã mở khóa", "journal", game._select_tab.bind(16))
 	entry("boss", "Sổ tay Boss", "Kỹ năng, điểm yếu, chiến lợi phẩm", "boss", game._select_tab.bind(10))
-	entry("collection", "Bộ sưu tập & Thành tựu", "Bộ sưu tập, thành tích, phần thưởng", "quest", game._select_tab.bind(8))
+	entry("collection", "Bộ sưu tập & Thành tựu", "Bộ sưu tập, thành tích, phần thưởng", "achievement", game._select_tab.bind(8))
 	group("HỆ THỐNG")
 	entry("settings", "Cài đặt", "Âm thanh, đồ họa, tài khoản", "settings", game._utility_settings)
 	entry("help", "Trợ giúp & Hỗ trợ", "Hướng dẫn chơi và thông tin báo lỗi", "help", game._utility_help)

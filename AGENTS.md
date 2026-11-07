@@ -1,5 +1,7 @@
 # Hướng dẫn dự án
 
+- Icon0.22: đọc [docs/ICONS.md](docs/ICONS.md); registry chung `art/icons/manifest.json`, source PNG/provenance ở cùng thư mục. Sửa `tools/build_icon_manifest.py` và chạy builder đầy đủ khi thêm icon; không chỉnh pixel nguồn. Kiểm icon_gallery, complete_art và UI bị ảnh hưởng. Icon dự trữ không phải quyền thêm vật phẩm/tính năng mới; giữ ID/save/điều kiện khóa dịch vụ.
+
 - Trước mọi việc tạo/thay/đổi tên nhân vật, bắt buộc đọc [CHARACTER_BIBLE](docs/CHARACTER_BIBLE.md) và [CHARACTER_CREATION_GUIDE](docs/CHARACTER_CREATION_GUIDE.md). Đây là hồ sơ phong cách, canon, nguồn tham khảo và pipeline cho các phiên chat sau. Ryn0.19 tóc ngang vai và Lyra đuôi ngựa cao là hai hero riêng; không phục hồi raw Ryn cũ. Khi đổi thiết kế, cập nhật hồ sơ cùng commit. Yêu cầu mới nhất của người dùng được ưu tiên; tài liệu phiên bản cũ là lịch sử.
 
 
