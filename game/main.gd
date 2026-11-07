@@ -70,6 +70,8 @@ var bag_spirit_rarity := 0
 var selected_spirit := "lumi"
 var character_inspected := ""
 var character_page := 0
+var character_skill_view := "overview"
+var character_talent_focus := "focus"
 var character_outfit_preview := ""
 var summon_kind := 0
 var shop_page := 0
@@ -1540,3 +1542,44 @@ func _formation_spirits() -> void:
 func _formation_choose_spirit(id: String) -> void:
 	_close_modal()
 	_assist(id)
+
+func _character_help() -> void:
+	_dialog("NHÂN VẬT", "Chọn chân dung bên trái để xem. Phát triển gồm nâng LV, tiến hóa và thức tỉnh bằng mảnh. Kỹ năng có danh sách và cây thiên phú riêng.\n\nDữ liệu trang bị, chỉ số và điều kiện nâng đều theo tài khoản hiện tại.", [{"text":"Đóng","call":_close_modal}])
+
+func _character_skill_view(key: String) -> void:
+	if key not in ["overview","tree"]: return
+	character_skill_view = key
+	_refresh_panel()
+
+func _character_talent_focus(id: String) -> void:
+	character_talent_focus = id
+	_refresh_panel()
+
+func _character_gear_picker(id: String, slot_name: String) -> void:
+	var column := _dialog("CHỌN TRANG BỊ", "Chọn món phù hợp cho " + catalog.find_row("heroes",id).name, [{"text":"Đóng","call":_close_modal}])
+	column.get_child(2).size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	column.get_child(2).add_theme_font_size_override("font_size",14)
+	var scroller := ScrollContainer.new()
+	scroller.custom_minimum_size = Vector2(400,240)
+	scroller.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	column.add_child(scroller)
+	column.move_child(scroller,3)
+	var list := VBoxContainer.new()
+	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroller.add_child(list)
+	for item in store.profile.items:
+		var row := catalog.find_row("items",item.base)
+		if row.slot != slot_name or slot_name == "weapon" and row.category != catalog.category(id): continue
+		var equipped: bool = store.profile.heroes[id].equipment[slot_name] == item.uid
+		var b := _button(list,("✓ " if equipped else "") + row.name + " +%d" % item.enhance,Vector2.ZERO,Vector2(380,44),_character_choose_gear.bind(item.uid,id,false))
+		icons.apply(b,item.base,28)
+		b.disabled = _locked() or not store.available_hero(id) or equipped
+	var uid: String = store.profile.heroes[id].equipment[slot_name]
+	if not uid.is_empty():
+		var remove := _button(list,"Tháo về túi",Vector2.ZERO,Vector2(380,44),_character_choose_gear.bind(uid,id,true))
+		remove.disabled = _locked() or not store.available_hero(id)
+
+func _character_choose_gear(uid: String, id: String, remove: bool) -> void:
+	_close_modal()
+	if remove: _character_unequip(uid,id)
+	else: _character_equip(uid,id)

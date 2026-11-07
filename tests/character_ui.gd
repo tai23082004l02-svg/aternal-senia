@@ -24,8 +24,8 @@ func run() -> void:
 	await process_frame
 	game._close_modal()
 	game.tabs[1].pressed.emit()
-	assert(screen().faces.size() == game.catalog.data.heroes.size() and screen().section_buttons.size() == 7)
-	screen().faces[1].pressed.emit()
+	assert(screen().faces.size() == game.catalog.data.heroes.size() and screen().section_buttons.size() == 5)
+	screen().face_buttons.ryn.pressed.emit()
 	assert(game.character_inspected == "ryn" and game.store.profile.hero == "eira")
 	await capture("character-locked")
 	var p: Dictionary = game.store.profile.duplicate(true)
@@ -42,7 +42,7 @@ func run() -> void:
 	game._inspect_character("ryn")
 	var original: Dictionary = game.store.profile.duplicate(true)
 	for i in range(7):
-		screen().section_buttons[i].pressed.emit()
+		game._character_section(i)
 		assert(game.character_page == i)
 		await capture(["character-info", "character-equipment", "character-level", "character-stars", "character-evolution", "character-skills", "character-outfits"][i])
 	assert(game.store.profile == original, "Browsing portraits/sections never mutates the profile")
@@ -98,12 +98,12 @@ func run() -> void:
 	var definition: Dictionary = game.catalog.find_row("heroes", "ryn")
 	definition.rarity = 4
 	game._inspect_character("ryn")
-	for child in screen().body.get_children():
+	for child in screen().find_children("*", "Control", true, false):
 		if child is HeroPortrait: assert(not child.interactive, "Low-rarity template stays static")
 	definition.rarity = 5
 	game._inspect_character("ryn")
 	assert(game.store.profile.recruitment.awakening.ryn == 1, "Touch is independent of expansion progress")
-	for child in screen().body.get_children():
+	for child in screen().find_children("*", "Control", true, false):
 		if child is HeroPortrait:
 			assert(child.interactive)
 			child.begin_touch(Vector2(100, 100), 0)
@@ -118,5 +118,5 @@ func run() -> void:
 	await create_timer(.2).timeout
 	game.queue_free()
 	await process_frame
-	print("PASS: seven sections, skill tree, wardrobe, target actions, pending lock and native-five-star touch independent of expansion")
+	print("PASS: five main tabs/seven functional pages, skill tree, wardrobe, target actions, pending lock and native-five-star touch independent of expansion")
 	quit()

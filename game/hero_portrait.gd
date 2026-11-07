@@ -5,6 +5,7 @@ var library: FrameLibrary
 var hero := "eira"
 var weapon := "sword_1"
 var interactive := false
+var fit_actor := false
 var palette_tint := Color.WHITE
 var motion := Vector2.ZERO
 var velocity := Vector2.ZERO
@@ -100,7 +101,7 @@ func _draw() -> void:
 		return
 	if library.textures.has("portrait_" + hero):
 		var texture: Texture2D = library.textures["portrait_" + hero]
-		var factor := minf((size.x - 36) / texture.get_width(), (size.y - 80) / texture.get_height())
+		var factor := minf((size.x - (20 if fit_actor else 36)) / texture.get_width(), (size.y - (20 if fit_actor else 80)) / texture.get_height())
 		var breath := sin(idle_time * 2.1) * .008 if interactive else 0.0
 		var scale := Vector2.ONE * factor * (1 + breath)
 		var center := size * .5 + (motion if interactive else Vector2.ZERO)
@@ -120,7 +121,11 @@ func _draw() -> void:
 		if interactive and touch_glow > 0:
 			draw_arc(size * .5, minf(size.x, size.y) * .4, 0, TAU, 64, Color(1, .68, .35, touch_glow * .3), 2, true)
 		return
-	var foot := Vector2(size.x / 2, 185)
+	var foot := Vector2(size.x / 2, size.y - 16 if fit_actor else 185)
+	var fitted := .56 if hero in ["eira", "mira", "lyra"] else .76
+	if fit_actor:
+		var frame := library.frame_at(hero, "idle", 0)
+		fitted = minf((size.x-40) / frame.size[0], (size.y-24) / frame.size[1])
 	draw_circle(foot - Vector2(0, 83), 79, Color("152936"))
 	draw_arc(foot - Vector2(0, 83), 79, -.7, 4.4, 64, Color("655d4b"), 1)
 	if interactive:
@@ -128,10 +133,10 @@ func _draw() -> void:
 			draw_arc(foot - Vector2(0, 83), 83 + (1 - touch_glow) * 8, 0, TAU, 64, Color(.8, .9, 1, touch_glow * .3), 2, true)
 		var breath := sin(idle_time * 2.1) * .006
 		var stretch := clampf(-motion.y * .001, -.012, .012)
-		var actor_scale := (.56 if hero in ["eira", "mira", "lyra"] else .76) * (1 + breath + stretch)
+		var actor_scale := fitted * (1 + breath + stretch)
 		library.draw_actor(self, library.frame_at(hero, "idle", idle_time), foot + motion, weapon, palette_tint, true, actor_scale)
 	else:
-		library.draw_actor(self, library.frame_at(hero, "idle", 0), foot, weapon, palette_tint, true, .56 if hero in ["eira", "mira", "lyra"] else .76)
+		library.draw_actor(self, library.frame_at(hero, "idle", 0), foot, weapon, palette_tint, true, fitted)
 
 # Cached grid: attachment rows stay fixed; only the free ends bend.
 # No skeleton, external runtime, or simulation state is involved.
@@ -174,7 +179,7 @@ func _build_accessories() -> void:
 
 func _sync_accessories() -> void:
 	if accessory_layers.is_empty(): return
-	var factor := maxf(.001, minf((size.x - 36) / 1024, (size.y - 80) / 1536))
+	var factor := maxf(.001, minf((size.x - (20 if fit_actor else 36)) / 1024, (size.y - (20 if fit_actor else 80)) / 1536))
 	var breath := sin(idle_time * 2.1) * .008 if interactive else 0.0
 	for i in range(accessory_layers.size()):
 		var layer := accessory_layers[i]

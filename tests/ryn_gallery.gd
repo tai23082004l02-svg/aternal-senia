@@ -35,12 +35,10 @@ func run() -> void:
 	game._begin()
 	game.set_physics_process(false)
 	game.view.set_process(false)
-	game.battle.auto_attack = false
-	game.battle.attack_clock = .5
-	assert(game.battle.attack())
+	assert(game.battle is TeamBattle and game.battle.allies[0].id == "ryn")
+	game.battle._schedule_ally(game.battle.allies[0], "attack", 1.0, .22, .52)
 	for i in range(14):
 		game.battle.advance(BattleModel.STEP)
-		game.view._process(0)
 	game._refresh_hud()
 	await capture("ryn-battle-thrust")
 	game.audio.shutdown()
