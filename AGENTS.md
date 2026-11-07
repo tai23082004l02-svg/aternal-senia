@@ -9,3 +9,8 @@
 - Chạy regression.gd, mechanics.gd, campaign.gd sau sửa logic. Với UI/art, chạy ui_flow.gd / animation_gallery.gd trên display và xem ảnh.
 - Báo đúng giới hạn: Eira/rừng có PNG mới; Ryn/Mira/Ash và vùng khác còn SVG. Chưa test điện thoại thật hoặc nghe audio.
 - Fetch/status trước khi đẩy; không force push, không ghi đè thay đổi của người khác.
+
+- Âm thanh: đọc docs/AUDIO.md. Model phát cue theo marker; View/Pose Lab không phát âm.
+- Không dùng RNG chiến đấu để chọn âm. Mute phải dừng voice và tiêu thụ cursor; không phát lại backlog.
+- Audio dùng bus/pool riêng; không tăng số node vô hạn, giữ priority/limiter và save volume tương thích v2.
+- Sau sửa audio chạy tests/audio.gd và tests/validate_audio.py; kiểm mixer qua audio_capture.gd nếu đổi gain/asset/UI. Kiểm PCM không đồng nghĩa đã nghe loa thật.

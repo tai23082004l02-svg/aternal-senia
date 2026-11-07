@@ -1,5 +1,7 @@
 # Pipeline tạo hình 0.3
 
+Âm thanh mới từ 0.4 được mô tả riêng tại [AUDIO.md](AUDIO.md).
+
 ## Định hướng
 
 Anime fantasy 2D hơi chibi: Eira tóc bạc, cape xanh tím lót ngà, giáp nhẹ ngà,

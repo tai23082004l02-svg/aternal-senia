@@ -37,13 +37,20 @@ var result_shown := false
 var message := ""
 var message_time := 0.0
 var audio_players: Array[AudioStreamPlayer] = []
-var sounds: Dictionary = {}
-var last_audio_id := 0
+var audio: AudioDirector
+var audio_menu_open := false
+var audio_menu_paused := false
+var sound_sliders: Dictionary = {}
+var sound_labels: Dictionary = {}
+var sound_enabled: CheckButton
+var audio_notice: Label
+var quit_requested := false
 var scroll: ScrollContainer
 var tap_target: Button
 var details_paused := false
 
 func _ready() -> void:
+	get_tree().auto_accept_quit = false
 	catalog = Catalog.new()
 	if not catalog.errors.is_empty():
 		push_error(str(catalog.errors))
@@ -55,13 +62,10 @@ func _ready() -> void:
 	add_child(view)
 	view.preview = catalog.stats(store.profile)
 	view.selected_stage = catalog.data.stages[0]
-	for key in ["hit", "heal", "win", "hurt"]:
-		sounds[key] = load("res://art/" + key + ".wav")
-	for i in range(4):
-		var player := AudioStreamPlayer.new()
-		player.volume_db = -12
-		add_child(player)
-		audio_players.append(player)
+	audio = AudioDirector.new()
+	add_child(audio)
+	audio.apply_profile(store.profile)
+	audio_players = audio.players
 	_build_ui()
 	_refresh_panel()
 	if store.read_only:
@@ -92,6 +96,7 @@ func _build_ui() -> void:
 	_label(ui, "ATERNAL SENIA  /  HÀNH TRÌNH BÌNH MINH", Vector2(25, 61), 12, Color("93b0ae"))
 	wallet = _label(ui, "", Vector2(24, 96), 17, Color("e1c38d"))
 	mute_button = _button(ui, "Âm: bật", Vector2(422, 25), Vector2(94, 34), _toggle_sound)
+	_button(ui, "♫", Vector2(374, 25), Vector2(40, 34), _audio_settings)
 	stage_label = _label(ui, "", Vector2(24, 143), 19, Color("eee8d6"))
 	var tap := Button.new()
 	tap_target = tap
@@ -156,7 +161,7 @@ func _button(parent: Node, text: String, pos: Vector2, dimensions: Vector2, acti
 	button.position = pos
 	button.custom_minimum_size = dimensions
 	button.size = dimensions
-	button.pressed.connect(action)
+	button.pressed.connect(_on_button.bind(action))
 	parent.add_child(button)
 	return button
 
@@ -179,6 +184,7 @@ func _bar(pos: Vector2, dimensions: Vector2, color: Color) -> ProgressBar:
 func _physics_process(delta: float) -> void:
 	if store == null or ui == null:
 		return
+	_sync_audio()
 	if battle != null:
 		battle.advance(delta)
 		if battle.state in ["won", "lost"] and not result_shown:
@@ -362,7 +368,9 @@ func _notify(text: String) -> void:
 	message = text
 	message_time = 7
 
-func _outcome(success: bool, text: String) -> void:
+func _outcome(success: bool, text: String, cue: String = "confirm") -> void:
+	if success:
+		audio.play(cue)
 	_notify(text if success else (store.error if not store.error.is_empty() else "Chưa đủ điều kiện hoặc trận chưa kết thúc."))
 	_refresh_panel()
 
@@ -378,23 +386,23 @@ func _assist(id: String) -> void:
 	_outcome(store.change_assist(id), "Đã đổi trợ chiến.")
 
 func _upgrade(kind: String, index: int) -> void:
-	_outcome(store.upgrade(kind, index), "Đã nâng cấp. Chỉ số mới được áp dụng từ trận tiếp theo.")
+	_outcome(store.upgrade(kind, index), "Đã nâng cấp. Chỉ số mới được áp dụng từ trận tiếp theo.", "upgrade")
 
 func _item_detail(uid: String) -> void:
 	selected_item = uid
 	_refresh_panel()
 
 func _equip(uid: String) -> void:
-	_outcome(store.equip(uid), "Đã trang bị.")
+	_outcome(store.equip(uid), "Đã trang bị.", "equip")
 
 func _unequip(uid: String) -> void:
-	_outcome(store.unequip(uid), "Đã tháo trang bị về túi.")
+	_outcome(store.unequip(uid), "Đã tháo trang bị về túi.", "equip")
 
 func _enhance(uid: String, rank_up: bool) -> void:
-	_outcome(store.enhance(uid, rank_up), "Đã nâng trang bị.")
+	_outcome(store.enhance(uid, rank_up), "Đã nâng trang bị.", "forge")
 
 func _forge(id: String) -> void:
-	_outcome(store.forge(id), "Đã rèn một món mới.")
+	_outcome(store.forge(id), "Đã rèn một món mới.", "forge")
 
 func _dismantle_confirm(uid: String) -> void:
 	_dialog("Phân giải trang bị?", "Món đồ chưa trang bị sẽ đổi thành tinh thạch. Không thể lấy lại món cũ.", [{"text": "Phân giải", "call": _dismantle.bind(uid)}, {"text": "Giữ lại", "call": _close_modal}])
@@ -404,10 +412,10 @@ func _dismantle(uid: String) -> void:
 	_outcome(store.dismantle(uid), "Đã phân giải trang bị.")
 
 func _quest(id: String) -> void:
-	_outcome(store.claim_quest(id), "Đã nhận thưởng nhiệm vụ.")
+	_outcome(store.claim_quest(id), "Đã nhận thưởng nhiệm vụ.", "reward")
 
 func _offline() -> void:
-	_outcome(store.claim_offline(int(Time.get_unix_time_from_system())), "Đã nhận tiếp tế. Đồng hồ máy ảnh hưởng lượng nhận; tối đa 2 giờ.")
+	_outcome(store.claim_offline(int(Time.get_unix_time_from_system())), "Đã nhận tiếp tế. Đồng hồ máy ảnh hưởng lượng nhận; tối đa 2 giờ.", "reward")
 
 func _enter_stage(id: int) -> void:
 	if _locked():
@@ -433,7 +441,7 @@ func _resume() -> void:
 	view.battle = battle
 	result_shown = false
 	details_paused = false
-	last_audio_id = 0
+	audio.begin_run(battle.run.id)
 	_refresh_panel()
 
 func _finish() -> void:
@@ -448,7 +456,6 @@ func _finish() -> void:
 		_dialog("Chưa lưu được kết quả", store.error + "\nTrận vẫn được giữ. Hãy thử ghi lại; không nhận thưởng hai lần.", [{"text": "Thử lưu lại", "call": _retry_settle}])
 		return
 	if won:
-		_play_sound("win")
 		var stage: Dictionary = battle.stage
 		var loot := "Túi đầy · loot đã đổi thành 3 tinh thạch"
 		for item in store.profile.items:
@@ -465,6 +472,7 @@ func _retry_settle() -> void:
 	_finish()
 
 func _return_to_camp() -> void:
+	audio.stop_world()
 	_close_modal()
 	battle = null
 	view.battle = null
@@ -518,12 +526,17 @@ func _speed() -> void:
 		battle.speed = next
 
 func _toggle_sound() -> void:
-	store.setting("sound", not store.profile.settings.sound)
+	if store.setting("sound", not store.profile.settings.sound):
+		audio.apply_profile(store.profile)
+		if store.profile.settings.sound:
+			audio.play("confirm")
+	else:
+		_notify(store.error)
 
 func _replay_story(text: String) -> void:
 	_dialog("Nhật ký", text, [{"text": "Đóng", "call": _close_modal}])
 
-func _dialog(title: String, body: String, actions: Array) -> void:
+func _dialog(title: String, body: String, actions: Array) -> VBoxContainer:
 	_close_modal()
 	modal = Control.new()
 	modal.size = Vector2(540, 960)
@@ -551,6 +564,8 @@ func _dialog(title: String, body: String, actions: Array) -> void:
 	label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	for action in actions:
 		_button(column, action.text, Vector2.ZERO, Vector2(400, 46), action.call)
+	box.set_deferred("size", Vector2(472, 450))
+	return column
 
 func _close_modal() -> void:
 	if is_instance_valid(modal):
@@ -558,25 +573,106 @@ func _close_modal() -> void:
 		modal.queue_free()
 	modal = null
 
-func _play_events() -> void:
-	for event in battle.events:
-		if event.id <= last_audio_id:
-			continue
-		last_audio_id = event.id
-		if event.kind in ["hit", "critical", "heal", "hurt"]:
-			_play_sound("hit" if event.kind == "critical" else event.kind)
+func _on_button(action: Callable) -> void:
+	if action.get_method() not in ["_attack", "_skill", "_guard"]:
+		audio.play("ui_click")
+	action.call()
 
-func _play_sound(key: String) -> void:
-	if not store.profile.settings.sound:
+func _sync_audio() -> void:
+	if not audio_menu_open:
+		audio.apply_profile(store.profile)
+	var zone: String = catalog.find_row("stages", selected_stage).zone
+	audio.context(zone, battle != null and battle.paused, tab == 0)
+
+func _play_events() -> void:
+	audio.consume(battle)
+
+func _audio_settings() -> void:
+	if modal != null:
 		return
-	for player in audio_players:
-		if not player.playing:
-			player.stream = sounds[key]
-			player.play()
-			break
+	audio_menu_open = true
+	audio_menu_paused = battle != null and battle.state == "battle" and not battle.paused
+	if audio_menu_paused:
+		battle.paused = true
+	var column := _dialog("ÂM THANH", "Chỉnh mức âm, nghe thử rồi áp dụng. Trận được tạm dừng khi mở bảng này.", [{"text": "Áp dụng", "call": _apply_audio_settings}, {"text": "Hủy", "call": _cancel_audio_settings}])
+	audio_notice = column.get_child(1)
+	var box: PanelContainer = column.get_parent().get_parent()
+	box.position.y = 175
+	box.size.y = 610
+	var insert := 2
+	sound_enabled = CheckButton.new()
+	sound_enabled.text = "Bật âm thanh"
+	sound_enabled.button_pressed = store.profile.settings.sound
+	column.add_child(sound_enabled)
+	column.move_child(sound_enabled, insert)
+	insert += 1
+	sound_sliders.clear()
+	sound_labels.clear()
+	for key in ["sfx_volume", "ambience_volume"]:
+		var label := _label(column, "")
+		column.move_child(label, insert)
+		insert += 1
+		var slider := HSlider.new()
+		slider.min_value = 0
+		slider.max_value = 1
+		slider.step = .01
+		slider.custom_minimum_size = Vector2(400, 24)
+		slider.value = store.profile.settings.get(key, .8 if key == "sfx_volume" else .35)
+		column.add_child(slider)
+		column.move_child(slider, insert)
+		insert += 1
+		sound_sliders[key] = slider
+		sound_labels[key] = label
+		slider.value_changed.connect(_preview_audio_levels)
+	sound_enabled.toggled.connect(_preview_audio_levels)
+	var preview_button := _button(column, "Nghe thử: kiếm / hồi phục / thủ thế", Vector2.ZERO, Vector2(400, 42), _audition)
+	column.move_child(preview_button, insert)
+	_preview_audio_levels(0)
+	box.set_deferred("size", Vector2(472, 610))
+
+func _preview_audio_levels(_value: Variant) -> void:
+	for key in sound_sliders:
+		sound_labels[key].text = ("Hiệu ứng" if key == "sfx_volume" else "Không gian rừng") + " · %d%%" % roundi(sound_sliders[key].value * 100)
+	audio.configure(sound_enabled.button_pressed, sound_sliders.sfx_volume.value, sound_sliders.ambience_volume.value)
+
+func _audition() -> void:
+	audio.audition()
+
+func _apply_audio_settings() -> void:
+	if store.audio_settings(sound_enabled.button_pressed, sound_sliders.sfx_volume.value, sound_sliders.ambience_volume.value):
+		_close_audio_settings()
+		audio.play("confirm")
+	else:
+		_notify(store.error)
+		audio_notice.text = store.error + "\nBạn có thể thử lại hoặc Hủy."
+
+func _cancel_audio_settings() -> void:
+	_close_audio_settings()
+
+func _close_audio_settings() -> void:
+	audio.cancel_preview()
+	audio_menu_open = false
+	audio.apply_profile(store.profile)
+	_close_modal()
+	if audio_menu_paused and battle != null and battle.state == "battle":
+		battle.paused = false
+	audio_menu_paused = false
+	sound_sliders.clear()
+	sound_labels.clear()
 
 func _exit_tree() -> void:
-	for player in audio_players:
-		if is_instance_valid(player):
-			player.stop()
-			player.stream = null
+	if is_instance_valid(audio):
+		audio.shutdown()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST and not quit_requested:
+		_request_quit()
+
+func _request_quit() -> void:
+	quit_requested = true
+	set_process(false)
+	set_physics_process(false)
+	if is_instance_valid(audio):
+		audio.shutdown()
+	await get_tree().create_timer(.2).timeout
+	get_tree().quit()

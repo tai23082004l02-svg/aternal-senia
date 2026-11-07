@@ -1,0 +1,14 @@
+{
+  "engine": "Godot 4.6.3",
+  "platform": "Linux / X11 / Mesa",
+  "driver": "Dummy, real AudioEffectRecord mixer capture; no physical speaker listening",
+  "duration_seconds": 12.167256235827665,
+  "mix_rate": 44100,
+  "channels": 2,
+  "peak_dbfs": -7.393,
+  "rms_dbfs": -26.577,
+  "clipped_samples": 0,
+  "max_voices": 5,
+  "dropped": 0,
+  "timing_checks": 93
+}

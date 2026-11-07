@@ -88,7 +88,7 @@ func _draw() -> void:
 				draw_arc(Vector2(287, 384), 80, -.9, .9, 32, col, 8 if action.burst else 4)
 		for event in battle.events:
 			var age: float = battle.time - event.time
-			if age > .85 or event.kind in ["wave", "result"]:
+			if age > .85 or event.kind in ["wave", "result", "sound"]:
 				continue
 			var pos := Vector2(391 if event.target == 1 else 142, 311 - age * 48)
 			var col := Color("ade6d3") if event.kind in ["heal", "guard"] else Color("f3d49c")

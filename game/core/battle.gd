@@ -68,7 +68,7 @@ func _spawn() -> void:
 	shield = false
 	hero_pose = "idle"
 	hero_pose_time = 0
-	_emit("wave", "BOSS · " + stage.boss if wave == 2 else "Đợt %d / 3" % (wave + 1), 0)
+	_emit("wave", "BOSS · " + stage.boss if wave == 2 else "Đợt %d / 3" % (wave + 1), 0, "boss_arrive" if wave == 2 else "stage_start")
 
 func advance(delta: float) -> void:
 	if paused or state != "battle":
@@ -90,7 +90,11 @@ func _step() -> void:
 		cooldowns[i] = maxf(0, float(cooldowns[i]) - STEP)
 	sp = minf(100, sp + STEP * 6)
 	if move_clock > 0:
+		var before_move := move_clock
 		move_clock -= STEP
+		for marker in [.6, .2]:
+			if before_move > marker and move_clock <= marker:
+				_sound("step")
 		hero_pose = "run"
 		if move_clock <= 0:
 			_spawn()
@@ -100,7 +104,12 @@ func _step() -> void:
 	attack_clock += STEP
 	assist_clock += STEP
 	enemy_clock += STEP
+	if enemy_clock >= 2.0 and enemy_clock - STEP < 2.0:
+		_sound("boss_charge" if wave == 2 else "enemy_charge")
+	var previous_shield := shield
 	shield = wave == 2 and stage.mechanic == "shield" and not shield_broken and fmod(enemy_clock, 5.0) < 2.8
+	if shield and not previous_shield:
+		_sound("shield_on")
 	if auto_attack and attack_clock >= 0.85 and actions.is_empty():
 		attack()
 	var companion := catalog.find_row("assists", stats.assist)
@@ -110,30 +119,37 @@ func _step() -> void:
 		if stats.assist == "lumi":
 			var heal: float = stats.hp * companion.power * (1 + (stats.assist_level - 1) * .12)
 			hp = minf(stats.hp, hp + heal)
-			_emit("heal", "+%d" % heal, 0)
+			_emit("heal", "+%d" % heal, 0, "lumi")
 		else:
-			_hit(stats.atk * companion.power * (1 + (stats.assist_level - 1) * .15), false)
+			_sound("ash")
+			_hit(stats.atk * companion.power * (1 + (stats.assist_level - 1) * .15), false, "assist")
 	if state != "battle" or move_clock > 0:
 		return
 	# Iterate all crossed markers; damage belongs to simulation, never the view.
 	for action in actions.duplicate():
 		action.elapsed += STEP
+		if not action.sound_fired and action.elapsed >= action.sound_marker:
+			action.sound_fired = true
+			if action.wave == wave:
+				_sound(action.sound_cue, action.id)
 		if not action.hit and action.elapsed >= action.marker:
 			action.hit = true
 			if action.wave == wave:
 				if action.kind == "heal":
 					var healed: float = stats.hp * action.power * (1.25 if stats.hero == "mira" else 1.0)
 					hp = minf(stats.hp, hp + healed)
-					_emit("heal", "+%d" % healed, 0)
+					_emit("heal", "+%d" % healed, 0, "heal", action.id)
 				else:
 					if action.burst:
+						if shield:
+							_sound("shield_break", action.id)
 						shield_broken = true
 						shield = false
 					var counter: bool = wave == 2 and stage.mechanic == "counter" and enemy_clock >= 2.0 and action.skill
-					_hit(stats.atk * action.power, true)
+					_hit(stats.atk * action.power, true, "weapon", action.id)
 					if counter and state == "battle" and move_clock <= 0:
 						_take_damage(stage.boss_atk * .65)
-						_emit("warning", "Phản đòn!", 1)
+						_emit("warning", "Phản đòn!", 1, "counter", action.id)
 		if action.elapsed >= action.duration:
 			actions.erase(action)
 		if state != "battle" or move_clock > 0:
@@ -143,6 +159,8 @@ func _step() -> void:
 		var damage := float(stage.boss_atk) if wave == 2 else float(stage.enemy_atk)
 		if wave == 2 and stage.mechanic == "smash":
 			damage *= 1.5
+		if wave == 2:
+			_sound("boss_slam")
 		_take_damage(damage)
 
 func attack() -> bool:
@@ -169,7 +187,9 @@ func skill(index: int) -> bool:
 	return true
 
 func _schedule(kind: String, power: float, marker: float, duration: float, is_skill: bool, burst: bool) -> void:
-	actions.append({"id": next_action, "elapsed": 0.0, "hit": false, "wave": wave, "marker": marker, "duration": duration, "kind": kind, "power": power, "skill": is_skill, "burst": burst})
+	actions.append({"id": next_action, "elapsed": 0.0, "hit": false, "wave": wave, "marker": marker, "duration": duration, "kind": kind, "power": power, "skill": is_skill, "burst": burst, "sound_fired": kind == "heal", "sound_marker": maxf(0, marker - .09), "sound_cue": "burst" if burst else "swing_" + str(stats.weapon).get_slice("_", 0)})
+	if is_skill:
+		_sound("cast", next_action)
 	next_action += 1
 	hero_pose = "skill" if is_skill else "attack"
 	hero_pose_time = 0
@@ -179,10 +199,10 @@ func guard() -> bool:
 		return false
 	guard_left = .7
 	guard_cd = 2.5
-	_emit("guard", "Thủ thế", 0)
+	_emit("guard", "Thủ thế", 0, "guard_ready")
 	return true
 
-func _hit(amount: float, can_crit: bool) -> void:
+func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: int = 0) -> void:
 	if state != "battle" or enemy_hp <= 0:
 		return
 	var critical: bool = can_crit and rng.randf() < stats.crit
@@ -197,38 +217,44 @@ func _hit(amount: float, can_crit: bool) -> void:
 		amount *= .35
 	enemy_hp = maxf(0, enemy_hp - amount)
 	enemy_hurt = .16
-	_emit("critical" if critical else "hit", "%d%s" % [amount, "!" if critical else ""], 1)
+	var cue := "critical" if critical else ("arrow_hit" if source == "assist" else "impact_" + str(stats.weapon).get_slice("_", 0))
+	_emit("critical" if critical else "hit", "%d%s" % [amount, "!" if critical else ""], 1, cue, action_id)
 	if enemy_hp <= 0:
 		kills += 1
+		_sound("enemy_down", action_id)
 		actions.clear()
 		if wave == 2:
 			state = "won"
 			hero_pose = "idle"
-			_emit("result", "CHIẾN THẮNG", 0)
+			_emit("result", "CHIẾN THẮNG", 0, "victory")
 		else:
 			wave += 1
 			move_clock = .8
 			hero_pose = "run"
+			hero_pose_time = 0
 
 func _take_damage(amount: float) -> void:
 	amount = maxf(1, amount - stats.defense)
 	if guard_left > 0:
 		amount *= .2
-		_emit("guard", "Đỡ đòn", 0)
+		_emit("guard", "Đỡ đòn", 0, "guard_hit")
 	hp = maxf(0, hp - amount)
 	hurt_left = .25
-	_emit("hurt", "−%d" % amount, 0)
+	_emit("hurt", "−%d" % amount, 0, "hurt" if guard_left <= 0 else "")
 	if hp <= 0:
 		state = "lost"
 		hero_pose = "death"
 		hero_pose_time = 0
 		actions.clear()
-		_emit("result", "HÃY THỬ LẠI", 0)
+		_emit("result", "HÃY THỬ LẠI", 0, "defeat")
 
-func _emit(kind: String, text: String, target: int) -> void:
+func _sound(cue: String, action_id: int = 0) -> void:
+	_emit("sound", "", 0, cue, action_id)
+
+func _emit(kind: String, text: String, target: int, cue: String = "", action_id: int = 0) -> void:
 	event_sequence += 1
-	events.append({"id": event_sequence, "kind": kind, "text": text, "target": target, "time": time})
-	if events.size() > 40:
+	events.append({"id": event_sequence, "kind": kind, "text": text, "target": target, "time": time, "cue": cue, "action_id": action_id})
+	if events.size() > 128:
 		events.pop_front()
 
 func warning() -> String:

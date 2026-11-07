@@ -1,4 +1,4 @@
-# Aternal Senia — First Light · 0.3
+# Aternal Senia — First Light · 0.4
 
 Game Godot 4 màn hình dọc, chiến đấu một nhân vật chính + một trợ chiến.
 Tham khảo cấu trúc Eternal Senia 2; nội dung, công thức và hình ảnh trong game
@@ -14,7 +14,7 @@ Hoặc `godot --path .` sau khi import. Chọn Hành trình → Vào ải → Ti
 - Ba kỹ năng dùng SP: đòn mạnh, hồi phục, tinh linh phá khiên. SP tự hồi.
 - Bấm Thủ thế ngay trước khi vòng cảnh báo đầy: giảm 80% sát thương trong 0,7s.
 - Boss có đòn nặng, khiên hoặc phản đòn. Ngưng kỹ năng lúc phản đòn.
-- Dừng/tiếp tục, tốc độ ×1/×2/×3 và bật/tắt âm.
+- Dừng/tiếp tục, tốc độ ×1/×2/×3 và bật/tắt âm. Nút ♫ mở mức hiệu ứng/tiếng rừng và nghe thử.
 - Các trang quản lý chiếm toàn màn hình; mở chúng trong trận sẽ tạm dừng trận.
 
 ## Nội dung hiện có
@@ -30,7 +30,7 @@ Hoặc `godot --path .` sau khi import. Chọn Hành trình → Vào ải → Ti
 | Phần thưởng | Vàng, XP, tinh thạch, loot; thưởng lần đầu; túi 40 ô, đổi loot dư |
 | Mục tiêu | 5 nhiệm vụ nhận một lần; 10 đoạn truyện và nhật ký xem lại |
 | Tiếp tế | Tích theo thời gian thực, kể cả khi đóng game; trần 2 giờ |
-| Trình bày | Eira 16 pose PNG / 6 trạng thái, kiếm Dawnveil, Lumi, rừng đêm và quái rừng mới; Ryn/Mira và các vùng khác còn SVG; 4 âm ngắn |
+| Trình bày | Eira 16 pose PNG / 6 trạng thái, kiếm Dawnveil, Lumi, rừng đêm và quái rừng mới; Ryn/Mira và các vùng khác còn SVG; 38 SFX mới + loop tiếng rừng |
 
 Tăng cấp nhân vật dùng vàng + XP. Nâng kỹ năng/trợ chiến dùng vàng. Nâng trang
 bị dùng vàng + tinh thạch. Vũ khí bậc hiếm giảm hồi chiêu 8%; hệ khắc chế tăng
@@ -68,7 +68,7 @@ Tests dùng profile riêng. Có thể đặt `FIRST_LIGHT_CAPTURE_DIR` để ch�
 Đã kiểm trên Godot 4.6.3 / Linux: 81 assertions hồi quy, cơ chế boss, 15 tổ hợp
 nhân vật/ải, chiến dịch đủ 5 ải từ profile mới chỉ dùng thưởng kiếm được; kiểm UI
 render thực với X11/Mesa và xem ảnh. Chưa thử Android/iOS, touch thật hoặc đo
-FPS/nhiệt. Audio được chạy qua Dummy driver trong kiểm UI; chưa nghe trực tiếp.
+FPS/nhiệt. Audio đã được ghi từ mixer thật qua AudioEffectRecord với driver Dummy, kiểm PCM và clipping; chưa nghe qua loa thật.
 
 ## Tài liệu và công cụ
 
@@ -97,5 +97,19 @@ Nền rừng đã thay bằng tranh đêm xanh sâu với phế tích và ánh v
 khác vẫn dùng hình mẫu SVG, cần làm tiếp cùng phong cách. Animation Eira hiện
 có 4 pose chạy và 4 pose đánh chính, chưa phải animation nhiều frame đã tinh
 chỉnh hoàn toàn; có khác biệt nhỏ về nếp áo/chi tiết giữa các pose tạo hình.
-Chưa có APK, nhạc nền hoặc nội dung dài hàng trăm ải. Không kèm tài nguyên gốc
+Chưa có APK, nhạc nền dài hoặc nội dung dài hàng trăm ải. Không kèm tài nguyên gốc
 trích từ archive nghiên cứu.
+
+## Âm thanh 0.4
+
+Bộ SFX riêng khớp marker: tiếng vung/trúng theo vũ khí, chí mạng, kỹ năng,
+trợ chiến, thủ thế, khiên, boss và UI. Có 38 WAV / 34 cue và loop rừng stereo,
+pool voice và limiter chống âm dồn. Mute tức thì; pause dừng âm combat, UI vẫn
+nghe được. Volume độc lập, preview/áp dụng/hủy, tương thích save cũ.
+
+[Xem cách áp dụng quy tắc từ repo tham khảo](docs/AUDIO.md) ·
+[Nghe đoạn ghi trong game](docs/audio/combat-preview.wav) ·
+[Ảnh bảng chỉnh âm](docs/previews/audio-settings.png).
+
+Kiểm thêm: `godot --headless --path . --script tests/audio.gd` (93 checks) và
+`python3 tests/validate_audio.py`. Các file âm tự tổng hợp, không nhập audio gốc.

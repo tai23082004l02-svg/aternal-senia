@@ -69,6 +69,7 @@ func run() -> void:
 	assert(game.store.profile.hero == "ryn")
 	await capture("07-ryn")
 	print("PASS: rendered campaign, tabs, story, skill, pause, speed, boss, result, quest, hero switch")
+	game.audio.shutdown()
 	for player in game.audio_players:
 		player.stop()
 		player.stream = null

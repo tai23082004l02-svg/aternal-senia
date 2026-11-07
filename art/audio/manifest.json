@@ -1,0 +1,388 @@
+{
+  "version": 1,
+  "sample_rate": 32000,
+  "ambience": {
+    "file": "forest_air.ogg",
+    "gain_db": -14
+  },
+  "cues": {
+    "swing_sword": {
+      "files": [
+        "sword_swing_1.wav",
+        "sword_swing_2.wav",
+        "sword_swing_3.wav"
+      ],
+      "gain_db": -13,
+      "priority": 1,
+      "max_instances": 3,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "impact_sword": {
+      "files": [
+        "sword_hit_1.wav",
+        "sword_hit_2.wav",
+        "sword_hit_3.wav"
+      ],
+      "gain_db": -9,
+      "priority": 2,
+      "max_instances": 3,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "swing_spear": {
+      "files": [
+        "spear_swing.wav"
+      ],
+      "gain_db": -12,
+      "priority": 1,
+      "max_instances": 3,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "impact_spear": {
+      "files": [
+        "spear_hit.wav"
+      ],
+      "gain_db": -9,
+      "priority": 2,
+      "max_instances": 3,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "swing_staff": {
+      "files": [
+        "staff_swing.wav"
+      ],
+      "gain_db": -14,
+      "priority": 1,
+      "max_instances": 3,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "impact_staff": {
+      "files": [
+        "staff_hit.wav"
+      ],
+      "gain_db": -12,
+      "priority": 2,
+      "max_instances": 3,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "critical": {
+      "files": [
+        "critical.wav"
+      ],
+      "gain_db": -9,
+      "priority": 3,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "cast": {
+      "files": [
+        "cast.wav"
+      ],
+      "gain_db": -16,
+      "priority": 1,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "burst": {
+      "files": [
+        "burst.wav"
+      ],
+      "gain_db": -12,
+      "priority": 3,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "heal": {
+      "files": [
+        "heal.wav"
+      ],
+      "gain_db": -14,
+      "priority": 3,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0,
+      "bus": "battle"
+    },
+    "lumi": {
+      "files": [
+        "lumi.wav"
+      ],
+      "gain_db": -17,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0,
+      "bus": "battle"
+    },
+    "ash": {
+      "files": [
+        "ash.wav"
+      ],
+      "gain_db": -14,
+      "priority": 1,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "arrow_hit": {
+      "files": [
+        "arrow_hit.wav"
+      ],
+      "gain_db": -14,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "guard_ready": {
+      "files": [
+        "guard_ready.wav"
+      ],
+      "gain_db": -17,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "guard_hit": {
+      "files": [
+        "guard_hit.wav"
+      ],
+      "gain_db": -10,
+      "priority": 4,
+      "max_instances": 1,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "shield_on": {
+      "files": [
+        "shield_on.wav"
+      ],
+      "gain_db": -16,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "shield_break": {
+      "files": [
+        "shield_break.wav"
+      ],
+      "gain_db": -11,
+      "priority": 4,
+      "max_instances": 1,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "enemy_charge": {
+      "files": [
+        "enemy_charge.wav"
+      ],
+      "gain_db": -18,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "boss_charge": {
+      "files": [
+        "boss_charge.wav"
+      ],
+      "gain_db": -12,
+      "priority": 4,
+      "max_instances": 1,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "boss_slam": {
+      "files": [
+        "boss_slam.wav"
+      ],
+      "gain_db": -11,
+      "priority": 4,
+      "max_instances": 1,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "counter": {
+      "files": [
+        "counter.wav"
+      ],
+      "gain_db": -12,
+      "priority": 4,
+      "max_instances": 1,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "hurt": {
+      "files": [
+        "hurt.wav"
+      ],
+      "gain_db": -12,
+      "priority": 3,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "enemy_down": {
+      "files": [
+        "enemy_down.wav"
+      ],
+      "gain_db": -17,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "step": {
+      "files": [
+        "step.wav"
+      ],
+      "gain_db": -25,
+      "priority": 0,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "stage_start": {
+      "files": [
+        "stage_start.wav"
+      ],
+      "gain_db": -17,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "boss_arrive": {
+      "files": [
+        "boss_arrive.wav"
+      ],
+      "gain_db": -13,
+      "priority": 4,
+      "max_instances": 1,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "battle"
+    },
+    "victory": {
+      "files": [
+        "victory.wav"
+      ],
+      "gain_db": -12,
+      "priority": 5,
+      "max_instances": 1,
+      "cooldown": 0.035,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "defeat": {
+      "files": [
+        "defeat.wav"
+      ],
+      "gain_db": -15,
+      "priority": 5,
+      "max_instances": 1,
+      "cooldown": 0.035,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "ui_click": {
+      "files": [
+        "ui_click.wav"
+      ],
+      "gain_db": -21,
+      "priority": 1,
+      "max_instances": 2,
+      "cooldown": 0.06,
+      "pitch_variation": 0.02,
+      "bus": "ui"
+    },
+    "confirm": {
+      "files": [
+        "confirm.wav"
+      ],
+      "gain_db": -19,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "ui"
+    },
+    "equip": {
+      "files": [
+        "equip.wav"
+      ],
+      "gain_db": -17,
+      "priority": 2,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "ui"
+    },
+    "forge": {
+      "files": [
+        "forge.wav"
+      ],
+      "gain_db": -16,
+      "priority": 3,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0.02,
+      "bus": "ui"
+    },
+    "reward": {
+      "files": [
+        "reward.wav"
+      ],
+      "gain_db": -15,
+      "priority": 3,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0,
+      "bus": "ui"
+    },
+    "upgrade": {
+      "files": [
+        "upgrade.wav"
+      ],
+      "gain_db": -15,
+      "priority": 3,
+      "max_instances": 2,
+      "cooldown": 0.035,
+      "pitch_variation": 0,
+      "bus": "ui"
+    }
+  }
+}
