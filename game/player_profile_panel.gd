@@ -39,7 +39,7 @@ static func show_profile(game) -> void:
 		button.button_pressed = id == identity.avatar
 		button.disabled = game.store.read_only or not game.store.available_hero(id)
 		button.tooltip_text = "Chọn avatar" if not button.disabled else "Cần sở hữu nhân vật"
-	var notice: Label = game._label(column, "VIP · Chưa kích hoạt", Vector2.ZERO, 18, Color("e5cd9e"))
+	var notice: Label = game._label(column, "VIP EXP · %d · Mốc cấp chờ cấu hình" % MissionBoard.state(game.store.profile).vip_exp, Vector2.ZERO, 18, Color("e5cd9e"))
 	notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	game._button(column, "Lưu hồ sơ", Vector2.ZERO, Vector2(400, 46), func():
 		if PlayerIdentity.save(game.store, name_input.text, chosen.avatar):
@@ -52,7 +52,7 @@ static func show_profile(game) -> void:
 
 static func show_vip(game, tier: int) -> void:
 	tier = clampi(tier, 1, PlayerIdentity.VIP_TIERS)
-	var column: VBoxContainer = game._dialog("ĐẶC QUYỀN VIP", "VIP hiện tại · Chưa kích hoạt", [])
+	var column: VBoxContainer = game._dialog("ĐẶC QUYỀN VIP", "VIP EXP: %d · Chưa xếp hạng" % MissionBoard.state(game.store.profile).vip_exp, [])
 	layout(column)
 	var grid := GridContainer.new()
 	grid.columns = 5
@@ -70,7 +70,7 @@ static func show_vip(game, tier: int) -> void:
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	body.custom_minimum_size = Vector2(400, 148)
 	body.add_theme_font_size_override("font_size", 18)
-	body.text = "Tích lũy VIP qua nạp tiền.\n\nMốc nạp và quyền lợi của bậc này sẽ được công bố khi cửa hàng nạp mở.\n\nHiện chưa hỗ trợ thanh toán."
+	body.text = "Tích lũy VIP EXP qua nhiệm vụ ngày/tuần.\n\nMốc EXP và quyền lợi của bậc này đang chờ cấu hình.\n\nHiện chưa hỗ trợ thanh toán."
 	column.add_child(body)
 	var topup: Button = game._button(column, "Nạp tiền · Sắp ra mắt", Vector2.ZERO, Vector2(400, 46), func(): pass)
 	topup.disabled = true

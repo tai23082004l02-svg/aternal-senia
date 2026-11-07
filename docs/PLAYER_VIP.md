@@ -1,14 +1,16 @@
-# Hồ sơ và VIP · 0.15
+# Hồ sơ và VIP · 0.15–0.19
 
 Theo phác thảo: avatar tròn ở góc trái, tên bên phải phía trên, trạng thái VIP
 phía dưới. Chạm cụm hồ sơ để đổi tên (1–20 ký tự, hỗ trợ tiếng Việt) và chọn
 avatar từ nhân vật đã sở hữu. Avatar hồ sơ độc lập với hero ra trận.
 
-VIP theo nạp tiền, trước mắt chỉ triển khai giao diện theo yêu cầu. Bảng có đủ
+Từ0.19, người dùng đổi yêu cầu: nhiệm vụ ngày/tuần cấp VIP EXP thật khi nhận
+thưởng. EXP được lưu và hiển thị trong hồ sơ, chưa tự xếp cấp VIP. Bảng có đủ
 VIP1–10, chọn từng bậc để xem trạng thái. Tài khoản hiện ghi “Chưa kích hoạt”.
 Mốc nạp và quyền lợi chờ cấu hình; nút nạp bị vô hiệu và ghi “Sắp ra mắt”.
-Chưa tích hợp thanh toán/xác minh hóa đơn, chưa có điểm VIP hoặc cấp VIP thật,
-không cấp thưởng, buff, tăng VIP từ nhiệm vụ hoặc trừ ví khi xem bảng.
+Chưa tích hợp thanh toán/xác minh hóa đơn hoặc cấp VIP thật. Mốc EXP/cấp và
+quyền lợi chờ cấu hình; không buff hoặc trừ ví khi xem bảng. Chi tiết EXP ở
+[Hệ thống nhiệm vụ](MISSIONS.md).
 
 Hồ sơ lưu trong trường tùy chọn `identity` của save v5; save cũ không cần đổi
 phiên bản, mặc định “Nhà lữ hành” và avatar Eira. Tên/avatar được kiểm tra trước

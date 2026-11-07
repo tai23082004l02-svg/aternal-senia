@@ -90,6 +90,7 @@ static func summon(store: ProgressStore, count: int = 1) -> bool:
 	if p.recruitment.count > 2147483647 - count: return false
 	for i in range(count):
 		_draw(store, p)
+	MissionBoard.record(p, "summon", count)
 	return store.commit(p)
 
 static func _draw(store: ProgressStore, p: Dictionary) -> void:

@@ -12,6 +12,8 @@ var battle: BattleModel
 var frames: FrameLibrary
 var view: BattleView
 var ui: Control
+var mission_tab := 0
+var profile_vip: Label
 var profile_name: Label
 var profile_button: Button
 var profile_avatar: Control
@@ -125,8 +127,10 @@ func _build_ui() -> void:
 	profile_name.size = Vector2(246, 29)
 	profile_name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	profile_name.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var vip_badge := _label(profile_button, "VIP · Chưa kích hoạt  ›", Vector2(70, 35), 13, Color("e1c38d"))
-	vip_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	profile_vip = _label(profile_button, "VIP · Chưa kích hoạt  ›", Vector2(70, 35), 13, Color("e1c38d"))
+	profile_vip.size = Vector2(270, 22)
+	profile_vip.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	profile_vip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	wallet = _label(ui, "", Vector2(24, 88), 14, Color("e1c38d"))
 	wallet.visible = false
 	for i in range(3):
@@ -256,6 +260,7 @@ func _physics_process(delta: float) -> void:
 func _refresh_hud() -> void:
 	var p: Dictionary = store.profile
 	profile_name.text = PlayerIdentity.state(p).name
+	profile_vip.text = "VIP · %d EXP · Chờ xếp hạng ›" % MissionBoard.state(p).vip_exp
 	profile_avatar.update_avatar(frames, PlayerIdentity.state(p).avatar)
 	wallet.text = ""
 	for key in currency_labels:
@@ -434,12 +439,37 @@ func _equipment_detail_panel() -> void:
 		_row("Phân giải · +%d tinh thạch" % (1 + item.rank), _dismantle_confirm.bind(item.uid), _locked() or not owner.is_empty())
 
 func _quests_panel() -> void:
-	_row("BỘ SƯU TẬP & THÀNH TỰU →", _select_tab.bind(8))
-	for quest in catalog.data.quests:
-		var count: int = mini(int(store.profile.metrics[quest.metric]), int(quest.target))
-		_text("%s · %d/%d" % [quest.name, count, quest.target], 17, Color("e5cd9e"))
-		_row("Đã nhận" if quest.id in store.profile.claimed else "Nhận · %d vàng + %d tinh thạch" % [quest.gold, quest.shards], _quest.bind(quest.id), quest.id in store.profile.claimed or count < quest.target or store.read_only)
-	_text("Nhiệm vụ được lưu vĩnh viễn; không nhận lại khi khởi động game.")
+	var screen := MissionScreen.new()
+	screen.game = self
+	panel.add_child(screen)
+
+func _mission_tab(index: int) -> void:
+	mission_tab = clampi(index, 0, 2)
+	scroll.scroll_vertical = 0
+	_refresh_panel()
+
+func _mission_claim(period: String, id: String) -> void:
+	_outcome(MissionBoard.claim(store, period, id), "Đã nhận tài nguyên và VIP EXP.", "reward")
+
+func _mission_chest(period: String, threshold: int) -> void:
+	var section: Dictionary = MissionBoard.state(store.profile)[period]
+	var reward := MissionBoard.chest_reward(period, threshold)
+	var can_claim: bool = threshold not in section.chests and MissionBoard.points(section, period) >= threshold and not _locked()
+	var column := _dialog("RƯƠNG %d ĐIỂM" % threshold, "%d vàng · %d tinh thạch · %d VIP EXP\n\n%s" % [reward.gold, reward.shards, reward.vip, "Đã nhận" if threshold in section.chests else ("Đủ điểm nhận quà" if can_claim else "Chưa đủ điểm hoạt động")], [{"text":"Đóng", "call":_close_modal}])
+	var button := _button(column, "Nhận rương", Vector2.ZERO, Vector2(400, 46), _mission_claim_chest.bind(period, threshold))
+	button.disabled = not can_claim
+	column.move_child(button, column.get_child_count() - 2)
+
+func _mission_claim_chest(period: String, threshold: int) -> void:
+	_close_modal()
+	_outcome(MissionBoard.claim(store, period, "", threshold), "Đã nhận rương hoạt động.", "reward")
+
+func _mission_go(id: String) -> void:
+	match id:
+		"offline": _offline()
+		"enhance": _select_tab(2)
+		"summon": _select_tab(11)
+		_: _select_tab(0)
 
 func _journal_panel() -> void:
 	_row("SỔ TAY BOSS →", _select_tab.bind(10))

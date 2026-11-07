@@ -1,4 +1,11 @@
-# Aternal Senia — First Light · 0.18
+# Aternal Senia — First Light · 0.19
+
+## Nhiệm vụ & VIP EXP · 0.19
+
+Ba tab Hằng ngày / Hằng tuần / Tiến trình. Có điểm hoạt động0–100, năm rương
+mốc, nhiệm vụ theo thao tác chơi thật và VIP EXP khi nhận quà. Tiến trình cũ
+được giữ; VIP EXP được lưu nhưng mốc lên VIP1–10 chờ cấu hình.
+[Xem nhiệm vụ, phần thưởng và reset](docs/MISSIONS.md).
 
 ## Tiện ích · 0.18
 

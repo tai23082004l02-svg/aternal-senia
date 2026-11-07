@@ -115,6 +115,7 @@ func valid(p: Variant) -> bool:
 	if not HeroEvolution.valid(self, p): return false
 	if not Wardrobe.valid(self, p): return false
 	if not PlayerIdentity.valid(self, p): return false
+	if not MissionBoard.valid(self, p): return false
 	return p.settings.get("speed") in [1, 2, 3] and p.settings.get("sound") is bool
 
 func _number(value: Variant, low: float, high: float) -> bool:
@@ -295,6 +296,7 @@ func enhance(uid: String, rank_up: bool = false) -> bool:
 		else:
 			item.enhance += 1
 		p.metrics.enhances += 1
+		MissionBoard.record(p, "enhance")
 		return commit(p)
 	return false
 
@@ -347,6 +349,7 @@ func settle(run_id: String, won: bool, kills: int, elapsed: float = 0) -> bool:
 	var run: Dictionary = p.pending
 	var stage := catalog.find_row("stages", run.stage)
 	p.metrics.kills += clampi(kills, 0, stage.get("waves", [0, 0, 0]).size())
+	MissionBoard.record(p, "kills", clampi(kills, 0, stage.get("waves", [0, 0, 0]).size()))
 	if won:
 		p.gold += stage.gold
 		p.xp += stage.xp
@@ -362,6 +365,7 @@ func settle(run_id: String, won: bool, kills: int, elapsed: float = 0) -> bool:
 			var previous: Dictionary = p.expansion.records.get(key, {"score": 0, "time": 1e8})
 			p.expansion.records[key] = {"score": maxi(previous.score, score), "time": minf(previous.time, elapsed)}
 		p.metrics.wins += 1
+		if stage.get("kind", "") != "challenge": MissionBoard.record(p, "wins")
 		var story_key := "%d_after" % run.stage
 		if story_key not in p.seen_story:
 			p.seen_story.append(story_key)
@@ -395,6 +399,7 @@ func claim_offline(now: int) -> bool:
 	var p := profile.duplicate(true)
 	p.gold += amount
 	p.last_offline = maxi(now, int(p.last_offline))
+	MissionBoard.record(p, "offline", 1, now)
 	return commit(p)
 
 func mark_story(key: String) -> bool:

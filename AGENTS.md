@@ -23,8 +23,10 @@
 - Không đưa ElevenLabs key vào runtime, log hoặc source. Generation dùng secret tại GitHub; hậu kỳ local không cần key. Không tự retry request trả phí.
 
 - Từ 0.16: Lyra là hero thứ tư, tách biệt Ryn. Save v6 đọc v2–v5, thêm Lyra ngoài pending snapshot. Không thay ảnh/layer hoặc embedded_weapon của Ryn. Builder đầy đủ tools/build_complete_art.py phải giữ Ryn/Ash/ruins/lake. Chạy tests/lyra.gd, complete_art.gd và visual_ui.gd sau sửa roster/art; tiếp tục chạy các test hệ mới ở trên. Toàn roster/nền/boss hiển thị PNG; chưa test điện thoại thật.
-- Hồ sơ/VIP0.15: đọc docs/PLAYER_VIP.md, chạy tests/player_profile.gd. identity là trường tùy chọn save v5; VIP hiện chỉ giao diện 1–10 theo nạp tiền, không tự thêm điểm/cấp/quyền lợi/thanh toán hoặc thưởng giả.
+- Hồ sơ/VIP0.15: đọc docs/PLAYER_VIP.md, chạy tests/player_profile.gd. identity là trường tùy chọn save v5; Bảng VIP1–10 chưa xếp cấp; từ0.19 có EXP nhiệm vụ theo yêu cầu mới; không tự thêm mốc cấp/quyền lợi/thanh toán hoặc thưởng giả.
 
 - Triệu hồi0.17: đọc docs/SUMMON_SCREEN.md, chạy summon_batch/summon_ui/recruitment. x1/x10 atomic; lịch sử tối đa100. Bộ đếm UI chỉ Cao cấp/Sự kiện, độc lập, mốc/phần thưởng chờ cấu hình; không tự mở hai banner. Pity Thường cũ giữ nội bộ, không dùng chung hai bộ đếm mới.
 
 - Tiện ích0.18: đọc docs/UTILITIES_MENU.md; chạy utilities_ui khi sửa menu/badge. Badge chỉ từ quest đủ điều kiện chưa nhận; Hộp thư/Giftcode chưa có dịch vụ, không tạo thư/quà/mã thưởng giả.
+
+- Nhiệm vụ0.19: đọc docs/MISSIONS.md; chạy missions/missions_ui và utilities_ui/player_profile khi sửa. Người dùng đã cho nhiệm vụ ngày/tuần nhận VIP EXP; mốc xếp cấp VIP chưa chốt. Record và reward/EXP/claimed cùng transaction, chu kỳ UTC chỉ tiến, bảo toàn claimed vĩnh viễn và save v6 cũ.

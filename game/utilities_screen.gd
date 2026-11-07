@@ -10,7 +10,7 @@ func _ready() -> void:
 	add_theme_constant_override("separation", 7)
 	label("TIỆN ÍCH", 24, Color("e5cd9e"))
 	group("HOẠT ĐỘNG")
-	var ready := 0
+	var ready := MissionBoard.ready_count(game.store.profile)
 	for quest in game.catalog.data.quests:
 		if quest.id not in game.store.profile.claimed and game.store.profile.metrics[quest.metric] >= quest.target: ready += 1
 	entry("quests", "Nhiệm vụ & Phần thưởng", "Nhiệm vụ và phần thưởng hành trình", "quest", game._select_tab.bind(3), ready)
