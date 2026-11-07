@@ -23,3 +23,5 @@
 - Không đưa ElevenLabs key vào runtime, log hoặc source. Generation dùng secret tại GitHub; hậu kỳ local không cần key. Không tự retry request trả phí.
 
 - Hồ sơ/VIP0.15: đọc docs/PLAYER_VIP.md, chạy tests/player_profile.gd. identity là trường tùy chọn save v5; VIP hiện chỉ giao diện 1–10 theo nạp tiền, không tự thêm điểm/cấp/quyền lợi/thanh toán hoặc thưởng giả.
+
+- Triệu hồi0.16: đọc docs/SUMMON_SCREEN.md, chạy summon_batch/summon_ui/recruitment. x1/x10 atomic; lịch sử tối đa100. Bộ đếm UI chỉ Cao cấp/Sự kiện, độc lập, mốc/phần thưởng chờ cấu hình; không tự mở hai banner. Pity Thường cũ giữ nội bộ, không dùng chung hai bộ đếm mới.

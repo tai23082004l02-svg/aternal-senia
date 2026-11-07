@@ -65,6 +65,7 @@ var selected_spirit := "lumi"
 var character_inspected := ""
 var character_page := 0
 var character_outfit_preview := ""
+var summon_kind := 0
 var shop_page := 0
 
 func _ready() -> void:
@@ -908,22 +909,45 @@ func _entity_name(kind: String, id: String) -> String:
 
 func _summon_panel(embedded: bool = false) -> void:
 	if not embedded: _row("← Trở về hành trình", _select_tab.bind(0))
-	_text("CỔNG TRIỆU HỒI", 23, Color("e5cd9e"))
-	var r := Recruitment.state(store.profile)
-	_text("120 vàng / lượt. Ba nhóm triệu hồi: Cơ bản 70%, Nâng cao 25%, Cao cấp 5%. Sau 19 lượt chưa ra nhóm Cao cấp, lượt tiếp theo bảo đảm nhóm này. Nhóm là tỷ lệ triệu hồi, không phải hệ độ hiếm.")
-	_text("Đã triệu hồi %d lượt · bảo đảm Cao cấp trong tối đa %d lượt" % [r.count, 20 - r.pity], 17, Color("d7a4ff"))
-	_row("Triệu hồi 1 lần · 120 vàng", _summon, _locked() or store.profile.gold < Recruitment.PRICE)
-	_text("NHÂN VẬT / TINH LINH / TRANG BỊ", 18, Color("e5cd9e"))
-	_text("Nhân vật và tinh linh còn mở miễn phí qua chương. Nhân vật trùng: +10 mảnh tăng sao. Tinh linh trùng: +2 lõi tiến hóa. Túi đầy đổi trang bị thành 3 tinh thạch.")
+	var screen := SummonScreen.new()
+	screen.game = self
+	panel.add_child(screen)
+
+func _select_summon_kind(index: int) -> void:
+	summon_kind = clampi(index, 0, 2)
+	_refresh_panel()
+
+func _summon_confirm(count: int) -> void:
+	if summon_kind != 0 or _locked(): return
+	_dialog("Triệu hồi ×%d?" % count, "Chi phí: %d vàng.\nMỗi lượt có bảo hiểm riêng theo bộ đếm. Trang bị khi túi đầy đổi thành 3 tinh thạch." % (Recruitment.PRICE * count), [{"text": "Triệu hồi", "call": _summon_execute.bind(count)}, {"text": "Hủy", "call": _close_modal}])
+
+func _summon_execute(count: int) -> void:
+	if summon_kind != 0 or _locked(): return
+	_close_modal()
+	if count == 1:
+		_summon()
+		return
+	if not Recruitment.summon(store, count):
+		_outcome(false, "")
+		return
+	_refresh_panel()
+	_refresh_hud()
+	audio.play("reward")
+	SummonScreen.show_results(self, "KẾT QUẢ ×10", Recruitment.state(store.profile).history.slice(0, 10))
+
+func _summon_history() -> void:
+	SummonScreen.show_results(self, "LỊCH SỬ TRIỆU HỒI", Recruitment.state(store.profile).history)
+
+func _summon_rates() -> void:
+	var text := "Thường: 70% · Nâng cao: 25% · Cao cấp: 5%. Sau 19 lượt chưa ra nhóm Cao cấp, lượt 20 bảo đảm nhóm này. Đây là nhóm quay, độc lập độ hiếm.\n"
 	for tier in [1, 2, 3]:
-		var names: Array[String] = []
-		for entry in Recruitment.pool(catalog, tier): names.append(_entity_name(entry.kind, entry.id) + " [" + Recruitment.label(entry.kind, entry.id, catalog) + "] ×%d" % entry.weight)
-		_text(Recruitment.GROUP_NAMES[tier] + " · trọng số từng mục", 17, Color("d7a4ff"))
-		_text(", ".join(names), 14)
-	_text("Trong nhóm: xác suất mỗi mục = trọng số mục / tổng trọng số. Nhân vật chơi hiện tại có độ hiếm 5★ gốc; mảnh dùng tăng sao mở rộng riêng. Tinh linh dùng SR/SSR/UR; hiện có Lumi SR, Ash SSR, chưa có mẫu UR.", 13)
-	_text("LỊCH SỬ · 10 LƯỢT GẦN NHẤT", 18, Color("e5cd9e"))
-	for entry in r.history:
-		_text(Recruitment.label(entry.kind, entry.id, catalog) + " · " + _entity_name(entry.kind, entry.id) + (" · bản sao" if entry["duplicate"] else ""), 15, Recruitment.color(entry.kind, entry.id, catalog))
+		var candidates := Recruitment.pool(catalog, tier)
+		var total := 0
+		for entry in candidates: total += int(entry.weight)
+		text += "\n" + Recruitment.GROUP_NAMES[tier] + ":\n"
+		for entry in candidates:
+			text += "%s [%s]: %.2f%% trong nhóm\n" % [_entity_name(entry.kind, entry.id), _rarity(entry.kind, entry.id), float(entry.weight) / total * 100]
+	SummonScreen.show_text(self, "TỶ LỆ TRIỆU HỒI THƯỜNG", text)
 
 func _summon() -> void:
 	var full: bool = store.profile.items.size() >= Store.BAG_CAP

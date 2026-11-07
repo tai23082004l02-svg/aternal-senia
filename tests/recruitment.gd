@@ -82,7 +82,7 @@ func run() -> void:
 		check(Recruitment.summon(store), "Funded deterministic draw %d" % i)
 		var reward: Dictionary = store.profile.recruitment.history[0]
 		categories[reward.kind] = true
-		check(store.profile.recruitment.pity <= 19 and store.profile.recruitment.history.size() <= 10, "Bounded pity and history")
+		check(store.profile.recruitment.pity <= 19 and store.profile.recruitment.history.size() <= Recruitment.HISTORY_LIMIT, "Bounded pity and history")
 	check(categories.size() == 3, "Fixed seed covers all three reward categories")
 	check(store.available_hero("ryn") and store.available_hero("mira") and store.available_assist("ash"), "Summoned entities unlock before chapter clear")
 	check(store.profile.recruitment.fragments.ryn > 0 and store.profile.expansion.cores > 0, "Duplicate heroes and spirits convert to materials")

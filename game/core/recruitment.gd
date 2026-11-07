@@ -2,6 +2,7 @@ class_name Recruitment
 extends RefCounted
 
 const PRICE := 120
+const HISTORY_LIMIT := 100
 const RARITIES := {
 	1: {"name": "Thường", "color": "a4aab5"},
 	2: {"name": "Không phổ biến", "color": "69b875"},
@@ -35,6 +36,10 @@ static func fresh() -> Dictionary:
 static func state(p: Dictionary) -> Dictionary:
 	return p.get("recruitment", fresh())
 
+# Dedicated future banner counters; legacy normal pity stays separate.
+static func banner_pity(p: Dictionary, banner: String) -> int:
+	return int(state(p).get("banner_pity", {}).get(banner, 0))
+
 static func ensure(store: ProgressStore, p: Dictionary) -> void:
 	if not p.has("recruitment"):
 		p.recruitment = fresh()
@@ -52,10 +57,14 @@ static func valid(store: ProgressStore, p: Dictionary) -> bool:
 		if not r[key] is Array or not Expansion.unique(r[key]): return false
 		for id in r[key]:
 			if store.catalog.find_row("heroes" if key == "heroes" else "assists", id).is_empty(): return false
+	if r.has("banner_pity"):
+		if not r.banner_pity is Dictionary: return false
+		for key in ["premium", "event"]:
+			if not store._whole(r.banner_pity.get(key), 0, 2147483647): return false
 	if not r.fragments is Dictionary or not r.awakening is Dictionary: return false
 	for hero in store.catalog.data.heroes:
 		if not store._whole(r.fragments.get(hero.id), 0, 1e12) or not store._whole(r.awakening.get(hero.id), 1, 5): return false
-	if not r.history is Array or r.history.size() > 10: return false
+	if not r.history is Array or r.history.size() > HISTORY_LIMIT: return false
 	for entry in r.history:
 		if not entry is Dictionary or entry.get("kind") not in ["hero", "spirit", "item"] or not entry.get("duplicate") is bool: return false
 		var group: String = {"hero": "heroes", "spirit": "assists", "item": "items"}[entry.kind]
@@ -74,12 +83,17 @@ static func pool(book: GameCatalog, tier: int) -> Array:
 			result.append({"kind": pair[0], "id": row.id, "rarity": rank, "grade": grade, "weight": weight})
 	return result
 
-static func summon(store: ProgressStore) -> bool:
-	if store.read_only or not store.profile.pending.is_empty() or store.profile.gold < PRICE: return false
+static func summon(store: ProgressStore, count: int = 1) -> bool:
+	if count not in [1, 10] or store.read_only or not store.profile.pending.is_empty() or store.profile.gold < PRICE * count: return false
 	var p := store.profile.duplicate(true)
 	ensure(store, p)
+	if p.recruitment.count > 2147483647 - count: return false
+	for i in range(count):
+		_draw(store, p)
+	return store.commit(p)
+
+static func _draw(store: ProgressStore, p: Dictionary) -> void:
 	var r: Dictionary = p.recruitment
-	if r.count >= 2147483647: return false
 	var rng := RandomNumberGenerator.new()
 	rng.seed = int(r.seed) + int(r.count) * 7919
 	var roll := rng.randi_range(0, 9999)
@@ -100,18 +114,17 @@ static func summon(store: ProgressStore) -> bool:
 	match reward.kind:
 		"item": store._add_item(p, reward.id)
 		"hero":
-			reward["duplicate"] = store.available_hero(reward.id)
+			reward["duplicate"] = (store.available_hero(reward.id) or reward.id in r.heroes)
 			if reward.id not in r.heroes: r.heroes.append(reward.id)
 			if reward["duplicate"]: r.fragments[reward.id] += 10
 		"spirit":
-			reward["duplicate"] = store.available_assist(reward.id)
+			reward["duplicate"] = (store.available_assist(reward.id) or reward.id in r.spirits)
 			if reward.id not in r.spirits: r.spirits.append(reward.id)
 			if reward["duplicate"]: p.expansion.cores += 2
 	r.count += 1
 	r.pity = 0 if tier == 3 else r.pity + 1
 	r.history.push_front(reward)
-	if r.history.size() > 10: r.history.pop_back()
-	return store.commit(p)
+	if r.history.size() > HISTORY_LIMIT: r.history.pop_back()
 
 static func awaken(store: ProgressStore, hero_id: String = "") -> bool:
 	if store.read_only or not store.profile.pending.is_empty(): return false

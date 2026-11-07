@@ -1,4 +1,11 @@
-# Aternal Senia — First Light · 0.15
+# Aternal Senia — First Light · 0.16
+
+## Triệu hồi · 0.16
+
+Banner trái, ba loại Thường/Cao cấp/Sự kiện bên phải; nút x1 và x10, thanh mở
+lịch sử riêng. Thường dùng120 vàng/lượt, x10 là1200 vàng trong một giao dịch.
+Bộ đếm chỉ hiện ở Cao cấp/Sự kiện, hai bộ đếm độc lập; mốc/phần thưởng chưa
+cấu hình và hai banner này chưa mở. [Chi tiết và ảnh](docs/SUMMON_SCREEN.md).
 
 ## Hồ sơ & VIP · 0.15
 
