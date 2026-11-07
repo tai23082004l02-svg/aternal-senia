@@ -2,7 +2,7 @@
 
 ## Nhân vật theo bố cục mobile · 0.28
 
-Dải chân dung trái, nhân vật lớn, năm tab dưới: Thông tin / Trang bị / Phát triển /
+Dải chân dung trái, nhân vật lớn, năm tab trên: Thông tin / Trang bị / Phát triển /
 Kỹ năng / Trang phục. Nâng LV, tiến hóa và thức tỉnh nằm trong Phát triển;
 bốn ô trang bị quanh hero, chỉ số xem trước và cây thiên phú tròn dùng dữ liệu thật.
 [Xem sáu màn và quy tắc](docs/CHARACTER_REDESIGN.md).

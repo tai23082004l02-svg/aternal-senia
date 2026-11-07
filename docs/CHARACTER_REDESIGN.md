@@ -1,17 +1,16 @@
 # Nhân vật: năm tab mobile · 0.28
 
 Bố cục theo ảnh sáu màn người dùng gửi: dải chân dung bên trái, nội dung bên
-phải, năm tab cố định phía dưới. Giữ phong cách rừng xanh đêm, viền vàng và
+phải, năm tab cố định phía trên vùng chân dung/nội dung. Giữ phong cách rừng xanh đêm, viền vàng và
 art riêng của Eira/Mira/Ryn/Lyra. Chọn chân dung chỉ đổi nhân vật đang xem,
 không thay hero ra trận hoặc đội hình. Chân dung chưa sở hữu vẫn xem được,
 nhưng không cho nâng cấp/trang bị/áp dụng phối màu.
 
-Theo yêu cầu tiếp theo, thanh chính Shop/Nhân vật/Hành trình/Phó bản/Túi đồ
-ẩn khi mở Nhân vật (bao gồm mọi tab con) và hiện lại ở màn khác. Giữ năm tab
-riêng của Nhân vật. Nút **← Thoát** nằm dưới hàng tab, trở về Hành trình qua
-luồng chuyển màn hiện có (tiếp tục trận đang tạm dừng khi cần). Nội dung cao
-674px, tab ở686px, nút thoát ở764px trong vùng808px; cân lại khoảng trống
-đến viền dưới và không cần cuộn toàn màn để tìm nút. Nội dung dài cuộn riêng.
+Theo yêu cầu mới nhất, Thông tin/Trang bị/Phát triển/Kỹ năng/Trang phục ở
+trên vùng nhân vật. Thanh chính Shop/Nhân vật/Hành trình/Phó bản/Túi đồ trở
+lại phía dưới như các màn khác; bỏ nút Thoát. Chuyển Hành trình qua thanh
+chính tiếp tục trận đang tạm dừng theo luồng hiện có. Vùng màn732px: tab ở0,
+chân dung/nội dung bắt đầu78px, bảng chi tiết cao642px. Nội dung dài cuộn riêng.
 
 ## Năm tab
 

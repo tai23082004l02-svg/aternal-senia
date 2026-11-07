@@ -40,12 +40,12 @@ func run() -> void:
 	for i in range(5):
 		screen().section_buttons[i].pressed.emit()
 		assert(game.character_page == CharacterScreen.TAB_PAGES[i])
-		for nav in game.tabs: assert(not nav.visible, "Character pages hide the main bottom navigation")
+		for nav in game.tabs: assert(nav.visible, "Character pages retain the main bottom navigation")
 		await capture(["character-info","character-gear","character-development","character-skills","character-wardrobe"][i])
 		for b in screen().section_buttons:
-			assert(b.get_global_rect().end.x <= 540 and b.get_global_rect().end.y < screen().exit_button.global_position.y)
-		assert(screen().exit_button.get_global_rect().end.y <= 944)
-		screen().exit_button.pressed.emit()
+			assert(b.get_global_rect().end.x <= 540 and b.get_global_rect().end.y < screen().face_buttons.mira.global_position.y)
+		assert(screen().detail_scroll.get_global_rect().end.y <= game.tabs[0].global_position.y)
+		game.tabs[2].pressed.emit()
 		assert(game.tab == 0)
 		for nav in game.tabs: assert(nav.visible)
 		game._select_tab(1)
@@ -85,5 +85,5 @@ func run() -> void:
 	await create_timer(.2).timeout
 	game.queue_free()
 	await process_frame
-	print("PASS: five bounded bottom tabs, three development pages, four real talent nodes, read-only browsing and inspected-hero gear picker")
+	print("PASS: five bounded top tabs, three development pages, four real talent nodes, read-only browsing and inspected-hero gear picker")
 	quit()
