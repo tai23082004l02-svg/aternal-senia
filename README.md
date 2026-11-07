@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.30
+# Aternal Senia — First Light · 0.31
+
+## Trang Nhân vật liền tranh · 0.31
+
+Thông tin/Trang bị dùng nền dọc riêng có vùng trống cho chữ và nội dung động.
+Tên, chỉ số, ô đồ và nút là control thật; chữ xuống dòng và giãn khung, sẵn
+cho bổ sung bản dịch sau. [Ảnh và quy tắc](docs/CHARACTER_PANEL_UI.md).
 
 ## Túi đồ và Lò rèn · 0.30
 

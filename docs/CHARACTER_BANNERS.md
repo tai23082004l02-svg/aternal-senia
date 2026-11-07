@@ -1,5 +1,7 @@
 # Bốn banner nhân vật · 0.29
 
+Từ0.31, Thông tin/Trang bị dùng [tranh dọc liền trang](CHARACTER_PANEL_UI.md); phần tích hợp0.29 dưới đây là lịch sử, nguồn banner vẫn dùng cho xem trang phục.
+
 Tranh mới theo yêu cầu thay hình chibi trong màn Nhân vật, lấy bố cục banner
 Mira người dùng gửi làm tham khảo. Bốn ảnh gốc1536×1024, phong cách anime
 fantasy vẽ tay chi tiết, nửa người, nền có ánh phép riêng. Không nhập pixel

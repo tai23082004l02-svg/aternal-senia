@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-07",
+  "method": "Original image generation using each own hero banner as identity. Portrait full-page illustration with empty title, side-control and lower content regions. No text, numbers, item icons or buttons baked into images. Source PNGs preserved byte-for-byte.",
+  "sources": [
+    {
+      "id": "eira",
+      "file": "art/character_panels/eira.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "9af04048144743918d162eab935c9deb6166c78629010c4a5282104efd36127c",
+      "reference": "art/banners/eira.png"
+    },
+    {
+      "id": "mira",
+      "file": "art/character_panels/mira.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "38a953c6860e5f9c5f6bffd72c8fd23cf77dc590a3d6c2fd7b80213139681d0e",
+      "reference": "art/banners/mira.png"
+    },
+    {
+      "id": "ryn",
+      "file": "art/character_panels/ryn.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "b89c3be0c674d6068123d3e3e6466a21e24dcbe9f04dd4b0c78381549d08d504",
+      "reference": "art/banners/ryn.png"
+    },
+    {
+      "id": "lyra",
+      "file": "art/character_panels/lyra.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "64ff2144913904115505127efcbd7307d00b4efb56c747fde69d1dcd247a50db",
+      "reference": "art/banners/lyra.png"
+    }
+  ]
+}

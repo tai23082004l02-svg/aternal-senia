@@ -1,5 +1,7 @@
 # Nhân vật: năm tab mobile · 0.28
 
+Bố cục tranh/chữ hiện hành: [CharacterPanelPage0.31](CHARACTER_PANEL_UI.md).
+
 Từ0.29, ba vùng xem nhân vật dùng [banner minh họa mới](CHARACTER_BANNERS.md). Ảnh phía dưới là bố cục chibi trước thay đổi này.
 
 Bố cục theo ảnh sáu màn người dùng gửi: dải chân dung bên trái, nội dung bên

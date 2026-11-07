@@ -4,6 +4,8 @@
 
 # Hướng dẫn dự án
 
+- Nhân vật0.31: đọc docs/CHARACTER_PANEL_UI.md. Hai trang Thông tin/Trang bị dùng CharacterPanelPage và art/character_panels, không bake bất kỳ chữ/số/item/nút vào tranh. Nhãn/template dùng tr(), xuống dòng và giãn nội dung/cuộn cho bản dịch dài. Builder tools/build_character_panels.py chỉ metadata. Giữ sở hữu/UID/save0.30, không thêm Trang bị nhanh giả từ ảnh. Chạy character_design (có bản dịch dài giả lập), character_ui/equipment_ui/ui_flow/animation_gallery khi sửa.
+
 - Banner0.29: đọc docs/CHARACTER_BANNERS.md. Bốn PNG nguồn art/banners giữ byte, builder tools/build_banner_manifest.py chỉ metadata. HeroBanner thay actor ở ba mục Nhân vật, giữ battle/avatar/portrait Ryn phóng lớn. Không gọi đây là rig hay layer tóc mới; chuyển động toàn tranh. Chạy character_design/character_ui/equipment_ui và ui_flow/animation_gallery khi sửa.
 
 - Nhân vật0.28: đọc docs/CHARACTER_REDESIGN.md. Năm tab trên map0/1/2/5/6; thanh chính dưới luôn hiện, không có nút thoát; Phát triển có trang2/4/3, giữ callback/index cũ. Bốn slot quanh portrait dùng EquipmentSystem0.27, node tròn là bốn talent thật. fit_actor của HeroPortrait chỉ bật ở màn mới. Chọn chân dung/node/xem trước không ghi save hoặc thay hero ra trận; pending/read-only khóa mutation. Chạy character_design/character_ui/equipment_ui, wardrobe/portrait_touch/ryn_art/ryn_gallery, ui_flow/animation_gallery khi sửa.

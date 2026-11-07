@@ -41,7 +41,7 @@ func run() -> void:
 		game._inspect_character(id)
 		game._character_section(0)
 		var banners := screen().find_children("*","Control",true,false).filter(func(n): return n is HeroBanner)
-		assert(banners.size() == 1 and banners[0].hero == id and banners[0].artwork.get_size() == Vector2(1536,1024))
+		assert(banners.size() == 1 and banners[0].hero == id and banners[0].artwork.get_size() == Vector2(1024,1536))
 		await capture("banner-"+id)
 	game._inspect_character("mira")
 	for i in range(5):
@@ -73,6 +73,25 @@ func run() -> void:
 	game._character_section(6)
 	game._preview_character_outfit("moon")
 	await capture("character-wardrobe-preview")
+	# Longer translations must remain live text and expand the reserved regions.
+	var original_locale := TranslationServer.get_locale()
+	var translation := Translation.new()
+	translation.locale = "de"
+	translation.add_message("Pháp sư thủy triều","Zauberin der geheimnisvollen Gezeiten und des Mondlichts")
+	translation.add_message("Vũ khí","Hauptbewaffnung")
+	translation.add_message("Phụ kiện","Unterstützungszubehör")
+	translation.add_message("Chạm món để xem chỉ số và cường hóa; chạm ô trống để chọn đồ.","Wähle einen Ausrüstungsgegenstand, um Eigenschaften und Verbesserungen anzuzeigen. Wähle einen freien Platz, um einen Gegenstand auszurüsten.")
+	TranslationServer.add_translation(translation)
+	TranslationServer.set_locale("de")
+	game._character_section(1)
+	await capture("character-localized-long")
+	var page: CharacterPanelPage = screen().find_children("*","Control",true,false).filter(func(n): return n is CharacterPanelPage)[0]
+	for card in page.slot_buttons:
+		assert(card.get_child(0).get_global_rect().end.y <= card.get_global_rect().end.y)
+		assert(card.position.y+card.size.y < page.lower.position.y)
+	assert(page.custom_minimum_size.y >= page.lower.position.y+page.lower.get_combined_minimum_size().y)
+	TranslationServer.remove_translation(translation)
+	TranslationServer.set_locale(original_locale)
 	assert(game.store.profile == before, "Browsing all redesigned pages/tree/outfit preview is read-only")
 	game._character_section(1)
 	game._character_gear_picker("mira","boots")

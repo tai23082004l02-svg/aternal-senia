@@ -76,6 +76,15 @@ func _ready() -> void:
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation", 8)
 	detail_scroll.add_child(body)
+	if section in [0,1]:
+		frame.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
+		body.add_theme_constant_override("separation",0)
+		var page := CharacterPanelPage.new()
+		page.game = game
+		page.hero = hero
+		page.equipment_page = section == 1
+		body.add_child(page)
+		return
 	var p: Dictionary = game.store.profile
 	var row: Dictionary = game.catalog.find_row("heroes", hero)
 	var heading := HBoxContainer.new()
@@ -106,8 +115,6 @@ func _ready() -> void:
 			if section == pair[1]: b.add_theme_stylebox_override("normal", gold_style(true))
 			development_buttons.append(b)
 	match section:
-		0: info()
-		1: equipment()
 		2: levels()
 		3: stars_panel()
 		4: evolution()
@@ -213,101 +220,6 @@ func resource_tiles(entries: Array) -> void:
 		label.add_theme_font_size_override("font_size", 12)
 		label.modulate = Color("b6ddb4") if entry[1] >= entry[2] else Color("dfb895")
 		column.add_child(label)
-
-func info() -> void:
-	var p: Dictionary = game.store.profile
-	var row: Dictionary = game.catalog.find_row("heroes", hero)
-	portrait(245)
-	var stats: Dictionary = game.catalog.stats(p, hero)
-	text("✦ Lực chiến ước tính %d" % int(stats.hp + stats.atk*10 + stats.defense*6), 18, Color("edcc81")).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var chips := HBoxContainer.new()
-	chips.add_theme_constant_override("separation", 6)
-	body.add_child(chips)
-	for value in ["LV %d/100" % p.heroes[hero].level, "Tiến hóa %d/3" % HeroEvolution.rank(p, hero), "Thức tỉnh %d/5" % Recruitment.state(p).awakening[hero]]:
-		var chip := Label.new()
-		chip.text = value
-		chip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		chip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		chip.add_theme_font_size_override("font_size", 11)
-		chip.add_theme_stylebox_override("normal", gold_style())
-		chips.add_child(chip)
-	stat_tiles(stats)
-	var passive := PanelContainer.new()
-	passive.add_theme_stylebox_override("panel", gold_style())
-	body.add_child(passive)
-	var description := Label.new()
-	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	description.text = "ĐẶC TÍNH\n" + row.passive
-	description.add_theme_font_size_override("font_size", 12)
-	passive.add_child(description)
-	button("Xếp vào đội hình →", game._select_tab.bind(22))
-	if hero == "ryn": button("Xem Ryn phóng lớn →", game._show_ryn_portrait)
-	if p.hero == hero: button("Điểm thuộc tính →", game._select_tab.bind(9))
-
-func stat_tiles(stats: Dictionary) -> void:
-	var grid := GridContainer.new()
-	grid.columns = 4
-	grid.add_theme_constant_override("h_separation", 6)
-	body.add_child(grid)
-	for pair in [["HP",str(int(stats.hp)),"heal"],["Tấn công",str(int(stats.atk)),"slash"],["Phòng thủ",str(snappedf(stats.defense,.01)),"guard"],["Chí mạng","%d%%" % (stats.crit*100),"talents"]]:
-		var box := PanelContainer.new()
-		box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		box.add_theme_stylebox_override("panel", gold_style())
-		grid.add_child(box)
-		var col := VBoxContainer.new()
-		col.add_theme_constant_override("separation", 2)
-		box.add_child(col)
-		var image := TextureRect.new()
-		image.texture = game.icons.textures[pair[2]]
-		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		image.custom_minimum_size = Vector2(23,23)
-		col.add_child(image)
-		for value in [pair[0],pair[1]]:
-			var label := Label.new()
-			label.text = value
-			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			label.add_theme_font_size_override("font_size", 10 if value == pair[0] else 14)
-			col.add_child(label)
-
-func equipment() -> void:
-	var p: Dictionary = game.store.profile
-	var stage := Control.new()
-	stage.custom_minimum_size = Vector2(350, 290)
-	body.add_child(stage)
-	make_portrait(stage, 290)
-	for index in range(EquipmentSystem.SLOTS.size()):
-		var slot_name: String = EquipmentSystem.SLOTS[index]
-		var current := EquipmentSystem.item_for(p, p.heroes[hero].equipment[slot_name])
-		var action: Callable = game._character_gear_picker.bind(hero, slot_name) if current.is_empty() else game._character_item_detail.bind(current.uid, hero)
-		var card: Button = game._button(stage, "", Vector2(0 if index % 2 == 0 else 290, 25 if index < 2 else 165), Vector2(68, 105), action)
-		card.name = "EquipmentSlot_" + slot_name
-		card.tooltip_text = EquipmentSystem.SLOT_NAMES[slot_name]
-		card.add_theme_stylebox_override("normal", gold_style())
-		if not current.is_empty():
-			var definition: Dictionary = game.catalog.find_row("items",current.base)
-			var art := EquipmentArt.add_to(card,game,current.base,definition.rarity,66)
-			art.position = Vector2(1,0)
-		else:
-			var empty: Label = game._label(card,"+",Vector2(0,12),26,Color("8aa6aa"))
-			empty.size.x = 68
-			empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			empty.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var detail: Label = game._label(card, EquipmentSystem.SLOT_NAMES[slot_name] + ("\nChưa mặc" if current.is_empty() else "\nBậc%d · +%d" % [current.rank,current.enhance]), Vector2(0,65), 11, Color("e5ce95"))
-		detail.size.x = 68
-		detail.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		detail.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var counts := EquipmentSystem.set_counts(game.catalog,p,hero)
-	var has_set := false
-	for set_def in game.catalog.data.sets:
-		if not counts.has(set_def.id): continue
-		has_set = true
-		text("BỘ " + set_def.name.to_upper() + " · %d/4" % counts[set_def.id],15,Color("e5cd9e"))
-		for bonus in set_def.bonuses:
-			text(("✓ " if counts[set_def.id] >= bonus.pieces else "○ ") + "%d món: %s" % [bonus.pieces,bonus.description],12)
-	if not has_set: text("Chưa kích hoạt bộ trang bị.",13)
-	text("Chạm món để xem chỉ số và cường hóa; chạm ô trống để chọn đồ. Các nhân vật phù hợp có thể dùng chung trang bị.",12)
-	button("Mở kho trang bị →", game._bag_open.bind("equipment"))
 
 func levels() -> void:
 	var p: Dictionary = game.store.profile
