@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.28
+# Aternal Senia — First Light · 0.29
+
+## Banner nhân vật · 0.29
+
+Bốn tranh splash riêng cho Eira/Mira/Ryn/Lyra: bình minh, thủy triều, hỏa vũ
+và hoàng hôn. Thay chibi ở Thông tin/Trang bị/Trang phục bằng banner lớn;
+giữ sprite chiến đấu và tiến trình. [Xem tranh và tích hợp](docs/CHARACTER_BANNERS.md).
 
 ## Nhân vật theo bố cục mobile · 0.28
 

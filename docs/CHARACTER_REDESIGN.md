@@ -1,5 +1,7 @@
 # Nhân vật: năm tab mobile · 0.28
 
+Từ0.29, ba vùng xem nhân vật dùng [banner minh họa mới](CHARACTER_BANNERS.md). Ảnh phía dưới là bố cục chibi trước thay đổi này.
+
 Bố cục theo ảnh sáu màn người dùng gửi: dải chân dung bên trái, nội dung bên
 phải, năm tab cố định phía trên vùng chân dung/nội dung. Giữ phong cách rừng xanh đêm, viền vàng và
 art riêng của Eira/Mira/Ryn/Lyra. Chọn chân dung chỉ đổi nhân vật đang xem,

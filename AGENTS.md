@@ -2,6 +2,8 @@
 
 # Hướng dẫn dự án
 
+- Banner0.29: đọc docs/CHARACTER_BANNERS.md. Bốn PNG nguồn art/banners giữ byte, builder tools/build_banner_manifest.py chỉ metadata. HeroBanner thay actor ở ba mục Nhân vật, giữ battle/avatar/portrait Ryn phóng lớn. Không gọi đây là rig hay layer tóc mới; chuyển động toàn tranh. Chạy character_design/character_ui/equipment_ui và ui_flow/animation_gallery khi sửa.
+
 - Nhân vật0.28: đọc docs/CHARACTER_REDESIGN.md. Năm tab trên map0/1/2/5/6; thanh chính dưới luôn hiện, không có nút thoát; Phát triển có trang2/4/3, giữ callback/index cũ. Bốn slot quanh portrait dùng EquipmentSystem0.27, node tròn là bốn talent thật. fit_actor của HeroPortrait chỉ bật ở màn mới. Chọn chân dung/node/xem trước không ghi save hoặc thay hero ra trận; pending/read-only khóa mutation. Chạy character_design/character_ui/equipment_ui, wardrobe/portrait_touch/ryn_art/ryn_gallery, ui_flow/animation_gallery khi sửa.
 
 - Trang bị0.27: đọc [docs/EQUIPMENT_SETS.md](docs/EQUIPMENT_SETS.md). Bốn slot weapon/armor/boots/accessory,3 bộ có mốc2/4, cap enhance15. EquipmentSystem áp stats/bộ vào snapshot; BattleModel/TeamBattle sở hữu burn/né/khiên/hồi SP, renderer không có damage/RNG. Save v9 đọc v2–v8; v7/v8 kiểm map14 ID cũ rồi thêm12 ID với0 mảnh, chuyển armor_3 sang accessory, giữ UID/đầu tư/pending. 26 item và80 icon; builder catalogue gọi build_equipment, builder art đầy đủ gọi icon/frame builder. Chạy equipment_sets/equipment_ui, unique_collection, rarity_system, summon_batch/recruitment, regression/mechanics/campaign và UI liên quan. Nội dung slot2/cap10/savev7 bên dưới là lịch sử.

@@ -37,6 +37,13 @@ func run() -> void:
 	screen().face_buttons.mira.pressed.emit()
 	assert(game.character_inspected == "mira" and game.store.profile.hero == "eira")
 	var before: Dictionary = game.store.profile.duplicate(true)
+	for id in ["eira","mira","ryn","lyra"]:
+		game._inspect_character(id)
+		game._character_section(0)
+		var banners := screen().find_children("*","Control",true,false).filter(func(n): return n is HeroBanner)
+		assert(banners.size() == 1 and banners[0].hero == id and banners[0].artwork.get_size() == Vector2(1536,1024))
+		await capture("banner-"+id)
+	game._inspect_character("mira")
 	for i in range(5):
 		screen().section_buttons[i].pressed.emit()
 		assert(game.character_page == CharacterScreen.TAB_PAGES[i])

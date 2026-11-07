@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-07",
+  "method": "Original image generation, identity referenced from project art; Mira inspired by user-supplied banner composition. Landscape waist-up detailed anime illustrations. Source PNGs copied byte-for-byte; no pixel edits.",
+  "sources": [
+    {
+      "id": "eira",
+      "file": "art/banners/eira.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "9bba97e076fdf83ea07ed071b6a9ea90a5968eaded50d4ff9024cddbca707df7",
+      "references": [
+        "art/painted/eira_atlas.png",
+        "art/banners/mira.png"
+      ]
+    },
+    {
+      "id": "mira",
+      "file": "art/banners/mira.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "94507f95993a1b9fdbd763a8f1d75b589009c0ca87c7ad04c3ddef144204be35",
+      "references": [
+        "art/complete/mira.png"
+      ]
+    },
+    {
+      "id": "ryn",
+      "file": "art/banners/ryn.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "f14e935b60a5bef48fde622171c8ab498821be7519ed600e03c671f662842b55",
+      "references": [
+        "art/ryn/portrait.png",
+        "art/banners/mira.png"
+      ]
+    },
+    {
+      "id": "lyra",
+      "file": "art/banners/lyra.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "fd8c10cb6c686985c56494f07699b813f2282833d94e33974a8aeb22e112b154",
+      "references": [
+        "art/complete/lyra.png",
+        "art/banners/mira.png"
+      ]
+    }
+  ]
+}

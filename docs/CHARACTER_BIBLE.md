@@ -151,3 +151,7 @@ Khi bàn giao phiên sau, ghi: commit đang làm, yêu cầu người dùng, ID 
 hạn còn lại. Giữ tài liệu này cùng thay đổi art để không phải đoán từ chat cũ.
 
 Quy tắc sở hữu/mảnh và save hiện hành từ0.23: [UNIQUE_COLLECTION.md](UNIQUE_COLLECTION.md). Trang bị mỗi ID một bản, nhận trùng gear/hero/spirit thành10 mảnh đúng ID.
+
+## Banner màn Nhân vật · 0.29
+
+Theo yêu cầu mới, `art/banners/{eira,mira,ryn,lyra}.png` là tranh splash nửa người chi tiết, tỷ lệ minh họa anime thay cho chibi trong Thông tin/Trang bị/Trang phục. Giữ tóc bob bạc của Eira, tóc teal ngang vai/vòng trăng của Mira, tóc đỏ rượu ngang vai/bím nhỏ của Ryn, đuôi ngựa cao dài của Lyra. Tranh có nền riêng theo hệ, không đổi sprite chiến đấu, avatar hoặc ID/lore/tuổi. HeroBanner dùng ảnh nguyên có chuyển động cả banner rất nhẹ, không có tóc/vải độc lập. Portrait Ryn0.19 và lớp mesh vẫn dùng ở cửa sổ phóng lớn; không phục hồi raw cũ. Chi tiết/hash/pipeline: [CHARACTER_BANNERS](CHARACTER_BANNERS.md).

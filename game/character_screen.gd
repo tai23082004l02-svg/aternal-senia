@@ -151,11 +151,7 @@ func portrait(height: int = 245) -> void:
 	make_portrait(stage, height)
 
 func make_portrait(parent: Control, height: int) -> HeroPortrait:
-	var backdrop := MagicBackdrop.new()
-	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	parent.add_child(backdrop)
-	var view := HeroPortrait.new()
+	var view := HeroBanner.new()
 	view.library = game.frames
 	view.hero = hero
 	view.weapon = game.catalog.stats(game.store.profile, hero).weapon
@@ -166,7 +162,7 @@ func make_portrait(parent: Control, height: int) -> HeroPortrait:
 	view.custom_minimum_size = Vector2(230, height)
 	parent.add_child(view)
 	view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	view.tooltip_text = "Chạm hoặc kéo nhẹ để tương tác" if view.interactive else "Nhân vật chưa sở hữu"
+	view.tooltip_text = "" if view.interactive else "Nhân vật chưa sở hữu"
 	return view
 
 func stats_line(p: Dictionary) -> void:
@@ -279,9 +275,7 @@ func equipment() -> void:
 	var stage := Control.new()
 	stage.custom_minimum_size = Vector2(350, 290)
 	body.add_child(stage)
-	var view := make_portrait(stage, 290)
-	view.offset_left = 62
-	view.offset_right = -62
+	make_portrait(stage, 290)
 	for index in range(EquipmentSystem.SLOTS.size()):
 		var slot_name: String = EquipmentSystem.SLOTS[index]
 		var current := EquipmentSystem.item_for(p, p.heroes[hero].equipment[slot_name])
