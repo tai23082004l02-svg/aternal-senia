@@ -22,6 +22,11 @@ func run() -> void:
 	root.add_child(game)
 	await process_frame
 	game._close_modal()
+	for tab_button in game.tabs:
+		assert(tab_button.size == Vector2(93, 56), "Navigation must stay within portrait width")
+		assert(tab_button.get_child(0).size == Vector2(31, 31), "Atlas texture must not expand tab artwork to source size")
+	for skill_button in game.skill_buttons:
+		assert(skill_button.size.x <= 160 and skill_button.icon != null, "Skill icon must preserve button layout")
 	assert(game.hp_bar.size.y == 7 and game.sp_bar.size.y == 4, "Bars must not overlap warning text")
 	await capture("01-campaign")
 	for i in range(1, 5):

@@ -1,0 +1,108 @@
+{
+  "method": "Original image generation; transparent 4x4 atlas, source unchanged. Regions and Godot composites visually reviewed. No reference-game graphics.",
+  "file": "art/ui/icons.png",
+  "bytes": 2043168,
+  "sha256": "8f8fa1b17f06b5e7a6840346b6f6d7cbd75bcff83705d699162296a432036205",
+  "size": [
+    1254,
+    1254
+  ],
+  "regions": {
+    "journey": [
+      0,
+      0,
+      314,
+      314
+    ],
+    "hero": [
+      314,
+      0,
+      313,
+      314
+    ],
+    "equipment": [
+      627,
+      0,
+      313,
+      314
+    ],
+    "quest": [
+      940,
+      0,
+      314,
+      314
+    ],
+    "journal": [
+      0,
+      314,
+      314,
+      313
+    ],
+    "slash": [
+      314,
+      314,
+      313,
+      313
+    ],
+    "heal": [
+      627,
+      314,
+      313,
+      313
+    ],
+    "spirit": [
+      940,
+      314,
+      314,
+      313
+    ],
+    "guard": [
+      0,
+      627,
+      314,
+      313
+    ],
+    "training": [
+      314,
+      627,
+      313,
+      313
+    ],
+    "talents": [
+      627,
+      627,
+      313,
+      313
+    ],
+    "companion": [
+      940,
+      627,
+      314,
+      313
+    ],
+    "boss": [
+      0,
+      940,
+      314,
+      314
+    ],
+    "forge": [
+      314,
+      940,
+      313,
+      314
+    ],
+    "gold": [
+      627,
+      940,
+      313,
+      314
+    ],
+    "crystal": [
+      940,
+      940,
+      314,
+      314
+    ]
+  }
+}

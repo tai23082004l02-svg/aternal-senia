@@ -51,6 +51,7 @@ var quit_requested := false
 var scroll: ScrollContainer
 var tap_target: Button
 var details_paused := false
+var icons := UIIcons.new()
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
@@ -117,13 +118,18 @@ func _build_ui() -> void:
 	warning_label = _label(ui, "", Vector2(24, 562), 14, Color("efba8f"))
 	for i in range(3):
 		skill_buttons.append(_button(ui, "", Vector2(24 + i * 166, 590), Vector2(160, 52), _skill.bind(i)))
+		icons.apply(skill_buttons[i], ["slash", "heal", "spirit"][i], 28)
+		skill_buttons[i].add_theme_font_size_override("font_size", 12)
 	attack_button = _button(ui, "Đánh", Vector2(24, 651), Vector2(82, 36), _attack)
 	guard_button = _button(ui, "Thủ thế", Vector2(112, 651), Vector2(113, 36), _guard)
+	icons.apply(guard_button, "guard", 22)
+	guard_button.add_theme_font_size_override("font_size", 13)
 	auto_button = _button(ui, "Tự đánh", Vector2(231, 651), Vector2(99, 36), _toggle_auto)
 	pause_button = _button(ui, "Dừng", Vector2(336, 651), Vector2(90, 36), _toggle_pause)
 	speed_button = _button(ui, "×1", Vector2(432, 651), Vector2(84, 36), _speed)
 	for i in range(5):
-		tabs.append(_button(ui, ["Hành trình", "Nhân vật", "Trang bị", "Nhiệm vụ", "Nhật ký"][i], Vector2(24 + i * 99, 706), Vector2(93, 38), _select_tab.bind(i)))
+		tabs.append(_button(ui, ["Hành trình", "Nhân vật", "Trang bị", "Nhiệm vụ", "Nhật ký"][i], Vector2(24 + i * 99, 696), Vector2(93, 56), _select_tab.bind(i)))
+		icons.tab(tabs[i], ["journey", "hero", "equipment", "quest", "journal"][i])
 	scroll = ScrollContainer.new()
 	scroll.position = Vector2(24, 758)
 	scroll.size = Vector2(492, 151)
@@ -262,7 +268,7 @@ func _refresh_panel() -> void:
 	scroll.size.y = 151 if campaign else 696
 	scroll.set_deferred("scroll_vertical", previous_scroll)
 	for i in range(tabs.size()):
-		tabs[i].position.y = 706 if campaign else 150
+		tabs[i].position.y = 696 if campaign else 150
 		tabs[i].modulate = Color("e3c998") if i == tab else Color.WHITE
 	view.preview = catalog.stats(store.profile)
 	view.selected_stage = catalog.find_row("stages", selected_stage)
@@ -283,6 +289,7 @@ func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) ->
 
 func _row(text: String, callback: Callable, disabled: bool = false) -> Button:
 	var b := _button(panel, text, Vector2.ZERO, Vector2(464, 40), callback)
+	icons.action(b, callback)
 	b.disabled = disabled
 	return b
 

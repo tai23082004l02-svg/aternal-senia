@@ -1,5 +1,12 @@
 # Aternal Senia — First Light · 0.8
 
+## Icon giao diện · 0.8.1
+
+16 icon PNG alpha mới, phong cách ngà/vàng/ngọc lam: điều hướng, ba kỹ năng,
+thủ thế, thuộc tính, cây kỹ năng, đồng hành, boss, rèn và tài nguyên. Đã gắn vào
+nút trong game, giữ nhãn chữ, trạng thái khóa và thao tác cũ.
+[Xem bộ icon và ảnh trong game](docs/UI_ICONS.md).
+
 ## Tính năng 0.8 · Rèn luyện & Sổ tay boss
 
 - **Nhân vật → Điểm thuộc tính**: mỗi cấp sau cấp 1 cho 2 điểm riêng; mỗi điểm
