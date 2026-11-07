@@ -119,7 +119,7 @@ không tuyên bố có animation cánh đầy đủ. Hệ có hỗ trợ UR như
 nhân vật UR mới khi chỉ sửa hình ảnh.
 
 Quái/boss là nhóm riêng, không tự đưa vào roster hero. Rarity đối thủ1–4★,
-hero5★, trang bị1–7 và tinh linh SR/SSR/UR là các hệ độc lập.
+hero5★, trang bị năm cấp Hiếm–Thần thánh và tinh linh SR/SSR/UR là các hệ độc lập.
 
 ## Nơi lấy sự thật kỹ thuật
 
@@ -148,3 +148,5 @@ Không suy ra quyền thêm hero, đổi lore hoặc thay hệ thống từ yêu
 Khi bàn giao phiên sau, ghi: commit đang làm, yêu cầu người dùng, ID bị tác
 động, hình chuẩn, file đã đổi, builder cần chạy, kiểm tra đã thực hiện và giới
 hạn còn lại. Giữ tài liệu này cùng thay đổi art để không phải đoán từ chat cũ.
+
+Quy tắc sở hữu/mảnh và save hiện hành từ0.23: [UNIQUE_COLLECTION.md](UNIQUE_COLLECTION.md). Trang bị mỗi ID một bản, nhận trùng gear/hero/spirit thành10 mảnh đúng ID.

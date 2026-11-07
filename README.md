@@ -1,4 +1,12 @@
-# Aternal Senia — First Light · 0.22
+# Aternal Senia — First Light · 0.23
+
+## Mỗi món một bản & năm cấp trang bị · 0.23
+
+Trang bị, nhân vật và tinh linh nhận trùng thành10 mảnh đúng loại. Kho chỉ giữ
+một bản mỗi ID trang bị; các cấu hình hero có thể dùng chung món phù hợp.
+Trang bị còn Hiếm, Sử thi, Huyền thoại, Thần thoại và Thần thánh. Save v7 đọc
+v2–v6, gộp đồ cũ giữ nâng cấp cao nhất và bảo toàn trận đang dở.
+[Xem quy tắc, migration và ảnh](docs/UNIQUE_COLLECTION.md).
 
 ## Icon giao diện & đạo cụ · 0.22
 

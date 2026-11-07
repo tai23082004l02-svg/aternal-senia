@@ -7,7 +7,16 @@ func run() -> void:
 	var book := GameCatalog.new()
 	var tiers := {}
 	for item in book.data.items: tiers[item.rarity] = true
-	for tier in range(1, 8): assert(tiers.has(tier) and Recruitment.RARITIES.has(tier))
+	assert(tiers.size() == 5 and Recruitment.RARITIES.size() == 5)
+	for tier in [3, 4, 5, 6, 7]: assert(tiers.has(tier) and Recruitment.RARITIES.has(tier))
+	assert(Recruitment.label("item", "sword_1", book) == "Hiếm")
+	assert(Recruitment.label("item", "armor_uncommon", book) == "Hiếm")
+	var names: Array = []
+	for tier in Recruitment.RARITIES: names.append(Recruitment.RARITIES[tier].name)
+	assert(names == ["Hiếm", "Sử thi", "Huyền thoại", "Thần thoại", "Thần thánh"])
+	assert(book.find_row("items", "sword_1").cooldown_scale == 1.0)
+	assert(book.find_row("items", "sword_2").cooldown_scale == .92)
+	assert(book.find_row("items", "sword_1").summon_group == 1 and book.find_row("items", "sword_2").summon_group == 2)
 	assert(Recruitment.label("spirit", "lumi", book) == "SR")
 	assert(Recruitment.label("spirit", "ash", book) == "SSR")
 	assert(Recruitment.SPIRIT_RARITIES[3].name == "UR")
@@ -47,5 +56,5 @@ func run() -> void:
 	var weights := {}
 	for entry in Recruitment.pool(book, 3): weights[entry.id] = entry.weight
 	assert(weights.armor_7 < weights.armor_6 and weights.armor_6 < weights.armor_5 and weights.armor_5 < weights.armor_4)
-	print("PASS: seven equipment tiers, five hero stars, SR/SSR/UR, star costs/cap, v4 migration/backup and high-tier weights")
+	print("PASS: five equipment tiers, five hero stars, SR/SSR/UR, star costs/cap, v4 migration/backup and high-tier weights")
 	quit()

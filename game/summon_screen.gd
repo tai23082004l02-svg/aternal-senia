@@ -79,7 +79,6 @@ static func show_results(game, title: String, entries: Array) -> void:
 	var lines: Array[String] = []
 	for i in range(entries.size()):
 		var entry: Dictionary = entries[i]
-		var suffix := ""
-		if entry["duplicate"]: suffix = " · +10 mảnh" if entry.kind == "hero" else " · +2 lõi"
+		var suffix := CollectionFragments.reward_suffix(entry)
 		lines.append("%d. %s · %s%s" % [i + 1, game._rarity(entry.kind, entry.id), game._entity_name(entry.kind, entry.id), suffix])
 	show_text(game, title, "Mới nhất ở trên · Lưu tối đa 100 lượt\n\n" + ("\n\n".join(lines) if not lines.is_empty() else "Chưa có lịch sử triệu hồi."))

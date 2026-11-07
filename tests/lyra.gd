@@ -36,7 +36,7 @@ func _initialize() -> void:
 	file.close()
 	var original := FileAccess.get_file_as_bytes(path + ".v5")
 	var migrated := ProgressStore.new(book, path + ".v5")
-	assert(not migrated.read_only and migrated.profile.version == 6)
+	assert(not migrated.read_only and migrated.profile.version == ProgressStore.VERSION)
 	assert(migrated.profile.heroes.ryn == ryn and migrated.profile.pending == pending)
 	assert(migrated.profile.heroes.lyra.level == 1 and migrated.profile.heroes.lyra.equipment.weapon == "")
 	assert(migrated.profile.training.lyra.atk == 0 and migrated.profile.outfits.lyra == "original")

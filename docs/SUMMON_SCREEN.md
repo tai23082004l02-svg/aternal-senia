@@ -1,5 +1,7 @@
 # Triệu hồi · 0.17
 
+> Cơ chế nhận trùng và độ hiếm đã cập nhật ở [0.23](UNIQUE_COLLECTION.md): mỗi ID một bản, trùng gear/hero/spirit thành10 mảnh đúng ID, trang bị chỉ năm cấp. Quy tắc lõi/đầy túi và save v6 trong lịch sử dưới đây đã được thay.
+
 Theo phác thảo người dùng: banner bên trái, ba nút Thường/Cao cấp/Sự kiện xếp
 dọc bên phải. Dưới banner là x1/x10, bên dưới có thanh mở lịch sử. Banner đang
 dùng tranh Ryn có sẵn để minh họa, không biểu thị rate-up hoặc bảo đảm ra Ryn.
