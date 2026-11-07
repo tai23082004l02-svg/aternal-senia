@@ -35,5 +35,5 @@ painted=dict(version=1,heroes={'eira':clips},weapons={
  'wolf':dict(atlas='painted/forest_enemies.png',region=[640,70,590,420],anchor=[300,400],scale=.30),
  'golem':dict(atlas='painted/forest_enemies.png',region=[24,590,580,605],anchor=[276,582],scale=.35),
  'golem_charge':dict(atlas='painted/forest_enemies.png',region=[615,580,620,620],anchor=[340,592],scale=.35)},
- backgrounds={'forest':'painted/forest.png'},companions={'lumi':'painted/lumi.png'})
+ backgrounds={'forest':'painted/forest.png','ruins':'painted/ruins.png','lake':'painted/lake.png'},companions={'lumi':'painted/lumi.png','ash':'painted/ash.png'})
 (root/'art/painted/manifest.json').write_text(json.dumps(painted,indent=2)+'\n')

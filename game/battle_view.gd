@@ -60,6 +60,7 @@ func draw_world(canvas: CanvasItem) -> void:
 	var stats: Dictionary = battle.stats if active else preview
 	var stage: Dictionary = battle.stage if active else selected_stage
 	canvas.draw_texture_rect(library.textures["bg_" + stage.zone], Rect2(-4, 174, 548, 338), false)
+	EnvironmentMotion.draw_motes(canvas, stage.zone, world_time, false)
 	var hero_foot: Vector2 = Vector2(142, 475) + pose.offset
 	var enemy_foot := Vector2(391, 477)
 	if active:
@@ -79,12 +80,17 @@ func draw_world(canvas: CanvasItem) -> void:
 		if battle.shield:
 			CombatEffects.stamp(canvas, library, "guard_arc", enemy_foot + Vector2(-30, -83), Vector2(166, 205), .43)
 		effects.draw(canvas, library, false, hero_foot, enemy_foot)
+	EnvironmentMotion.draw_motes(canvas, stage.zone, world_time, true)
 
 func _companion(canvas: CanvasItem, stats: Dictionary) -> void:
-	var companion := Vector2(61, 352 + sin(world_time * 2) * 5)
+	var flash: float = battle.assist_flash if battle != null else 0.0
+	var motion := EnvironmentMotion.companion(world_time, flash, stats.assist == "ash")
+	var companion: Vector2 = motion.position
 	var color := Color("96e5d4") if stats.assist == "lumi" else Color("edb77a")
 	if library.textures.has("companion_" + stats.assist):
-		canvas.draw_texture_rect(library.textures["companion_" + stats.assist], Rect2(companion - Vector2(40, 40), Vector2(80, 80)), false)
+		canvas.draw_set_transform(companion, motion.angle, motion.scale)
+		canvas.draw_texture_rect(library.textures["companion_" + stats.assist], Rect2(Vector2(-40, -40), Vector2(80, 80)), false)
+		canvas.draw_set_transform(Vector2.ZERO)
 	else:
 		canvas.draw_circle(companion, 11, color)
 	if battle != null and battle.assist_flash > 0:

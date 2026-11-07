@@ -32,6 +32,24 @@
       "file": "docs/concepts/eira-design.png",
       "bytes": 2316765,
       "sha256": "f8d40e98552e9f86a320887dcf84008fb4a9a20940057c93cd34001851e6edf5"
+    },
+    {
+      "file": "art/painted/ruins.png",
+      "bytes": 2934953,
+      "sha256": "1c98c79d67595f01592a379b6a8424235955aef6e9db5685a2eb14159d225542",
+      "method": "Original image generation; source copied unchanged; reviewed before integration."
+    },
+    {
+      "file": "art/painted/ash.png",
+      "bytes": 1863007,
+      "sha256": "8d320541339bf122598a8ee33363fb6006522392784bb077838b91c3faf428ec",
+      "method": "Original image generation; source copied unchanged; reviewed before integration."
+    },
+    {
+      "file": "art/painted/lake.png",
+      "bytes": 3137125,
+      "sha256": "b0bcd51ff4751abf335a642eac457235f122ec72e25f4748316255848865edb7",
+      "method": "Original image generation; source copied unchanged; visually reviewed."
     }
   ],
   "atlas_review": "16 Eira poses; every cell, source rectangle, baseline and grip socket reviewed in rendered contact sheet. Separate weapons and CPU-owned damage retained.",

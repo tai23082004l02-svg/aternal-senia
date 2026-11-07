@@ -1,5 +1,17 @@
 # Aternal Senia — First Light · 0.7
 
+## Mỹ thuật tiếp nối · Phế tích, Hồ gương & Ash
+
+Hai vùng `ruins` và `lake` đã thay nền SVG bằng tranh PNG tạo riêng. Ash có
+sprite phượng hồ lửa trong suốt thay hình tròn tạm. Lumi/Ash có chuyển động
+bay, nghiêng nhẹ và phản ứng khi trợ chiến; các vùng có hai lớp hạt sáng,
+phế tích/tháp dùng tàn lửa. Chuyển động lấy thời gian trận, dừng khi pause,
+không dùng RNG chiến đấu hoặc tạo thêm node mỗi frame.
+
+Đây là animation bằng transform của sprite, chưa phải bộ frame vỗ cánh mới.
+Ryn/Mira, nền núi/tháp và một số quái vẫn dùng SVG; chưa kiểm điện thoại thật.
+Xem [ghi chú mỹ thuật](docs/ENVIRONMENT_ART.md) và ảnh trong đó.
+
 Game Godot 4 màn hình dọc, chiến đấu một nhân vật chính + một trợ chiến.
 Tham khảo cấu trúc Eternal Senia 2; nội dung, công thức và hình ảnh trong game
 được tạo riêng. Đây là bản chơi hoàn chỉnh nhỏ với các hệ thống chính, chưa phải
