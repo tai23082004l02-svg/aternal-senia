@@ -32,3 +32,5 @@
 - Tiện ích0.18: đọc docs/UTILITIES_MENU.md; chạy utilities_ui khi sửa menu/badge. Badge chỉ từ quest đủ điều kiện chưa nhận; Hộp thư/Giftcode chưa có dịch vụ, không tạo thư/quà/mã thưởng giả.
 
 - Nhiệm vụ0.20: đọc docs/MISSIONS.md; chạy missions/missions_ui và utilities_ui/player_profile khi sửa. Người dùng đã cho nhiệm vụ ngày/tuần nhận VIP EXP; mốc xếp cấp VIP chưa chốt. Record và reward/EXP/claimed cùng transaction, chu kỳ UTC chỉ tiến, bảo toàn claimed vĩnh viễn và save v6 cũ.
+
+- Hành trình0.21: đọc docs/JOURNEY_SCREEN.md; chạy journey_ui khi sửa thẻ chương/AFK/Tự chiến. Preview chỉ vẽ, tiến độ theo ba ải thật/chương; Tự chiến dùng trận thật và dừng ở kết quả, không quét thưởng.

@@ -324,16 +324,16 @@ func _refresh_panel() -> void:
 		child.queue_free()
 	var campaign := tab == 0
 	var fighting := battle != null
-	view.visible = campaign
+	view.visible = campaign and fighting
 	for control in [hp_label, enemy_label, warning_label, hp_bar, enemy_bar, sp_bar, guard_button, attack_button, pause_button, auto_button, speed_button, stage_label, tap_target]:
 		control.visible = campaign and fighting
-	stage_label.visible = campaign
+	stage_label.visible = campaign and fighting
 	for control in skill_buttons:
 		control.visible = campaign and fighting
 	for control in skill_group_labels:
 		control.visible = campaign and fighting
-	scroll.position.y = (710 if fighting else 540) if campaign else 132
-	scroll.size.y = (150 if fighting else 320) if campaign else 732
+	scroll.position.y = 710 if campaign and fighting else 132
+	scroll.size.y = 150 if campaign and fighting else 732
 	scroll.set_deferred("scroll_vertical", previous_scroll)
 	for i in range(tabs.size()):
 		tabs[i].position.y = 876
@@ -375,6 +375,11 @@ func _locked() -> bool:
 	return not store.profile.pending.is_empty() or store.read_only or result_transition
 
 func _campaign_panel() -> void:
+	if battle == null:
+		var screen := JourneyScreen.new()
+		screen.game = self
+		panel.add_child(screen)
+		return
 	if battle == null:
 		var p: Dictionary = store.profile
 		_text("%s · Cấp %d   /   %s đồng hành" % [catalog.find_row("heroes", p.hero).name, p.heroes[p.hero].level, catalog.find_row("assists", p.assist).name], 17, Color("e5cd9e"))
@@ -1417,3 +1422,18 @@ func _show_player_profile() -> void:
 
 func _show_vip(tier: int = 1) -> void:
 	PlayerProfilePanel.show_vip(self, tier)
+
+func _journey_afk() -> void:
+	var amount := store.offline_preview(int(Time.get_unix_time_from_system()))
+	var column := _dialog("KHO TIẾP TẾ AFK", "Đang có: %d vàng\nTốc độ: %d vàng/phút · Tối đa 2 giờ\n\nSản lượng tăng theo chương Story chính đã mở. Thưởng dựa trên thời gian tích lũy của đồng hồ máy." % [amount, store.unlocked_stage() * 2], [{"text":"Đóng", "call":_close_modal}])
+	var button := _button(column, "Nhận %d vàng" % amount, Vector2.ZERO, Vector2(400, 46), _journey_claim_afk)
+	button.disabled = amount <= 0 or _locked()
+	column.move_child(button, column.get_child_count() - 2)
+
+func _journey_claim_afk() -> void:
+	_close_modal()
+	_offline()
+
+func _journey_auto() -> void:
+	if not JourneyScreen.auto_unlocked(store.profile) or _locked(): return
+	_dialog("TỰ CHIẾN ẢI ĐANG CHỌN", "Nhân vật tự đánh trong trận thật, có thể dùng kỹ năng và thủ thế. Dừng ở kết quả trận; không quét thưởng hay tự chuyển sang ải khác.", [{"text":"Bắt đầu", "call":_begin}, {"text":"Hủy", "call":_close_modal}])

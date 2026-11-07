@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.20
+# Aternal Senia — First Light · 0.21
+
+## Hành trình · 0.21
+
+Màn hành trình có tiến độ chương, cảnh đội hình, thông tin ải, thưởng lần đầu
+và nút Thách đấu. Tự chiến mở sau1-3; kho AFK xem trước lượng tích lũy, Bản đồ/
+Đội hình nằm bên dưới. [Giao diện và quy tắc](docs/JOURNEY_SCREEN.md).
 
 ## Nhiệm vụ & VIP EXP · 0.20
 

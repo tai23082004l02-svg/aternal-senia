@@ -5,6 +5,7 @@ var library: FrameLibrary
 var battle: BattleModel
 var preview: Dictionary
 var selected_stage: Dictionary
+var home_card := false
 var clock := 0.0
 var world_time := 0.0
 var post_time := 0.0
@@ -75,7 +76,7 @@ func draw_world(canvas: CanvasItem) -> void:
 	library.draw_actor(canvas, hero_frame, hero_foot, stats.weapon, tint, pose.state != "death")
 	_companion(canvas, stats)
 	if active: _enemy(canvas, stage, enemy_foot)
-	else: _home_caption(canvas, stats, stage)
+	elif not home_card: _home_caption(canvas, stats, stage)
 	if active:
 		if battle.guard_left > 0 or battle.barrier > 0:
 			CombatEffects.stamp(canvas, library, "guard_arc", hero_foot + Vector2(34, -78), Vector2(125, 177), .55)

@@ -2,7 +2,7 @@ config_version=5
 
 [application]
 config/name="Aternal Senia — First Light"
-config/version="0.20.0"
+config/version="0.21.0"
 run/main_scene="res://game/main.tscn"
 
 [display]
