@@ -1,0 +1,1718 @@
+{
+  "stages": {
+    "1": {
+      "important": true,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 38.5,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 55.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 38.5,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 74.25,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 74.25,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 38.5,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 35.0,
+              "boss": true,
+              "element": "nature",
+              "elite": false,
+              "hp": 250.0,
+              "mechanic": "smash",
+              "name": "Cổ thụ thức tỉnh",
+              "type": "golem"
+            }
+          ]
+        }
+      ]
+    },
+    "10": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 100.8,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 144.0,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 144.0,
+              "mechanic": "counter",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 144.0,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 100.8,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 29.9,
+              "boss": false,
+              "element": "water",
+              "elite": true,
+              "hp": 291.6,
+              "mechanic": "counter",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 194.4,
+              "mechanic": "counter",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 194.4,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 100.8,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 59.0,
+              "boss": true,
+              "element": "water",
+              "elite": false,
+              "hp": 594.0,
+              "mechanic": "counter",
+              "name": "Ảo ảnh thủy triều",
+              "type": "mirror"
+            }
+          ]
+        }
+      ]
+    },
+    "101": {
+      "important": true,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 38.5,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 35.0,
+              "boss": true,
+              "element": "nature",
+              "elite": false,
+              "hp": 250.0,
+              "mechanic": "smash",
+              "name": "Cổ thụ thức tỉnh",
+              "type": "golem"
+            }
+          ]
+        }
+      ]
+    },
+    "102": {
+      "important": true,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 93.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 93.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 93.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 23.0,
+              "boss": false,
+              "element": "fire",
+              "elite": true,
+              "hp": 156.0,
+              "mechanic": "shield",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 104.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 104.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 115.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 115.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 115.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 126.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 126.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 126.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 138.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 138.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 138.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 47.0,
+              "boss": true,
+              "element": "fire",
+              "elite": false,
+              "hp": 632.0,
+              "mechanic": "shield",
+              "name": "Hộ vệ than hồng",
+              "type": "guardian"
+            }
+          ]
+        }
+      ]
+    },
+    "103": {
+      "important": true,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 91.7,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 59.0,
+              "boss": true,
+              "element": "nature",
+              "elite": false,
+              "hp": 540.0,
+              "mechanic": "smash",
+              "name": "Cổ thụ thức tỉnh",
+              "type": "golem"
+            }
+          ]
+        },
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 91.7,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 59.0,
+              "boss": true,
+              "element": "fire",
+              "elite": false,
+              "hp": 605.0,
+              "mechanic": "shield",
+              "name": "Hộ vệ than hồng",
+              "type": "guardian"
+            }
+          ]
+        },
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 91.7,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 59.0,
+              "boss": true,
+              "element": "water",
+              "elite": false,
+              "hp": 670.0,
+              "mechanic": "counter",
+              "name": "Ảo ảnh thủy triều",
+              "type": "wolf"
+            }
+          ]
+        }
+      ]
+    },
+    "11": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 114.8,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 164.0,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 164.0,
+              "mechanic": "counter",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 164.0,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 114.8,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 29.9,
+              "boss": false,
+              "element": "water",
+              "elite": true,
+              "hp": 332.1,
+              "mechanic": "counter",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 221.4,
+              "mechanic": "counter",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 221.4,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 114.8,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 59.0,
+              "boss": true,
+              "element": "water",
+              "elite": false,
+              "hp": 675.0,
+              "mechanic": "counter",
+              "name": "Ảo ảnh thủy triều",
+              "type": "mirror"
+            }
+          ]
+        }
+      ]
+    },
+    "12": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 130.2,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 186.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 186.0,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 186.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 130.2,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 36.8,
+              "boss": false,
+              "element": "nature",
+              "elite": true,
+              "hp": 376.65,
+              "mechanic": "smash",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 251.1,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 251.1,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 130.2,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 71.0,
+              "boss": true,
+              "element": "nature",
+              "elite": false,
+              "hp": 754.0,
+              "mechanic": "smash",
+              "name": "Chim sấm",
+              "type": "bird"
+            }
+          ]
+        }
+      ]
+    },
+    "13": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 147.7,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 211.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 211.0,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 211.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 147.7,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 36.8,
+              "boss": false,
+              "element": "nature",
+              "elite": true,
+              "hp": 427.275,
+              "mechanic": "smash",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 284.85,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 284.85,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 147.7,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 71.0,
+              "boss": true,
+              "element": "nature",
+              "elite": false,
+              "hp": 856.0,
+              "mechanic": "smash",
+              "name": "Chim sấm",
+              "type": "bird"
+            }
+          ]
+        }
+      ]
+    },
+    "14": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 159.6,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 228.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 228.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 228.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 159.6,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 43.7,
+              "boss": false,
+              "element": "dark",
+              "elite": true,
+              "hp": 461.7,
+              "mechanic": "shield",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 307.8,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 307.8,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 159.6,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 83.0,
+              "boss": true,
+              "element": "dark",
+              "elite": false,
+              "hp": 913.0,
+              "mechanic": "shield",
+              "name": "Người giữ ánh sáng",
+              "type": "sentinel"
+            }
+          ]
+        }
+      ]
+    },
+    "15": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 181.3,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 259.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 259.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 259.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 181.3,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 43.7,
+              "boss": false,
+              "element": "dark",
+              "elite": true,
+              "hp": 524.475,
+              "mechanic": "shield",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 349.65,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 349.65,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 181.3,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 83.0,
+              "boss": true,
+              "element": "dark",
+              "elite": false,
+              "hp": 1038.0,
+              "mechanic": "shield",
+              "name": "Người giữ ánh sáng",
+              "type": "sentinel"
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "important": true,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 93.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 93.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 93.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 23.0,
+              "boss": false,
+              "element": "fire",
+              "elite": true,
+              "hp": 188.325,
+              "mechanic": "shield",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 125.55,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 125.55,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 65.1,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 47.0,
+              "boss": true,
+              "element": "fire",
+              "elite": false,
+              "hp": 395.0,
+              "mechanic": "shield",
+              "name": "Hộ vệ than hồng",
+              "type": "guardian"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "important": true,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 91.7,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 131.0,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 131.0,
+              "mechanic": "counter",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 131.0,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 91.7,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 29.9,
+              "boss": false,
+              "element": "water",
+              "elite": true,
+              "hp": 265.275,
+              "mechanic": "counter",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 176.85,
+              "mechanic": "counter",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 26.0,
+              "boss": false,
+              "element": "water",
+              "elite": false,
+              "hp": 176.85,
+              "mechanic": "counter",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 16.9,
+          "adds_hp": 91.7,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 59.0,
+              "boss": true,
+              "element": "water",
+              "elite": false,
+              "hp": 540.0,
+              "mechanic": "counter",
+              "name": "Ảo ảnh thủy triều",
+              "type": "mirror"
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "important": true,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 118.3,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 169.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 169.0,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 169.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 118.3,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 36.8,
+              "boss": false,
+              "element": "nature",
+              "elite": true,
+              "hp": 342.225,
+              "mechanic": "smash",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 228.15,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 32.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 228.15,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 20.8,
+          "adds_hp": 118.3,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 71.0,
+              "boss": true,
+              "element": "nature",
+              "elite": false,
+              "hp": 685.0,
+              "mechanic": "smash",
+              "name": "Chim sấm",
+              "type": "bird"
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "important": true,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 144.9,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 207.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 207.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 207.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 144.9,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 43.7,
+              "boss": false,
+              "element": "dark",
+              "elite": true,
+              "hp": 419.175,
+              "mechanic": "shield",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 279.45,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 38.0,
+              "boss": false,
+              "element": "dark",
+              "elite": false,
+              "hp": 279.45,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 24.7,
+          "adds_hp": 144.9,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 83.0,
+              "boss": true,
+              "element": "dark",
+              "elite": false,
+              "hp": 830.0,
+              "mechanic": "shield",
+              "name": "Người giữ ánh sáng",
+              "type": "sentinel"
+            }
+          ]
+        }
+      ]
+    },
+    "6": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 42.7,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 61.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 61.0,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 61.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 42.7,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 16.1,
+              "boss": false,
+              "element": "nature",
+              "elite": true,
+              "hp": 123.525,
+              "mechanic": "smash",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 82.35,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 82.35,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 42.7,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 35.0,
+              "boss": true,
+              "element": "nature",
+              "elite": false,
+              "hp": 275.0,
+              "mechanic": "smash",
+              "name": "Cổ thụ thức tỉnh",
+              "type": "golem"
+            }
+          ]
+        }
+      ]
+    },
+    "7": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 48.3,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 69.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 69.0,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 69.0,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 48.3,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 16.1,
+              "boss": false,
+              "element": "nature",
+              "elite": true,
+              "hp": 139.725,
+              "mechanic": "smash",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 93.15,
+              "mechanic": "smash",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 14.0,
+              "boss": false,
+              "element": "nature",
+              "elite": false,
+              "hp": 93.15,
+              "mechanic": "smash",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 9.1,
+          "adds_hp": 48.3,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 35.0,
+              "boss": true,
+              "element": "nature",
+              "elite": false,
+              "hp": 312.0,
+              "mechanic": "smash",
+              "name": "Cổ thụ thức tỉnh",
+              "type": "golem"
+            }
+          ]
+        }
+      ]
+    },
+    "8": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 71.4,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 102.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 102.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 102.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 71.4,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 23.0,
+              "boss": false,
+              "element": "fire",
+              "elite": true,
+              "hp": 206.55,
+              "mechanic": "shield",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 137.7,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 137.7,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 71.4,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 47.0,
+              "boss": true,
+              "element": "fire",
+              "elite": false,
+              "hp": 435.0,
+              "mechanic": "shield",
+              "name": "Hộ vệ than hồng",
+              "type": "guardian"
+            }
+          ]
+        }
+      ]
+    },
+    "9": {
+      "important": false,
+      "limit": 180,
+      "waves": [
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 81.2,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 116.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 116.0,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 116.0,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 81.2,
+          "summon_adds": false,
+          "units": [
+            {
+              "atk": 23.0,
+              "boss": false,
+              "element": "fire",
+              "elite": true,
+              "hp": 234.9,
+              "mechanic": "shield",
+              "name": "Tinh anh",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 156.6,
+              "mechanic": "shield",
+              "name": "Sói rừng",
+              "type": "wolf"
+            },
+            {
+              "atk": 20.0,
+              "boss": false,
+              "element": "fire",
+              "elite": false,
+              "hp": 156.6,
+              "mechanic": "shield",
+              "name": "Slime",
+              "type": "slime"
+            }
+          ]
+        },
+        {
+          "adds_atk": 13.0,
+          "adds_hp": 81.2,
+          "summon_adds": true,
+          "units": [
+            {
+              "atk": 47.0,
+              "boss": true,
+              "element": "fire",
+              "elite": false,
+              "hp": 494.0,
+              "mechanic": "shield",
+              "name": "Hộ vệ than hồng",
+              "type": "guardian"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "version": 1
+}

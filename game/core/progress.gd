@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 6
+const VERSION = 7
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -116,6 +116,8 @@ func valid(p: Variant) -> bool:
 	if not Wardrobe.valid(self, p): return false
 	if not PlayerIdentity.valid(self, p): return false
 	if not MissionBoard.valid(self, p): return false
+	if not Formation.valid(self, p): return false
+	if not p.pending.is_empty() and p.pending.has("team") and not Formation.valid_snapshot(self, p.pending.team): return false
 	return p.settings.get("speed") in [1, 2, 3] and p.settings.get("sound") is bool
 
 func _number(value: Variant, low: float, high: float) -> bool:
@@ -203,6 +205,10 @@ func change_hero(id: String) -> bool:
 		return false
 	var p := profile.duplicate(true)
 	p.hero = id
+	if p.has("formation"):
+		var previous: int = p.formation.slots.find(id)
+		if previous >= 0: p.formation.slots[previous] = p.formation.slots[0]
+		p.formation.slots[0] = id
 	return commit(p)
 
 func change_assist(id: String) -> bool:
@@ -337,6 +343,7 @@ func begin_run(stage_id: int) -> bool:
 		return false
 	var p := profile.duplicate(true)
 	p.pending = {"id": "%d_%d" % [Time.get_unix_time_from_system(), Time.get_ticks_usec()], "stage": stage_id, "seed": randi_range(1, 2147483646), "stats": catalog.stats(p)}
+	p.pending.team = Formation.snapshot(catalog, p, catalog.find_row("stages", stage_id))
 	return commit(p)
 
 func settle(run_id: String, won: bool, kills: int, elapsed: float = 0) -> bool:
@@ -348,8 +355,9 @@ func settle(run_id: String, won: bool, kills: int, elapsed: float = 0) -> bool:
 	var p := profile.duplicate(true)
 	var run: Dictionary = p.pending
 	var stage := catalog.find_row("stages", run.stage)
-	p.metrics.kills += clampi(kills, 0, stage.get("waves", [0, 0, 0]).size())
-	MissionBoard.record(p, "kills", clampi(kills, 0, stage.get("waves", [0, 0, 0]).size()))
+	var max_kills: int = Formation.kill_cap(run.team.encounter) if run.has("team") else stage.get("waves", [0, 0, 0]).size()
+	p.metrics.kills += clampi(kills, 0, max_kills)
+	MissionBoard.record(p, "kills", clampi(kills, 0, max_kills))
 	if won:
 		p.gold += stage.gold
 		p.xp += stage.xp
@@ -451,6 +459,7 @@ func _decode(file_path: String) -> Variant:
 			for field in ["fragments", "awakening"]:
 				if raw.recruitment.get(field) is Dictionary and not raw.recruitment[field].has("lyra"):
 					raw.recruitment[field]["lyra"] = 0 if field == "fragments" else 1
+	if raw is Dictionary and old_version == 6: raw.version = VERSION
 	return raw
 
 func _whole(value: Variant, low: float, high: float) -> bool:

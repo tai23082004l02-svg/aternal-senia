@@ -48,19 +48,21 @@ func _ready() -> void:
 	scene.clip_contents = true
 	scene.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(scene)
-	var view := BattleView.new()
-	view.setup(game.frames)
-	view.preview = game.catalog.stats(p)
-	view.selected_stage = stage
-	view.home_card = true
-	view.position = Vector2(0, -178 * .911)
-	view.scale = Vector2.ONE * .911
-	scene.add_child(view)
+	var preview := FormationPreview.new()
+	preview.frames = game.frames
+	preview.book = game.catalog
+	preview.profile = p
+	preview.stage = stage
+	preview.size = Vector2(492, 300)
+	scene.add_child(preview)
 	text("ẢI %s · %s" % [stage_code(game.catalog, stage), "ĐÃ VƯỢT" if stage.id in p.cleared else ("PHÓ BẢN" if stage.get("kind", "") == "challenge" else "STORY")], 14, Color("e5cd9e"))
 	text(stage.name, 23, Color("eee6ce"))
 	var hero: Dictionary = game.catalog.find_row("heroes", p.hero)
 	var spirit: Dictionary = game.catalog.find_row("assists", p.assist)
-	text("%s · LV%d  /  %s đồng hành" % [hero.name, p.heroes[p.hero].level, spirit.name], 15)
+	var team_names: Array[String] = []
+	for id in Formation.state(p).slots:
+		if not id.is_empty(): team_names.append(game.catalog.find_row("heroes", id).name)
+	text(" / ".join(team_names) + " · " + spirit.name + " đồng hành", 15)
 	var stats: Dictionary = game.catalog.stats(p)
 	var power := int(stats.hp + stats.atk * 10 + stats.defense * 6)
 	var recommended := int(stage.enemy_hp * 2 + stage.boss_atk * 8)
@@ -76,7 +78,7 @@ func _ready() -> void:
 	var shortcuts := HBoxContainer.new()
 	shortcuts.add_theme_constant_override("separation", 8)
 	add_child(shortcuts)
-	for entry in [["Bản đồ", 15], ["Đội hình", 1]]:
+	for entry in [["Bản đồ", 15], ["Đội hình", 22]]:
 		game._button(shortcuts, entry[0], Vector2.ZERO, Vector2(242, 52), game._select_tab.bind(entry[1]))
 
 func text(value: String, font_size: int, color: Color = Color("b8c9c2")) -> Label:
@@ -87,3 +89,26 @@ func text(value: String, font_size: int, color: Color = Color("b8c9c2")) -> Labe
 	label.modulate = color
 	add_child(label)
 	return label
+
+class FormationPreview extends Control:
+	var frames: FrameLibrary
+	var book: GameCatalog
+	var profile: Dictionary
+	var stage: Dictionary
+	var elapsed := 0.0
+	func _ready() -> void: mouse_filter = Control.MOUSE_FILTER_IGNORE
+	func _process(delta: float) -> void:
+		elapsed += delta
+		queue_redraw()
+	func _draw() -> void:
+		draw_texture_rect(frames.textures["bg_" + stage.zone], Rect2(Vector2.ZERO, size), false)
+		var slots: Array = Formation.state(profile).slots
+		var feet := [Vector2(345, 276), Vector2(175, 205), Vector2(130, 284)]
+		for slot in [1, 0, 2]:
+			var id: String = slots[slot]
+			if id.is_empty(): continue
+			var stats := book.stats(profile, id)
+			var look: Array = stats.get("look_tint", [1,1,1,1])
+			frames.draw_actor(self, frames.frame_at(id, "idle", elapsed), feet[slot], stats.weapon, Color(look[0],look[1],look[2],look[3]), true, .5)
+		var spirit := Vector2(262, 120 + sin(elapsed * 2) * 5)
+		draw_texture_rect(frames.textures["companion_" + profile.assist], Rect2(spirit - Vector2(30,30), Vector2(60,60)), false)

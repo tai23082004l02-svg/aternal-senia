@@ -12,6 +12,13 @@ func _init() -> void:
 	data = normalize(parsed)
 	var expansion: Dictionary = normalize(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/expansion.json")))
 	data.stages.append_array(expansion.stages)
+	if FileAccess.file_exists("res://game/data/team_encounters.json"):
+		var encounters = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/team_encounters.json"))
+		if not encounters is Dictionary or not encounters.get("stages") is Dictionary:
+			errors.append("Dữ liệu 3vN không hợp lệ")
+		else:
+			for stage in data.stages:
+				if encounters.stages.has(str(stage.id)): stage.team_encounter = normalize(encounters.stages[str(stage.id)])
 	for key in ["talents", "traits", "achievements", "chapters"]:
 		data[key] = expansion[key]
 	for item in data.items:

@@ -101,7 +101,7 @@ func run() -> void:
 	assert(game.tab == 0 and game.selected_stage == 2)
 	game._enter_stage(2)
 	game._begin()
-	assert(game.battle != null and game.skill_buttons[0].visible)
+	assert(game.battle is TeamBattle and game.team_ui.visible)
 	game._bag_open("equipment")
 	assert(game.battle.paused)
 	game._item_detail("item_1")

@@ -8,6 +8,8 @@ const View = preload("res://game/battle_view.gd")
 const NAV_PAGES := [20, 1, 0, 21, 2]
 var catalog: GameCatalog
 var store: ProgressStore
+var team_ui: TeamBattleUI
+var formation_slot := 0
 var battle: BattleModel
 var frames: FrameLibrary
 var view: BattleView
@@ -192,6 +194,9 @@ func _build_ui() -> void:
 	status_label = _label(ui, "", Vector2(24, 940), 11, Color("9bb5b3"))
 	status_label.size = Vector2(492, 18)
 	status_label.clip_text = true
+	team_ui = TeamBattleUI.new()
+	team_ui.game = self
+	ui.add_child(team_ui)
 
 func _style(fill: Color, border: Color, radius: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
@@ -255,7 +260,7 @@ func _physics_process(delta: float) -> void:
 			_present_result()
 	_refresh_hud()
 	message_time = maxf(0, message_time - delta)
-	status_label.text = message if message_time > 0 else ("Chọn Bản đồ để đổi ải · Túi đồ để chuẩn bị" if battle == null else "Tự đánh + tap combo · Thủ thế giảm 80% sát thương trong 0,7 giây")
+	status_label.text = message if message_time > 0 else ("Chọn Bản đồ để đổi ải · Túi đồ để chuẩn bị" if battle == null else ("Tự đánh và kỹ năng cơ bản · Chạm quái để chọn mục tiêu · AUTO ULT bật/tắt" if battle is TeamBattle else "Tự đánh + tap combo · Thủ thế giảm 80% sát thương trong 0,7 giây"))
 
 func _refresh_hud() -> void:
 	var p: Dictionary = store.profile
@@ -265,6 +270,9 @@ func _refresh_hud() -> void:
 	wallet.text = ""
 	for key in currency_labels:
 		currency_labels[key].text = "%d %s" % [p[key], {"gold": "Vàng", "shards": "Tinh thạch", "xp": "XP"}[key]]
+	if battle is TeamBattle:
+		mute_button.text = "Âm: bật" if p.settings.sound else "Âm: tắt"
+		return
 	var active := battle != null
 	var stats: Dictionary = battle.stats if active else catalog.stats(p)
 	var hero := catalog.find_row("heroes", stats.hero)
@@ -324,20 +332,22 @@ func _refresh_panel() -> void:
 		child.queue_free()
 	var campaign := tab == 0
 	var fighting := battle != null
-	view.visible = campaign and fighting
+	team_ui.visible = campaign and battle is TeamBattle
+	view.visible = campaign and fighting and not battle is TeamBattle
 	for control in [hp_label, enemy_label, warning_label, hp_bar, enemy_bar, sp_bar, guard_button, attack_button, pause_button, auto_button, speed_button, stage_label, tap_target]:
-		control.visible = campaign and fighting
-	stage_label.visible = campaign and fighting
+		control.visible = campaign and fighting and not battle is TeamBattle
+	stage_label.visible = campaign and fighting and not battle is TeamBattle
 	for control in skill_buttons:
-		control.visible = campaign and fighting
+		control.visible = campaign and fighting and not battle is TeamBattle
 	for control in skill_group_labels:
-		control.visible = campaign and fighting
+		control.visible = campaign and fighting and not battle is TeamBattle
 	scroll.position.y = 710 if campaign and fighting else 132
 	scroll.size.y = 150 if campaign and fighting else 732
+	scroll.visible = not (campaign and battle is TeamBattle)
 	scroll.set_deferred("scroll_vertical", previous_scroll)
 	for i in range(tabs.size()):
 		tabs[i].position.y = 876
-		var section: int = 20 if tab in [20, 11] else (2 if tab in [2, 17, 18, 19] else (1 if tab in [1, 6, 7, 9, 12, 13] else (21 if tab in [5, 21] else 0)))
+		var section: int = 20 if tab in [20, 11] else (2 if tab in [2, 17, 18, 19] else (1 if tab in [1, 6, 7, 9, 12, 13, 22] else (21 if tab in [5, 21] else 0)))
 		tabs[i].modulate = Color("e3c998") if NAV_PAGES[i] == section else Color.WHITE
 	view.preview = catalog.stats(store.profile)
 	view.selected_stage = catalog.find_row("stages", selected_stage)
@@ -358,6 +368,7 @@ func _refresh_panel() -> void:
 		19: _forge_panel()
 		20: _shop_panel()
 		21: _dungeons_panel()
+		22: _formation_panel()
 		_: _expansion_panel(tab)
 
 func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) -> void:
@@ -550,7 +561,7 @@ func _enter_stage(id: int) -> void:
 		return
 	selected_stage = id
 	var stage := catalog.find_row("stages", id)
-	_dialog(stage.name, stage.before + "\n\nMẹo: Tinh linh phá khiên. Ngưng kỹ năng khi boss phản đòn. Thủ thế ngay trước đòn nặng.", [{"text": "Tiến vào", "call": _begin}, {"text": "Chuẩn bị thêm", "call": _close_modal}])
+	_dialog(stage.name, stage.before + "\n\nĐội tối đa 3 tướng + 1 tinh linh. Hàng trước chịu đòn trước; có thể chọn tự dùng Ultimate. Thua khi toàn đội bị hạ hoặc hết 180 giây.", [{"text": "Tiến vào", "call": _begin}, {"text":"Xếp đội hình", "call":_open_formation}, {"text": "Chuẩn bị thêm", "call": _close_modal}])
 
 func _begin() -> void:
 	_close_modal()
@@ -563,11 +574,11 @@ func _begin() -> void:
 
 func _resume() -> void:
 	_close_modal()
-	battle = Battle.new(catalog)
+	battle = TeamBattle.new(catalog) if store.profile.pending.has("team") else Battle.new(catalog)
 	battle.start(store.profile.pending)
-	battle.speed = store.profile.settings.speed
+	battle.speed = mini(2, store.profile.settings.speed) if battle is TeamBattle else store.profile.settings.speed
 	selected_stage = int(battle.run.stage)
-	view.battle = battle
+	view.battle = null if battle is TeamBattle else battle
 	result_shown = false
 	result_transition = false
 	pending_result = {}
@@ -608,6 +619,18 @@ func _present_result() -> void:
 		return
 	var payload := pending_result
 	pending_result = {}
+	if battle is TeamBattle and battle.state == "won":
+		var next_stage := _next_team_stage()
+		if next_stage > 0:
+			var next_definition := catalog.find_row("stages", next_stage)
+			if battle.auto_next and not Formation.encounter(next_definition).important:
+				_return_to_camp()
+				selected_stage = next_stage
+				_begin()
+				return
+			if battle.auto_next and Formation.encounter(next_definition).important:
+				payload.body += "\n\nDừng trước Boss chương để chuẩn bị đội hình."
+			payload.actions.insert(0, {"text":"Chuẩn bị ải tiếp →", "call":_prepare_team_next.bind(next_stage)})
 	_dialog(payload.title, payload.body, payload.actions)
 	_refresh_panel()
 
@@ -668,7 +691,7 @@ func _toggle_pause() -> void:
 		battle.paused = not battle.paused
 
 func _speed() -> void:
-	var next: int = int(store.profile.settings.speed) % 3 + 1
+	var next: int = (battle.speed % 2 + 1) if battle is TeamBattle else int(store.profile.settings.speed) % 3 + 1
 	if store.setting("speed", next) and battle != null:
 		battle.speed = next
 
@@ -1437,3 +1460,38 @@ func _journey_claim_afk() -> void:
 func _journey_auto() -> void:
 	if not JourneyScreen.auto_unlocked(store.profile) or _locked(): return
 	_dialog("TỰ CHIẾN ẢI ĐANG CHỌN", "Nhân vật tự đánh trong trận thật, có thể dùng kỹ năng và thủ thế. Dừng ở kết quả trận; không quét thưởng hay tự chuyển sang ải khác.", [{"text":"Bắt đầu", "call":_begin}, {"text":"Hủy", "call":_close_modal}])
+
+func _formation_panel() -> void:
+	var screen := FormationScreen.new()
+	screen.game = self
+	screen.slot = formation_slot
+	panel.add_child(screen)
+
+func _formation_slot(index: int) -> void:
+	formation_slot = index
+	_refresh_panel()
+
+func _formation_assign(index: int, id: String) -> void:
+	_outcome(Formation.assign(store, index, id), "Đã cập nhật đội hình.")
+
+func _formation_option(enabled: bool, key: String) -> void:
+	_outcome(Formation.option(store, key, enabled), "Đã lưu tùy chọn đội hình.")
+
+func _next_team_stage() -> int:
+	if battle == null or battle.stage.get("kind", "") == "challenge": return 0
+	var order := []
+	for chapter in catalog.data.chapters:
+		for row in JourneyScreen.chapter_stages(catalog, catalog.find_row("stages", chapter.id)): order.append(row.id)
+	var index: int = order.find(selected_stage)
+	for i in range(index + 1, order.size()):
+		if order[i] not in store.profile.cleared and store.can_enter(order[i]): return int(order[i])
+	return 0
+
+func _prepare_team_next(id: int) -> void:
+	_return_to_camp()
+	selected_stage = id
+	_select_tab(22)
+
+func _open_formation() -> void:
+	_close_modal()
+	_select_tab(22)

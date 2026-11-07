@@ -45,7 +45,7 @@ func run() -> void:
 	assert(game.modal != null)
 	game._begin()
 	assert(game.battle != null and game.battle.auto_attack)
-	assert(game.view.visible and game.store.profile.pending.stage == 6)
+	assert(game.team_ui.visible and game.store.profile.pending.stage == 6)
 	await capture("journey-battle")
 	assert(game.store.settle(game.store.profile.pending.id, false, 0))
 	game._return_to_camp()
