@@ -51,5 +51,6 @@ func run() -> void:
 	game.queue_free()
 	await process_frame
 	await RenderingServer.frame_post_draw
+	await create_timer(.2).timeout
 	print("PASS: adult Ryn face/portrait/large touch view and real battle thrust rendered")
 	quit()

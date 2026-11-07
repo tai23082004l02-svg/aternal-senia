@@ -1,5 +1,7 @@
 # Giao diện & đồ họa · 0.16
 
+Lịch sử bản0.16. Ryn đã được thay toàn bộ thiết kế và dọn raw cũ ở [0.18](RYN_ART.md); các mô tả giữ ảnh cũ dưới đây chỉ áp dụng tại thời điểm0.16.
+
 Bản này tích hợp trên commit 0.15 `fc2ecfb90a7d23ff4f9d4daa65e29ca37b280835`, giữ hồ sơ/VIP cùng tóc–tà áo Ryn mới nhất và các thay đổi người dùng vừa thêm: thuộc tính, nâng/sao/tiến hóa, cây tinh linh, triệu hồi/pity, bảy độ hiếm trang bị, shop sáu mục, trang phục và màn nhân vật bảy mục.
 
 ## Nhân vật

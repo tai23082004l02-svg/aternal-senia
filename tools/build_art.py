@@ -8,6 +8,7 @@ manifest={'canvas':[192,240],'anchor':[96,216],'heroes':{}}
 colors={'eira':('#e4e9ff','#6478b8','#b7c9f1'),'ryn':('#492f3f','#aa4c48','#ecae83'),'mira':('#c1ece7','#337b87','#7ed8ce')}
 frames={'idle':[.18]*4,'run':[.085]*6,'attack':[.09,.10,.06,.08,.10,.17],'skill':[.12,.13,.12,.13,.16,.24],'hurt':[.13,.13],'death':[.12,.14,.18,1.0]}
 for hero,(hair,coat,edge) in colors.items():
+ if hero=="ryn":continue # Retired SVG design; Ryn now uses its authored PNG atlas.
  clips={}
  for state,durations in frames.items():
   entries=[]

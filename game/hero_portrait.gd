@@ -108,7 +108,7 @@ func _draw() -> void:
 			var angle := motion.x * .003 if interactive else 0.0
 			var lag := (accessory_motion - motion) * .18 if interactive else Vector2.ZERO
 			var sway := clampf(lag.x * .01, -.025, .025) + sin(idle_time * 1.6) * .004 if interactive else 0.0
-			if accessory_layers.is_empty():
+			if accessory_layers.is_empty() and library.textures.has("portrait_" + hero + "_back"):
 				draw_set_transform(center + lag, angle + sway, scale)
 				draw_texture(library.textures["portrait_" + hero + "_back"], -texture.get_size() * .5, palette_tint)
 			draw_set_transform(center, angle, scale)
@@ -165,8 +165,8 @@ func _build_accessories() -> void:
 		layer.show_behind_parent = true
 		var shader := ShaderMaterial.new()
 		shader.shader = preload("res://game/shaders/portrait_sway.gdshader")
-		shader.set_shader_parameter("root_y", .41 if part == "cloth" else .12)
-		shader.set_shader_parameter("span", .48 if part == "cloth" else .28)
+		shader.set_shader_parameter("root_y", .31 if part == "cloth" else .13)
+		shader.set_shader_parameter("span", .55 if part == "cloth" else .18)
 		layer.material = shader
 		add_child(layer)
 		accessory_layers.append(layer)

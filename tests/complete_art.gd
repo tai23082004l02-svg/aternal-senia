@@ -12,7 +12,7 @@ func _initialize() -> void:
 				assert(texture.region.end.x <= texture.atlas.get_width() and texture.region.end.y <= texture.atlas.get_height())
 				assert(frame.hand[0] < frame.size[0] and frame.hand[1] < frame.size[1])
 				unique[frame.file] = true
-		assert(unique.size() == (32 if hero == "eira" else (12 if hero == "ryn" else 16)))
+		assert(unique.size() == (32 if hero == "eira" else 16))
 		poses += unique.size()
 	for type in ["sword", "spear", "staff"]:
 		for rank in [1, 2]:

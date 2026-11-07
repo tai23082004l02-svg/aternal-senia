@@ -1254,21 +1254,21 @@
         "loop": true,
         "frames": [
           {
-            "file": "painted/ryn_00",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_00",
+            "atlas": "ryn/atlas.png",
             "region": [
               0,
               0,
               314,
-              418
+              314
             ],
             "size": [
               314,
-              418
+              314
             ],
             "anchor": [
-              166,
-              405
+              172,
+              304
             ],
             "source_size": [
               512,
@@ -1279,34 +1279,40 @@
               460
             ],
             "trim_offset": [
-              90,
-              55
+              84,
+              156
             ],
             "hand": [
-              0,
-              0
+              220,
+              194
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.65,
-            "embedded_weapon": true
+            "angle": 18,
+            "grip_rect": [
+              213,
+              187,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.6,
+            "embedded_weapon": false
           },
           {
-            "file": "painted/ryn_01",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_01",
+            "atlas": "ryn/atlas.png",
             "region": [
               314,
               0,
               313,
-              418
+              314
             ],
             "size": [
               313,
-              418
+              314
             ],
             "anchor": [
-              166,
-              405
+              172,
+              304
             ],
             "source_size": [
               512,
@@ -1317,17 +1323,23 @@
               460
             ],
             "trim_offset": [
-              90,
-              55
+              84,
+              156
             ],
             "hand": [
-              0,
-              0
+              228,
+              194
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.65,
-            "embedded_weapon": true
+            "angle": 18,
+            "grip_rect": [
+              221,
+              187,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.6,
+            "embedded_weapon": false
           }
         ]
       },
@@ -1335,21 +1347,21 @@
         "loop": true,
         "frames": [
           {
-            "file": "painted/ryn_02",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_02",
+            "atlas": "ryn/atlas.png",
             "region": [
               627,
               0,
-              313,
-              418
+              280,
+              314
             ],
             "size": [
-              313,
-              418
+              280,
+              314
             ],
             "anchor": [
-              218,
-              403
+              166,
+              303
             ],
             "source_size": [
               512,
@@ -1360,34 +1372,40 @@
               460
             ],
             "trim_offset": [
-              38,
-              57
+              90,
+              157
             ],
             "hand": [
-              0,
-              0
+              211,
+              160
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.11,
-            "embedded_weapon": true
+            "angle": 55,
+            "grip_rect": [
+              204,
+              153,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1,
+            "embedded_weapon": false
           },
           {
-            "file": "painted/ryn_03",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_03",
+            "atlas": "ryn/atlas.png",
             "region": [
               940,
               0,
               314,
-              418
+              314
             ],
             "size": [
               314,
-              418
+              314
             ],
             "anchor": [
-              218,
-              403
+              188,
+              303
             ],
             "source_size": [
               512,
@@ -1398,116 +1416,133 @@
               460
             ],
             "trim_offset": [
-              38,
-              57
+              68,
+              157
             ],
             "hand": [
-              0,
-              0
+              230,
+              139
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.11,
-            "embedded_weapon": true
+            "angle": 60,
+            "grip_rect": [
+              223,
+              132,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_04",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              0,
+              314,
+              280,
+              313
+            ],
+            "size": [
+              280,
+              313
+            ],
+            "anchor": [
+              170,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              86,
+              157
+            ],
+            "hand": [
+              209,
+              145
+            ],
+            "angle": 55,
+            "grip_rect": [
+              202,
+              138,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_05",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              314,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              188,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              68,
+              157
+            ],
+            "hand": [
+              211,
+              142
+            ],
+            "angle": 60,
+            "grip_rect": [
+              204,
+              135,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1,
+            "embedded_weapon": false
           }
         ]
       },
       "attack": {
         "loop": false,
-        "hit_time": 0.22,
         "frames": [
           {
-            "file": "painted/ryn_04",
-            "atlas": "painted/ryn_atlas.png",
-            "region": [
-              0,
-              418,
-              314,
-              418
-            ],
-            "size": [
-              314,
-              418
-            ],
-            "anchor": [
-              180,
-              397
-            ],
-            "source_size": [
-              512,
-              512
-            ],
-            "source_anchor": [
-              256,
-              460
-            ],
-            "trim_offset": [
-              76,
-              63
-            ],
-            "hand": [
-              0,
-              0
-            ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.22,
-            "embedded_weapon": true
-          },
-          {
-            "file": "painted/ryn_05",
-            "atlas": "painted/ryn_atlas.png",
-            "region": [
-              314,
-              418,
-              327,
-              418
-            ],
-            "size": [
-              327,
-              418
-            ],
-            "anchor": [
-              168,
-              397
-            ],
-            "source_size": [
-              512,
-              512
-            ],
-            "source_anchor": [
-              256,
-              460
-            ],
-            "trim_offset": [
-              88,
-              63
-            ],
-            "hand": [
-              0,
-              0
-            ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.08,
-            "embedded_weapon": true
-          },
-          {
-            "file": "painted/ryn_06",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_06",
+            "atlas": "ryn/atlas.png",
             "region": [
               627,
-              418,
+              314,
               313,
-              418
+              313
             ],
             "size": [
               313,
-              418
+              313
             ],
             "anchor": [
-              180,
-              397
+              172,
+              303
             ],
             "source_size": [
               512,
@@ -1518,34 +1553,172 @@
               460
             ],
             "trim_offset": [
-              76,
-              63
+              84,
+              157
             ],
             "hand": [
-              0,
-              0
+              103,
+              35
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.16,
-            "embedded_weapon": true
+            "angle": -55,
+            "grip_rect": [
+              96,
+              28,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12,
+            "embedded_weapon": false
           },
           {
-            "file": "painted/ryn_00",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_07",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              940,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              172,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              84,
+              157
+            ],
+            "hand": [
+              82,
+              98
+            ],
+            "angle": -70,
+            "grip_rect": [
+              75,
+              91,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_08",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              172,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              84,
+              157
+            ],
+            "hand": [
+              263,
+              125
+            ],
+            "angle": 90,
+            "grip_rect": [
+              256,
+              118,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_09",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              172,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              84,
+              157
+            ],
+            "hand": [
+              134,
+              161
+            ],
+            "angle": 30,
+            "grip_rect": [
+              127,
+              154,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_00",
+            "atlas": "ryn/atlas.png",
             "region": [
               0,
               0,
               314,
-              418
+              314
             ],
             "size": [
               314,
-              418
+              314
             ],
             "anchor": [
-              166,
-              405
+              172,
+              304
             ],
             "source_size": [
               512,
@@ -1556,116 +1729,46 @@
               460
             ],
             "trim_offset": [
-              90,
-              55
+              84,
+              156
             ],
             "hand": [
-              0,
-              0
+              220,
+              194
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.06,
-            "embedded_weapon": true
+            "angle": 18,
+            "grip_rect": [
+              213,
+              187,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.08,
+            "embedded_weapon": false
           }
-        ]
+        ],
+        "hit_time": 0.22
       },
       "skill": {
         "loop": false,
-        "hit_time": 0.5,
         "frames": [
           {
-            "file": "painted/ryn_07",
-            "atlas": "painted/ryn_atlas.png",
-            "region": [
-              940,
-              418,
-              314,
-              418
-            ],
-            "size": [
-              314,
-              418
-            ],
-            "anchor": [
-              171,
-              397
-            ],
-            "source_size": [
-              512,
-              512
-            ],
-            "source_anchor": [
-              256,
-              460
-            ],
-            "trim_offset": [
-              85,
-              63
-            ],
-            "hand": [
-              0,
-              0
-            ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.5,
-            "embedded_weapon": true
-          },
-          {
-            "file": "painted/ryn_08",
-            "atlas": "painted/ryn_atlas.png",
-            "region": [
-              0,
-              836,
-              327,
-              418
-            ],
-            "size": [
-              327,
-              418
-            ],
-            "anchor": [
-              170,
-              397
-            ],
-            "source_size": [
-              512,
-              512
-            ],
-            "source_anchor": [
-              256,
-              460
-            ],
-            "trim_offset": [
-              86,
-              63
-            ],
-            "hand": [
-              0,
-              0
-            ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.18,
-            "embedded_weapon": true
-          },
-          {
-            "file": "painted/ryn_06",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_10",
+            "atlas": "ryn/atlas.png",
             "region": [
               627,
-              418,
+              627,
               313,
-              418
+              313
             ],
             "size": [
               313,
-              418
+              313
             ],
             "anchor": [
-              180,
-              397
+              172,
+              303
             ],
             "source_size": [
               512,
@@ -1676,34 +1779,172 @@
               460
             ],
             "trim_offset": [
-              76,
-              63
+              84,
+              157
             ],
             "hand": [
-              0,
-              0
+              185,
+              140
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.17,
-            "embedded_weapon": true
+            "angle": 25,
+            "grip_rect": [
+              178,
+              133,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25,
+            "embedded_weapon": false
           },
           {
-            "file": "painted/ryn_00",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_11",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              172,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              84,
+              157
+            ],
+            "hand": [
+              123,
+              212
+            ],
+            "angle": 25,
+            "grip_rect": [
+              116,
+              205,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_11",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              172,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              84,
+              157
+            ],
+            "hand": [
+              123,
+              212
+            ],
+            "angle": 25,
+            "grip_rect": [
+              116,
+              205,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_09",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              172,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              84,
+              157
+            ],
+            "hand": [
+              134,
+              161
+            ],
+            "angle": 30,
+            "grip_rect": [
+              127,
+              154,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_00",
+            "atlas": "ryn/atlas.png",
             "region": [
               0,
               0,
               314,
-              418
+              314
             ],
             "size": [
               314,
-              418
+              314
             ],
             "anchor": [
-              166,
-              405
+              172,
+              304
             ],
             "source_size": [
               512,
@@ -1714,39 +1955,46 @@
               460
             ],
             "trim_offset": [
-              90,
-              55
+              84,
+              156
             ],
             "hand": [
-              0,
-              0
+              220,
+              194
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.1,
-            "embedded_weapon": true
+            "angle": 18,
+            "grip_rect": [
+              213,
+              187,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15,
+            "embedded_weapon": false
           }
-        ]
+        ],
+        "hit_time": 0.5
       },
       "guard": {
         "loop": false,
         "frames": [
           {
-            "file": "painted/ryn_09",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_07",
+            "atlas": "ryn/atlas.png",
             "region": [
+              940,
               314,
-              836,
-              313,
-              418
+              314,
+              313
             ],
             "size": [
-              313,
-              418
+              314,
+              313
             ],
             "anchor": [
-              170,
-              397
+              172,
+              303
             ],
             "source_size": [
               512,
@@ -1757,17 +2005,23 @@
               460
             ],
             "trim_offset": [
-              86,
-              63
+              84,
+              157
             ],
             "hand": [
-              0,
-              0
+              82,
+              98
             ],
-            "angle": 0,
-            "render_scale": 0.5,
+            "angle": -70,
+            "grip_rect": [
+              75,
+              91,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
             "duration": 0.7,
-            "embedded_weapon": true
+            "embedded_weapon": false
           }
         ]
       },
@@ -1775,21 +2029,21 @@
         "loop": false,
         "frames": [
           {
-            "file": "painted/ryn_10",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_12",
+            "atlas": "ryn/atlas.png",
             "region": [
-              627,
-              836,
-              313,
-              418
+              0,
+              940,
+              314,
+              314
             ],
             "size": [
-              313,
-              418
+              314,
+              314
             ],
             "anchor": [
-              171,
-              397
+              172,
+              303
             ],
             "source_size": [
               512,
@@ -1800,17 +2054,67 @@
               460
             ],
             "trim_offset": [
-              85,
-              63
+              84,
+              157
             ],
             "hand": [
-              0,
-              0
+              219,
+              132
             ],
-            "angle": 0,
-            "render_scale": 0.5,
-            "duration": 0.25,
-            "embedded_weapon": true
+            "angle": 25,
+            "grip_rect": [
+              212,
+              125,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.125,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_13",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              314,
+              940,
+              280,
+              314
+            ],
+            "size": [
+              280,
+              314
+            ],
+            "anchor": [
+              172,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              84,
+              157
+            ],
+            "hand": [
+              215,
+              205
+            ],
+            "angle": 30,
+            "grip_rect": [
+              208,
+              198,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.125,
+            "embedded_weapon": false
           }
         ]
       },
@@ -1818,21 +2122,21 @@
         "loop": false,
         "frames": [
           {
-            "file": "painted/ryn_11",
-            "atlas": "painted/ryn_atlas.png",
+            "file": "ryn/pose_14",
+            "atlas": "ryn/atlas.png",
             "region": [
+              627,
               940,
-              836,
-              314,
-              418
+              280,
+              314
             ],
             "size": [
-              314,
-              418
+              280,
+              314
             ],
             "anchor": [
-              176,
-              397
+              172,
+              303
             ],
             "source_size": [
               512,
@@ -1843,17 +2147,67 @@
               460
             ],
             "trim_offset": [
-              80,
-              63
+              84,
+              157
             ],
             "hand": [
-              0,
-              0
+              129,
+              278
             ],
             "angle": 0,
-            "render_scale": 0.5,
-            "duration": 1,
-            "embedded_weapon": true
+            "grip_rect": [
+              122,
+              271,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.28,
+            "embedded_weapon": false
+          },
+          {
+            "file": "ryn/pose_15",
+            "atlas": "ryn/atlas.png",
+            "region": [
+              940,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              172,
+              303
+            ],
+            "source_size": [
+              512,
+              512
+            ],
+            "source_anchor": [
+              256,
+              460
+            ],
+            "trim_offset": [
+              84,
+              157
+            ],
+            "hand": [
+              236,
+              279
+            ],
+            "angle": 0,
+            "grip_rect": [
+              229,
+              272,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.72,
+            "embedded_weapon": false
           }
         ]
       }
@@ -3500,19 +3854,18 @@
   },
   "portraits": {
     "ryn": {
-      "file": "painted/ryn_portrait.png",
+      "file": "ryn/portrait.png",
       "face": [
-        330,
-        130,
-        240,
-        250
+        460,
+        245,
+        220,
+        220
       ],
       "adult_age": 27,
       "layers": {
-        "body": "painted/ryn_body.png",
-        "back": "painted/ryn_back.png",
-        "hair": "painted/ryn_hair.png",
-        "cloth": "painted/ryn_cloth.png"
+        "body": "ryn/body.png",
+        "hair": "ryn/hair.png",
+        "cloth": "ryn/cloth.png"
       }
     }
   },

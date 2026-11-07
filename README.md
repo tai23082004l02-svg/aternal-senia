@@ -1,10 +1,10 @@
-# Aternal Senia — First Light · 0.18
+# Aternal Senia — First Light · 0.19
 
-## Tiện ích · 0.18
+## Ryn đồng bộ phong cách · 0.19
 
-Menu chia ba nhóm Hoạt động / Khám phá / Hệ thống, đủ tám mục với icon, mô tả
-và mũi tên. Huy hiệu Nhiệm vụ đếm thưởng có thể nhận thật. Hộp thư/Giftcode chưa
-mở dịch vụ; Cài đặt gom âm thanh, hiển thị và hồ sơ. [Ảnh và phạm vi](docs/UTILITIES_MENU.md).
+Vẽ lại Ryn theo phong cách Eira/Mira/Lyra: giáp ngà, áo choàng đỏ rượu, tóc ngang vai có bím nhỏ. Bộ mới có chân dung/layer tóc–vải và 16 pose chiến đấu, thương rời đổi hình theo trang bị. Giữ tương tác và tiến trình Ryn; đã xóa 7 file raw/metadata cũ cùng 28 SVG mẫu khỏi bản hiện tại.
+
+[Xem Ryn mới, GIF và toàn bộ pose](docs/RYN_ART.md).
 
 ## Triệu hồi · 0.17
 
