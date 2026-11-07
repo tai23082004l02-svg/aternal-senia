@@ -21,3 +21,5 @@
 
 - Từ 0.5, 38 SFX + ambience dùng ElevenLabs; giữ raw MP3/receipt/provenance. Không tự đổi lại synth Python. tools/build_audio.py phải từ chối ghi đè provider audio.
 - Không đưa ElevenLabs key vào runtime, log hoặc source. Generation dùng secret tại GitHub; hậu kỳ local không cần key. Không tự retry request trả phí.
+
+- Hồ sơ/VIP0.15: đọc docs/PLAYER_VIP.md, chạy tests/player_profile.gd. identity là trường tùy chọn save v5; VIP hiện chỉ giao diện 1–10 theo nạp tiền, không tự thêm điểm/cấp/quyền lợi/thanh toán hoặc thưởng giả.

@@ -114,6 +114,7 @@ func valid(p: Variant) -> bool:
 	if not SpiritSkills.valid(self, p) or not Recruitment.valid(self, p): return false
 	if not HeroEvolution.valid(self, p): return false
 	if not Wardrobe.valid(self, p): return false
+	if not PlayerIdentity.valid(self, p): return false
 	return p.settings.get("speed") in [1, 2, 3] and p.settings.get("sound") is bool
 
 func _number(value: Variant, low: float, high: float) -> bool:

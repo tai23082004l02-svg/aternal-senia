@@ -1,4 +1,11 @@
-# Aternal Senia — First Light · 0.14
+# Aternal Senia — First Light · 0.15
+
+## Hồ sơ & VIP · 0.15
+
+Góc trên trái có avatar tròn, tên người chơi và trạng thái VIP. Chạm để đổi tên,
+chọn avatar nhân vật đã sở hữu, hoặc xem VIP1–10. VIP theo nạp tiền; hiện chỉ
+có giao diện, chưa có thanh toán, điểm nạp hoặc quyền lợi được kích hoạt.
+[Xem giao diện và phạm vi](docs/PLAYER_VIP.md).
 
 ## Ryn · Hỏa vũ trưởng thành · 0.14
 

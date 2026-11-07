@@ -12,6 +12,9 @@ var battle: BattleModel
 var frames: FrameLibrary
 var view: BattleView
 var ui: Control
+var profile_name: Label
+var profile_button: Button
+var profile_avatar: Control
 var wallet: Label
 var status_label: Label
 var stage_label: Label
@@ -107,8 +110,20 @@ func _build_ui() -> void:
 	theme.set_color("font_color", "Label", Color("dedfd5"))
 	ui.theme = theme
 	add_child(ui)
-	_label(ui, "FIRST LIGHT", Vector2(24, 22), 24, Color("ecdfbc"))
-	_label(ui, "HÀNH TRÌNH BÌNH MINH", Vector2(25, 55), 11, Color("93b0ae"))
+	profile_button = _button(ui, "", Vector2(24, 17), Vector2(332, 61), _show_player_profile)
+	profile_button.flat = true
+	profile_button.tooltip_text = "Hồ sơ và VIP"
+	profile_avatar = PlayerProfilePanel.RoundAvatar.new()
+	profile_avatar.position = Vector2(3, 3)
+	profile_avatar.size = Vector2(54, 54)
+	profile_avatar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	profile_button.add_child(profile_avatar)
+	profile_name = _label(profile_button, "", Vector2(70, 4), 20, Color("ecdfbc"))
+	profile_name.size = Vector2(246, 29)
+	profile_name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	profile_name.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var vip_badge := _label(profile_button, "VIP · Chưa kích hoạt  ›", Vector2(70, 35), 13, Color("e1c38d"))
+	vip_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	wallet = _label(ui, "", Vector2(24, 88), 14, Color("e1c38d"))
 	mute_button = _button(ui, "Âm: bật", Vector2(422, 25), Vector2(94, 34), _toggle_sound)
 	_button(ui, "≡", Vector2(374, 25), Vector2(40, 34), _select_tab.bind(4)).tooltip_text = "Menu"
@@ -225,6 +240,8 @@ func _physics_process(delta: float) -> void:
 
 func _refresh_hud() -> void:
 	var p: Dictionary = store.profile
+	profile_name.text = PlayerIdentity.state(p).name
+	profile_avatar.update_avatar(frames, PlayerIdentity.state(p).avatar)
 	wallet.text = "%d VÀNG     %d TINH THẠCH     %d KINH NGHIỆM" % [p.gold, p.shards, p.xp]
 	var active := battle != null
 	var stats: Dictionary = battle.stats if active else catalog.stats(p)
@@ -1232,3 +1249,13 @@ func _preview_character_outfit(id: String) -> void:
 
 func _apply_character_outfit(hero: String, id: String) -> void:
 	_outcome(Wardrobe.apply(store, hero, id), "Đã áp dụng phối màu.")
+
+func _show_player_profile() -> void:
+	if battle != null:
+		message = "Mở hồ sơ sau khi kết thúc trận."
+		message_time = 3
+		return
+	PlayerProfilePanel.show_profile(self)
+
+func _show_vip(tier: int = 1) -> void:
+	PlayerProfilePanel.show_vip(self, tier)
