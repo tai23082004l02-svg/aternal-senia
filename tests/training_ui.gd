@@ -43,7 +43,7 @@ func run() -> void:
 	button("Hoàn toàn bộ điểm").pressed.emit()
 	assert(AttributeTraining.remaining(game.store.profile, "eira") == 6)
 	button("← Trở về nhân vật").pressed.emit()
-	game.tabs[4].pressed.emit()
+	game._select_tab(4)
 	button("SỔ TAY BOSS").pressed.emit()
 	assert(game.tab == 10)
 	await capture("boss-guide")

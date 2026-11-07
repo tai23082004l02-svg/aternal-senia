@@ -5,6 +5,7 @@ const Store = preload("res://game/core/progress.gd")
 const Battle = preload("res://game/core/battle.gd")
 const Frames = preload("res://game/core/frame_library.gd")
 const View = preload("res://game/battle_view.gd")
+const NAV_PAGES := [20, 1, 0, 21, 2]
 var catalog: GameCatalog
 var store: ProgressStore
 var battle: BattleModel
@@ -53,6 +54,10 @@ var tap_target: Button
 var details_paused := false
 var icons := UIIcons.new()
 var skill_group_labels: Array[Label] = []
+var bag_section := ""
+var bag_kind := "all"
+var bag_rarity := 0
+var selected_spirit := "lumi"
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
@@ -78,7 +83,7 @@ func _ready() -> void:
 	elif not store.profile.pending.is_empty():
 		_dialog("Trận chưa hoàn tất", "Tiếp tục sẽ chạy lại từ đầu trận với cùng nhân vật, trang bị và hạt ngẫu nhiên đã lưu.", [{"text": "Tiếp tục", "call": _resume}, {"text": "Bỏ trận · không thưởng", "call": _abandon}])
 	else:
-		_notify("Chọn một khu vực để bắt đầu. Tap nhân vật hoặc nút Đánh để nối combo.")
+		_notify("Vào ải để chiến đấu. Quản lý vật phẩm trong Túi đồ.")
 
 func _build_ui() -> void:
 	ui = Control.new()
@@ -97,11 +102,11 @@ func _build_ui() -> void:
 	theme.set_color("font_color", "Label", Color("dedfd5"))
 	ui.theme = theme
 	add_child(ui)
-	_label(ui, "FIRST LIGHT", Vector2(24, 22), 30, Color("ecdfbc"))
-	_label(ui, "ATERNAL SENIA  /  HÀNH TRÌNH BÌNH MINH", Vector2(25, 61), 12, Color("93b0ae"))
-	wallet = _label(ui, "", Vector2(24, 96), 17, Color("e1c38d"))
+	_label(ui, "FIRST LIGHT", Vector2(24, 22), 24, Color("ecdfbc"))
+	_label(ui, "HÀNH TRÌNH BÌNH MINH", Vector2(25, 55), 11, Color("93b0ae"))
+	wallet = _label(ui, "", Vector2(24, 88), 14, Color("e1c38d"))
 	mute_button = _button(ui, "Âm: bật", Vector2(422, 25), Vector2(94, 34), _toggle_sound)
-	_button(ui, "♫", Vector2(374, 25), Vector2(40, 34), _audio_settings)
+	_button(ui, "≡", Vector2(374, 25), Vector2(40, 34), _select_tab.bind(4)).tooltip_text = "Menu"
 	stage_label = _label(ui, "", Vector2(24, 143), 19, Color("eee8d6"))
 	var tap := Button.new()
 	tap_target = tap
@@ -120,7 +125,7 @@ func _build_ui() -> void:
 	skill_group_labels.append(_label(ui, "NHÂN VẬT", Vector2(24, 583), 11, Color("e5cd9e")))
 	skill_group_labels.append(_label(ui, "TINH LINH", Vector2(356, 583), 11, Color("a2e5d6")))
 	for i in range(3):
-		skill_buttons.append(_button(ui, "", Vector2(24 + i * 166, 604), Vector2(160, 38), _skill.bind(i)))
+		skill_buttons.append(_button(ui, "", Vector2(24 + i * 166, 598), Vector2(160, 44), _skill.bind(i)))
 		icons.apply(skill_buttons[i], ["slash", "heal", "spirit"][i], 28)
 		skill_buttons[i].add_theme_font_size_override("font_size", 12)
 	attack_button = _button(ui, "Đánh", Vector2(24, 651), Vector2(82, 36), _attack)
@@ -131,8 +136,11 @@ func _build_ui() -> void:
 	pause_button = _button(ui, "Dừng", Vector2(336, 651), Vector2(90, 36), _toggle_pause)
 	speed_button = _button(ui, "×1", Vector2(432, 651), Vector2(84, 36), _speed)
 	for i in range(5):
-		tabs.append(_button(ui, ["Hành trình", "Nhân vật", "Trang bị", "Nhiệm vụ", "Nhật ký"][i], Vector2(24 + i * 99, 696), Vector2(93, 56), _select_tab.bind(i)))
-		icons.tab(tabs[i], ["journey", "hero", "equipment", "quest", "journal"][i])
+		tabs.append(_button(ui, ["Shop", "Nhân vật", "Hành trình", "Phó bản", "Túi đồ"][i], Vector2(24 + i * 99, 876), Vector2(93, 56), _select_tab.bind(NAV_PAGES[i])))
+		icons.tab(tabs[i], ["gold", "hero", "journey", "boss", "equipment"][i])
+	for control in [attack_button, guard_button, auto_button, pause_button, speed_button]:
+		control.custom_minimum_size.y = 44
+		control.size.y = 44
 	scroll = ScrollContainer.new()
 	scroll.position = Vector2(24, 758)
 	scroll.size = Vector2(492, 151)
@@ -142,9 +150,9 @@ func _build_ui() -> void:
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	panel.add_theme_constant_override("separation", 9)
 	scroll.add_child(panel)
-	status_label = _label(ui, "", Vector2(24, 923), 12, Color("9bb5b3"))
-	status_label.size = Vector2(492, 32)
-	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	status_label = _label(ui, "", Vector2(24, 940), 11, Color("9bb5b3"))
+	status_label.size = Vector2(492, 18)
+	status_label.clip_text = true
 
 func _style(fill: Color, border: Color, radius: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
@@ -208,7 +216,7 @@ func _physics_process(delta: float) -> void:
 			_present_result()
 	_refresh_hud()
 	message_time = maxf(0, message_time - delta)
-	status_label.text = message if message_time > 0 else "Tự đánh + tap combo · Thủ thế giảm 80% sát thương trong 0,7 giây"
+	status_label.text = message if message_time > 0 else ("Chọn Bản đồ để đổi ải · Túi đồ để chuẩn bị" if battle == null else "Tự đánh + tap combo · Thủ thế giảm 80% sát thương trong 0,7 giây")
 
 func _refresh_hud() -> void:
 	var p: Dictionary = store.profile
@@ -264,19 +272,22 @@ func _refresh_panel() -> void:
 		panel.remove_child(child)
 		child.queue_free()
 	var campaign := tab == 0
+	var fighting := battle != null
 	view.visible = campaign
 	for control in [hp_label, enemy_label, warning_label, hp_bar, enemy_bar, sp_bar, guard_button, attack_button, pause_button, auto_button, speed_button, stage_label, tap_target]:
-		control.visible = campaign
+		control.visible = campaign and fighting
+	stage_label.visible = campaign
 	for control in skill_buttons:
-		control.visible = campaign
+		control.visible = campaign and fighting
 	for control in skill_group_labels:
-		control.visible = campaign
-	scroll.position.y = 758 if campaign else 208
-	scroll.size.y = 151 if campaign else 696
+		control.visible = campaign and fighting
+	scroll.position.y = (710 if fighting else 540) if campaign else 132
+	scroll.size.y = (150 if fighting else 320) if campaign else 732
 	scroll.set_deferred("scroll_vertical", previous_scroll)
 	for i in range(tabs.size()):
-		tabs[i].position.y = 696 if campaign else 150
-		tabs[i].modulate = Color("e3c998") if i == tab else Color.WHITE
+		tabs[i].position.y = 876
+		var section: int = 20 if tab in [20, 11] else (2 if tab in [2, 17, 18, 19] else (1 if tab in [1, 6, 7, 9, 12, 13] else (21 if tab in [5, 21] else 0)))
+		tabs[i].modulate = Color("e3c998") if NAV_PAGES[i] == section else Color.WHITE
 	view.preview = catalog.stats(store.profile)
 	view.selected_stage = catalog.find_row("stages", selected_stage)
 	match tab:
@@ -284,12 +295,19 @@ func _refresh_panel() -> void:
 		1: _heroes_panel()
 		2: _items_panel()
 		3: _quests_panel()
-		4: _journal_panel()
+		4: _more_panel()
 		9: _training_panel()
 		10: _boss_guide_panel()
 		11: _summon_panel()
 		12: _hero_upgrade_panel()
 		13: _spirit_tree_panel()
+		15: _map_panel()
+		16: _journal_panel()
+		17: _equipment_detail_panel()
+		18: _spirit_inventory_detail()
+		19: _forge_panel()
+		20: _shop_panel()
+		21: _dungeons_panel()
 		_: _expansion_panel(tab)
 
 func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) -> void:
@@ -298,7 +316,7 @@ func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) ->
 	label.custom_minimum_size.x = 460
 
 func _row(text: String, callback: Callable, disabled: bool = false) -> Button:
-	var b := _button(panel, text, Vector2.ZERO, Vector2(464, 40), callback)
+	var b := _button(panel, text, Vector2.ZERO, Vector2(464, 44), callback)
 	icons.action(b, callback)
 	b.disabled = disabled
 	return b
@@ -307,19 +325,22 @@ func _locked() -> bool:
 	return not store.profile.pending.is_empty() or store.read_only or result_transition
 
 func _campaign_panel() -> void:
-	_row("TRIỆU HỒI · NHÂN VẬT / TINH LINH / TRANG BỊ →", _select_tab.bind(11))
-	_row("CHƯƠNG TRUYỆN & PHỤ BẢN →", _select_tab.bind(5))
+	if battle == null:
+		var p: Dictionary = store.profile
+		_text("%s · Cấp %d   /   %s đồng hành" % [catalog.find_row("heroes", p.hero).name, p.heroes[p.hero].level, catalog.find_row("assists", p.assist).name], 17, Color("e5cd9e"))
 	if _locked() and battle != null and battle.state == "battle":
 		_row("Rút lui · không nhận thưởng", _confirm_abandon)
 	else:
 		_row("VÀO ẢI · " + catalog.find_row("stages", selected_stage).name, _enter_stage.bind(selected_stage), _locked())
-	for stage in catalog.data.stages:
-		if stage.id > 5: continue
-		var available: bool = stage.id <= store.unlocked_stage()
-		_row("%02d   %s   %s" % [stage.id, stage.name, "✓" if stage.id in store.profile.cleared else ("Mở" if available else "Khóa")], _choose_stage.bind(int(stage.id)), not available or _locked())
 	var supplies := store.offline_preview(int(Time.get_unix_time_from_system()))
-	_row("Tiếp tế: %d vàng · nhận (tối đa 2 giờ)" % supplies, _offline, supplies <= 0 or store.read_only)
-	_text("Thưởng mỗi lần thắng + loot. Lần đầu có thêm vàng. Túi đầy: loot đổi thành 3 tinh thạch.")
+	var shortcuts := HBoxContainer.new()
+	shortcuts.add_theme_constant_override("separation", 6)
+	panel.add_child(shortcuts)
+	for entry in [["Bản đồ", _select_tab.bind(15), "journey"], ["Triệu hồi", _select_tab.bind(11), "spirit"], ["Tiếp tế +%d" % supplies, _offline, "gold"]]:
+		var button := _button(shortcuts, entry[0], Vector2.ZERO, Vector2(156, 50), entry[1])
+		icons.apply(button, entry[2], 23)
+		button.add_theme_font_size_override("font_size", 13)
+		if entry[2] == "gold": button.disabled = supplies <= 0 or store.read_only
 
 func _choose_stage(id: int) -> void:
 	selected_stage = id
@@ -356,20 +377,22 @@ func _heroes_panel() -> void:
 		_row(("✓ " if p.assist == assist.id else "") + assist.name + " · " + _rarity("spirit", assist.id) + " · " + assist.role, _assist.bind(assist.id), _locked() or not store.available_assist(assist.id) or p.assist == assist.id)
 	_row("Nâng trợ chiến cấp %d · %d vàng" % [p.assists[p.assist], p.assists[p.assist] * 35], _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
 
-func _items_panel() -> void:
+func _equipment_detail_panel() -> void:
 	var p: Dictionary = store.profile
-	_text("TÚI ĐỒ %d / %d · vũ khí + giáp theo từng nhân vật" % [p.items.size(), Store.BAG_CAP], 16, Color("e5cd9e"))
+	_row("← Kho trang bị", _select_tab.bind(2))
 	for item in p.items:
+		if item.uid != selected_item: continue
 		var def := catalog.find_row("items", item.base)
 		var owner := ""
 		for h in p.heroes:
 			if item.uid in p.heroes[h].equipment.values():
 				owner = catalog.find_row("heroes", h).name
-		_row("%s%s · %s +%d · bậc %d %s" % ["▸ " if item.uid == selected_item else "", def.name, _rarity("item", item.base), item.enhance, item.rank, "[" + owner + "]" if not owner.is_empty() else ""], _item_detail.bind(item.uid))
+		_text(def.name, 24, Color(Recruitment.RARITIES[def.rarity].color))
+		_text("%s · Cường hóa +%d · Bậc %d%s" % [_rarity("item", item.base), item.enhance, item.rank, " · " + owner if owner != "" else ""])
 		if selected_item != item.uid:
 			continue
 		var mult: float = 1 + item.enhance * .18 + (item.rank - 1) * .5
-		_text("  UID %s · ATK +%d / HP +%d / Thủ +%d" % [item.uid, def.atk * mult, def.hp * mult, def.defense * mult])
+		_text("ATK +%d · HP +%d · Thủ +%d" % [def.atk * mult, def.hp * mult, def.defense * mult])
 		_text("  " + def.passive)
 		if owner.is_empty() and (def.slot == "armor" or def.category == catalog.category(p.hero)):
 			var candidate: Dictionary = p.duplicate(true)
@@ -383,10 +406,6 @@ func _items_panel() -> void:
 		_row("Cường hóa · %d vàng + 1 tinh thạch" % ((item.enhance + 1) * 20), _enhance.bind(item.uid, false), _locked() or item.enhance >= 10 or p.gold < (item.enhance + 1) * 20 or p.shards < 1)
 		_row("Tiến bậc · %d vàng + %d tinh thạch" % [item.rank * 80, item.rank * 4], _enhance.bind(item.uid, true), _locked() or item.rank >= 3 or p.gold < item.rank * 80 or p.shards < item.rank * 4)
 		_row("Phân giải · +%d tinh thạch" % (1 + item.rank), _dismantle_confirm.bind(item.uid), _locked() or not owner.is_empty())
-	_text("LÒ RÈN · 65 vàng + 3 tinh thạch / món", 16, Color("e5cd9e"))
-	for def in catalog.data.items:
-		if def.get("summon_only", false): continue
-		_row("Rèn · " + def.name, _forge.bind(def.id), _locked() or p.gold < 65 or p.shards < 3 or p.items.size() >= Store.BAG_CAP)
 
 func _quests_panel() -> void:
 	_row("BỘ SƯU TẬP & THÀNH TỰU →", _select_tab.bind(8))
@@ -432,7 +451,7 @@ func _upgrade(kind: String, index: int) -> void:
 
 func _item_detail(uid: String) -> void:
 	selected_item = uid
-	_refresh_panel()
+	_select_tab(17)
 
 func _equip(uid: String) -> void:
 	_outcome(store.equip(uid), "Đã trang bị.", "equip")
@@ -451,7 +470,12 @@ func _dismantle_confirm(uid: String) -> void:
 
 func _dismantle(uid: String) -> void:
 	_close_modal()
-	_outcome(store.dismantle(uid), "Đã phân giải trang bị.")
+	var success := store.dismantle(uid)
+	if success:
+		selected_item = ""
+		bag_section = "equipment"
+		tab = 2
+	_outcome(success, "Đã phân giải trang bị.")
 
 func _quest(id: String) -> void:
 	_outcome(store.claim_quest(id), "Đã nhận thưởng nhiệm vụ.", "reward")
@@ -970,3 +994,191 @@ func _spirit_tree_panel() -> void:
 
 func _spirit_talent(id: String) -> void:
 	_outcome(SpiritSkills.choose(store, id), "Đã cập nhật cây kỹ năng tinh linh.", "upgrade")
+
+func _map_panel() -> void:
+	_row("← Trở về chiến đấu", _select_tab.bind(0))
+	_text("BẢN ĐỒ HÀNH TRÌNH", 23, Color("e5cd9e"))
+	for stage in catalog.data.stages:
+		if stage.id > 5: continue
+		_row(("✓ " if stage.id in store.profile.cleared else "") + stage.name + (" · Đang chọn" if stage.id == selected_stage else ""), _map_stage.bind(stage.id), _locked() or not store.can_enter(stage.id))
+	_row("Chương truyện & Phụ bản →", _select_tab.bind(5))
+
+func _map_stage(id: int) -> void:
+	_choose_stage(id)
+	_select_tab(0)
+
+func _more_panel() -> void:
+	_text("TIỆN ÍCH", 23, Color("e5cd9e"))
+	_row("Nhiệm vụ & Phần thưởng →", _select_tab.bind(3))
+	_row("Nhật ký câu chuyện →", _select_tab.bind(16))
+	_row("SỔ TAY BOSS →", _select_tab.bind(10))
+	_row("Bộ sưu tập & thành tựu →", _select_tab.bind(8))
+	_row("Âm thanh & mức âm lượng →", _audio_settings)
+
+func _bag_open(section: String) -> void:
+	bag_section = section
+	_select_tab(2)
+
+func _items_panel() -> void:
+	var p: Dictionary = store.profile
+	if bag_section == "":
+		_text("TÚI ĐỒ", 25, Color("e5cd9e"))
+		_text("Trang bị, tinh linh và nguyên liệu được quản lý trong các kho riêng.")
+		var grid := GridContainer.new()
+		grid.columns = 2
+		grid.add_theme_constant_override("h_separation", 10)
+		grid.add_theme_constant_override("v_separation", 10)
+		panel.add_child(grid)
+		var owned := 0
+		for spirit in catalog.data.assists:
+			if store.available_assist(spirit.id): owned += 1
+		_inventory_card(grid, "equipment", "Trang bị", "%d / %d ô" % [p.items.size(), Store.BAG_CAP], Color("86caff"), _bag_open.bind("equipment"), 232)
+		_inventory_card(grid, "companion", "Tinh linh", "%d / %d đã mở" % [owned, catalog.data.assists.size()], Color("a2e5d6"), _bag_open.bind("spirits"), 232)
+		_inventory_card(grid, "crystal", "Nguyên liệu", "Tinh thạch · lõi · mảnh", Color("d7a4ff"), _bag_open.bind("materials"), 232)
+		_inventory_card(grid, "forge", "Lò rèn", "Chế tạo trang bị", Color("e5cd9e"), _select_tab.bind(19), 232)
+		return
+	_row("← Các kho trong Túi đồ", _bag_open.bind(""))
+	match bag_section:
+		"equipment": _equipment_inventory()
+		"spirits":
+			_text("KHO TINH LINH", 22, Color("a2e5d6"))
+			_text("Chọn để xem chi tiết, đi cùng, nâng cấp hoặc mở cây kỹ năng.")
+			for spirit in catalog.data.assists:
+				var available := store.available_assist(spirit.id)
+				var b := _row(spirit.name + " · " + _rarity("spirit", spirit.id) + (" · cấp %d · bậc %d" % [p.assists[spirit.id], p.expansion.ranks[spirit.id]] if available else " · Chưa mở"), _open_spirit.bind(spirit.id))
+				icons.apply(b, "companion", 36)
+		"materials":
+			_text("KHO NGUYÊN LIỆU", 22, Color("d7a4ff"))
+			_text("Tinh thạch · %d" % p.shards, 19, Color("86caff"))
+			_text("Cường hóa, tiến bậc, rèn và học nhánh kỹ năng.")
+			_text("Lõi tinh linh · %d" % p.expansion.cores, 19, Color("a2e5d6"))
+			_text("Dùng tiến hóa đồng hành; kiếm từ phụ bản, thành tựu hoặc tinh linh trùng.")
+			var r := Recruitment.state(p)
+			for hero in catalog.data.heroes:
+				_text("Mảnh %s · %d" % [hero.name, r.fragments[hero.id]], 18, Color("e5cd9e"))
+			_text("Mảnh nhân vật dùng để thức tỉnh đúng nhân vật đó.")
+			_text("Kinh nghiệm nhân vật · %d XP" % p.xp, 18)
+			_row("Nâng cấp & Thức tỉnh →", _select_tab.bind(12))
+			_row("Tiến hóa đồng hành →", _select_tab.bind(7))
+			_row("Đến lò rèn →", _select_tab.bind(19))
+
+func _inventory_card(parent: Node, key: String, title: String, subtitle: String, color: Color, action: Callable, width: int = 112) -> Button:
+	var card := _button(parent, "", Vector2.ZERO, Vector2(width, 118), action)
+	card.tooltip_text = title + " · " + subtitle
+	card.add_theme_stylebox_override("normal", _style(Color("172733"), color.darkened(.45), 12))
+	var image := TextureRect.new()
+	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	image.texture = icons.textures[key]
+	image.position = Vector2((width - 40) / 2.0, 10)
+	image.size = Vector2(40, 40)
+	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	card.add_child(image)
+	var name_label := _label(card, title, Vector2(4, 55), 13, color)
+	name_label.size = Vector2(width - 8, 36)
+	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var detail := _label(card, subtitle, Vector2(4, 97), 10, Color("c0d0cb"))
+	detail.size = Vector2(width - 8, 16)
+	detail.clip_text = true
+	detail.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	detail.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return card
+
+func _equipment_inventory() -> void:
+	var p: Dictionary = store.profile
+	_text("KHO TRANG BỊ · %d / %d ô" % [p.items.size(), Store.BAG_CAP], 21, Color("e5cd9e"))
+	var filters := HBoxContainer.new()
+	panel.add_child(filters)
+	for is_rarity in [false, true]:
+		var select := OptionButton.new()
+		select.custom_minimum_size = Vector2(235, 44)
+		for title in (["Mọi độ hiếm", "Thường", "Hiếm", "Sử thi"] if is_rarity else ["Tất cả trang bị", "Vũ khí", "Giáp"]): select.add_item(title)
+		select.selected = bag_rarity if is_rarity else ["all", "weapon", "armor"].find(bag_kind)
+		select.item_selected.connect(_bag_filter.bind(is_rarity))
+		filters.add_child(select)
+	var grid := GridContainer.new()
+	grid.columns = 4
+	grid.add_theme_constant_override("h_separation", 6)
+	grid.add_theme_constant_override("v_separation", 8)
+	panel.add_child(grid)
+	var items: Array = p.items.duplicate()
+	items.sort_custom(func(a, b):
+		var ra := int(catalog.find_row("items", a.base).rarity)
+		var rb := int(catalog.find_row("items", b.base).rarity)
+		return ra > rb if ra != rb else str(a.uid) < str(b.uid))
+	var shown := 0
+	for item in items:
+		var def := catalog.find_row("items", item.base)
+		if bag_kind != "all" and def.slot != bag_kind: continue
+		if bag_rarity != 0 and def.rarity != bag_rarity: continue
+		var owner := ""
+		for hero in p.heroes:
+			if item.uid in p.heroes[hero].equipment.values(): owner = catalog.find_row("heroes", hero).name
+		var card := _inventory_card(grid, "slash" if def.slot == "weapon" else "guard", def.name, (owner if owner != "" else _rarity("item", item.base)) + " +%d" % item.enhance, Color(Recruitment.RARITIES[def.rarity].color), _item_detail.bind(item.uid))
+		shown += 1
+	if shown == 0: _text("Không có trang bị phù hợp bộ lọc.")
+	_text("%d món hiển thị · chạm để xem hoặc trang bị" % shown, 13)
+
+func _bag_filter(index: int, is_rarity: bool) -> void:
+	if is_rarity: bag_rarity = index
+	else: bag_kind = ["all", "weapon", "armor"][index]
+	_refresh_panel()
+
+func _open_spirit(id: String) -> void:
+	selected_spirit = id
+	_select_tab(18)
+
+func _spirit_inventory_detail() -> void:
+	_row("← Kho tinh linh", _bag_open.bind("spirits"))
+	var p: Dictionary = store.profile
+	var spirit := catalog.find_row("assists", selected_spirit)
+	_text(spirit.name + " · " + _rarity("spirit", spirit.id), 24, Color("a2e5d6"))
+	var image := TextureRect.new()
+	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	image.texture = frames.textures["companion_" + spirit.id]
+	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	image.custom_minimum_size = Vector2(0, 170)
+	panel.add_child(image)
+	if not store.available_assist(spirit.id):
+		_text("Chưa mở · vượt chương %d hoặc nhận từ triệu hồi." % (spirit.unlock - 1))
+		_row("Đến triệu hồi →", _select_tab.bind(11))
+		return
+	_text("%s · cấp %d/20 · tiến hóa %d/3" % [spirit.role, p.assists[spirit.id], p.expansion.ranks[spirit.id]])
+	_row("✓ Đang đi cùng" if p.assist == spirit.id else "Chọn đi cùng", _assist.bind(spirit.id), _locked() or p.assist == spirit.id)
+	if p.assist == spirit.id:
+		_row("Nâng cấp · %d vàng" % (p.assists[p.assist] * 35), _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
+		_row("Cây kỹ năng tinh linh →", _select_tab.bind(13))
+		_row("Tiến hóa tinh linh →", _select_tab.bind(7))
+
+func _forge_panel() -> void:
+	_row("← Túi đồ", _bag_open.bind(""))
+	_text("LÒ RÈN", 23, Color("e5cd9e"))
+	_text("65 vàng + 3 tinh thạch / món. Trang bị Sử thi triệu hồi không nằm trong danh sách rèn.")
+	var p: Dictionary = store.profile
+	for def in catalog.data.items:
+		if def.get("summon_only", false): continue
+		_row("Rèn · " + def.name + " · " + _rarity("item", def.id), _forge.bind(def.id), _locked() or p.gold < 65 or p.shards < 3 or p.items.size() >= Store.BAG_CAP)
+
+func _shop_panel() -> void:
+	_text("SHOP", 25, Color("e5cd9e"))
+	_text("Triệu hồi đồng hành và chế tạo trang bị bằng tài nguyên kiếm trong hành trình.")
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 10)
+	panel.add_child(grid)
+	_inventory_card(grid, "spirit", "Triệu hồi", "120 vàng / lượt", Color("d7a4ff"), _select_tab.bind(11), 232)
+	_inventory_card(grid, "forge", "Lò rèn", "65 vàng + 3 tinh thạch", Color("e5cd9e"), _select_tab.bind(19), 232)
+
+func _dungeons_panel() -> void:
+	_text("PHÓ BẢN", 25, Color("e5cd9e"))
+	_text("Thử thách để kiếm lõi tinh linh. Không tiêu vé; phần thưởng nhận khi thắng.")
+	for stage in catalog.data.stages:
+		if stage.get("kind") != "challenge": continue
+		_text(stage.name, 20, Color("e5cd9e"))
+		_text("%d đợt · %d vàng · %d XP · %d lõi" % [stage.waves.size(), stage.gold, stage.xp, stage.cores])
+		var record: Dictionary = store.profile.expansion.records.get(str(stage.id), {})
+		if not record.is_empty(): _text("Kỷ lục %d điểm · %.1f giây" % [record.score, record.time])
+		_stage_entry(stage)
+	_row("Chương truyện & Ký ức →", _select_tab.bind(5))

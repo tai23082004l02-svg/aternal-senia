@@ -32,7 +32,7 @@ func run() -> void:
 	for i in range(1, 5):
 		game.tabs[i].pressed.emit()
 		await capture("tab-%d" % i)
-	game.tabs[0].pressed.emit()
+	game.tabs[2].pressed.emit()
 	game._enter_stage(1)
 	await capture("02-story")
 	game._begin()

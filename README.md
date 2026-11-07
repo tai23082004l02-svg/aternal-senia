@@ -1,4 +1,15 @@
-# Aternal Senia — First Light · 0.9
+# Aternal Senia — First Light · 0.10
+
+## Giao diện mobile & Túi đồ · 0.10
+
+Thanh dưới cố định: **Shop · Nhân vật · Hành trình · Phó bản · Túi đồ**.
+Hành trình ở giữa, mở mặc định; nhiệm vụ/nhật ký/cài đặt ở menu ≡ góc trên.
+Ngoài trận chỉ hiện đội hình, nút vào ải và ba lối tắt; điều khiển chiến đấu chỉ
+hiện khi có trận. Bản đồ và phụ bản có màn riêng.
+
+Túi đồ chia kho Trang bị, Tinh linh, Nguyên liệu và Lò rèn. Trang bị dạng lưới,
+lọc loại/độ hiếm, chi tiết và thao tác ở màn riêng. Giữ UID, giới hạn 40 món và
+save v4 hiện có. [Ảnh và kiểm chứng](docs/MOBILE_INVENTORY.md).
 
 ## Tính năng 0.9 · Kỹ năng, nâng cấp & triệu hồi
 
