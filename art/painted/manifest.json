@@ -4422,207 +4422,711 @@
   },
   "companion_clips": {},
   "icons": {
-    "atlas": "complete/items.png",
+    "atlas": "icons/resources.png",
     "regions": {
-      "sword_1": {
+      "journey": {
+        "atlas": "icons/navigation.png",
         "region": [
           0,
           0,
-          315,
-          300
-        ]
+          314,
+          314
+        ],
+        "sheet": "navigation",
+        "cell": 0
       },
-      "sword_2": {
+      "hero": {
+        "atlas": "icons/navigation.png",
         "region": [
-          315,
+          314,
           0,
-          315,
-          300
-        ]
+          313,
+          314
+        ],
+        "sheet": "navigation",
+        "cell": 1
       },
-      "spear_1": {
+      "equipment": {
+        "atlas": "icons/navigation.png",
         "region": [
-          630,
+          627,
           0,
-          316,
-          300
-        ]
+          313,
+          314
+        ],
+        "sheet": "navigation",
+        "cell": 2
       },
-      "spear_2": {
+      "quest": {
+        "atlas": "icons/navigation.png",
         "region": [
-          946,
+          940,
           0,
-          315,
-          300
-        ]
+          314,
+          314
+        ],
+        "sheet": "navigation",
+        "cell": 3
       },
-      "staff_1": {
-        "region": [
-          0,
-          312,
-          315,
-          300
-        ]
-      },
-      "staff_2": {
-        "region": [
-          315,
-          312,
-          315,
-          300
-        ]
-      },
-      "armor_1": {
-        "region": [
-          630,
-          312,
-          316,
-          300
-        ]
-      },
-      "armor_2": {
-        "region": [
-          946,
-          312,
-          315,
-          300
-        ]
-      },
-      "armor_3": {
+      "journal": {
+        "atlas": "icons/navigation.png",
         "region": [
           0,
-          624,
-          315,
-          300
-        ]
+          314,
+          314,
+          313
+        ],
+        "sheet": "navigation",
+        "cell": 4
       },
       "slash": {
+        "atlas": "icons/navigation.png",
         "region": [
-          315,
-          624,
-          315,
-          300
-        ]
+          314,
+          314,
+          313,
+          313
+        ],
+        "sheet": "navigation",
+        "cell": 5
       },
       "heal": {
+        "atlas": "icons/navigation.png",
         "region": [
-          630,
-          624,
-          316,
-          300
-        ]
+          627,
+          314,
+          313,
+          313
+        ],
+        "sheet": "navigation",
+        "cell": 6
       },
-      "burst": {
+      "spirit": {
+        "atlas": "icons/navigation.png",
         "region": [
-          946,
-          624,
-          315,
-          300
-        ]
+          940,
+          314,
+          314,
+          313
+        ],
+        "sheet": "navigation",
+        "cell": 7
       },
-      "gold": {
+      "guard": {
+        "atlas": "icons/navigation.png",
         "region": [
           0,
-          936,
-          315,
-          299
-        ]
-      },
-      "shards": {
-        "region": [
-          315,
-          936,
-          315,
-          299
-        ]
-      },
-      "xp": {
-        "region": [
-          630,
-          936,
-          316,
-          299
-        ]
-      },
-      "cores": {
-        "region": [
-          946,
-          936,
-          315,
-          299
-        ]
-      },
-      "armor_uncommon": {
-        "atlas": "complete/armor.png",
-        "region": [
-          0,
-          0,
-          444,
-          443
-        ]
-      },
-      "armor_4": {
-        "atlas": "complete/armor.png",
-        "region": [
-          444,
-          0,
-          443,
-          443
-        ]
-      },
-      "armor_5": {
-        "atlas": "complete/armor.png",
-        "region": [
-          887,
-          0,
-          443,
-          443
-        ]
-      },
-      "armor_6": {
-        "atlas": "complete/armor.png",
-        "region": [
-          1330,
-          0,
-          444,
-          443
-        ]
-      },
-      "armor_7": {
-        "atlas": "complete/armor.png",
-        "region": [
-          0,
-          443,
-          444,
-          444
-        ]
-      },
-      "victory": {
-        "atlas": "complete/armor.png",
-        "region": [
-          444,
-          443,
-          443,
-          444
-        ]
+          627,
+          314,
+          313
+        ],
+        "sheet": "navigation",
+        "cell": 8
       },
       "training": {
-        "atlas": "complete/armor.png",
+        "atlas": "icons/navigation.png",
         "region": [
-          887,
-          443,
-          443,
-          444
-        ]
+          314,
+          627,
+          313,
+          313
+        ],
+        "sheet": "navigation",
+        "cell": 9
+      },
+      "talents": {
+        "atlas": "icons/navigation.png",
+        "region": [
+          627,
+          627,
+          313,
+          313
+        ],
+        "sheet": "navigation",
+        "cell": 10
+      },
+      "companion": {
+        "atlas": "icons/navigation.png",
+        "region": [
+          940,
+          627,
+          314,
+          313
+        ],
+        "sheet": "navigation",
+        "cell": 11
+      },
+      "boss": {
+        "atlas": "icons/navigation.png",
+        "region": [
+          0,
+          940,
+          314,
+          314
+        ],
+        "sheet": "navigation",
+        "cell": 12
+      },
+      "forge": {
+        "atlas": "icons/navigation.png",
+        "region": [
+          314,
+          940,
+          313,
+          314
+        ],
+        "sheet": "navigation",
+        "cell": 13
+      },
+      "gold_ui": {
+        "atlas": "icons/navigation.png",
+        "region": [
+          627,
+          940,
+          313,
+          314
+        ],
+        "sheet": "navigation",
+        "cell": 14
+      },
+      "crystal_ui": {
+        "atlas": "icons/navigation.png",
+        "region": [
+          940,
+          940,
+          314,
+          314
+        ],
+        "sheet": "navigation",
+        "cell": 15
+      },
+      "mail": {
+        "atlas": "icons/systems.png",
+        "region": [
+          0,
+          0,
+          314,
+          314
+        ],
+        "sheet": "systems",
+        "cell": 0
+      },
+      "gift": {
+        "atlas": "icons/systems.png",
+        "region": [
+          314,
+          0,
+          313,
+          314
+        ],
+        "sheet": "systems",
+        "cell": 1
+      },
+      "settings": {
+        "atlas": "icons/systems.png",
+        "region": [
+          627,
+          0,
+          313,
+          314
+        ],
+        "sheet": "systems",
+        "cell": 2
+      },
+      "help": {
+        "atlas": "icons/systems.png",
+        "region": [
+          940,
+          0,
+          314,
+          314
+        ],
+        "sheet": "systems",
+        "cell": 3
+      },
+      "achievement": {
+        "atlas": "icons/systems.png",
+        "region": [
+          0,
+          314,
+          314,
+          313
+        ],
+        "sheet": "systems",
+        "cell": 4
+      },
+      "wardrobe": {
+        "atlas": "icons/systems.png",
+        "region": [
+          314,
+          314,
+          313,
+          313
+        ],
+        "sheet": "systems",
+        "cell": 5
+      },
+      "evolution": {
+        "atlas": "icons/systems.png",
+        "region": [
+          627,
+          314,
+          313,
+          313
+        ],
+        "sheet": "systems",
+        "cell": 6
+      },
+      "awakening": {
+        "atlas": "icons/systems.png",
+        "region": [
+          940,
+          314,
+          314,
+          313
+        ],
+        "sheet": "systems",
+        "cell": 7
+      },
+      "summon": {
+        "atlas": "icons/systems.png",
+        "region": [
+          0,
+          627,
+          314,
+          313
+        ],
+        "sheet": "systems",
+        "cell": 8
+      },
+      "afk": {
+        "atlas": "icons/systems.png",
+        "region": [
+          314,
+          627,
+          313,
+          313
+        ],
+        "sheet": "systems",
+        "cell": 9
+      },
+      "daily": {
+        "atlas": "icons/systems.png",
+        "region": [
+          627,
+          627,
+          313,
+          313
+        ],
+        "sheet": "systems",
+        "cell": 10
+      },
+      "weekly": {
+        "atlas": "icons/systems.png",
+        "region": [
+          940,
+          627,
+          314,
+          313
+        ],
+        "sheet": "systems",
+        "cell": 11
+      },
+      "chest": {
+        "atlas": "icons/systems.png",
+        "region": [
+          0,
+          940,
+          314,
+          314
+        ],
+        "sheet": "systems",
+        "cell": 12
+      },
+      "chest_open": {
+        "atlas": "icons/systems.png",
+        "region": [
+          314,
+          940,
+          313,
+          314
+        ],
+        "sheet": "systems",
+        "cell": 13
+      },
+      "vip": {
+        "atlas": "icons/systems.png",
+        "region": [
+          627,
+          940,
+          313,
+          314
+        ],
+        "sheet": "systems",
+        "cell": 14
+      },
+      "event": {
+        "atlas": "icons/systems.png",
+        "region": [
+          940,
+          940,
+          314,
+          314
+        ],
+        "sheet": "systems",
+        "cell": 15
+      },
+      "sword_1": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          0,
+          0,
+          314,
+          314
+        ],
+        "sheet": "equipment",
+        "cell": 0
+      },
+      "sword_2": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          314,
+          0,
+          313,
+          314
+        ],
+        "sheet": "equipment",
+        "cell": 1
+      },
+      "spear_1": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          627,
+          0,
+          313,
+          314
+        ],
+        "sheet": "equipment",
+        "cell": 2
+      },
+      "spear_2": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          940,
+          0,
+          314,
+          314
+        ],
+        "sheet": "equipment",
+        "cell": 3
+      },
+      "staff_1": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          0,
+          314,
+          314,
+          313
+        ],
+        "sheet": "equipment",
+        "cell": 4
+      },
+      "staff_2": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          314,
+          314,
+          313,
+          313
+        ],
+        "sheet": "equipment",
+        "cell": 5
+      },
+      "armor_1": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          627,
+          314,
+          313,
+          313
+        ],
+        "sheet": "equipment",
+        "cell": 6
+      },
+      "armor_2": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          940,
+          314,
+          314,
+          313
+        ],
+        "sheet": "equipment",
+        "cell": 7
+      },
+      "armor_3": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          0,
+          627,
+          314,
+          313
+        ],
+        "sheet": "equipment",
+        "cell": 8
+      },
+      "armor_uncommon": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          314,
+          627,
+          313,
+          313
+        ],
+        "sheet": "equipment",
+        "cell": 9
+      },
+      "armor_4": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          627,
+          627,
+          313,
+          313
+        ],
+        "sheet": "equipment",
+        "cell": 10
+      },
+      "armor_5": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          940,
+          627,
+          314,
+          313
+        ],
+        "sheet": "equipment",
+        "cell": 11
+      },
+      "armor_6": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          0,
+          940,
+          314,
+          314
+        ],
+        "sheet": "equipment",
+        "cell": 12
+      },
+      "armor_7": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          314,
+          940,
+          313,
+          314
+        ],
+        "sheet": "equipment",
+        "cell": 13
+      },
+      "weapon_category": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          627,
+          940,
+          313,
+          314
+        ],
+        "sheet": "equipment",
+        "cell": 14
+      },
+      "armor_category": {
+        "atlas": "icons/equipment.png",
+        "region": [
+          940,
+          940,
+          314,
+          314
+        ],
+        "sheet": "equipment",
+        "cell": 15
+      },
+      "gold": {
+        "atlas": "icons/resources.png",
+        "region": [
+          0,
+          0,
+          314,
+          314
+        ],
+        "sheet": "resources",
+        "cell": 0
+      },
+      "shards": {
+        "atlas": "icons/resources.png",
+        "region": [
+          314,
+          0,
+          313,
+          314
+        ],
+        "sheet": "resources",
+        "cell": 1
+      },
+      "xp": {
+        "atlas": "icons/resources.png",
+        "region": [
+          627,
+          0,
+          313,
+          314
+        ],
+        "sheet": "resources",
+        "cell": 2
+      },
+      "cores": {
+        "atlas": "icons/resources.png",
+        "region": [
+          940,
+          0,
+          314,
+          314
+        ],
+        "sheet": "resources",
+        "cell": 3
       },
       "fragments": {
-        "atlas": "complete/armor.png",
+        "atlas": "icons/resources.png",
         "region": [
-          1330,
-          443,
-          444,
-          444
-        ]
+          0,
+          314,
+          314,
+          313
+        ],
+        "sheet": "resources",
+        "cell": 4
+      },
+      "potion": {
+        "atlas": "icons/resources.png",
+        "region": [
+          314,
+          314,
+          313,
+          313
+        ],
+        "sheet": "resources",
+        "cell": 5
+      },
+      "victory": {
+        "atlas": "icons/resources.png",
+        "region": [
+          627,
+          314,
+          313,
+          313
+        ],
+        "sheet": "resources",
+        "cell": 6
+      },
+      "training_item": {
+        "atlas": "icons/resources.png",
+        "region": [
+          940,
+          314,
+          314,
+          313
+        ],
+        "sheet": "resources",
+        "cell": 7
+      },
+      "slash_spell": {
+        "atlas": "icons/resources.png",
+        "region": [
+          0,
+          627,
+          314,
+          313
+        ],
+        "sheet": "resources",
+        "cell": 8
+      },
+      "heal_spell": {
+        "atlas": "icons/resources.png",
+        "region": [
+          314,
+          627,
+          313,
+          313
+        ],
+        "sheet": "resources",
+        "cell": 9
+      },
+      "burst": {
+        "atlas": "icons/resources.png",
+        "region": [
+          627,
+          627,
+          313,
+          313
+        ],
+        "sheet": "resources",
+        "cell": 10
+      },
+      "ticket": {
+        "atlas": "icons/resources.png",
+        "region": [
+          940,
+          627,
+          314,
+          313
+        ],
+        "sheet": "resources",
+        "cell": 11
+      },
+      "fire": {
+        "atlas": "icons/resources.png",
+        "region": [
+          0,
+          940,
+          314,
+          314
+        ],
+        "sheet": "resources",
+        "cell": 12
+      },
+      "water": {
+        "atlas": "icons/resources.png",
+        "region": [
+          314,
+          940,
+          313,
+          314
+        ],
+        "sheet": "resources",
+        "cell": 13
+      },
+      "light": {
+        "atlas": "icons/resources.png",
+        "region": [
+          627,
+          940,
+          313,
+          314
+        ],
+        "sheet": "resources",
+        "cell": 14
+      },
+      "vip_exp": {
+        "atlas": "icons/resources.png",
+        "region": [
+          940,
+          940,
+          314,
+          314
+        ],
+        "sheet": "resources",
+        "cell": 15
       }
     }
   }

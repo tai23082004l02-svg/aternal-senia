@@ -10,7 +10,7 @@ func _ready() -> void:
 	info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	info.text = "Chọn ô rồi chọn nhân vật. Không khóa nghề; hàng trước được ưu tiên chịu đòn. Có thể vào trận khi chưa đủ ba tướng."
 	add_child(info)
-	var f := Formation.state(game.store.profile)
+	var f := Formation.state(game.store.profile, game.catalog)
 	for i in range(3):
 		var id: String = f.slots[i]
 		var name: String = game.catalog.find_row("heroes", id).get("name", "Trống")
@@ -28,7 +28,7 @@ func _ready() -> void:
 		var owned: bool = game.store.available_hero(hero.id)
 		var button: Button = game._button(self, "%s · LV%d%s" % [hero.name, game.store.profile.heroes[hero.id].level, "" if owned else " · Chưa sở hữu"], Vector2.ZERO, Vector2(492, 46), game._formation_assign.bind(slot, hero.id))
 		button.disabled = not owned or game._locked()
-	game._button(self, "Bỏ nhân vật khỏi ô", Vector2.ZERO, Vector2(492, 42), game._formation_assign.bind(slot, "")).disabled = game._locked()
+	game._button(self, "Bỏ nhân vật khỏi ô", Vector2.ZERO, Vector2(492, 42), game._formation_assign.bind(slot, "")).disabled = game._locked() or f.slots[slot].is_empty() or f.slots.filter(func(id): return not id.is_empty()).size() <= 1
 	game._label(self, "TINH LINH · Không chiếm ô tướng", Vector2.ZERO, 17, Color("e5cd9e"))
 	for spirit in game.catalog.data.assists:
 		var button: Button = game._button(self, ("✓ " if game.store.profile.assist == spirit.id else "") + spirit.name + " · Hỗ trợ toàn đội", Vector2.ZERO, Vector2(492, 42), game._assist.bind(spirit.id))

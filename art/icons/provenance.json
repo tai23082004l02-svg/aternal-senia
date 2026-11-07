@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-07",
+  "method": "Original image generation referenced art/ui/icons.png. Four reviewed transparent 4x4 source atlases, retained byte-for-byte. No pixel edits or extracted reference-game assets.",
+  "sources": [
+    {
+      "file": "art/icons/navigation.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "2531e8cf4d8c03dfd392d80f16b97ad8baf2fc6488075c7d859a81f218f606e0"
+    },
+    {
+      "file": "art/icons/systems.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "9b6c4988981f80582afb2e3dd93e3caaa58cb30e4dd34a66b87f82f6f07c07ce"
+    },
+    {
+      "file": "art/icons/equipment.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "04cfc2e47410800e4f64bae396f8ec8aaf63e292f307a44782447cbd0853912c"
+    },
+    {
+      "file": "art/icons/resources.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "4383385b2ba4fcb8a20b480ea6b9c717e5507f99e29d4607934a8fa59cf63dd8"
+    }
+  ]
+}

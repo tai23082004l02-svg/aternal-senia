@@ -15,6 +15,7 @@ func _ready() -> void:
 	for i in range(3):
 		var button: Button = game._button(strip, ["Hằng ngày", "Hằng tuần", "Tiến trình"][i], Vector2.ZERO, Vector2(160, 46), game._mission_tab.bind(i))
 		button.add_theme_font_size_override("font_size", 16)
+		game.icons.apply(button, ["daily", "weekly", "achievement"][i], 23)
 		if i == game.mission_tab: button.modulate = Color("f2d08e")
 		tabs.append(button)
 	if game.mission_tab == 2:
@@ -37,8 +38,28 @@ func _ready() -> void:
 	add_child(chests)
 	for threshold in MissionBoard.CHESTS:
 		var claimed: bool = threshold in section.chests
-		var button: Button = game._button(chests, "%d điểm\n%s" % [threshold, "Đã nhận" if claimed else ("Nhận quà" if points >= threshold else "Chưa đạt")], Vector2.ZERO, Vector2(93, 58), game._mission_chest.bind(period, threshold))
+		var button: Button = game._button(chests, "%d điểm\n%s" % [threshold, "Đã nhận" if claimed else ("Nhận quà" if points >= threshold else "Chưa đạt")], Vector2.ZERO, Vector2(93, 72), game._mission_chest.bind(period, threshold))
 		button.add_theme_font_size_override("font_size", 12)
+		# Stack the icon above both text lines; a horizontal icon clips narrow chests.
+		var caption := button.text
+		button.text = ""
+		button.tooltip_text = caption
+		var picture := TextureRect.new()
+		picture.texture = game.icons.textures["chest_open" if claimed else "chest"]
+		picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		picture.position = Vector2(35, 2)
+		picture.size = Vector2(23, 23)
+		picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.add_child(picture)
+		var words := Label.new()
+		words.text = caption
+		words.position = Vector2(0, 29)
+		words.size = Vector2(93, 36)
+		words.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		words.add_theme_font_size_override("font_size", 11)
+		words.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.add_child(words)
 		if points >= threshold and not claimed: button.modulate = Color("f2d08e")
 	var final_reward := MissionBoard.chest_reward(period, 100)
 	text("Mốc 100: %d vàng · %d tinh thạch · %d VIP EXP" % [final_reward.gold, final_reward.shards, final_reward.vip], 13, Color("e5cd9e"))

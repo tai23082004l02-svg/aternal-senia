@@ -39,3 +39,5 @@ BattleModel, chi phí, chỉ số hay phần thưởng.
 ![Hành trình](previews/journey-top.png)
 ![Phần thao tác phía dưới](previews/journey-actions.png)
 ![Kho AFK](previews/journey-afk.png)
+
+Từ0.24, Hành trình preview toàn đội; Đội hình mở màn3 ô +tinh linh. Đánh thường/cơ bản tự động ngay từ đầu, mục Tự chiến thay bằng thiết lập Ultimate/chuyển ải. Tham khảo TEAM_COMBAT.md.

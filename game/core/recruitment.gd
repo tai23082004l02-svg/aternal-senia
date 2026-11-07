@@ -4,8 +4,6 @@ extends RefCounted
 const PRICE := 120
 const HISTORY_LIMIT := 100
 const RARITIES := {
-	1: {"name": "Thường", "color": "a4aab5"},
-	2: {"name": "Không phổ biến", "color": "69b875"},
 	3: {"name": "Hiếm", "color": "608dff"},
 	4: {"name": "Sử thi", "color": "aa70ff"},
 	5: {"name": "Huyền thoại", "color": "efa52c"},
@@ -16,7 +14,7 @@ const SPIRIT_RARITIES := {1: {"name": "SR", "color": "86caff"}, 2: {"name": "SSR
 const GROUP_NAMES := {1: "Cơ bản", 2: "Nâng cao", 3: "Cao cấp"}
 
 static func rarity(kind: String, id: String, book: GameCatalog) -> int:
-	if kind == "item": return int(book.find_row("items", id).get("rarity", 1))
+	if kind == "item": return int(book.find_row("items", id).get("rarity", 3))
 	if kind == "spirit": return {"SR": 1, "SSR": 2, "UR": 3}.get(book.find_row("assists", id).get("rarity", "SR" if id == "lumi" else "SSR"), 1)
 	return int(book.find_row("heroes", id).get("rarity", 5))
 
@@ -28,6 +26,7 @@ static func label(kind: String, id: String, book: GameCatalog, profile: Dictiona
 static func color(kind: String, id: String, book: GameCatalog, profile: Dictionary = {}) -> Color:
 	if kind == "spirit": return Color(SPIRIT_RARITIES[rarity(kind, id, book)].color)
 	var tier := rarity(kind, id, book)
+	if kind == "hero": return Color({1: "a4aab5", 2: "69b875", 3: "608dff", 4: "aa70ff", 5: "efa52c"}[tier])
 	return Color(RARITIES[tier].color)
 
 static func fresh() -> Dictionary:
@@ -67,6 +66,7 @@ static func valid(store: ProgressStore, p: Dictionary) -> bool:
 	if not r.history is Array or r.history.size() > HISTORY_LIMIT: return false
 	for entry in r.history:
 		if not entry is Dictionary or entry.get("kind") not in ["hero", "spirit", "item"] or not entry.get("duplicate") is bool: return false
+		if entry.has("fragment_amount") and (not entry["duplicate"] or entry.fragment_amount != CollectionFragments.DUPLICATE_AMOUNT): return false
 		var group: String = {"hero": "heroes", "spirit": "assists", "item": "items"}[entry.kind]
 		if store.catalog.find_row(group, entry.get("id")).is_empty() or entry.get("rarity") != rarity(entry.kind, entry.id, store.catalog): return false
 	return true
@@ -77,7 +77,7 @@ static func pool(book: GameCatalog, tier: int) -> Array:
 		for row in book.data[pair[1]]:
 			var rank := rarity(pair[0], row.id, book)
 			var grade := 2 if row.id in ["eira", "lumi"] else 3
-			if pair[0] == "item": grade = 1 if rank <= 2 else (2 if rank == 3 else 3)
+			if pair[0] == "item": grade = int(row.summon_group)
 			if grade != tier: continue
 			var weight: int = {4: 12, 5: 6, 6: 3, 7: 1}.get(rank, 12) if grade == 3 else 1
 			result.append({"kind": pair[0], "id": row.id, "rarity": rank, "grade": grade, "weight": weight})
@@ -113,7 +113,7 @@ static func _draw(store: ProgressStore, p: Dictionary) -> void:
 	reward["duplicate"] = false
 	p.gold -= PRICE
 	match reward.kind:
-		"item": store._add_item(p, reward.id)
+		"item": reward["duplicate"] = store._add_item(p, reward.id)
 		"hero":
 			reward["duplicate"] = (store.available_hero(reward.id) or reward.id in r.heroes)
 			if reward.id not in r.heroes: r.heroes.append(reward.id)
@@ -121,7 +121,8 @@ static func _draw(store: ProgressStore, p: Dictionary) -> void:
 		"spirit":
 			reward["duplicate"] = (store.available_assist(reward.id) or reward.id in r.spirits)
 			if reward.id not in r.spirits: r.spirits.append(reward.id)
-			if reward["duplicate"]: p.expansion.cores += 2
+			if reward["duplicate"]: p.collection_fragments.spirits[reward.id] += CollectionFragments.DUPLICATE_AMOUNT
+	if reward["duplicate"]: reward["fragment_amount"] = CollectionFragments.DUPLICATE_AMOUNT
 	r.count += 1
 	r.pity = 0 if tier == 3 else r.pity + 1
 	r.history.push_front(reward)

@@ -37,7 +37,7 @@ func run() -> void:
 	check(not store.profile.has("evolution"), "Star expansion is separate from evolution")
 	check(store.equip("item_1", "ryn"), "Equip inspected hero without deployment change")
 	check(store.profile.hero == "eira" and store.profile.heroes.ryn.equipment.armor == "item_1", "Gear ownership targeted")
-	check(not store.equip("item_1", "eira"), "UID cannot be owned twice")
+	check(store.equip("item_1", "eira") and store.profile.heroes.ryn.equipment.armor == "item_1", "One unique item can be referenced by separate hero builds")
 	check(not store.equip("starter_eira", "ryn"), "Class restrictions preserved")
 	var stats := book.stats(store.profile, "ryn")
 	var before := store.profile.duplicate(true)

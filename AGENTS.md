@@ -1,6 +1,15 @@
+- Chiến đấu0.24: đọc docs/TEAM_COMBAT.md. Save v8 đọc v2–v7, giữ collection/missions và pending singleton; không đổi snapshot đang lưu. Trận mới dùng TeamBattle/TeamBattleUI, tối đa3 hero sở hữu +1 tinh linh, 4 địch đồng thời. Formation không khóa nghề. Damage tại marker model, renderer chỉ đọc; không gọi singleton CombatEffects cho TeamBattle. Chạy team_battle/team_matrix/team_campaign/team_flow/team_ui, regression/mechanics/campaign, unique_collection và UI liên quan. Tự qua ải phải commit reward trước, dừng important Boss. Dữ liệu encounter ở game/data/team_encounters.json.
+
 # Hướng dẫn dự án
 
-- Đây là game mới Godot 4, main hero + assist, màn hình dọc đang là mặc định.
+- Sở hữu/trang bị0.23: đọc [docs/UNIQUE_COLLECTION.md](docs/UNIQUE_COLLECTION.md). Save v7 đọc v2–v6, mỗi item base một UID; cấu hình nhiều hero được tham chiếu cùng món phù hợp. Mọi đường nhận gear dùng `_add_item`; trùng gear/hero/spirit thành10 mảnh đúng ID, không đổi spirit trùng thành lõi nữa. Map mới `collection_fragments`, hero giữ `recruitment.fragments`. Trang bị chỉ năm cấp Hiếm/Sử thi/Huyền thoại/Thần thoại/Thần thánh (mã3–7); nhóm quay và cooldown độc lập. Giữ pending snapshot, max enhance/rank, ví và backup khi migrate. Chạy unique_collection, unique_collection_ui, rarity_system, summon_batch/recruitment, regression/mechanics/campaign và UI liên quan. Các mô tả v5/v6, bảy độ hiếm bên dưới là lịch sử.
+
+- Icon0.22: đọc [docs/ICONS.md](docs/ICONS.md); registry chung `art/icons/manifest.json`, source PNG/provenance ở cùng thư mục. Sửa `tools/build_icon_manifest.py` và chạy builder đầy đủ khi thêm icon; không chỉnh pixel nguồn. Kiểm icon_gallery, complete_art và UI bị ảnh hưởng. Icon dự trữ không phải quyền thêm vật phẩm/tính năng mới; giữ ID/save/điều kiện khóa dịch vụ.
+
+- Trước mọi việc tạo/thay/đổi tên nhân vật, bắt buộc đọc [CHARACTER_BIBLE](docs/CHARACTER_BIBLE.md) và [CHARACTER_CREATION_GUIDE](docs/CHARACTER_CREATION_GUIDE.md). Đây là hồ sơ phong cách, canon, nguồn tham khảo và pipeline cho các phiên chat sau. Ryn0.19 tóc ngang vai và Lyra đuôi ngựa cao là hai hero riêng; không phục hồi raw Ryn cũ. Khi đổi thiết kế, cập nhật hồ sơ cùng commit. Yêu cầu mới nhất của người dùng được ưu tiên; tài liệu phiên bản cũ là lịch sử.
+
+
+- Đây là game mới Godot 4, tối đa3 hero +1 tinh linh cho trận mới từ0.24, màn hình dọc đang là mặc định.
 - Đọc README và docs trước khi sửa. Nội dung riêng, không nhập nguyên asset game gốc.
 - Giữ save người chơi; test bằng profile riêng. Không đổi tên project tùy tiện.
 - ProgressStore commit trước khi đổi RAM; run snapshot, UID và reward idempotency phải được giữ.
@@ -32,5 +41,3 @@
 - Tiện ích0.18: đọc docs/UTILITIES_MENU.md; chạy utilities_ui khi sửa menu/badge. Badge chỉ từ quest đủ điều kiện chưa nhận; Hộp thư/Giftcode chưa có dịch vụ, không tạo thư/quà/mã thưởng giả.
 
 - Nhiệm vụ0.20: đọc docs/MISSIONS.md; chạy missions/missions_ui và utilities_ui/player_profile khi sửa. Người dùng đã cho nhiệm vụ ngày/tuần nhận VIP EXP; mốc xếp cấp VIP chưa chốt. Record và reward/EXP/claimed cùng transaction, chu kỳ UTC chỉ tiến, bảo toàn claimed vĩnh viễn và save v6 cũ.
-
-- Hành trình0.21: đọc docs/JOURNEY_SCREEN.md; chạy journey_ui khi sửa thẻ chương/AFK/Tự chiến. Preview chỉ vẽ, tiến độ theo ba ải thật/chương; Tự chiến dùng trận thật và dừng ở kết quả, không quét thưởng.

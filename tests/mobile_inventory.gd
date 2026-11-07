@@ -81,14 +81,13 @@ func run() -> void:
 	assert(game.tab == 2 and game.bag_section == "equipment")
 	assert(game.store.profile.items.size() == count)
 	p = game.store.profile.duplicate(true)
-	while p.items.size() < ProgressStore.BAG_CAP:
-		game.store._add_item(p, "sword_2")
+	for row in game.catalog.data.items: game.store._add_item(p, row.id)
 	assert(game.store.commit(p))
 	game.bag_kind = "all"
 	game.bag_rarity = 0
 	game._bag_open("equipment")
 	await capture("mobile-full-bag")
-	assert(game.scroll.get_v_scroll_bar().max_value > game.scroll.size.y)
+	assert(game.store.profile.items.size() == game.catalog.data.items.size())
 	assert(game.scroll.position.y + game.scroll.size.y <= game.tabs[4].position.y)
 	count = game.store.profile.items.size()
 	# Empty filter keeps navigation visible and does not discard items.

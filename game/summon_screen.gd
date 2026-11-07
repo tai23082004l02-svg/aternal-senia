@@ -44,6 +44,7 @@ func _ready() -> void:
 	for i in range(3):
 		var button: Button = game._button(self, captions[i], Vector2(316, 86 + i * 116), Vector2(176, 102), game._select_summon_kind.bind(i))
 		button.add_theme_font_size_override("font_size", 18)
+		game.icons.apply(button, ["summon", "vip", "event"][i], 27)
 		if i == game.summon_kind: button.add_theme_stylebox_override("normal", game._style(Color("35483c"), Color("ddbf7b"), 12))
 		kind_buttons.append(button)
 	draw_one = game._button(self, "Triệu hồi ×1\n120 vàng" if active else "Triệu hồi ×1\nChưa mở", Vector2(0, 450), Vector2(146, 66), game._summon_confirm.bind(1))
@@ -78,7 +79,6 @@ static func show_results(game, title: String, entries: Array) -> void:
 	var lines: Array[String] = []
 	for i in range(entries.size()):
 		var entry: Dictionary = entries[i]
-		var suffix := ""
-		if entry["duplicate"]: suffix = " · +10 mảnh" if entry.kind == "hero" else " · +2 lõi"
+		var suffix := CollectionFragments.reward_suffix(entry)
 		lines.append("%d. %s · %s%s" % [i + 1, game._rarity(entry.kind, entry.id), game._entity_name(entry.kind, entry.id), suffix])
 	show_text(game, title, "Mới nhất ở trên · Lưu tối đa 100 lượt\n\n" + ("\n\n".join(lines) if not lines.is_empty() else "Chưa có lịch sử triệu hồi."))

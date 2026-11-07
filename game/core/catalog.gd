@@ -22,7 +22,7 @@ func _init() -> void:
 	for key in ["talents", "traits", "achievements", "chapters"]:
 		data[key] = expansion[key]
 	for item in data.items:
-		if item.get("rarity") not in [1, 2, 3, 4, 5, 6, 7]: errors.append("Độ hiếm trang bị không hợp lệ")
+		if item.get("rarity") not in [3, 4, 5, 6, 7]: errors.append("Độ hiếm trang bị không hợp lệ")
 		if data.traits.has(item.id): item.passive = data.traits[item.id].description
 	for hero in data.heroes:
 		if hero.get("rarity") not in [1, 2, 3, 4, 5]: errors.append("Độ hiếm gốc nhân vật không hợp lệ")
@@ -81,7 +81,7 @@ func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 			if slot == "weapon":
 				result.weapon = item.base
 				result.element = def.element
-				result.cooldown_scale = .92 if def.rarity >= 2 else 1.0
+				result.cooldown_scale = def.cooldown_scale
 	Expansion.stats(self, profile, hero_id, result)
 	AttributeTraining.apply(profile, hero_id, result)
 	var awakening: int = Recruitment.state(profile).awakening[hero_id] - 1

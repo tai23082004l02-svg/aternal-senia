@@ -137,7 +137,8 @@ func _step() -> void:
 				var target := _front()
 				if target >= 0:
 					enemy.target = target
-					enemy.action = {"started":time, "marker":.6 if enemy.boss else .35, "duration":.9 if enemy.boss else .6, "target":target, "hit":false}
+					enemy.action = {"id":next_action, "started":time, "marker":.6 if enemy.boss else .35, "duration":.9 if enemy.boss else .6, "target":target, "hit":false}
+					next_action += 1
 					enemy.last = enemy.action.duplicate(true)
 					_team_emit("charge", enemies.find(enemy), target, "", "boss_charge" if enemy.boss else "enemy_charge", true)
 		else:
@@ -206,7 +207,8 @@ func ultimate(index: int) -> bool:
 func spirit_ultimate() -> bool:
 	if paused or state != "battle" or move_clock > 0 or spirit_energy < 100 or not spirit_action.is_empty(): return false
 	spirit_energy = 0
-	spirit_action = {"started":time, "hit":false}
+	spirit_action = {"id":next_action, "started":time, "hit":false}
+	next_action += 1
 	_team_emit("action", -1, _target(), "", "burst")
 	return true
 
@@ -217,8 +219,7 @@ func _advance_ally(ally: Dictionary) -> void:
 		if action.kind == "heal":
 			var target: int = action.target if action.target >= 0 and allies[action.target].hp > 0 else _lowest()
 			if target >= 0:
-				var power: float = action.power * (1.35 if "restoration" in ally.stats.get("variants", []) else 1.0)
-				if ally.stats.get("weapon_trait", "") == "mending": power *= 1.15
+				var power: float = action.power
 				if "barrier" in ally.stats.get("variants", []):
 					allies[target].barrier = maxf(allies[target].barrier, allies[target].stats.hp * .15)
 					allies[target].barrier_until = time + 5
@@ -233,8 +234,13 @@ func _advance_ally(ally: Dictionary) -> void:
 			for i in range(enemies.size()):
 				if enemies[i].hp > 0: _damage_enemy(i, ally.stats.atk * action.power, ally, true)
 			if ally.id == "ryn":
-				ally.barrier = maxf(ally.barrier, ally.stats.hp * .18)
+				ally.barrier = maxf(ally.barrier, ally.stats.hp * (.16 + ally.stats.skills[1] * .02))
 				ally.barrier_until = time + 5
+			if state == "battle" and ally.hp > 0:
+				_heal(allies.find(ally), ally.stats.hp * (.06 + ally.stats.skills[1] * .02), allies.find(ally))
+				if "barrier" in ally.stats.get("variants", []):
+					ally.barrier = maxf(ally.barrier, ally.stats.hp * .15)
+					ally.barrier_until = time + 5
 		else:
 			var target: int = action.target if action.target >= 0 and action.target < enemies.size() and enemies[action.target].hp > 0 else _target()
 			if target >= 0: _damage_enemy(target, ally.stats.atk * action.power, ally, action.kind != "attack")
@@ -250,12 +256,12 @@ func _damage_enemy(index: int, amount: float, ally: Dictionary, ability: bool, s
 	var critical: bool = not spirit and rng.randf() < s.crit
 	if critical: amount *= 1.6
 	var advantage := {"fire":"nature", "nature":"water", "water":"fire", "light":"dark", "dark":"light"}
-	if advantage.get(s.element) == enemy.element: amount *= 1.2
-	if weapon_trait == "execute" and enemy.hp < enemy.max_hp * .35: amount *= 1.2
-	if enemy.marked:
+	if advantage.get(("fire" if stats.assist == "ash" else "light") if spirit else s.element) == enemy.element: amount *= 1.2
+	if not spirit and weapon_trait == "execute" and enemy.hp < enemy.max_hp * .35: amount *= 1.2
+	if not spirit and enemy.marked:
 		amount *= 1.2
 		enemy.marked = false
-	if ally.empowered:
+	if not spirit and ally.empowered:
 		amount *= 1.3
 		ally.empowered = false
 	var shielded: bool = enemy.boss and enemy.mechanic == "shield" and not enemy.shield_broken
@@ -265,7 +271,7 @@ func _damage_enemy(index: int, amount: float, ally: Dictionary, ability: bool, s
 	amount = maxf(1, amount - int(stage.get("base_stage", run.stage)) * 1.5)
 	enemy.hp = maxf(0, enemy.hp - amount)
 	enemy.hurt = time
-	var source := allies.find(ally)
+	var source: int = -1 if spirit else allies.find(ally)
 	_team_emit("critical" if critical else "hit", source, index, str(int(amount)), "arrow_hit" if spirit else ("critical" if critical else "impact_" + str(s.weapon).get_slice("_", 0)))
 	if weapon_trait == "spring" and not ability: ally.energy = minf(100, ally.energy + 2)
 	if weapon_trait == "conduit" and ability: ally.energy = minf(100, ally.energy + 4)
@@ -306,6 +312,10 @@ func _damage_ally(index: int, amount: float, source: int) -> void:
 func _heal(index: int, amount: float, source: int) -> void:
 	var ally: Dictionary = allies[index]
 	if ally.hp <= 0: return
+	if source >= 0 and source < allies.size():
+		var caster: Dictionary = allies[source]
+		if caster.stats.get("weapon_trait", "") == "mending": amount *= 1.15
+		if "restoration" in caster.stats.get("variants", []): amount *= 1.35
 	var actual := minf(amount, ally.stats.hp - ally.hp)
 	ally.hp += actual
 	_team_emit("heal", source, index, "+%d" % actual, "heal")
@@ -362,8 +372,12 @@ func _sync_totals() -> void:
 	sp = spirit_energy
 
 func _team_emit(kind: String, source: int, target: int, text: String, cue: String, enemy_source: bool = false) -> void:
+	var action_id := 0
+	if enemy_source and source >= 0 and source < enemies.size(): action_id = enemies[source].action.get("id", 0)
+	elif source >= 0 and source < allies.size(): action_id = allies[source].action.get("id", 0)
+	elif source == -1: action_id = spirit_action.get("id", 0)
 	event_sequence += 1
-	events.append({"id":event_sequence, "kind":kind, "source":source, "target":target, "enemy_source":enemy_source, "time":time, "text":text, "cue":cue, "action_id":next_action, "wave":wave, "target_uid":enemies[target].id if kind in ["hit","critical","down"] and target >= 0 and target < enemies.size() else -1, "visual":{}})
+	events.append({"id":event_sequence, "kind":kind, "source":source, "target":target, "enemy_source":enemy_source, "time":time, "text":text, "cue":cue, "action_id":action_id, "wave":wave, "target_uid":enemies[target].id if kind in ["hit","critical","down"] and target >= 0 and target < enemies.size() else -1, "visual":{}})
 	if events.size() > 128: events.pop_front()
 
 func warning() -> String:

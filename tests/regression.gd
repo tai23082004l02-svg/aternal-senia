@@ -137,13 +137,15 @@ func run() -> void:
 	check(store.claim_offline(now), "Claim offline")
 	check(not store.claim_offline(now), "Offline cannot double claim same timestamp")
 	p = store.profile.duplicate(true)
-	while p.items.size() < Store.BAG_CAP:
-		store._add_item(p, "armor_1")
-	check(store.commit(p), "Fill bag")
+	for row in book.data.items: store._add_item(p, row.id)
+	check(store.commit(p), "Own all catalog equipment")
 	check(store.begin_run(1), "Replay run")
 	var shards_before: float = store.profile.shards
-	check(store.settle(store.profile.pending.id, true, 3), "Full bag victory")
-	check(store.profile.items.size() == Store.BAG_CAP and store.profile.shards == shards_before + 5, "Overflow converts loot, no lost reward")
+	var fragments_before: Dictionary = store.profile.collection_fragments.items.duplicate()
+	check(store.settle(store.profile.pending.id, true, 3), "Duplicate loot victory")
+	var gained := 0
+	for id in fragments_before: gained += store.profile.collection_fragments.items[id] - fragments_before[id]
+	check(store.profile.items.size() == book.data.items.size() and store.profile.shards == shards_before + 2 and gained == 10, "Duplicate loot becomes ten named fragments; normal stage currency unchanged")
 	var bad: Dictionary = store.profile.duplicate(true)
 	bad.items.append(bad.items[0].duplicate())
 	check(not store.valid(bad), "Reject duplicate item UIDs")

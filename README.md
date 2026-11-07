@@ -1,10 +1,32 @@
-# Aternal Senia — First Light · 0.21
+# Aternal Senia — First Light · 0.24
 
-## Hành trình · 0.21
+## Chiến đấu 3vN · 0.24
 
-Màn hành trình có tiến độ chương, cảnh đội hình, thông tin ải, thưởng lần đầu
-và nút Thách đấu. Tự chiến mở sau1-3; kho AFK xem trước lượng tích lũy, Bản đồ/
-Đội hình nằm bên dưới. [Giao diện và quy tắc](docs/JOURNEY_SCREEN.md).
+Đội tối đa3 tướng đã sở hữu +1 tinh linh, xếp tự do hàng trước/hàng sau/ô hỗ trợ.
+Trận mới có HP/nộ/mục tiêu riêng, đánh thường và kỹ năng cơ bản tự động, bật/tắt
+AUTO Ultimate, x1/x2, Boss gọi lính và tùy chọn tự sang ải tiếp (dừng trước Boss
+chương). Giữ phong cách chibi2D vẽ tay. Save v8 đọc v2–v7; trận singleton đang
+dở tiếp tục theo model cũ. [Chi tiết](docs/TEAM_COMBAT.md) · [Video thực tế](docs/previews/team-battle.mp4).
+
+## Mỗi món một bản & năm cấp trang bị · 0.23
+
+Trang bị, nhân vật và tinh linh nhận trùng thành10 mảnh đúng loại. Kho chỉ giữ
+một bản mỗi ID trang bị; các cấu hình hero có thể dùng chung món phù hợp.
+Trang bị còn Hiếm, Sử thi, Huyền thoại, Thần thoại và Thần thánh. Save v7 đọc
+v2–v6, gộp đồ cũ giữ nâng cấp cao nhất và bảo toàn trận đang dở.
+[Xem quy tắc, migration và ảnh](docs/UNIQUE_COLLECTION.md).
+
+## Icon giao diện & đạo cụ · 0.22
+
+64 icon mới đồng bộ fantasy vẽ tay: điều hướng, hệ thống, toàn bộ14 trang bị,
+tài nguyên và phần thưởng. Gắn vào Nhân vật, Shop, triệu hồi, nhiệm vụ, tiện ích,
+AFK/VIP và kho đồ; dùng chung registry để UI và item không lệch hình.
+[Xem danh mục, ảnh thực tế và cách bổ sung icon](docs/ICONS.md).
+
+## Hồ sơ tạo hình cho phiên chat tiếp theo
+
+Đọc [phong cách và canon nhân vật](docs/CHARACTER_BIBLE.md) cùng [quy trình tạo ảnh, tích hợp và kiểm tra](docs/CHARACTER_CREATION_GUIDE.md) trước khi làm nhân vật. Hồ sơ phân biệt thiết kế riêng với tham khảo Eternal Senia, Ryn hiện tại với Lyra và các raw đã loại bỏ.
+
 
 ## Nhiệm vụ & VIP EXP · 0.20
 

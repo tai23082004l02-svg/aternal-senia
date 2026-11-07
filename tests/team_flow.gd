@@ -22,14 +22,18 @@ func run() -> void:
 	p.recruitment = Recruitment.fresh()
 	p.recruitment.heroes = ["mira"]
 	p.hero = "ryn"
-	p.formation = {"slots":["ryn","mira","eira"],"auto_ult":true,"auto_next":true}
+	p.formation = {"slots":["ryn","mira","eira"],"auto_ult":true,"auto_next":false}
 	for id in ["ryn","mira","eira"]: p.heroes[id].level = 8
 	assert(game.store.commit(p))
 	game.selected_stage = 6
 	game._begin()
+	game.battle.auto_next = true
+	game.battle.auto_ultimate = false
 	win()
 	assert(game.battle is TeamBattle and game.battle.state == "battle" and game.store.profile.pending.stage == 7)
 	assert(6 in game.store.profile.cleared)
+	assert(game.battle.auto_next and not game.battle.auto_ultimate)
+	assert(game.store.profile.pending.team.auto_next and not game.store.profile.pending.team.auto_ult)
 	win()
 	assert(game.store.profile.pending.is_empty() and game.modal != null)
 	assert(7 in game.store.profile.cleared and game._next_team_stage() == 2)
@@ -37,9 +41,18 @@ func run() -> void:
 	var original: Dictionary = game.store.profile.duplicate(true)
 	assert(game.store.settle(game.battle.run.id, true, game.battle.kills, game.battle.time))
 	assert(game.store.profile == original)
+	game._return_to_camp()
 	game.audio.shutdown()
-	await create_timer(.1).timeout
+	for player in game.audio_players:
+		player.stop()
+		player.stream = null
+	await create_timer(.3).timeout
 	game.queue_free()
+	game = null
+	await process_frame
 	await process_frame
 	print("PASS: real wins commit rewards then auto-advance 1-2 to 1-3, stop before chapter boss, no repeated payout")
+	call_deferred("finish")
+
+func finish() -> void:
 	quit()

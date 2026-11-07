@@ -19,7 +19,7 @@ func run() -> void:
 	await process_frame
 	game._close_modal()
 	assert(screen().progress_text.text == "Tiến độ chương · 0/3 ải")
-	assert(screen().auto_play.disabled and not screen().challenge.disabled)
+	assert(not screen().auto_play.disabled and not screen().challenge.disabled)
 	var original: Dictionary = game.store.profile.duplicate(true)
 	await capture("journey-top")
 	game.scroll.scroll_vertical = 500

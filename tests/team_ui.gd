@@ -27,7 +27,7 @@ func run() -> void:
 	game._formation_assign(1, "eira")
 	assert(game.store.profile.formation.slots == ["ryn","eira","mira"])
 	game._formation_assign(1, "mira")
-	game.selected_stage = 2
+	game.selected_stage = 6
 	game._begin()
 	assert(game.battle is TeamBattle and game.team_ui != null)
 	game.battle.wave = 0

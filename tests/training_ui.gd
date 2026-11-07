@@ -44,7 +44,8 @@ func run() -> void:
 	assert(AttributeTraining.remaining(game.store.profile, "eira") == 6)
 	button("← Trở về nhân vật").pressed.emit()
 	game._select_tab(4)
-	button("SỔ TAY BOSS").pressed.emit()
+	var utilities: UtilitiesScreen = game.panel.get_child(0)
+	utilities.entries.boss.pressed.emit()
 	assert(game.tab == 10)
 	await capture("boss-guide")
 	# Mid-battle navigation pauses simulation and disables all build mutations.

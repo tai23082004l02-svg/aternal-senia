@@ -2,7 +2,7 @@ class_name ShopScreen
 extends Control
 
 const SECTIONS := ["Cửa hàng vàng", "Cửa hàng kim cương", "Triệu hồi", "Cửa hàng sự kiện", "Gói ưu đãi", "Quảng cáo thưởng"]
-const ICONS := ["gold", "crystal", "spirit", "quest", "equipment", "journal"]
+const ICONS := ["gold", "crystal", "summon", "event", "gift", "chest_open"]
 var game
 var selected := 0
 var body: VBoxContainer

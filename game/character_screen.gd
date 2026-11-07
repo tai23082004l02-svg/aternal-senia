@@ -2,7 +2,7 @@ class_name CharacterScreen
 extends Control
 
 const SECTIONS := ["Thông tin", "Trang bị", "Cường hóa", "Mở rộng", "Tiến hóa", "Kỹ năng", "Trang phục"]
-const ICONS := ["hero", "equipment", "training", "crystal", "talents", "spirit", "equipment"]
+const ICONS := ["hero", "equipment", "training", "awakening", "evolution", "talents", "wardrobe"]
 var game
 var hero := "eira"
 var section := 0
@@ -100,6 +100,7 @@ func button(title: String, action: Callable, disabled: bool = false) -> Button:
 	b.clip_text = true
 	b.tooltip_text = title
 	b.disabled = disabled
+	game.icons.action(b, action)
 	return b
 
 func locked() -> bool:
@@ -160,13 +161,11 @@ func equipment() -> void:
 	for item in p.items:
 		var row: Dictionary = game.catalog.find_row("items", item.base)
 		if row.slot == "weapon" and row.category != game.catalog.category(hero): continue
-		var owner := ""
-		for id in p.heroes:
-			if item.uid in p.heroes[id].equipment.values(): owner = id
-		if owner != "": continue
+		if item.uid in p.heroes[hero].equipment.values(): continue
 		found = true
 		button(row.name + " +%d · Mặc" % item.enhance, game._character_equip.bind(item.uid, hero), locked())
-	if not found: text("Không có món phù hợp đang trống. Xem thêm trong Túi đồ.", 13)
+	if not found: text("Không có món phù hợp khác. Xem thêm trong Túi đồ.", 13)
+	text("Mỗi món chỉ có một bản; các nhân vật có thể dùng chung trong cấu hình riêng.", 12)
 	button("Mở kho trang bị →", game._bag_open.bind("equipment"))
 
 func levels() -> void:

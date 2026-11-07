@@ -173,6 +173,7 @@ class TeamField extends Control:
 			color.a = 1 - age / .7
 			draw_string(font, point + Vector2(-10, -82 - age * 25), event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, color)
 			if age < .18:
+				CombatEffects.stamp(self, library, "heal_ring" if event.kind == "heal" else "impact", point - Vector2(0,35), Vector2.ONE * 65, 1 - age / .18)
 				draw_arc(point - Vector2(0, 35), 12 + age * 80, 0, TAU, 16, color, 2, true)
 	func _ally(index: int, library: FrameLibrary) -> void:
 		var ally: Dictionary = model.allies[index]
@@ -185,6 +186,8 @@ class TeamField extends Control:
 		if ally.hp <= 0:
 			state = "death"
 			elapsed = model.time - ally.hurt
+		elif model.state != "battle":
+			state = "idle"
 		elif model.move_clock > 0:
 			state = "run"
 		elif not last.is_empty() and model.time - last.started < last.duration:
@@ -223,6 +226,7 @@ class TeamField extends Control:
 		var anchor := Vector2(spec.anchor[0], spec.anchor[1])
 		draw_texture_rect(texture, Rect2(foot - anchor * factor, texture.get_size() * factor), false, Color(1, .83 if enemy.elite else 1.0, .75 if enemy.elite else 1.0, alpha))
 		_bar(foot + Vector2(-27, 5), enemy.hp / enemy.max_hp, Color("dd918c"))
+		draw_string(ThemeDB.fallback_font, foot + Vector2(-30, 18), "BOSS" if enemy.boss else enemy.name, HORIZONTAL_ALIGNMENT_LEFT, 96, 10, Color("e5cd9e"))
 		if model.focus == index and enemy.hp > 0: draw_arc(foot - Vector2(0, 25), 28, 0, TAU, 24, Color("e5c278"), 2, true)
 		if enemy.boss and enemy.mechanic == "shield" and not enemy.shield_broken: draw_arc(foot - Vector2(0, 60), 45, PI, TAU, 24, Color(.6,.8,1,.8), 3, true)
 	func _bar(point: Vector2, value: float, color: Color) -> void:

@@ -129,8 +129,20 @@ func run() -> void:
 	file.store_string(JSON.stringify(legacy))
 	file.close()
 	var migrated := ProgressStore.new(book, dir.path_join("legacy.json"))
-	assert(not migrated.read_only and migrated.profile.version == 7 and not migrated.profile.pending.has("team"))
+	assert(not migrated.read_only and migrated.profile.version == ProgressStore.VERSION and not migrated.profile.pending.has("team"))
 	assert(migrated.profile.pending == legacy.pending)
+	# Public v7 unique-collection saves migrate without changing the frozen legacy run.
+	legacy.version = 7
+	var v7_path := dir.path_join("legacy-v7.json")
+	file = FileAccess.open(v7_path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(legacy))
+	file.close()
+	var old_bytes := FileAccess.get_file_as_bytes(v7_path)
+	var v7 := ProgressStore.new(book, v7_path)
+	assert(not v7.read_only and v7.profile.pending == legacy.pending)
+	assert(v7.profile.collection_fragments == legacy.collection_fragments)
+	assert(v7.setting("sound", false))
+	assert(FileAccess.get_file_as_bytes(v7_path + ".bak") == old_bytes)
 	# New one-hero profile can still enter, without granting unowned heroes.
 	var fresh := ProgressStore.new(book, dir.path_join("fresh.json"))
 	assert(not fresh.available_hero("ryn"))

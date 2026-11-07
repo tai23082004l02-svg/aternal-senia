@@ -1,8 +1,14 @@
 class_name Formation
 extends RefCounted
 
-static func state(p: Dictionary) -> Dictionary:
-	return p.get("formation", {"slots":[p.hero,"",""], "auto_ult":true, "auto_next":false})
+static func state(p: Dictionary, book: GameCatalog) -> Dictionary:
+	if p.has("formation"): return p.formation
+	var slots: Array = [p.hero]
+	for hero in book.data.heroes:
+		if slots.size() >= 3: break
+		if hero.id not in slots and owned(book, p, hero.id): slots.append(hero.id)
+	while slots.size() < 3: slots.append("")
+	return {"slots":slots, "auto_ult":true, "auto_next":false}
 
 static func owned(book: GameCatalog, p: Dictionary, id: String) -> bool:
 	var row := book.find_row("heroes", id)
@@ -22,13 +28,13 @@ static func valid(store, p: Dictionary) -> bool:
 		if id.is_empty(): continue
 		if id in seen or not owned(store.catalog, p, id): return false
 		seen.append(id)
-	return not seen.is_empty() and p.hero in seen
+	return not seen.is_empty() and p.hero == seen[0]
 
 static func assign(store, slot: int, id: String) -> bool:
 	if slot < 0 or slot > 2 or store.read_only or not store.profile.pending.is_empty(): return false
 	if not id.is_empty() and not store.available_hero(id): return false
 	var p: Dictionary = store.profile.duplicate(true)
-	p.formation = state(p).duplicate(true)
+	p.formation = state(p, store.catalog).duplicate(true)
 	var old: String = p.formation.slots[slot]
 	var previous: int = p.formation.slots.find(id) if not id.is_empty() else -1
 	if previous >= 0: p.formation.slots[previous] = old
@@ -45,13 +51,13 @@ static func assign(store, slot: int, id: String) -> bool:
 static func option(store, key: String, enabled: bool) -> bool:
 	if key not in ["auto_ult", "auto_next"] or store.read_only or not store.profile.pending.is_empty(): return false
 	var p: Dictionary = store.profile.duplicate(true)
-	p.formation = state(p).duplicate(true)
+	p.formation = state(p, store.catalog).duplicate(true)
 	p.formation[key] = enabled
 	return store.commit(p)
 
 static func snapshot(book: GameCatalog, p: Dictionary, stage: Dictionary) -> Dictionary:
 	var units := []
-	var f := state(p)
+	var f := state(p, book)
 	for slot in range(3):
 		var id: String = f.slots[slot]
 		if id.is_empty(): continue
