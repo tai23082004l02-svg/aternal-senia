@@ -119,6 +119,10 @@ func draw_actor(canvas: CanvasItem, frame: Dictionary, foot: Vector2, weapon: St
 	var anchor := Vector2(anchor_data[0], anchor_data[1])
 	var factor: float = frame.get("render_scale", .88) if scale_override < 0 else scale_override
 	var origin := foot - anchor * factor
+	if frame.has("source_anchor") and frame.has("trim_offset"):
+		var source: Array = frame.source_anchor
+		var offset: Array = frame.trim_offset
+		origin = foot + (Vector2(offset[0], offset[1]) - Vector2(source[0], source[1])) * factor
 	canvas.draw_texture_rect(textures[frame.file], Rect2(origin, dimensions * factor), false, tint)
 	if not show_weapon or frame.get("embedded_weapon", false):
 		return

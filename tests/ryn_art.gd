@@ -18,9 +18,20 @@ func run() -> void:
 			assert(tex.region.position.x >= 0 and tex.region.position.y >= 0)
 			assert(tex.region.end.x <= tex.atlas.get_width() and tex.region.end.y <= tex.atlas.get_height())
 			assert(frame.duration > 0 and frame.embedded_weapon)
+			assert(Vector2(frame.source_size[0], frame.source_size[1]) == Vector2(512, 512))
+			assert(Vector2(frame.source_anchor[0], frame.source_anchor[1]) - Vector2(frame.trim_offset[0], frame.trim_offset[1]) == Vector2(frame.anchor[0], frame.anchor[1]))
 	assert(seen.size() == 12)
 	var ryn := HeroPortrait.new()
 	var eira := HeroPortrait.new()
+	ryn.library = frames
+	ryn.hero = "ryn"
+	root.add_child(ryn)
+	assert(ryn.accessory_layers.size() == 2)
+	for layer in ryn.accessory_layers:
+		assert(layer.texture.get_size() == Vector2(1024, 1536))
+		assert(layer.show_behind_parent)
+		assert(layer.material.get_shader_parameter("amplitude") == 0.0)
+	ryn.interactive = true
 	ryn.hero = "ryn"
 	ryn.begin_touch(Vector2.ZERO, 0)
 	ryn.move_touch(Vector2(1000, -1000))

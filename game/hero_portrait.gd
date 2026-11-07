@@ -15,12 +15,15 @@ var grab_origin := Vector2.ZERO
 var idle_time := 0.0
 var touch_glow := 0.0
 var accessory_motion := Vector2.ZERO
+var cloth_motion := Vector2.ZERO
+var accessory_layers: Array[MeshInstance2D] = []
 
 func _ready() -> void:
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP if interactive else Control.MOUSE_FILTER_IGNORE
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND if interactive else Control.CURSOR_ARROW
 	set_process(interactive)
+	_build_accessories()
 
 func _gui_input(event: InputEvent) -> void:
 	if not interactive: return
@@ -69,6 +72,7 @@ func advance_motion(delta: float) -> void:
 			velocity += (-motion * (115 if hero == "ryn" else 140) - velocity * (8 if hero == "ryn" else 13)) * dt
 			motion = (motion + velocity * dt).limit_length(28 if hero == "ryn" else 14)
 		accessory_motion = accessory_motion.lerp(motion, 1 - exp(-9 * dt))
+		cloth_motion = cloth_motion.lerp(motion, 1 - exp(-5 * dt))
 		remaining -= dt
 	idle_time += clampf(delta, 0, .1)
 	touch_glow = maxf(0, touch_glow - delta * 1.8)
@@ -77,6 +81,8 @@ func advance_motion(delta: float) -> void:
 		velocity = Vector2.ZERO
 		if accessory_motion.length() < .01: accessory_motion = Vector2.ZERO
 
+	_sync_accessories()
+
 func _process(delta: float) -> void:
 	if not is_visible_in_tree(): return
 	if dragging and pointer == -1 and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): end_touch()
@@ -84,6 +90,7 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_RESIZED: _sync_accessories()
 	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT or what == NOTIFICATION_VISIBILITY_CHANGED:
 		dragging = false
 		pointer = -2
@@ -101,8 +108,9 @@ func _draw() -> void:
 			var angle := motion.x * .003 if interactive else 0.0
 			var lag := (accessory_motion - motion) * .18 if interactive else Vector2.ZERO
 			var sway := clampf(lag.x * .01, -.025, .025) + sin(idle_time * 1.6) * .004 if interactive else 0.0
-			draw_set_transform(center + lag, angle + sway, scale)
-			draw_texture(library.textures["portrait_" + hero + "_back"], -texture.get_size() * .5, palette_tint)
+			if accessory_layers.is_empty():
+				draw_set_transform(center + lag, angle + sway, scale)
+				draw_texture(library.textures["portrait_" + hero + "_back"], -texture.get_size() * .5, palette_tint)
 			draw_set_transform(center, angle, scale)
 			draw_texture(library.textures["portrait_" + hero + "_body"], -texture.get_size() * .5, palette_tint)
 		else:
@@ -124,3 +132,58 @@ func _draw() -> void:
 		library.draw_actor(self, library.frame_at(hero, "idle", idle_time), foot + motion, weapon, palette_tint, true, actor_scale)
 	else:
 		library.draw_actor(self, library.frame_at(hero, "idle", 0), foot, weapon, palette_tint, true, .56 if hero == "eira" else .76)
+
+# Cached grid: attachment rows stay fixed; only the free ends bend.
+# No skeleton, external runtime, or simulation state is involved.
+func _build_accessories() -> void:
+	if library == null or hero != "ryn": return
+	for part in ["cloth", "hair"]:
+		if not library.textures.has("portrait_ryn_" + part): return
+	var vertices := PackedVector2Array()
+	var uvs := PackedVector2Array()
+	var indices := PackedInt32Array()
+	for y in range(17):
+		for x in range(9):
+			var uv := Vector2(x / 8.0, y / 16.0)
+			vertices.append((uv - Vector2(.5, .5)) * Vector2(1024, 1536))
+			uvs.append(uv)
+	for y in range(16):
+		for x in range(8):
+			var a := y * 9 + x
+			indices.append_array(PackedInt32Array([a, a + 1, a + 9, a + 1, a + 10, a + 9]))
+	var arrays := []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_TEX_UV] = uvs
+	arrays[Mesh.ARRAY_INDEX] = indices
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	for part in ["cloth", "hair"]:
+		var layer := MeshInstance2D.new()
+		layer.mesh = mesh
+		layer.texture = library.textures["portrait_ryn_" + part]
+		layer.show_behind_parent = true
+		var shader := ShaderMaterial.new()
+		shader.shader = preload("res://game/shaders/portrait_sway.gdshader")
+		shader.set_shader_parameter("root_y", .41 if part == "cloth" else .12)
+		shader.set_shader_parameter("span", .48 if part == "cloth" else .28)
+		layer.material = shader
+		add_child(layer)
+		accessory_layers.append(layer)
+	_sync_accessories()
+
+func _sync_accessories() -> void:
+	if accessory_layers.is_empty(): return
+	var factor := maxf(.001, minf((size.x - 36) / 1024, (size.y - 80) / 1536))
+	var breath := sin(idle_time * 2.1) * .008 if interactive else 0.0
+	for i in range(accessory_layers.size()):
+		var layer := accessory_layers[i]
+		layer.position = size * .5 + (motion if interactive else Vector2.ZERO)
+		layer.scale = Vector2.ONE * factor * (1 + breath)
+		layer.rotation = motion.x * .003 if interactive else 0.0
+		layer.modulate = palette_tint
+		var shader: ShaderMaterial = layer.material
+		var lag := (cloth_motion.x if i == 0 else accessory_motion.x) - motion.x
+		shader.set_shader_parameter("phase", idle_time * (1.8 if i == 0 else 2.5))
+		shader.set_shader_parameter("lag", clampf(lag / factor * .35, -65, 65) if interactive else 0.0)
+		shader.set_shader_parameter("amplitude", (12.0 if i == 0 else 8.0) if interactive else 0.0)

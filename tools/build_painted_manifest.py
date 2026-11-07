@@ -45,7 +45,7 @@ ryn_regions[5]=[314,418,327,418]
 ryn_regions[8]=[0,836,327,418]
 ryn_anchors=[[166,405],[166,405],[218,403],[218,403],[180,397],[168,397],[180,397],[171,397],[170,397],[170,397],[171,397],[176,397]]
 def ryn_frame(i,d):
- return dict(file=f'painted/ryn_{i:02}',atlas='painted/ryn_atlas.png',region=ryn_regions[i],size=ryn_regions[i][2:],anchor=ryn_anchors[i],hand=[0,0],angle=0,render_scale=.5,duration=d,embedded_weapon=True)
+ return dict(file=f'painted/ryn_{i:02}',atlas='painted/ryn_atlas.png',region=ryn_regions[i],size=ryn_regions[i][2:],anchor=ryn_anchors[i],source_size=[512,512],source_anchor=[256,460],trim_offset=[256-ryn_anchors[i][0],460-ryn_anchors[i][1]],hand=[0,0],angle=0,render_scale=.5,duration=d,embedded_weapon=True)
 painted['heroes']['ryn']={
  'idle':dict(loop=True,frames=[ryn_frame(0,.65),ryn_frame(1,.65)]),
  'run':dict(loop=True,frames=[ryn_frame(2,.11),ryn_frame(3,.11)]),
@@ -54,5 +54,5 @@ painted['heroes']['ryn']={
  'guard':dict(loop=False,frames=[ryn_frame(9,.7)]),
  'hurt':dict(loop=False,frames=[ryn_frame(10,.25)]),
  'death':dict(loop=False,frames=[ryn_frame(11,1)])}
-painted['portraits']={'ryn':dict(file='painted/ryn_portrait.png',face=[330,130,240,250],adult_age=27,layers={'body':'painted/ryn_body.png','back':'painted/ryn_back.png'})}
+painted['portraits']={'ryn':dict(file='painted/ryn_portrait.png',face=[330,130,240,250],adult_age=27,layers={'body':'painted/ryn_body.png','back':'painted/ryn_back.png','hair':'painted/ryn_hair.png','cloth':'painted/ryn_cloth.png'})}
 (root/'art/painted/manifest.json').write_text(json.dumps(painted,indent=2)+'\n')

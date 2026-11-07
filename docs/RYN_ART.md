@@ -1,4 +1,4 @@
-# Ryn · Hỏa vũ trưởng thành · 0.13
+# Ryn · Hỏa vũ trưởng thành · 0.14
 
 Ryn được thiết kế lại thành nữ thương thủ trưởng thành 27 tuổi: tóc burgundy
 buộc cao, giáp đỏ–đen viền vàng, vai mở, váy chiến bất đối xứng có quần short
@@ -20,9 +20,11 @@ giữ tuning cũ. Pointer/focus/cancel và clamp delta chống giật khi frame 
 Không sửa RNG, HP, ví hay phát âm từ portrait. Không tạo node/texture mỗi frame.
 
 Nút **Xem Ryn phóng lớn** mở bản tương tác lớn trong modal. Màu trang phục đã
-chọn áp dụng cho cả hai layer. Nhân vật5★ gốc có tương tác độc lập Mở rộng.
-Đây là chuyển động bằng các lớp 2D, chưa phải rig/mesh deformation hoặc mô
-phỏng riêng từng bộ phận cơ thể. Các lớp và pose tạo sinh có khác biệt chi tiết
+chọn áp dụng cho thân, tóc và tà áo. Nhân vật5★ gốc có tương tác độc lập Mở rộng.
+Tóc và tà áo hiện là hai lớp riêng `ryn_hair.png` / `ryn_cloth.png`, dùng lưới
+8×16 ô và shader uốn phần ngọn, giữ điểm gắn ở đầu/hông. Tóc và vải có độ trễ
+khác nhau; thân và giáo giữ cùng transform. Mesh/material được tạo một lần.
+Không có skeleton hoặc mô phỏng riêng từng bộ phận cơ thể. Các lớp và pose tạo sinh có khác biệt chi tiết
 nhỏ, không coi là pipeline hình học tuyệt đối nhất quán.
 
 ![Chạm và kéo thực trong renderer Godot](previews/ryn-touch.gif)
@@ -34,7 +36,10 @@ Atlas1254×1254, bốn cột/ba hàng, 12 pose: idle2, run2, attack3, skill2, gu
 hurt1, defeat1. Clip có entry quay lại idle; attack hit_time0,22 và skill0,5 được
 motion sampler map sang marker thật của action. BattleModel giữ quyền gây damage.
 
-Region nguồn/anchor explicit trong builder, không chia lưới mù. Hai cell đâm
+Region nguồn/anchor explicit trong builder, không chia lưới mù. Mỗi pose có
+source canvas512×512, source_anchor và trim_offset; renderer giữ đúng kích
+thước vùng cắt thay vì kéo giãn ảnh. Metadata này bảo toàn căn chân hiện có,
+không tự sửa khác biệt tỷ lệ giữa các pose. Hai cell đâm
 thương nới region ngang để giữ mũi thương vượt biên danh nghĩa, không lấy actor
 bên cạnh. Đã xem contact sheet và thrust trong trận thật. `embedded_weapon`
 ngăn vẽ thêm thương thứ hai. Hai mẫu thương trong trang bị cùng dùng hình thương
@@ -59,3 +64,11 @@ Regression81, mechanics54 tổ hợp, campaign5 màn, painted_art, combat_presen
 và portrait_touch đạt. Chạy ui_flow, character_ui và animation_gallery trên display,
 xem ảnh thực. Test dùng profile riêng. Chưa thử touch/hiệu năng/nhiệt trên điện
 thoại thật. Không thay âm thanh. Mira và một số vùng/quái vẫn là SVG.
+
+## Áp dụng nghiên cứu game tham khảo · 0.14
+
+Áp dụng cách tách lớp phụ, giữ vị trí trên canvas chung và lưu offset vùng cắt.
+Repo tham khảo có clip chạy ba sprite trên canvas900×600 và portrait Spine3.4.02
+với các track xương/deform riêng cho tóc/váy; đây là hai loại asset khác nhau.
+Ryn dùng asset tạo riêng và shader Godot, không nhập hình, rig hay runtime gốc.
+Chưa tách tay, biểu cảm hoặc bổ sung các frame chuyển tiếp cho run/attack.

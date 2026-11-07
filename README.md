@@ -1,9 +1,9 @@
-# Aternal Senia — First Light · 0.13
+# Aternal Senia — First Light · 0.14
 
-## Ryn · Hỏa vũ trưởng thành · 0.13
+## Ryn · Hỏa vũ trưởng thành · 0.14
 
 Ryn có tạo hình nữ trưởng thành 27 tuổi, giáp đỏ–đen và thương lửa mới. Chân
-dung tách thân/vũ khí và tóc/tà áo phía sau, có độ trễ/đung đưa khi kéo và nhún
+dung tách thân/vũ khí, tóc và tà áo. Tóc/vải uốn phần ngọn độc lập, có độ trễ khi kéo và nhún
 rõ hơn khi chạm. Có nút **Xem Ryn phóng lớn** trong màn Nhân vật.
 
 Trong trận đã thay SVG bằng 12 pose PNG cho bảy trạng thái. Giữ stats, skill,
@@ -15,7 +15,7 @@ save và mốc gây sát thương. [Xem ảnh động và chi tiết](docs/RYN_A
   **Trang phục** (xem trước/áp dụng phối màu, không đổi chỉ số).
 - **5★ là độ hiếm gốc**, không phải điều kiện nâng sao để mở tương tác. Ba hero
   chơi hiện tại là mẫu 5★; đối thủ 1–4★ được phân loại riêng. Chân dung 5★ có
-  bản thử chạm/kéo/nhún toàn sprite, chưa có tóc/vải tách lớp như clip tham khảo.
+  chạm/kéo/nhún; Ryn có tóc/vải tách lớp (0.14), Eira/Mira còn nhún toàn sprite.
 - Trang bị đủ **7 bậc**; Tinh linh dùng **SR/SSR/UR** riêng (Lumi SR, Ash SSR;
   chưa thêm mẫu UR). Kho có bộ lọc tương ứng.
 - Shop có sáu mục cuộn ngang: **Vàng, Kim cương, Triệu hồi, Sự kiện, Gói ưu đãi,
