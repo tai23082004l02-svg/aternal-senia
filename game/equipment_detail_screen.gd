@@ -45,7 +45,7 @@ func _ready() -> void:
 	for hero in game.catalog.data.heroes:
 		if item.uid in game.store.profile.heroes[hero.id].equipment.values(): owners.append(hero.name)
 	label(words, "Đang trang bị: " + ", ".join(owners) if not owners.is_empty() else "Chưa trang bị", 12, Color("cbb88b"))
-	var scroll := ScrollContainer.new()
+	var scroll := SwipeScroll.new()
 	scroll.name = "EquipmentDetailScroll"
 	scroll.custom_minimum_size = Vector2(492, 408)
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL

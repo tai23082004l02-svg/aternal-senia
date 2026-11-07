@@ -69,7 +69,7 @@ func _ready() -> void:
 	frame.size = Vector2(416, 642)
 	frame.add_theme_stylebox_override("panel", game._style(Color(.035,.1,.14,.87), Color("69715f"), 13))
 	add_child(frame)
-	detail_scroll = ScrollContainer.new()
+	detail_scroll = SwipeScroll.new()
 	detail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	frame.add_child(detail_scroll)
 	body = VBoxContainer.new()

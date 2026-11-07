@@ -63,7 +63,7 @@ static func show_text(game, title: String, text: String) -> void:
 	var box: PanelContainer = column.get_parent().get_parent()
 	box.position.y = 150
 	box.set_deferred("size", Vector2(472, 650))
-	var scroll := ScrollContainer.new()
+	var scroll := SwipeScroll.new()
 	scroll.custom_minimum_size = Vector2(400, 420)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	var body := Label.new()

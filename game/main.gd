@@ -191,7 +191,7 @@ func _build_ui() -> void:
 	for control in [attack_button, guard_button, auto_button, pause_button, speed_button]:
 		control.custom_minimum_size.y = 44
 		control.size.y = 44
-	scroll = ScrollContainer.new()
+	scroll = SwipeScroll.new()
 	scroll.position = Vector2(24, 758)
 	scroll.size = Vector2(492, 151)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -1604,7 +1604,7 @@ func _character_gear_picker(id: String, slot_name: String) -> void:
 	var column := _dialog("CHỌN TRANG BỊ", "Chọn món phù hợp cho " + catalog.find_row("heroes",id).name, [{"text":"Đóng","call":_close_modal}])
 	column.get_child(2).size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	column.get_child(2).add_theme_font_size_override("font_size",14)
-	var scroller := ScrollContainer.new()
+	var scroller := SwipeScroll.new()
 	scroller.custom_minimum_size = Vector2(400,240)
 	scroller.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	column.add_child(scroller)

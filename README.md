@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.31
+# Aternal Senia — First Light · 0.31.1
+
+## Vuốt cuộn trên điện thoại · 0.31.1
+
+Vuốt trực tiếp trên thẻ/nút để cuộn các màn dài, không cần kéo thanh bên phải.
+Hủy click khi bắt đầu vuốt, giữ chạm để bấm và cuộn riêng vùng con.
+[Chi tiết và cập nhật Termux](docs/MOBILE_SCROLL.md).
 
 ## Trang Nhân vật liền tranh · 0.31
 

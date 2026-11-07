@@ -10,7 +10,7 @@ var tabs: Array[Button] = []
 
 func _ready() -> void:
 	custom_minimum_size = Vector2(492, 720)
-	var strip := ScrollContainer.new()
+	var strip := SwipeScroll.new()
 	strip.size = Vector2(492, 88)
 	strip.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(strip)
@@ -29,7 +29,7 @@ func _ready() -> void:
 		if i == selected: b.add_theme_stylebox_override("normal", game._style(Color("304339"), Color("dcc28a"), 10))
 		tabs.append(b)
 	strip.set_deferred("scroll_horizontal", maxi(0, selected * 128 - 160))
-	var content := ScrollContainer.new()
+	var content := SwipeScroll.new()
 	content.position = Vector2(0, 96)
 	content.size = Vector2(492, 624)
 	content.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED

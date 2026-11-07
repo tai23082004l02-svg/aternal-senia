@@ -51,7 +51,7 @@ func _ready() -> void:
 		var button: Button = game._button(tabs,pair[1],Vector2.ZERO,Vector2(160,44),game._bag_open.bind(pair[0]))
 		button.add_theme_font_size_override("font_size",16)
 		if game.bag_section == pair[0]: button.add_theme_stylebox_override("normal",game._style(Color("493f24"),Color("f3cd76"),12))
-	var scroll := ScrollContainer.new()
+	var scroll := SwipeScroll.new()
 	scroll.name = "BagContentScroll"
 	scroll.custom_minimum_size = Vector2(492,490)
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -199,7 +199,7 @@ func forge() -> void:
 		var button: Button = game._button(tabs,["Chế tạo","Cường hóa","Hợp thành","Phân giải"][i],Vector2.ZERO,Vector2(120,44),game._forge_tab.bind(i))
 		button.add_theme_font_size_override("font_size",14)
 		if game.forge_page == i: button.modulate = Color("f6cf7a")
-	var scroll := ScrollContainer.new()
+	var scroll := SwipeScroll.new()
 	scroll.custom_minimum_size = Vector2(492,330)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(scroll)
