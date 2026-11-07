@@ -21,9 +21,9 @@ func _ready() -> void:
 	readout = Label.new()
 	readout.position = Vector2(24, 65)
 	add_child(readout)
-	for i in range(6):
-		var id: String = ["idle", "run", "attack", "skill", "hurt", "death"][i]
-		_button(id, Vector2(24 + (i % 3) * 166, 650 + int(i / 3.0) * 48), Vector2(158, 40), _select.bind(id))
+	for i in range(7):
+		var id: String = ["idle", "run", "attack", "skill", "guard", "hurt", "death"][i]
+		_button(id, Vector2(24 + (i % 3) * 166, 624 + int(i / 3.0) * 40), Vector2(158, 34), _select.bind(id))
 	play_button = _button("Dừng", Vector2(24, 762), Vector2(150, 42), _play)
 	_button("← Frame", Vector2(190, 762), Vector2(150, 42), _step.bind(-1))
 	_button("Frame →", Vector2(356, 762), Vector2(160, 42), _step.bind(1))
@@ -86,7 +86,7 @@ func _draw() -> void:
 		return
 	draw_texture_rect(library.textures.bg_forest, Rect2(0, 155, 540, 454), false)
 	var foot := Vector2(258, 570)
-	var frame := library.frame_at("eira", state, elapsed)
+	var frame := library.motion_frame("eira", state, elapsed)
 	library.draw_actor(self, frame, foot, weapon, Color.WHITE, state != "death", 1.05)
 	if show_anchors:
 		var anchor := Vector2(frame.anchor[0], frame.anchor[1])

@@ -1,4 +1,4 @@
-# Aternal Senia — First Light · 0.5
+# Aternal Senia — First Light · 0.6
 
 Game Godot 4 màn hình dọc, chiến đấu một nhân vật chính + một trợ chiến.
 Tham khảo cấu trúc Eternal Senia 2; nội dung, công thức và hình ảnh trong game
@@ -30,7 +30,7 @@ Hoặc `godot --path .` sau khi import. Chọn Hành trình → Vào ải → Ti
 | Phần thưởng | Vàng, XP, tinh thạch, loot; thưởng lần đầu; túi 40 ô, đổi loot dư |
 | Mục tiêu | 5 nhiệm vụ nhận một lần; 10 đoạn truyện và nhật ký xem lại |
 | Tiếp tế | Tích theo thời gian thực, kể cả khi đóng game; trần 2 giờ |
-| Trình bày | Eira 16 pose PNG / 6 trạng thái, kiếm Dawnveil, Lumi, rừng đêm và quái rừng mới; Ryn/Mira và các vùng khác còn SVG; 38 SFX ElevenLabs + loop tiếng rừng ElevenLabs |
+| Trình bày | Eira 32 pose PNG / 7 trạng thái, boss cây 8 pose, 16 mẫu VFX, kiếm Dawnveil, Lumi, rừng đêm và quái rừng mới; Ryn/Mira và các vùng khác còn SVG; 38 SFX ElevenLabs + loop tiếng rừng ElevenLabs |
 
 Tăng cấp nhân vật dùng vàng + XP. Nâng kỹ năng/trợ chiến dùng vàng. Nâng trang
 bị dùng vàng + tinh thạch. Vũ khí bậc hiếm giảm hồi chiêu 8%; hệ khắc chế tăng
@@ -75,7 +75,7 @@ FPS/nhiệt. Audio đã được ghi từ mixer thật qua AudioEffectRecord v�
 - [Đối chiếu repo tham khảo](docs/REFERENCE_MAP.md): nguồn, bằng chứng, giới hạn.
 - [Kiến trúc và công thức](docs/SYSTEMS.md).
 - [Pipeline frame / vũ khí](docs/ART_PIPELINE.md).
-- `tools/build_catalog.py`, `tools/build_art.py`: tái tạo nội dung mẫu. Bộ âm hiện tại được nhập bằng `tools/import_elevenlabs_audio.py`; `tools/build_audio.py` cũ từ chối ghi đè ElevenLabs. `tools/build_painted_manifest.py` tái tạo metadata cho artwork PNG được giữ nguyên.
+- `tools/build_catalog.py`, `tools/build_art.py`: tái tạo nội dung mẫu. Bộ âm hiện tại được nhập bằng `tools/import_elevenlabs_audio.py`; `tools/build_audio.py` cũ từ chối ghi đè ElevenLabs. `tools/build_combat_manifest.py` tái tạo toàn bộ metadata PNG hiện tại (gọi builder nền trước).
 
 ## Tạo hình 0.3 · Eira và rừng đầu tiên
 
@@ -115,3 +115,11 @@ nghe được. Volume độc lập, preview/áp dụng/hủy, tương thích sav
 
 Kiểm thêm: `godot --headless --path . --script tests/audio.gd` (93 checks) và
 `python3 tests/validate_audio.py`. 39 yêu cầu tạo âm đều trả HTTP 200; có MP3 gốc, SHA256 và biên nhận trong `art/audio/elevenlabs/`. Python chỉ dùng căn onset/độ dài, chuẩn hóa và đổi định dạng sau khi tạo. Không dùng lại bộ âm tổng hợp bằng code hoặc audio từ game tham khảo.
+
+## Cảm giác chiến đấu 0.6
+
+Thêm vệt kiếm, va chạm, hồi phục, khiên/vỡ khiên, cảnh báo đòn boss và rung nhẹ trong khung trận. Eira có thêm pose chuyển tiếp, lướt tới mục tiêu rồi thu kiếm; boss cây có chuỗi tụ lực–giáng đòn–hồi thế. Marker sát thương vẫn do BattleModel quyết định, dùng chung thời điểm với âm ElevenLabs.
+
+- [Video một trận đầy đủ có âm thanh](docs/previews/combat-demo.mp4)
+- [Ảnh hiệu ứng trong game](docs/previews/combat-impact.png)
+- [Chi tiết và cách kiểm tra](docs/COMBAT_FEEL.md)

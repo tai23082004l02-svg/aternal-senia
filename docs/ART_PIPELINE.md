@@ -18,7 +18,7 @@ Lượt đầu tập trung hoàn chỉnh Eira + kiếm + Lumi + rừng và quái
 item hoặc save. `tools/build_painted_manifest.py` chỉ tạo metadata, không vẽ lại
 PNG và không xóa nguồn. Provenance ghi SHA256 từng PNG. Concept trong docs/concepts.
 
-Eira có **16 ảnh pose nguồn, 21 entry có duration trong 6 clip**:
+Bộ nền 0.3 có **16 ảnh pose nguồn, 21 entry có duration trong 6 clip** (0.6 mở rộng thành 32 pose / 39 entry / 7 clip; xem [COMBAT_FEEL.md](COMBAT_FEEL.md)):
 - idle 2 pose (4 entries lặp nhẹ), run 4 pose;
 - attack anticipation/windup/impact/recovery và một entry idle;
 - skill cast/release/recovery/idle;
@@ -70,7 +70,7 @@ muốn chuyển động mượt hơn. Timing mới do dự án đặt, không ph
 - `tools/pose_lab.tscn` (F6): sáu trạng thái, phát/dừng, tiến/lùi frame, thanh
   seek, ×0.25/×0.5/×1/×2/×3, hai kiếm và overlay điểm chân/tay.
 - `tests/painted_art.gd`: bounds, socket, timed entries và command của Pose Lab.
-- `tests/painted_gallery.gd`: contact sheet đủ 16 pose, render cùng helper game.
+- `tests/painted_gallery.gd`: contact sheet hai trang đủ 32 pose, render cùng helper game.
 - `tests/animation_gallery.gd`: ba hero × sáu trạng thái, pipeline hỗn hợp.
 - `tests/ui_flow.gd`: chạy game thật, tab/truyện/trận/boss/result.
 

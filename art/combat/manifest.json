@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "atlas": "combat/effects.png",
+  "effects": {
+    "slash_gold": {
+      "region": [
+        0,
+        0,
+        314,
+        314
+      ]
+    },
+    "slash_teal": {
+      "region": [
+        314,
+        0,
+        313,
+        314
+      ]
+    },
+    "slash_double": {
+      "region": [
+        627,
+        0,
+        313,
+        314
+      ]
+    },
+    "impact": {
+      "region": [
+        940,
+        0,
+        314,
+        314
+      ]
+    },
+    "burst": {
+      "region": [
+        0,
+        314,
+        330,
+        313
+      ]
+    },
+    "heal_ring": {
+      "region": [
+        314,
+        314,
+        313,
+        313
+      ]
+    },
+    "petals": {
+      "region": [
+        627,
+        314,
+        313,
+        313
+      ]
+    },
+    "motes": {
+      "region": [
+        940,
+        314,
+        314,
+        313
+      ]
+    },
+    "guard_arc": {
+      "region": [
+        0,
+        627,
+        314,
+        313
+      ]
+    },
+    "shield_crack": {
+      "region": [
+        314,
+        627,
+        313,
+        313
+      ]
+    },
+    "shards": {
+      "region": [
+        627,
+        627,
+        313,
+        313
+      ]
+    },
+    "shockwave": {
+      "region": [
+        940,
+        627,
+        314,
+        313
+      ]
+    },
+    "dust": {
+      "region": [
+        0,
+        940,
+        314,
+        314
+      ]
+    },
+    "telegraph": {
+      "region": [
+        314,
+        940,
+        313,
+        314
+      ]
+    },
+    "cast_orb": {
+      "region": [
+        627,
+        940,
+        313,
+        314
+      ]
+    },
+    "heal_ribbon": {
+      "region": [
+        940,
+        940,
+        314,
+        314
+      ]
+    }
+  }
+}

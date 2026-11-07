@@ -6,98 +6,138 @@ var battle: BattleModel
 var preview: Dictionary
 var selected_stage: Dictionary
 var clock := 0.0
+var world_time := 0.0
+var post_time := 0.0
 var hero_frame: Dictionary
-var defeat_time := 0.0
+var effects := CombatEffects.new()
+var tracked_battle: BattleModel
+var world: WorldLayer
+var pose: Dictionary = {}
+
+class WorldLayer extends Node2D:
+	var view: BattleView
+	func _draw() -> void:
+		view.draw_world(self)
 
 func setup(frames: FrameLibrary) -> void:
 	library = frames
 
+func _ready() -> void:
+	var clip := Control.new()
+	clip.position = Vector2(0, 178)
+	clip.size = Vector2(540, 330)
+	clip.clip_contents = true
+	clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(clip)
+	world = WorldLayer.new()
+	world.view = self
+	world.position = Vector2(0, -178)
+	clip.add_child(world)
+
 func _process(delta: float) -> void:
 	clock += delta
-	if battle != null and battle.state == "lost":
-		defeat_time += delta * battle.speed
+	if tracked_battle != battle:
+		tracked_battle = battle
+		post_time = 0
+		effects.reset(battle.run.id if battle != null else "")
+	if battle != null:
+		if battle.state != "battle" and not battle.paused:
+			post_time += delta * battle.speed
+		world_time = battle.time + post_time
+		effects.consume(battle, world_time)
+		pose = CombatPresentation.hero(battle, world_time)
 	else:
-		defeat_time = 0
-	queue_redraw()
+		world_time = clock
+		pose = {"state": "idle", "time": clock, "offset": Vector2.ZERO, "marker": -1.0, "duration": -1.0}
+	if is_instance_valid(world):
+		world.position = Vector2(0, -178) + (effects.shake() if battle != null else Vector2.ZERO)
+		world.queue_redraw()
 
-func _draw() -> void:
-	if library == null or preview.is_empty():
+func draw_world(canvas: CanvasItem) -> void:
+	if library == null or preview.is_empty() or pose.is_empty():
 		return
 	var active := battle != null and battle.state != "idle"
-	var visual_time: float = battle.time if active else clock
 	var stats: Dictionary = battle.stats if active else preview
 	var stage: Dictionary = battle.stage if active else selected_stage
-	draw_texture_rect(library.textures["bg_" + stage.zone], Rect2(0, 178, 540, 330), false)
-	var foot := Vector2(142, 475)
-	var pose := "idle"
-	var elapsed := clock
-	if active:
-		pose = "hurt" if battle.hurt_left > 0 and battle.state != "lost" else battle.hero_pose
-		elapsed = battle.hero_pose_time if pose != "idle" else battle.time
-		if pose == "hurt":
-			elapsed = .25 - battle.hurt_left
-		elif pose == "death":
-			elapsed = defeat_time
-		if battle.move_clock > 0:
-			foot.x += sin(battle.move_clock * PI / .8) * 30
-	hero_frame = library.frame_at(stats.hero, pose, elapsed)
-	_shadow(foot, 39)
-	var tint := Color.WHITE
-	if active and battle.hurt_left > 0:
-		tint = Color("ffbdb5")
-	library.draw_actor(self, hero_frame, foot, stats.weapon, tint, pose != "death")
-	var companion := Vector2(61, 352 + sin(visual_time * 2) * 6)
-	var companion_color := Color("96e5d4") if stats.assist == "lumi" else Color("edb77a")
-	if library.textures.has("companion_" + stats.assist):
-		draw_texture_rect(library.textures["companion_" + stats.assist], Rect2(companion - Vector2(40, 40), Vector2(80, 80)), false)
-	else:
-		draw_circle(companion, 22, Color(companion_color, .09))
-		draw_circle(companion, 10, companion_color)
-		draw_arc(companion, 17, visual_time, visual_time + PI * 1.2, 24, companion_color, 1)
-	if active and battle.assist_flash > 0:
-		draw_line(companion, foot + Vector2(0, -65) if stats.assist == "lumi" else Vector2(391, 412), Color(companion_color, battle.assist_flash), 3)
-	var wave: int = battle.wave if active else 0
-	var enemy_type: String = ["slime", "wolf", ["golem", "guardian", "wolf", "bird", "guardian"][int(stage.id) - 1]][wave]
-	if active and enemy_type == "golem" and battle.enemy_clock > 2 and battle.state == "battle":
-		enemy_type = "golem_charge"
-	var enemy_key := "enemy_" + enemy_type
+	canvas.draw_texture_rect(library.textures["bg_" + stage.zone], Rect2(-4, 174, 548, 338), false)
+	var hero_foot: Vector2 = Vector2(142, 475) + pose.offset
 	var enemy_foot := Vector2(391, 477)
-	_shadow(enemy_foot, 43)
-	var enemy_tint := Color.WHITE
-	if active and battle.enemy_hurt > 0:
-		enemy_tint = Color("fff0c9")
-	if active and battle.move_clock > 0:
-		enemy_tint.a = 0
-	if active and battle.state == "won":
-		enemy_tint.a = .18
-	var spec: Dictionary = library.enemy_specs.get(enemy_type, {"anchor": [96, 216], "scale": 1.03 if wave == 2 else .8})
-	var scale_factor: float = spec.scale
-	var enemy_size: Vector2 = library.textures[enemy_key].get_size()
-	var enemy_anchor := Vector2(spec.anchor[0], spec.anchor[1])
-	draw_texture_rect(library.textures[enemy_key], Rect2(enemy_foot - enemy_anchor * scale_factor, enemy_size * scale_factor), false, enemy_tint)
-	if active and battle.shield:
-		draw_arc(enemy_foot + Vector2(0, -85), 68, 0, TAU, 64, Color("94cbf2"), 4)
-	if active and battle.guard_left > 0:
-		draw_arc(foot + Vector2(0, -70), 65, -PI * .7, PI * .7, 40, Color("9de7e1"), 5)
-	if active and battle.enemy_clock > 2 and battle.state == "battle" and battle.move_clock <= 0:
-		draw_arc(enemy_foot + Vector2(0, -4), 53, PI, PI + PI * (battle.enemy_clock - 2), 32, Color("f7ad89"), 5)
 	if active:
-		for action in battle.actions:
-			if action.kind == "damage" and action.elapsed >= action.marker - .04 and action.elapsed <= action.marker + .18:
-				var col := Color("baf4ee") if action.skill else Color("f5dfac")
-				draw_arc(Vector2(287, 384), 80, -.9, .9, 32, col, 8 if action.burst else 4)
-		for event in battle.events:
-			var age: float = battle.time - event.time
-			if age > .85 or event.kind in ["wave", "result", "sound"]:
-				continue
-			var pos := Vector2(391 if event.target == 1 else 142, 311 - age * 48)
-			var col := Color("ade6d3") if event.kind in ["heal", "guard"] else Color("f3d49c")
-			if event.kind == "hurt":
-				col = Color("ffa99c")
-			col.a = 1 - age / .85
-			draw_string(ThemeDB.fallback_font, pos - Vector2(20, 0), event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 22, col)
+		effects.draw(canvas, library, true, hero_foot, enemy_foot)
+		_telegraph(canvas, hero_foot)
+	_shadow(canvas, hero_foot, 36)
+	hero_frame = library.motion_frame(stats.hero, pose.state, pose.time, pose.marker, pose.duration)
+	var tint := Color.WHITE
+	if active and battle.hurt_left > .18:
+		tint = Color("ffd3c4")
+	library.draw_actor(canvas, hero_frame, hero_foot, stats.weapon, tint, pose.state != "death")
+	_companion(canvas, stats)
+	_enemy(canvas, stage, enemy_foot)
+	if active:
+		if battle.guard_left > 0:
+			CombatEffects.stamp(canvas, library, "guard_arc", hero_foot + Vector2(34, -78), Vector2(125, 177), .55)
+		if battle.shield:
+			CombatEffects.stamp(canvas, library, "guard_arc", enemy_foot + Vector2(-30, -83), Vector2(166, 205), .43)
+		effects.draw(canvas, library, false, hero_foot, enemy_foot)
 
-func _shadow(pos: Vector2, radius: float) -> void:
-	draw_set_transform(pos, 0, Vector2(1, .2))
-	draw_circle(Vector2.ZERO, radius, Color(0, 0, 0, .25))
-	draw_set_transform(Vector2.ZERO)
+func _companion(canvas: CanvasItem, stats: Dictionary) -> void:
+	var companion := Vector2(61, 352 + sin(world_time * 2) * 5)
+	var color := Color("96e5d4") if stats.assist == "lumi" else Color("edb77a")
+	if library.textures.has("companion_" + stats.assist):
+		canvas.draw_texture_rect(library.textures["companion_" + stats.assist], Rect2(companion - Vector2(40, 40), Vector2(80, 80)), false)
+	else:
+		canvas.draw_circle(companion, 11, color)
+	if battle != null and battle.assist_flash > 0:
+		CombatEffects.stamp(canvas, library, "motes", companion, Vector2.ONE * (45 + battle.assist_flash * 30), battle.assist_flash)
+
+func _enemy(canvas: CanvasItem, stage: Dictionary, enemy_foot: Vector2) -> void:
+	var active := battle != null and battle.state != "idle"
+	var wave: int = battle.wave if active else 0
+	var alpha := 1.0
+	if active and battle.move_clock > 0:
+		wave = maxi(0, wave - 1)
+		var age := .8 - battle.move_clock
+		alpha = 1 - smoothstep(0, .29, age)
+		enemy_foot += Vector2(4 * age, 12 * age)
+	if active and battle.state == "won":
+		alpha = 1 - smoothstep(0, .48, post_time)
+		enemy_foot.y += post_time * 12
+	if alpha <= 0:
+		return
+	var enemy_type: String = ["slime", "wolf", ["golem", "guardian", "wolf", "bird", "guardian"][int(stage.id) - 1]][wave]
+	var key := "enemy_" + enemy_type
+	var spec: Dictionary = library.enemy_specs.get(enemy_type, {"anchor": [96, 216], "scale": 1.03 if wave == 2 else .8})
+	var texture: Texture2D = library.textures[key]
+	if enemy_type == "golem":
+		var sample := CombatPresentation.guardian(battle, world_time) if active else {"state": "idle", "time": clock}
+		spec = library.guardian_frame(sample.state, sample.time)
+		texture = library.textures[spec.file]
+	var impact_age := 1000.0
+	for effect in effects.items:
+		if effect.kind in ["impact", "critical", "burst"] and effect.event.wave == wave:
+			impact_age = minf(impact_age, world_time - effect.start)
+	if impact_age >= 0 and impact_age < .18:
+		enemy_foot.x += sin(impact_age / .18 * PI) * 6
+	_shadow(canvas, enemy_foot, 42, alpha)
+	var size_factor: float = spec.scale
+	var anchor := Vector2(spec.anchor[0], spec.anchor[1])
+	var color := Color(1, .95, .84, alpha) if impact_age >= 0 and impact_age < .055 else Color(1, 1, 1, alpha)
+	canvas.draw_texture_rect(texture, Rect2(enemy_foot - anchor * size_factor, texture.get_size() * size_factor), false, color)
+	if active and wave == 2 and battle.enemy_clock >= 2 and battle.state == "battle" and battle.move_clock <= 0:
+		var charge := clampf(battle.enemy_clock - 2, 0, 1)
+		CombatEffects.stamp(canvas, library, "cast_orb", enemy_foot + Vector2(-10, -93), Vector2.ONE * (22 + charge * 24), .3 + charge * .3)
+
+func _telegraph(canvas: CanvasItem, hero_foot: Vector2) -> void:
+	if battle.state != "battle" or battle.move_clock > 0 or battle.enemy_clock < 2:
+		return
+	var progress := clampf(battle.enemy_clock - 2, 0, 1)
+	var size := Vector2(174, 69) if battle.wave == 2 else Vector2(125, 43)
+	CombatEffects.stamp(canvas, library, "telegraph", hero_foot + Vector2(0, -1), size, .28 + progress * .47)
+	canvas.draw_set_transform(hero_foot, 0, Vector2(1, .30))
+	canvas.draw_arc(Vector2.ZERO, size.x * .41, -PI / 2, -PI / 2 + TAU * progress, 48, Color(1, .69, .38, .65), 3, true)
+	canvas.draw_set_transform(Vector2.ZERO)
+
+func _shadow(canvas: CanvasItem, pos: Vector2, radius: float, alpha: float = 1) -> void:
+	canvas.draw_set_transform(pos, 0, Vector2(1, .2))
+	canvas.draw_circle(Vector2.ZERO, radius, Color(0, 0, 0, .24 * alpha))
+	canvas.draw_set_transform(Vector2.ZERO)

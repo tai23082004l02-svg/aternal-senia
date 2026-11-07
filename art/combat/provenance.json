@@ -1,0 +1,19 @@
+{
+  "method": "Original image generation; reviewed source rectangles, sockets and baselines. No original game assets or rig.",
+  "date": "2026-11-07",
+  "sources": [
+    {
+      "file": "eira_motion.png",
+      "sha256": "acc828918ff8fc6fb07b5eb9b2355bce14a45334129fdd963e5e8a6bc8a3b448"
+    },
+    {
+      "file": "guardian_motion.png",
+      "sha256": "0b21b4d596fd0188451db3034c330db97a2b610a9000e374d58d4918a15ff0b6"
+    },
+    {
+      "file": "effects.png",
+      "sha256": "65e36329dfeaee59b3622500ea018b20691b8352959d190d300f21520473d38d"
+    }
+  ],
+  "rejected": "First intermediate Eira sheet had oversized head proportions; corrected by image generation before integration."
+}

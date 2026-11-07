@@ -34,6 +34,9 @@ var selected_stage := 1
 var selected_item := ""
 var modal: Control
 var result_shown := false
+var result_transition := false
+var result_delay := 0.0
+var pending_result: Dictionary = {}
 var message := ""
 var message_time := 0.0
 var audio_players: Array[AudioStreamPlayer] = []
@@ -190,6 +193,10 @@ func _physics_process(delta: float) -> void:
 		if battle.state in ["won", "lost"] and not result_shown:
 			_finish()
 		_play_events()
+	if result_transition:
+		result_delay -= delta
+		if result_delay <= 0:
+			_present_result()
 	_refresh_hud()
 	message_time = maxf(0, message_time - delta)
 	status_label.text = message if message_time > 0 else "Tự đánh + tap combo · Thủ thế giảm 80% sát thương trong 0,7 giây"
@@ -203,6 +210,8 @@ func _refresh_hud() -> void:
 	hp_label.text = "%s · %d / %d HP" % [hero.name, battle.hp if active else stats.hp, stats.hp]
 	hp_bar.value = (battle.hp if active else stats.hp) / stats.hp * 100
 	enemy_label.text = "%s · %d / %d" % [(battle.stage.boss if battle.wave == 2 else "Bóng tối") if active else "Bóng tối", battle.enemy_hp if active else 55, battle.enemy_max if active else 55]
+	if active and battle.move_clock > 0:
+		enemy_label.text = "Đang tiến sang đợt tiếp theo…"
 	enemy_bar.value = battle.enemy_hp / battle.enemy_max * 100 if active else 100
 	sp_bar.value = battle.sp if active else 100
 	stage_label.text = "%02d / %s%s" % [selected_stage, catalog.find_row("stages", selected_stage).name, (" · %d/3" % (battle.wave + 1)) if active else ""]
@@ -223,6 +232,8 @@ func _refresh_hud() -> void:
 	mute_button.text = "Âm: bật" if p.settings.sound else "Âm: tắt"
 
 func _select_tab(index: int) -> void:
+	if result_transition:
+		return
 	if battle != null and battle.state == "battle":
 		if index != 0 and not battle.paused:
 			battle.paused = true
@@ -273,7 +284,7 @@ func _row(text: String, callback: Callable, disabled: bool = false) -> Button:
 	return b
 
 func _locked() -> bool:
-	return not store.profile.pending.is_empty() or store.read_only
+	return not store.profile.pending.is_empty() or store.read_only or result_transition
 
 func _campaign_panel() -> void:
 	if _locked() and battle != null and battle.state == "battle":
@@ -440,6 +451,8 @@ func _resume() -> void:
 	selected_stage = int(battle.run.stage)
 	view.battle = battle
 	result_shown = false
+	result_transition = false
+	pending_result = {}
 	details_paused = false
 	audio.begin_run(battle.run.id)
 	_refresh_panel()
@@ -461,9 +474,23 @@ func _finish() -> void:
 		for item in store.profile.items:
 			if item.uid not in old_uids:
 				loot = "Nhận trang bị: " + catalog.find_row("items", item.base).name
-		_dialog("CHIẾN THẮNG", "%s\n\n+%d vàng · +%d XP · +%d tinh thạch\n%s" % [stage.after, store.profile.gold - gold_before, stage.xp, store.profile.shards - shards_before, loot], [{"text": "Về hành trình", "call": _return_to_camp}, {"text": "Đánh lại", "call": _replay}])
+		_queue_result("CHIẾN THẮNG", "%s\n\n+%d vàng · +%d XP · +%d tinh thạch\n%s" % [stage.after, store.profile.gold - gold_before, stage.xp, store.profile.shards - shards_before, loot], [{"text": "Về hành trình", "call": _return_to_camp}, {"text": "Đánh lại", "call": _replay}])
 	else:
-		_dialog("ÁNH SÁNG CHƯA TẮT", "Chưa nhận thưởng. Hãy nâng vũ khí, đổi trợ chiến hoặc dùng Thủ thế đúng nhịp.", [{"text": "Chuẩn bị lại", "call": _return_to_camp}, {"text": "Thử lại", "call": _replay}])
+		_queue_result("ÁNH SÁNG CHƯA TẮT", "Chưa nhận thưởng. Hãy nâng vũ khí, đổi trợ chiến hoặc dùng Thủ thế đúng nhịp.", [{"text": "Chuẩn bị lại", "call": _return_to_camp}, {"text": "Thử lại", "call": _replay}])
+	_refresh_panel()
+
+func _queue_result(title: String, body: String, actions: Array) -> void:
+	pending_result = {"title": title, "body": body, "actions": actions}
+	result_transition = true
+	result_delay = .65
+
+func _present_result() -> void:
+	result_transition = false
+	if pending_result.is_empty():
+		return
+	var payload := pending_result
+	pending_result = {}
+	_dialog(payload.title, payload.body, payload.actions)
 	_refresh_panel()
 
 func _retry_settle() -> void:
@@ -472,6 +499,8 @@ func _retry_settle() -> void:
 	_finish()
 
 func _return_to_camp() -> void:
+	result_transition = false
+	pending_result = {}
 	audio.stop_world()
 	_close_modal()
 	battle = null
@@ -588,7 +617,7 @@ func _play_events() -> void:
 	audio.consume(battle)
 
 func _audio_settings() -> void:
-	if modal != null:
+	if modal != null or result_transition:
 		return
 	audio_menu_open = true
 	audio_menu_paused = battle != null and battle.state == "battle" and not battle.paused

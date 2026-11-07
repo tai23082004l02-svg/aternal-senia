@@ -7,6 +7,7 @@ var textures: Dictionary = {}
 var sources: Dictionary = {}
 var weapon_specs: Dictionary = {}
 var enemy_specs: Dictionary = {}
+var vfx_manifest: Dictionary
 
 func _init() -> void:
 	manifest = JSON.parse_string(FileAccess.get_file_as_string("res://art/clips.json"))
@@ -38,6 +39,14 @@ func _init() -> void:
 	for key in painted.companions:
 		textures["companion_" + key] = _source(painted.companions[key])
 
+	for clips in painted.get("guardian_clips", {}).values():
+		for frame in clips.frames:
+			if not textures.has(frame.file):
+				textures[frame.file] = _region(frame.atlas, frame.region)
+	vfx_manifest = JSON.parse_string(FileAccess.get_file_as_string("res://art/combat/manifest.json"))
+	for key in vfx_manifest.effects:
+		textures["fx_" + key] = _region(vfx_manifest.atlas, vfx_manifest.effects[key].region)
+
 func _source(path: String) -> Texture2D:
 	if not sources.has(path):
 		sources[path] = load("res://art/" + path)
@@ -61,6 +70,41 @@ func frame_at(hero: String, state: String, elapsed: float) -> Dictionary:
 			return frame
 		cursor -= frame.duration
 	return clip.frames.back()
+
+func clip_length(clip: Dictionary) -> float:
+	var duration := 0.0
+	for frame in clip.frames:
+		duration += frame.duration
+	return duration
+
+func sample_clip(clip: Dictionary, elapsed: float, smooth_weapon: bool = false) -> Dictionary:
+	var duration := clip_length(clip)
+	var cursor := fmod(maxf(0, elapsed), duration) if clip.loop else minf(maxf(0, elapsed), duration - .00001)
+	for i in range(clip.frames.size()):
+		var frame: Dictionary = clip.frames[i]
+		if cursor < frame.duration:
+			var result := frame.duplicate()
+			if smooth_weapon and frame.has("angle"):
+				var next: Dictionary = clip.frames[(i + 1) % clip.frames.size()] if clip.loop or i + 1 < clip.frames.size() else frame
+				var phase := smoothstep(0, 1, cursor / frame.duration)
+				result.angle = rad_to_deg(lerp_angle(deg_to_rad(frame.angle), deg_to_rad(next.angle), phase))
+			return result
+		cursor -= frame.duration
+	return clip.frames.back()
+
+func motion_frame(hero: String, state: String, elapsed: float, marker: float = -1, action_duration: float = -1) -> Dictionary:
+	var clip: Dictionary = manifest.heroes[hero].get(state, manifest.heroes[hero].idle)
+	var mapped := elapsed
+	if marker > 0 and action_duration > marker and clip.has("hit_time"):
+		var length := clip_length(clip)
+		if elapsed < marker:
+			mapped = elapsed / marker * float(clip.hit_time)
+		else:
+			mapped = float(clip.hit_time) + (elapsed - marker) / (action_duration - marker) * (length - float(clip.hit_time))
+	return sample_clip(clip, mapped, true)
+
+func guardian_frame(state: String, elapsed: float) -> Dictionary:
+	return sample_clip(painted.guardian_clips.get(state, painted.guardian_clips.idle), elapsed)
 
 # Shared by runtime, portrait and review tools so sockets use one transform.
 # No simulation commands or damage are called by this renderer.

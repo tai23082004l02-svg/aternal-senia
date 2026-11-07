@@ -24,7 +24,7 @@ func run() -> void:
 			count += 1
 			if frame.file not in unique:
 				unique.append(frame.file)
-	assert(unique.size() == 16)
+	assert(unique.size() == 32)
 	for key in library.enemy_specs:
 		var texture: AtlasTexture = library.textures["enemy_" + key]
 		assert(texture.region.end.x <= texture.atlas.get_width() and texture.region.end.y <= texture.atlas.get_height())
@@ -37,7 +37,7 @@ func run() -> void:
 	lab._step(-1)
 	assert(lab._index() == 0)
 	lab._seek(.23)
-	assert(lab._index() == 2)
+	assert(library.frame_at("eira", "attack", lab.elapsed).file == "painted/eira_08")
 	lab._weapon(1)
 	assert(lab.weapon == "sword_2")
 	lab._speed(4)
@@ -47,5 +47,5 @@ func run() -> void:
 	assert(lab._index() == 1)
 	lab.queue_free()
 	await process_frame
-	print("PASS: %d timed entries, 16 source poses, clipped atlas regions, sockets, seek/step, weapon and speed controls" % count)
+	print("PASS: %d timed entries, 32 source poses, clipped atlas regions, sockets, seek/step, weapon and speed controls" % count)
 	quit()

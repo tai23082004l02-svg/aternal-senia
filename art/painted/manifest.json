@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "heroes": {
     "eira": {
       "idle": {
@@ -37,6 +37,37 @@
             "duration": 0.32
           },
           {
+            "file": "combat/eira_motion_12",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              0,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              163,
+              304
+            ],
+            "hand": [
+              211,
+              190
+            ],
+            "angle": 18,
+            "grip_rect": [
+              204,
+              183,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.25
+          },
+          {
             "file": "painted/eira_01",
             "atlas": "painted/eira_atlas.png",
             "region": [
@@ -65,69 +96,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.38
+            "duration": 0.3
           },
           {
-            "file": "painted/eira_00",
-            "atlas": "painted/eira_atlas.png",
+            "file": "combat/eira_motion_13",
+            "atlas": "combat/eira_motion.png",
             "region": [
-              0,
-              0,
               314,
+              940,
+              313,
               314
             ],
             "size": [
-              314,
+              313,
               314
             ],
             "anchor": [
               174,
-              303
-            ],
-            "hand": [
-              223,
-              195
-            ],
-            "angle": 18,
-            "grip_rect": [
-              216,
-              188,
-              14,
-              14
-            ],
-            "render_scale": 0.64,
-            "duration": 0.32
-          },
-          {
-            "file": "painted/eira_01",
-            "atlas": "painted/eira_atlas.png",
-            "region": [
-              314,
-              0,
-              313,
-              314
-            ],
-            "size": [
-              313,
-              314
-            ],
-            "anchor": [
-              177,
-              303
+              304
             ],
             "hand": [
               230,
-              195
+              188
             ],
             "angle": 18,
             "grip_rect": [
               223,
-              188,
+              181,
               14,
               14
             ],
-            "render_scale": 0.64,
-            "duration": 0.38
+            "render_scale": 0.66,
+            "duration": 0.25
           }
         ]
       },
@@ -163,7 +163,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.1
+            "duration": 0.055
+          },
+          {
+            "file": "combat/eira_motion_00",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              162,
+              304
+            ],
+            "hand": [
+              223,
+              128
+            ],
+            "angle": 55,
+            "grip_rect": [
+              216,
+              121,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.045
           },
           {
             "file": "painted/eira_03",
@@ -194,7 +225,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.1
+            "duration": 0.055
+          },
+          {
+            "file": "combat/eira_motion_01",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              314,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              160,
+              304
+            ],
+            "hand": [
+              217,
+              128
+            ],
+            "angle": 55,
+            "grip_rect": [
+              210,
+              121,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.045
           },
           {
             "file": "painted/eira_04",
@@ -225,7 +287,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.1
+            "duration": 0.055
+          },
+          {
+            "file": "combat/eira_motion_02",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              627,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              195,
+              303
+            ],
+            "hand": [
+              219,
+              126
+            ],
+            "angle": 60,
+            "grip_rect": [
+              212,
+              119,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.045
           },
           {
             "file": "painted/eira_05",
@@ -256,13 +349,75 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.1
+            "duration": 0.055
+          },
+          {
+            "file": "combat/eira_motion_03",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              940,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              196,
+              303
+            ],
+            "hand": [
+              226,
+              127
+            ],
+            "angle": 55,
+            "grip_rect": [
+              219,
+              120,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.045
           }
         ]
       },
       "attack": {
         "loop": false,
         "frames": [
+          {
+            "file": "combat/eira_motion_04",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              0,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              222,
+              144
+            ],
+            "angle": 16,
+            "grip_rect": [
+              215,
+              137,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.045
+          },
           {
             "file": "painted/eira_06",
             "atlas": "painted/eira_atlas.png",
@@ -292,7 +447,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.12
+            "duration": 0.045
+          },
+          {
+            "file": "combat/eira_motion_05",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              314,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              119,
+              63
+            ],
+            "angle": -45,
+            "grip_rect": [
+              112,
+              56,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.05
           },
           {
             "file": "painted/eira_07",
@@ -323,7 +509,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.1
+            "duration": 0.045
+          },
+          {
+            "file": "combat/eira_motion_06",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              627,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              181,
+              301
+            ],
+            "hand": [
+              257,
+              125
+            ],
+            "angle": 65,
+            "grip_rect": [
+              250,
+              118,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.035
           },
           {
             "file": "painted/eira_08",
@@ -354,7 +571,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.12
+            "duration": 0.045
+          },
+          {
+            "file": "combat/eira_motion_07",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              940,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              181,
+              301
+            ],
+            "hand": [
+              252,
+              143
+            ],
+            "angle": 100,
+            "grip_rect": [
+              245,
+              136,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.055
           },
           {
             "file": "painted/eira_09",
@@ -385,7 +633,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.18
+            "duration": 0.07
+          },
+          {
+            "file": "combat/eira_motion_04",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              0,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              222,
+              144
+            ],
+            "angle": 16,
+            "grip_rect": [
+              215,
+              137,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.06
           },
           {
             "file": "painted/eira_00",
@@ -416,13 +695,45 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.1
+            "duration": 0.07
           }
-        ]
+        ],
+        "hit_time": 0.22
       },
       "skill": {
         "loop": false,
         "frames": [
+          {
+            "file": "combat/eira_motion_10",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              627,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              302
+            ],
+            "hand": [
+              219,
+              162
+            ],
+            "angle": 18,
+            "grip_rect": [
+              212,
+              155,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.12
+          },
           {
             "file": "painted/eira_10",
             "atlas": "painted/eira_atlas.png",
@@ -452,7 +763,69 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.25
+            "duration": 0.16
+          },
+          {
+            "file": "combat/eira_motion_11",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              302
+            ],
+            "hand": [
+              120,
+              170
+            ],
+            "angle": 30,
+            "grip_rect": [
+              113,
+              163,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.12
+          },
+          {
+            "file": "painted/eira_10",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              627,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              229,
+              116
+            ],
+            "angle": 25,
+            "grip_rect": [
+              222,
+              109,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
           },
           {
             "file": "painted/eira_11",
@@ -483,7 +856,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.3
+            "duration": 0.15
+          },
+          {
+            "file": "combat/eira_motion_11",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              302
+            ],
+            "hand": [
+              120,
+              170
+            ],
+            "angle": 30,
+            "grip_rect": [
+              113,
+              163,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.1
           },
           {
             "file": "painted/eira_09",
@@ -514,7 +918,7 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.15
+            "duration": 0.12
           },
           {
             "file": "painted/eira_00",
@@ -545,13 +949,143 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.25
+            "duration": 0.08
+          }
+        ],
+        "hit_time": 0.5
+      },
+      "guard": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "combat/eira_motion_08",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              302
+            ],
+            "hand": [
+              224,
+              122
+            ],
+            "angle": 20,
+            "grip_rect": [
+              217,
+              115,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.12
+          },
+          {
+            "file": "combat/eira_motion_09",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              302
+            ],
+            "hand": [
+              217,
+              111
+            ],
+            "angle": 35,
+            "grip_rect": [
+              210,
+              104,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.1
+          },
+          {
+            "file": "combat/eira_motion_08",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              302
+            ],
+            "hand": [
+              224,
+              122
+            ],
+            "angle": 20,
+            "grip_rect": [
+              217,
+              115,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.48
           }
         ]
       },
       "hurt": {
         "loop": false,
         "frames": [
+          {
+            "file": "combat/eira_motion_14",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              627,
+              940,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              174,
+              304
+            ],
+            "hand": [
+              199,
+              170
+            ],
+            "angle": 35,
+            "grip_rect": [
+              192,
+              163,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.06
+          },
           {
             "file": "painted/eira_12",
             "atlas": "painted/eira_atlas.png",
@@ -581,7 +1115,7 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.13
+            "duration": 0.07
           },
           {
             "file": "painted/eira_13",
@@ -612,7 +1146,38 @@
               14
             ],
             "render_scale": 0.64,
-            "duration": 0.13
+            "duration": 0.06
+          },
+          {
+            "file": "combat/eira_motion_15",
+            "atlas": "combat/eira_motion.png",
+            "region": [
+              940,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              304
+            ],
+            "hand": [
+              221,
+              132
+            ],
+            "angle": 25,
+            "grip_rect": [
+              214,
+              125,
+              14,
+              14
+            ],
+            "render_scale": 0.66,
+            "duration": 0.06
           }
         ]
       },
@@ -778,5 +1343,166 @@
   },
   "companions": {
     "lumi": "painted/lumi.png"
+  },
+  "guardian_clips": {
+    "idle": {
+      "loop": true,
+      "frames": [
+        {
+          "file": "combat/guardian_00",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            0,
+            0,
+            444,
+            443
+          ],
+          "anchor": [
+            230,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.7
+        },
+        {
+          "file": "combat/guardian_01",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            444,
+            0,
+            443,
+            443
+          ],
+          "anchor": [
+            235,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.7
+        }
+      ]
+    },
+    "charge": {
+      "loop": false,
+      "frames": [
+        {
+          "file": "combat/guardian_02",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            887,
+            0,
+            443,
+            443
+          ],
+          "anchor": [
+            230,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.28
+        },
+        {
+          "file": "combat/guardian_03",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            1330,
+            0,
+            444,
+            443
+          ],
+          "anchor": [
+            238,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.36
+        },
+        {
+          "file": "combat/guardian_04",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            0,
+            443,
+            420,
+            444
+          ],
+          "anchor": [
+            237,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.36
+        }
+      ]
+    },
+    "slam": {
+      "loop": false,
+      "frames": [
+        {
+          "file": "combat/guardian_05",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            420,
+            443,
+            467,
+            444
+          ],
+          "anchor": [
+            260,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.11
+        },
+        {
+          "file": "combat/guardian_06",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            887,
+            443,
+            443,
+            444
+          ],
+          "anchor": [
+            230,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.13
+        },
+        {
+          "file": "combat/guardian_07",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            1330,
+            443,
+            444,
+            444
+          ],
+          "anchor": [
+            230,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.18
+        },
+        {
+          "file": "combat/guardian_00",
+          "atlas": "combat/guardian_motion.png",
+          "region": [
+            0,
+            0,
+            444,
+            443
+          ],
+          "anchor": [
+            230,
+            393
+          ],
+          "scale": 0.55,
+          "duration": 0.1
+        }
+      ]
+    }
   }
 }

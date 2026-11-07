@@ -33,6 +33,8 @@ var paused := false
 var auto_attack := true
 var speed := 1
 var accumulator := 0.0
+var last_action: Dictionary = {}
+var last_enemy_strike := -1000.0
 var hero_pose := "idle"
 var hero_pose_time := 0.0
 var hurt_left := 0.0
@@ -55,6 +57,8 @@ func start(pending: Dictionary) -> void:
 	time = 0
 	cooldowns = [0.0, 0.0, 0.0]
 	actions.clear()
+	last_action = {}
+	last_enemy_strike = -1000.0
 	events.clear()
 	state = "battle"
 	_spawn()
@@ -187,7 +191,9 @@ func skill(index: int) -> bool:
 	return true
 
 func _schedule(kind: String, power: float, marker: float, duration: float, is_skill: bool, burst: bool) -> void:
-	actions.append({"id": next_action, "elapsed": 0.0, "hit": false, "wave": wave, "marker": marker, "duration": duration, "kind": kind, "power": power, "skill": is_skill, "burst": burst, "sound_fired": kind == "heal", "sound_marker": maxf(0, marker - .09), "sound_cue": "burst" if burst else "swing_" + str(stats.weapon).get_slice("_", 0)})
+	actions.append({"id": next_action, "elapsed": 0.0, "hit": false, "wave": wave, "marker": marker, "duration": duration, "kind": kind, "power": power, "skill": is_skill, "burst": burst, "started": time, "combo": combo, "sound_fired": kind == "heal", "sound_marker": maxf(0, marker - .09), "sound_cue": "burst" if burst else "swing_" + str(stats.weapon).get_slice("_", 0)})
+	last_action = actions.back().duplicate(true)
+	_emit("action", "", 0, "", next_action, last_action)
 	if is_skill:
 		_sound("cast", next_action)
 	next_action += 1
@@ -218,7 +224,9 @@ func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: i
 	enemy_hp = maxf(0, enemy_hp - amount)
 	enemy_hurt = .16
 	var cue := "critical" if critical else ("arrow_hit" if source == "assist" else "impact_" + str(stats.weapon).get_slice("_", 0))
-	_emit("critical" if critical else "hit", "%d%s" % [amount, "!" if critical else ""], 1, cue, action_id)
+	var visual: Dictionary = last_action.duplicate(true) if last_action.get("id", -1) == action_id else {}
+	visual.source = source
+	_emit("critical" if critical else "hit", "%d%s" % [amount, "!" if critical else ""], 1, cue, action_id, visual)
 	if enemy_hp <= 0:
 		kills += 1
 		_sound("enemy_down", action_id)
@@ -234,6 +242,7 @@ func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: i
 			hero_pose_time = 0
 
 func _take_damage(amount: float) -> void:
+	last_enemy_strike = time
 	amount = maxf(1, amount - stats.defense)
 	if guard_left > 0:
 		amount *= .2
@@ -251,9 +260,9 @@ func _take_damage(amount: float) -> void:
 func _sound(cue: String, action_id: int = 0) -> void:
 	_emit("sound", "", 0, cue, action_id)
 
-func _emit(kind: String, text: String, target: int, cue: String = "", action_id: int = 0) -> void:
+func _emit(kind: String, text: String, target: int, cue: String = "", action_id: int = 0, visual: Dictionary = {}) -> void:
 	event_sequence += 1
-	events.append({"id": event_sequence, "kind": kind, "text": text, "target": target, "time": time, "cue": cue, "action_id": action_id})
+	events.append({"id": event_sequence, "kind": kind, "text": text, "target": target, "time": time, "cue": cue, "action_id": action_id, "wave": wave, "visual": visual.duplicate(true)})
 	if events.size() > 128:
 		events.pop_front()
 

@@ -55,6 +55,7 @@ func run() -> void:
 			captured_boss = true
 		await physics_frame
 	assert(game.battle.state == "won")
+	await create_timer(.75).timeout
 	await process_frame
 	await capture("05-result")
 	assert(game.store.profile.pending.is_empty())
