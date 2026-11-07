@@ -55,7 +55,7 @@ func action(button: Button, callback: Callable) -> void:
 	var method := callback.get_method()
 	var args := callback.get_bound_arguments()
 	if method == "_select_tab" and not args.is_empty():
-		key = {0: "journey", 1: "hero", 2: "equipment", 3: "quest", 4: "journal", 5: "journey", 6: "talents", 7: "companion", 8: "quest", 9: "training", 10: "boss"}.get(args[0], "")
+		key = {0: "journey", 1: "hero", 2: "equipment", 3: "quest", 4: "journal", 5: "journey", 6: "talents", 7: "companion", 8: "quest", 9: "training", 10: "boss", 11: "spirit", 12: "training", 13: "companion"}.get(args[0], "")
 	elif method == "_upgrade" and not args.is_empty():
 		key = {"hero": "training", "skill": "talents", "assist": "companion"}.get(args[0], "")
 	else:

@@ -52,6 +52,7 @@ var scroll: ScrollContainer
 var tap_target: Button
 var details_paused := false
 var icons := UIIcons.new()
+var skill_group_labels: Array[Label] = []
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
@@ -116,8 +117,10 @@ func _build_ui() -> void:
 	enemy_bar = _bar(Vector2(286, 535), Vector2(230, 7), Color("d49a99"))
 	sp_bar = _bar(Vector2(24, 548), Vector2(226, 4), Color("a1badb"))
 	warning_label = _label(ui, "", Vector2(24, 562), 14, Color("efba8f"))
+	skill_group_labels.append(_label(ui, "NHÂN VẬT", Vector2(24, 583), 11, Color("e5cd9e")))
+	skill_group_labels.append(_label(ui, "TINH LINH", Vector2(356, 583), 11, Color("a2e5d6")))
 	for i in range(3):
-		skill_buttons.append(_button(ui, "", Vector2(24 + i * 166, 590), Vector2(160, 52), _skill.bind(i)))
+		skill_buttons.append(_button(ui, "", Vector2(24 + i * 166, 604), Vector2(160, 38), _skill.bind(i)))
 		icons.apply(skill_buttons[i], ["slash", "heal", "spirit"][i], 28)
 		skill_buttons[i].add_theme_font_size_override("font_size", 12)
 	attack_button = _button(ui, "Đánh", Vector2(24, 651), Vector2(82, 36), _attack)
@@ -223,6 +226,8 @@ func _refresh_hud() -> void:
 	stage_label.text = "%s%s" % [catalog.find_row("stages", selected_stage).name, (" · %d/%d" % [battle.wave + 1, battle.wave_count()]) if active else ""]
 	warning_label.text = battle.warning() if active else "Một kiếm sĩ. Một tinh linh. Một bình minh mới."
 	var can_play := active and battle.state == "battle" and modal == null and not battle.paused
+	skill_group_labels[0].text = "NHÂN VẬT · " + catalog.find_row("heroes", battle.stats.hero if active else p.hero).name
+	skill_group_labels[1].text = "TINH LINH · " + catalog.find_row("assists", battle.stats.assist if active else p.assist).name
 	for i in range(3):
 		var def: Dictionary = catalog.data.skills[i]
 		var cd: float = battle.cooldowns[i] if active else 0.0
@@ -264,6 +269,8 @@ func _refresh_panel() -> void:
 		control.visible = campaign
 	for control in skill_buttons:
 		control.visible = campaign
+	for control in skill_group_labels:
+		control.visible = campaign
 	scroll.position.y = 758 if campaign else 208
 	scroll.size.y = 151 if campaign else 696
 	scroll.set_deferred("scroll_vertical", previous_scroll)
@@ -280,6 +287,9 @@ func _refresh_panel() -> void:
 		4: _journal_panel()
 		9: _training_panel()
 		10: _boss_guide_panel()
+		11: _summon_panel()
+		12: _hero_upgrade_panel()
+		13: _spirit_tree_panel()
 		_: _expansion_panel(tab)
 
 func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) -> void:
@@ -297,6 +307,7 @@ func _locked() -> bool:
 	return not store.profile.pending.is_empty() or store.read_only or result_transition
 
 func _campaign_panel() -> void:
+	_row("TRIỆU HỒI · NHÂN VẬT / TINH LINH / TRANG BỊ →", _select_tab.bind(11))
 	_row("CHƯƠNG TRUYỆN & PHỤ BẢN →", _select_tab.bind(5))
 	if _locked() and battle != null and battle.state == "battle":
 		_row("Rút lui · không nhận thưởng", _confirm_abandon)
@@ -317,6 +328,8 @@ func _choose_stage(id: int) -> void:
 	_refresh_panel()
 
 func _heroes_panel() -> void:
+	_row("NÂNG CẤP & THỨC TỈNH NHÂN VẬT →", _select_tab.bind(12))
+	_row("CÂY KỸ NĂNG TINH LINH →", _select_tab.bind(13))
 	_row("ĐIỂM THUỘC TÍNH · còn %d →" % AttributeTraining.remaining(store.profile, store.profile.hero), _select_tab.bind(9))
 	_row("CÂY KỸ NĂNG →", _select_tab.bind(6))
 	_row("TIẾN HÓA ĐỒNG HÀNH →", _select_tab.bind(7))
@@ -335,12 +348,12 @@ func _heroes_panel() -> void:
 	panel.add_child(portrait)
 	_row("Tăng cấp · %d vàng + %d XP" % [unit.level * 30, unit.level * 15], _upgrade.bind("hero", 0), _locked() or unit.level >= 100 or p.gold < unit.level * 30 or p.xp < unit.level * 15)
 	for h in catalog.data.heroes:
-		_row(("✓ " if p.hero == h.id else "") + h.name + " · " + h.title + (" · Khóa sau ải %d" % (h.unlock - 1) if not store.available_hero(h.id) else ""), _hero.bind(h.id), _locked() or not store.available_hero(h.id) or p.hero == h.id)
-	for i in range(3):
+		_row(("✓ " if p.hero == h.id else "") + h.name + " · " + _rarity("hero", h.id) + (" · Khóa sau ải %d hoặc triệu hồi" % (h.unlock - 1) if not store.available_hero(h.id) else ""), _hero.bind(h.id), _locked() or not store.available_hero(h.id) or p.hero == h.id)
+	for i in range(2):
 		_row("%s cấp %d · nâng %d vàng" % [catalog.data.skills[i].name, unit.skills[i], unit.skills[i] * 25], _upgrade.bind("skill", i), _locked() or unit.skills[i] >= 10 or p.gold < unit.skills[i] * 25)
 	_text("TRỢ CHIẾN", 16, Color("e5cd9e"))
 	for assist in catalog.data.assists:
-		_row(("✓ " if p.assist == assist.id else "") + assist.name + " · " + assist.role, _assist.bind(assist.id), _locked() or assist.unlock > store.unlocked_stage() or p.assist == assist.id)
+		_row(("✓ " if p.assist == assist.id else "") + assist.name + " · " + _rarity("spirit", assist.id) + " · " + assist.role, _assist.bind(assist.id), _locked() or not store.available_assist(assist.id) or p.assist == assist.id)
 	_row("Nâng trợ chiến cấp %d · %d vàng" % [p.assists[p.assist], p.assists[p.assist] * 35], _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
 
 func _items_panel() -> void:
@@ -352,7 +365,7 @@ func _items_panel() -> void:
 		for h in p.heroes:
 			if item.uid in p.heroes[h].equipment.values():
 				owner = catalog.find_row("heroes", h).name
-		_row("%s%s +%d · bậc %d %s" % ["▸ " if item.uid == selected_item else "", def.name, item.enhance, item.rank, "[" + owner + "]" if not owner.is_empty() else ""], _item_detail.bind(item.uid))
+		_row("%s%s · %s +%d · bậc %d %s" % ["▸ " if item.uid == selected_item else "", def.name, _rarity("item", item.base), item.enhance, item.rank, "[" + owner + "]" if not owner.is_empty() else ""], _item_detail.bind(item.uid))
 		if selected_item != item.uid:
 			continue
 		var mult: float = 1 + item.enhance * .18 + (item.rank - 1) * .5
@@ -372,6 +385,7 @@ func _items_panel() -> void:
 		_row("Phân giải · +%d tinh thạch" % (1 + item.rank), _dismantle_confirm.bind(item.uid), _locked() or not owner.is_empty())
 	_text("LÒ RÈN · 65 vàng + 3 tinh thạch / món", 16, Color("e5cd9e"))
 	for def in catalog.data.items:
+		if def.get("summon_only", false): continue
 		_row("Rèn · " + def.name, _forge.bind(def.id), _locked() or p.gold < 65 or p.shards < 3 or p.items.size() >= Store.BAG_CAP)
 
 func _quests_panel() -> void:
@@ -746,9 +760,10 @@ func _expansion_panel(page: int) -> void:
 				for id in [6 + (chapter.id - 1) * 2, 7 + (chapter.id - 1) * 2]: _stage_entry(catalog.find_row("stages", id))
 		6:
 			_text("CÂY KỸ NĂNG · " + catalog.find_row("heroes", p.hero).name, 21, Color("e5cd9e"))
-			_text("Mỗi kỹ năng chọn một trong hai nhánh. Học một lần bằng vàng/tinh thạch; đổi hoặc bỏ chọn miễn phí ngoài trận. Nhánh đã học được giữ riêng theo nhân vật.")
+			_text("NHÂN VẬT → KỸ NĂNG GỐC → NHÁNH. Hai kỹ năng riêng của nhân vật, mỗi kỹ năng chọn một trong hai nhánh. Học một lần, đổi miễn phí ngoài trận. Kỹ năng Tinh linh có cây riêng.")
+			_row("Cây kỹ năng Tinh linh →", _select_tab.bind(13))
 			var build: Dictionary = p.expansion.builds[p.hero]
-			for i in range(3):
+			for i in range(2):
 				_text(catalog.data.skills[i].name.to_upper(), 18, Color("e5cd9e"))
 				for row in catalog.data.talents:
 					if row.slot != i: continue
@@ -763,7 +778,7 @@ func _expansion_panel(page: int) -> void:
 				var rank: int = p.expansion.ranks[assist.id]
 				_text("%s · cấp %d · bậc %d/3" % [assist.name, p.assists[assist.id], rank], 18, Color("e5cd9e"))
 				_text("Bậc 2: mỗi lần hồi máu tạo khiên 8% HP trong 5 giây. Bậc 3: lượng hồi +25%." if assist.id == "lumi" else "Bậc 2: đòn trợ chiến gây 70% sát thương qua khiên. Bậc 3: đánh dấu, đòn vũ khí tiếp theo +20% sát thương.")
-				_row("✓ Đang đi cùng" if p.assist == assist.id else "Đi cùng " + assist.name, _assist.bind(assist.id), _locked() or assist.unlock > store.unlocked_stage() or p.assist == assist.id)
+				_row("✓ Đang đi cùng" if p.assist == assist.id else "Đi cùng " + assist.name, _assist.bind(assist.id), _locked() or not store.available_assist(assist.id) or p.assist == assist.id)
 				if p.assist == assist.id:
 					_row("Nâng cấp · %d vàng" % (p.assists[p.assist] * 35), _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
 					_row("Đã đạt bậc tối đa" if rank == 3 else "Tiến hóa · cần cấp %d / %d vàng + %d lõi" % [rank * 3, rank * 80, 2 if rank == 1 else 5], _rank_assist, _locked() or rank == 3 or p.assists[p.assist] < rank * 3 or p.gold < rank * 80 or p.expansion.cores < (2 if rank == 1 else 5))
@@ -782,7 +797,7 @@ func _expansion_panel(page: int) -> void:
 				if stage.id <= 5: _text(("✓ " if stage.id in p.cleared else "○ ") + stage.boss)
 			_text("ĐỒNG HÀNH", 18, Color("e5cd9e"))
 			for assist in catalog.data.assists:
-				_text("%s · %s · bậc %d" % [assist.name, "Đã mở" if assist.unlock <= store.unlocked_stage() else "Chưa mở", p.expansion.ranks[assist.id]])
+				_text("%s · %s · bậc %d" % [assist.name, "Đã mở" if store.available_assist(assist.id) else "Chưa mở", p.expansion.ranks[assist.id]])
 
 func _stage_entry(stage: Dictionary) -> void:
 	var available := store.can_enter(stage.id)
@@ -851,3 +866,107 @@ func _boss_guide_panel() -> void:
 		for id in stage.drops:
 			drops.append(catalog.find_row("items", id).name)
 		_text("Có thể rơi: " + ", ".join(drops), 14)
+
+func _rarity(kind: String, id: String) -> String:
+	return Recruitment.RARITIES[Recruitment.rarity(kind, id, catalog)].name
+
+func _entity_name(kind: String, id: String) -> String:
+	return catalog.find_row({"hero": "heroes", "spirit": "assists", "item": "items"}[kind], id).name
+
+func _summon_panel() -> void:
+	_row("← Trở về hành trình", _select_tab.bind(0))
+	_text("CỔNG TRIỆU HỒI", 23, Color("e5cd9e"))
+	var r := Recruitment.state(store.profile)
+	_text("120 vàng / lượt. Dùng vàng kiếm trong game. Tỷ lệ cơ bản: Thường 70% · Hiếm 25% · Sử thi 5%. Sau 19 lượt liên tiếp chưa ra Sử thi, lượt kế tiếp bảo đảm Sử thi.")
+	_text("Đã triệu hồi %d lượt · bảo đảm Sử thi trong tối đa %d lượt" % [r.count, 20 - r.pity], 17, Color("d7a4ff"))
+	_row("Triệu hồi 1 lần · 120 vàng", _summon, _locked() or store.profile.gold < Recruitment.PRICE)
+	_text("NHÂN VẬT / TINH LINH / TRANG BỊ", 18, Color("e5cd9e"))
+	_text("Nhân vật và tinh linh còn mở miễn phí qua chương. Nhân vật trùng: +10 mảnh thức tỉnh. Tinh linh trùng: +2 lõi tiến hóa. Trang bị có UID riêng; túi đầy đổi thành 3 tinh thạch.")
+	for tier in [1, 2, 3]:
+		var names: Array[String] = []
+		for entry in Recruitment.pool(catalog, tier): names.append(_entity_name(entry.kind, entry.id))
+		_text(Recruitment.RARITIES[tier].name + " · các mục đồng xác suất trong bậc", 17, Color(Recruitment.RARITIES[tier].color))
+		_text(", ".join(names), 14)
+	_text("LỊCH SỬ · 10 LƯỢT GẦN NHẤT", 18, Color("e5cd9e"))
+	for entry in r.history:
+		_text(_rarity(entry.kind, entry.id) + " · " + _entity_name(entry.kind, entry.id) + (" · bản sao" if entry["duplicate"] else ""), 15, Color(Recruitment.RARITIES[entry.rarity].color))
+
+func _summon() -> void:
+	var full: bool = store.profile.items.size() >= Store.BAG_CAP
+	if not Recruitment.summon(store):
+		_outcome(false, "")
+		return
+	_refresh_panel()
+	audio.play("reward")
+	var result: Dictionary = store.profile.recruitment.history[0]
+	var detail := "Trang bị đã vào túi." if result.kind == "item" else "Đã mở khóa để chọn trong Nhân vật."
+	if result.kind == "item" and full: detail = "Túi đầy: đã đổi thành 3 tinh thạch."
+	if result["duplicate"]: detail = "+10 mảnh thức tỉnh nhân vật." if result.kind == "hero" else "+2 lõi tiến hóa tinh linh."
+	var column := _dialog(_rarity(result.kind, result.id) + " · " + _entity_name(result.kind, result.id), detail, [{"text": "Đóng", "call": _close_modal}])
+	column.get_child(0).modulate = Color(Recruitment.RARITIES[result.rarity].color)
+	var image := TextureRect.new()
+	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	image.texture = frames.textures["companion_" + result.id] if result.kind == "spirit" else icons.textures["hero" if result.kind == "hero" else "equipment"]
+	image.custom_minimum_size = Vector2(0, 150)
+	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	column.add_child(image)
+	column.move_child(image, 1)
+	image.modulate.a = 0
+	image.create_tween().tween_property(image, "modulate:a", 1.0, .25)
+
+func _hero_upgrade_panel() -> void:
+	_row("← Trở về nhân vật", _select_tab.bind(1))
+	var p: Dictionary = store.profile
+	var hero := catalog.find_row("heroes", p.hero)
+	var unit: Dictionary = p.heroes[p.hero]
+	var r := Recruitment.state(p)
+	var rank: int = r.awakening[p.hero]
+	_text(hero.name + " · " + _rarity("hero", p.hero), 24, Color(Recruitment.RARITIES[Recruitment.rarity("hero", p.hero, catalog)].color))
+	_text("Cấp %d/100 · Thức tỉnh %d/3 · %d mảnh nhân vật" % [unit.level, rank, r.fragments[p.hero]])
+	var current := catalog.stats(p)
+	_text("HP %.0f · ATK %.1f · Thủ %.2f" % [current.hp, current.atk, current.defense], 18, Color("e5cd9e"))
+	if unit.level < 100:
+		var preview: Dictionary = p.duplicate(true)
+		preview.heroes[p.hero].level += 1
+		var next := catalog.stats(preview)
+		_text("Cấp tiếp theo: HP %.0f → %.0f · ATK %.1f → %.1f · Thủ %.2f → %.2f" % [current.hp, next.hp, current.atk, next.atk, current.defense, next.defense])
+	_row("Tăng 1 cấp · %d vàng + %d XP" % [unit.level * 30, unit.level * 15], _upgrade.bind("hero", 0), _locked() or unit.level >= 100 or p.gold < unit.level * 30 or p.xp < unit.level * 15)
+	var count: int = mini(5, 100 - unit.level)
+	var sum_levels: int = count * unit.level + count * (count - 1) / 2
+	_row("Tăng %d cấp · %d vàng + %d XP" % [count, sum_levels * 30, sum_levels * 15], _batch_level, _locked() or count == 0 or p.gold < sum_levels * 30 or p.xp < sum_levels * 15)
+	_text("THỨC TỈNH", 20, Color("d7a4ff"))
+	_text("Mỗi bậc thêm 30 HP, 3 ATK, 1 phòng thủ. Bậc 2 cần cấp 10; bậc 3 cần cấp 20. Mảnh lấy từ nhân vật trùng khi triệu hồi. Độ hiếm gốc giữ nguyên.")
+	_row("Đã thức tỉnh tối đa" if rank == 3 else "Thức tỉnh · cấp %d / %d vàng + %d mảnh" % [rank * 10, rank * 200, rank * 20], _awaken, _locked() or rank >= 3 or unit.level < rank * 10 or p.gold < rank * 200 or r.fragments[p.hero] < rank * 20)
+	_row("Phân bổ điểm thuộc tính →", _select_tab.bind(9))
+	_row("Cây kỹ năng nhân vật →", _select_tab.bind(6))
+	_row("Cây kỹ năng tinh linh →", _select_tab.bind(13))
+
+func _batch_level() -> void:
+	_outcome(Recruitment.level_batch(store), "Đã tăng cấp nhân vật.", "upgrade")
+
+func _awaken() -> void:
+	_outcome(Recruitment.awaken(store), "Nhân vật đã thức tỉnh.", "upgrade")
+
+func _spirit_tree_panel() -> void:
+	_row("← Trở về nhân vật", _select_tab.bind(1))
+	var p: Dictionary = store.profile
+	var b: Dictionary = SpiritSkills.builds(p)[p.assist]
+	_text("CÂY TINH LINH · " + catalog.find_row("assists", p.assist).name, 22, Color("a2e5d6"))
+	_text("Đồng hành cấp %d/20 · Kỹ năng chủ động cấp %d/10" % [p.assists[p.assist], b.level])
+	_text("Cấp chủ động và nhánh được lưu riêng theo tinh linh. Đổi nhân vật không đổi cây này. Đổi nhánh đã học miễn phí; mỗi tầng chọn một nhánh.")
+	_text("◆ GỐC · Tinh linh phá khiên · cấp %d/10" % b.level, 18, Color("e5cd9e"))
+	_row("Nâng kỹ năng tinh linh · %d vàng" % (b.level * 25), _upgrade.bind("skill", 2), _locked() or b.level >= 10 or p.gold < b.level * 25)
+	_text("│\n├─ TẦNG 1 · Đồng hành cấp 4", 17, Color("a2e5d6"))
+	for id in ["nova", "flow"]:
+		var row := catalog.find_row("talents", id)
+		_text(row.name + " · " + row.description)
+		_row(("✓ Bỏ chọn · " if b.selected == id else ("Chọn · " if id in b.learned else "Học · ")) + row.name + ("" if id in b.learned else " · 80 vàng + 3 tinh thạch"), _spirit_talent.bind(id), _locked() or p.assists[p.assist] < 4 or (id not in b.learned and (p.gold < 80 or p.shards < 3)))
+	_text("│\n└─ TẦNG 2 · Đồng hành cấp 6 + một nhánh tầng 1", 17, Color("a2e5d6"))
+	for id in SpiritSkills.ADVANCED:
+		var row: Dictionary = SpiritSkills.ADVANCED[id]
+		_text(row.name + " · " + row.description)
+		_row(("✓ Bỏ chọn · " if b.advanced == id else ("Chọn · " if id in b.advanced_learned else "Học · ")) + row.name + ("" if id in b.advanced_learned else " · 100 vàng + 3 tinh thạch"), _spirit_talent.bind(id), _locked() or p.assists[p.assist] < 6 or b.selected == "" or (id not in b.advanced_learned and (p.gold < 100 or p.shards < 3)))
+
+func _spirit_talent(id: String) -> void:
+	_outcome(SpiritSkills.choose(store, id), "Đã cập nhật cây kỹ năng tinh linh.", "upgrade")

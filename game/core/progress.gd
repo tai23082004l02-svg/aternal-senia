@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 3
+const VERSION = 4
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -111,6 +111,7 @@ func valid(p: Variant) -> bool:
 			return false
 	if not Expansion.valid(self, p.get("expansion")): return false
 	if not AttributeTraining.valid(self, p): return false
+	if not SpiritSkills.valid(self, p) or not Recruitment.valid(self, p): return false
 	return p.settings.get("speed") in [1, 2, 3] and p.settings.get("sound") is bool
 
 func _number(value: Variant, low: float, high: float) -> bool:
@@ -186,7 +187,12 @@ func unlocked_stage() -> int:
 	return mini(5, highest)
 
 func available_hero(id: String) -> bool:
-	return catalog.find_row("heroes", id).unlock <= unlocked_stage()
+	var row := catalog.find_row("heroes", id)
+	return not row.is_empty() and (row.unlock <= unlocked_stage() or id in Recruitment.state(profile).heroes)
+
+func available_assist(id: String) -> bool:
+	var row := catalog.find_row("assists", id)
+	return not row.is_empty() and (row.unlock <= unlocked_stage() or id in Recruitment.state(profile).spirits)
 
 func change_hero(id: String) -> bool:
 	if not available_hero(id) or not profile.pending.is_empty():
@@ -196,13 +202,14 @@ func change_hero(id: String) -> bool:
 	return commit(p)
 
 func change_assist(id: String) -> bool:
-	if catalog.find_row("assists", id).unlock > unlocked_stage() or not profile.pending.is_empty():
+	if not available_assist(id) or not profile.pending.is_empty():
 		return false
 	var p := profile.duplicate(true)
 	p.assist = id
 	return commit(p)
 
 func upgrade(kind: String, index: int = 0) -> bool:
+	if kind == "skill" and index == 2: return SpiritSkills.upgrade(self)
 	if not profile.pending.is_empty():
 		return false
 	var p := profile.duplicate(true)
@@ -283,6 +290,7 @@ func enhance(uid: String, rank_up: bool = false) -> bool:
 	return false
 
 func forge(base: String) -> bool:
+	if catalog.find_row("items", base).get("summon_only", false): return false
 	if not profile.pending.is_empty() or catalog.find_row("items", base).is_empty() or profile.items.size() >= BAG_CAP or profile.gold < 65 or profile.shards < 3:
 		return false
 	var p := profile.duplicate(true)
@@ -403,6 +411,8 @@ func _decode(file_path: String) -> Variant:
 			for item in raw.items:
 				if item is Dictionary and item.get("base") is String and item.base not in raw.expansion.discovered:
 					raw.expansion.discovered.append(item.base)
+	elif raw is Dictionary and raw.get("version") == 3:
+		raw.version = VERSION
 	return raw
 
 func _whole(value: Variant, low: float, high: float) -> bool:

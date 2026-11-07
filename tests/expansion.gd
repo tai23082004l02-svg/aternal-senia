@@ -94,7 +94,7 @@ func run() -> void:
 	file.store_string(JSON.stringify(legacy))
 	file.close()
 	var migrated := ProgressStore.new(book, dir + "legacy.json")
-	check(not migrated.read_only and migrated.profile.version == 3 and migrated.profile.gold == legacy.gold, "v2 migration preserves wallet")
+	check(not migrated.read_only and migrated.profile.version == ProgressStore.VERSION and migrated.profile.gold == legacy.gold, "v2 migration preserves wallet")
 	check(migrated.setting("speed", 2) and FileAccess.file_exists(migrated.path + ".bak"), "Migration writes with original backup")
 	check(JSON.parse_string(FileAccess.get_file_as_string(migrated.path + ".bak")).version == 2, "Original v2 backup retained")
 	check(store.begin_run(101), "Begin migration pending fixture")

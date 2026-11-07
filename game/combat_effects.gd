@@ -30,9 +30,13 @@ func consume(battle: BattleModel, world_time: float) -> void:
 				if visual.kind == "damage":
 					_add("slash", event, .24 if not visual.burst else .34, maxf(0, visual.marker - .055), battle.speed)
 			"hit", "critical":
+				if visual.get("skill", false):
+					_add("spirit_release" if visual.get("burst", false) else "radiant_release", event, .72, 0, battle.speed)
 				_add("burst" if visual.get("burst", false) else ("critical" if event.kind == "critical" else "impact"), event, .4 if visual.get("burst", false) else .25, 0, battle.speed)
 				_add("number", event, .72 * battle.speed, 0, battle.speed)
 			"heal":
+				if event.cue == "heal":
+					_add("restoration_release", event, 1.15, 0, battle.speed)
 				_add("heal", event, 1.05, 0, battle.speed)
 				_add("number", event, .8 * battle.speed, 0, battle.speed)
 			"guard":
@@ -75,12 +79,14 @@ func draw(canvas: CanvasItem, library: FrameLibrary, floor_layer: bool, hero_foo
 		var event: Dictionary = item.event
 		var visual: Dictionary = event.get("visual", {})
 		var aim := CombatPresentation.target(int(visual.get("presentation_wave", event.wave)))
+		var caster := Vector2(61, 417 + sin(now * 2) * 5) if item.kind == "cast" and visual.get("burst", false) else hero_foot
+		SkillEffects.draw(canvas, library, item.kind, p, floor_layer, caster, aim, visual)
 		if floor_layer:
 			match item.kind:
 				"heal":
 					stamp(canvas, library, "heal_ring", hero_foot + Vector2(0, 1), Vector2(178, 85) * (.85 + .15 * sin(p * PI)), .7 * sin(p * PI))
 				"cast":
-					stamp(canvas, library, "heal_ring", hero_foot, Vector2(110, 45) * (.7 + .3 * p), .3 * fade)
+					stamp(canvas, library, "heal_ring", caster, Vector2(110, 45) * (.7 + .3 * p), .3 * fade)
 				"slam":
 					stamp(canvas, library, "shockwave", hero_foot + Vector2(0, -2), Vector2(85 + 180 * p, 33 + 52 * p), .85 * fade)
 				"block", "guard":
@@ -100,7 +106,7 @@ func draw(canvas: CanvasItem, library: FrameLibrary, floor_layer: bool, hero_foo
 					var direction := Vector2.from_angle(-2.5 + i * 1.1 + float(event.id % 3) * .12)
 					stamp(canvas, library, "motes", aim + direction * (15 + p * 55), Vector2.ONE * (18 - p * 7), .65 * fade)
 			"cast":
-				stamp(canvas, library, "cast_orb", hero_foot + Vector2(39, -87), Vector2.ONE * (20 + p * 20), .5 * sin(p * PI), -p * .8)
+				stamp(canvas, library, "cast_orb", caster + Vector2(39, -87), Vector2.ONE * (20 + p * 20), .5 * sin(p * PI), -p * .8)
 			"heal":
 				for i in range(3):
 					var x := sin(i * 2.2 + p * 4) * (22 + i * 9)
@@ -141,9 +147,9 @@ func _number(canvas: CanvasItem, item: Dictionary, hero_foot: Vector2, aim: Vect
 	canvas.draw_string_outline(ThemeDB.fallback_font, pos, event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, 3, Color(0, .04, .06, alpha * .85))
 	canvas.draw_string(ThemeDB.fallback_font, pos, event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
-static func stamp(canvas: CanvasItem, library: FrameLibrary, key: String, center: Vector2, size: Vector2, alpha: float, rotation: float = 0) -> void:
+static func stamp(canvas: CanvasItem, library: FrameLibrary, key: String, center: Vector2, size: Vector2, alpha: float, rotation: float = 0, tint: Color = Color.WHITE) -> void:
 	if alpha <= 0:
 		return
 	canvas.draw_set_transform(center, rotation)
-	canvas.draw_texture_rect(library.textures["fx_" + key], Rect2(-size * .5, size), false, Color(1, 1, 1, clampf(alpha, 0, 1)))
+	canvas.draw_texture_rect(library.textures["fx_" + key], Rect2(-size * .5, size), false, Color(tint, clampf(alpha, 0, 1) * tint.a))
 	canvas.draw_set_transform(Vector2.ZERO)

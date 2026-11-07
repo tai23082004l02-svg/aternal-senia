@@ -161,6 +161,20 @@
       "color": "#a9a4e6",
       "element": "none",
       "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "armor_4",
+      "name": "Giáp tinh vân",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 3,
+      "atk": 0,
+      "hp": 90,
+      "defense": 5,
+      "color": "#d7a4ff",
+      "summon_only": true,
+      "element": "none",
+      "passive": "Không có nội tại phụ"
     }
   ],
   "skills": [

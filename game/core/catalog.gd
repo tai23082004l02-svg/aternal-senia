@@ -70,6 +70,10 @@ func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 				result.cooldown_scale = .92 if def.rarity >= 2 else 1.0
 	Expansion.stats(self, profile, hero_id, result)
 	AttributeTraining.apply(profile, hero_id, result)
+	var awakening: int = Recruitment.state(profile).awakening[hero_id] - 1
+	result.hp += awakening * 30
+	result.atk += awakening * 3
+	result.defense += awakening
 	return normalize(result)
 
 static func normalize(value: Variant) -> Variant:

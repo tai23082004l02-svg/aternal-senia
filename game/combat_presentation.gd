@@ -12,11 +12,12 @@ static func hero(battle: BattleModel, world_time: float) -> Dictionary:
 	if not action.is_empty():
 		var age: float = world_time - action.started
 		if age >= 0 and age < action.duration:
-			result.state = "skill" if action.skill else "attack"
+			var spirit: bool = action.burst and battle.stats.has("spirit_advanced")
+			result.state = "idle" if spirit else ("skill" if action.skill else "attack")
 			result.time = age
 			result.marker = action.marker
 			result.duration = action.duration
-			if action.kind == "damage":
+			if action.kind == "damage" and not spirit:
 				result.offset.x = lunge(age, action.marker, action.duration, action.burst)
 	if battle.move_clock > 0:
 		var progress := clampf((.8 - battle.move_clock) / .8, 0, 1)

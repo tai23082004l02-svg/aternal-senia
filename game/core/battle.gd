@@ -184,13 +184,14 @@ func _step() -> void:
 					hp = minf(stats.hp, hp + healed)
 					_emit("heal", "+%d" % healed, 0, "heal", action.id)
 				else:
+					if action.burst and stats.get("spirit_advanced", "") == "aegis": _barrier(stats.hp * .1)
 					if action.burst or (action.skill and action.get("breaker", false)):
 						if shield:
 							_sound("shield_break", action.id)
 						shield_broken = true
 						shield = false
 					var counter: bool = is_boss() and stage.mechanic == "counter" and enemy_clock >= 2.0 and action.skill
-					_hit(stats.atk * action.power, true, "weapon", action.id)
+					_hit(stats.atk * action.power * (1.15 if action.burst and stats.get("spirit_advanced", "") == "echo" else 1.0), true, "weapon", action.id)
 					if counter and state == "battle" and move_clock <= 0:
 						_take_damage(stage.boss_atk * .65)
 						_emit("warning", "Phản đòn!", 1, "counter", action.id)

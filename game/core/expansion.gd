@@ -48,6 +48,10 @@ static func unique(values: Array) -> bool:
 static func stats(book: GameCatalog, profile: Dictionary, hero: String, result: Dictionary) -> void:
 	var extra: Dictionary = profile.expansion
 	result["variants"] = extra.builds[hero].selected.duplicate()
+	var spirit: Dictionary = SpiritSkills.builds(profile)[profile.assist]
+	result.variants[2] = spirit.selected
+	result.skills[2] = spirit.level
+	result["spirit_advanced"] = spirit.advanced
 	result["assist_rank"] = extra.ranks[profile.assist]
 	result["weapon_trait"] = ""
 	for item in profile.items:
@@ -55,6 +59,7 @@ static func stats(book: GameCatalog, profile: Dictionary, hero: String, result: 
 			result["weapon_trait"] = book.data.traits.get(item.base, {}).get("id", "")
 
 static func talent(store: ProgressStore, id: String) -> bool:
+	if id in ["nova", "flow"]: return SpiritSkills.choose(store, id)
 	var row := store.catalog.find_row("talents", id)
 	if row.is_empty() or not store.profile.pending.is_empty(): return false
 	var p := store.profile.duplicate(true)
@@ -106,6 +111,7 @@ static func claim(store: ProgressStore, id: String) -> bool:
 	return store.commit(p)
 
 static func valid_snapshot(store: ProgressStore, snapshot: Dictionary) -> bool:
+	if snapshot.has("spirit_advanced") and snapshot.spirit_advanced not in ["", "echo", "aegis"]: return false
 	var fields := ["variants", "assist_rank", "weapon_trait"]
 	var present := 0
 	for key in fields:

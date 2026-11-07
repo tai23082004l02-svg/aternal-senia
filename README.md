@@ -1,4 +1,18 @@
-# Aternal Senia — First Light · 0.8
+# Aternal Senia — First Light · 0.9
+
+## Tính năng 0.9 · Kỹ năng, nâng cấp & triệu hồi
+
+- **Hai cây kỹ năng riêng**: nhân vật có Kiếm quang/Hồi phục và bốn nhánh;
+  Lumi/Ash có cấp chủ động riêng, hai tầng với bốn nhánh Tinh linh.
+- **Nâng cấp & Thức tỉnh**: xem chỉ số trước/sau, tăng 1 hoặc tối đa 5 cấp,
+  thức tỉnh ba bậc bằng mảnh nhân vật trùng. Khóa build khi còn trận đang dở.
+- **Triệu hồi** ở Hành trình: 120 vàng/lượt; Thường 70%, Hiếm 25%, Sử thi 5%;
+  tối đa 20 lượt bảo đảm Sử thi. Có nhân vật, tinh linh và trang bị, xử lý bản
+  sao, lịch sử và Giáp tinh vân Sử thi mới. Không cần trả tiền hoặc kết nối mạng.
+- **Hiệu ứng kỹ năng**: vòng niệm phép, chém giao nhau, dải hồi phục và vụ nổ
+  Tinh linh; nhóm nút và nơi thi triển phân biệt nhân vật/Tinh linh.
+
+[Quy tắc, migration và ảnh trong game](docs/PROGRESSION_09.md).
 
 ## Icon giao diện · 0.8.1
 
@@ -53,8 +67,8 @@ Hoặc `godot --path .` sau khi import. Chọn Hành trình → Vào ải → Ti
 | Nhân vật | Eira, Ryn, Mira; nội tại và chỉ số riêng; mở sau ải 1/2 |
 | Trợ chiến | Lumi hồi máu, Ash tấn công; tăng cấp riêng |
 | Vũ khí | 6 mẫu kiếm/thương/trượng; 6 nội tại riêng tác động chiến đấu; đổi hình khi trang bị |
-| Trang bị | 3 món giáp; UID riêng; cường hóa +10, tiến bậc 3, rèn, phân giải |
-| Kỹ năng | 3 kỹ năng × 10 cấp; 6 nhánh chọn theo nhân vật, 1 nhánh/kỹ năng |
+| Trang bị | 4 món giáp; UID riêng; cường hóa +10, tiến bậc 3, rèn, phân giải; Giáp tinh vân chỉ triệu hồi |
+| Kỹ năng | 2 kỹ năng nhân vật + 1 Tinh linh, 10 cấp; hai cây riêng, tổng 8 lựa chọn nhánh |
 | Bản đồ | 5 chương chính + 10 màn truyện nhánh; 3 phụ bản gồm săn boss, 6 đợt và 3 boss liên tiếp |
 | Phần thưởng | Vàng, XP, tinh thạch, loot; thưởng lần đầu; túi 40 ô, đổi loot dư |
 | Mục tiêu | 5 nhiệm vụ + 6 thành tựu; bộ sưu tập trang bị/boss/đồng hành; 30 đoạn truyện trước/sau màn chính và nhánh |
@@ -68,7 +82,7 @@ bị dùng vàng + tinh thạch. Vũ khí bậc hiếm giảm hồi chiêu 8%; h
 ## Lưu tiến trình
 
 Save mới: `user://first_light_v2.json`; tự chuyển vàng và cấp Eira từ v1, giữ
-nguyên file cũ. Schema hiện tại v3, đọc save v2 tại cùng đường dẫn; ghi bản mới có backup v2. Ghi qua file tạm, kiểm dữ liệu, tạo `.bak` rồi thay file chính.
+nguyên file cũ. Schema hiện tại v4, đọc save v2/v3 tại cùng đường dẫn; lần ghi đầu giữ backup file cũ. Ghi qua file tạm, kiểm dữ liệu, tạo `.bak` rồi thay file chính.
 Save lỗi được giữ lại; nếu backup hợp lệ sẽ phục hồi. Save của phiên bản mới hơn
 bị khóa ghi. Lỗi nâng cấp/nhận thưởng không đổi ví trong RAM; có thể thử lại.
 
