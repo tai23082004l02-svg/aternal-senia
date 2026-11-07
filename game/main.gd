@@ -295,11 +295,11 @@ func _heroes_panel() -> void:
 	_text("%s · %s · cấp %d" % [hero.name, hero.title, unit.level], 18, Color("e5cd9e"))
 	_text("ATK %d · HP %d · Thủ %d · Chí mạng %d%%" % [stats.atk, stats.hp, stats.defense, stats.crit * 100])
 	_text(hero.passive)
-	var portrait := TextureRect.new()
-	portrait.texture = frames.textures[frames.frame_at(p.hero, "idle", 0).file]
-	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	portrait.custom_minimum_size = Vector2(180, 180)
+	var portrait := HeroPortrait.new()
+	portrait.library = frames
+	portrait.hero = p.hero
+	portrait.weapon = stats.weapon
+	portrait.custom_minimum_size = Vector2(180, 205)
 	panel.add_child(portrait)
 	_row("Tăng cấp · %d vàng + %d XP" % [unit.level * 30, unit.level * 15], _upgrade.bind("hero", 0), _locked() or unit.level >= 100 or p.gold < unit.level * 30 or p.xp < unit.level * 15)
 	for h in catalog.data.heroes:

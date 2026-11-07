@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "date": "2026-11-07",
+  "method": "Original image generation, selected by visual review and composited in Godot. No original-game graphics included.",
+  "assets": [
+    {
+      "file": "art/painted/eira_atlas.png",
+      "bytes": 2062777,
+      "sha256": "a22f3eb09834fdefa08231046b6742ad674a33cffe2cd9cf5c855df546a777b8"
+    },
+    {
+      "file": "art/painted/dawnveil.png",
+      "bytes": 1018931,
+      "sha256": "2b9bf9387764aee50d67f571e547615408d55624694fce68252e3981a11d0f3f"
+    },
+    {
+      "file": "art/painted/forest.png",
+      "bytes": 2647034,
+      "sha256": "10cf1149fc177dabadd643fcf68d74179f8701e4c185f2ca5af5300f1063ab01"
+    },
+    {
+      "file": "art/painted/lumi.png",
+      "bytes": 1028477,
+      "sha256": "06dc9fff4b14008c1610974bf58b7207628013e574d9d78c8e09bc79542f0abe"
+    },
+    {
+      "file": "art/painted/forest_enemies.png",
+      "bytes": 1660287,
+      "sha256": "56b7064ccf2205800784befe47a20c90cd9b0e9934d77468442c72ea136120cf"
+    },
+    {
+      "file": "docs/concepts/eira-design.png",
+      "bytes": 2316765,
+      "sha256": "f8d40e98552e9f86a320887dcf84008fb4a9a20940057c93cd34001851e6edf5"
+    }
+  ],
+  "atlas_review": "16 Eira poses; every cell, source rectangle, baseline and grip socket reviewed in rendered contact sheet. Separate weapons and CPU-owned damage retained.",
+  "rejected": "Second atlas cleanup output had a visible matte in runtime; excluded. The first source atlas composites correctly and is the selected file."
+}

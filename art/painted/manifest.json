@@ -1,0 +1,782 @@
+{
+  "version": 1,
+  "heroes": {
+    "eira": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "painted/eira_00",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              223,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              216,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.32
+          },
+          {
+            "file": "painted/eira_01",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              314,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              177,
+              303
+            ],
+            "hand": [
+              230,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              223,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.38
+          },
+          {
+            "file": "painted/eira_00",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              223,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              216,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.32
+          },
+          {
+            "file": "painted/eira_01",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              314,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              177,
+              303
+            ],
+            "hand": [
+              230,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              223,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.38
+          }
+        ]
+      },
+      "run": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "painted/eira_02",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              627,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              160,
+              301
+            ],
+            "hand": [
+              216,
+              159
+            ],
+            "angle": 55,
+            "grip_rect": [
+              209,
+              152,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "painted/eira_03",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              940,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              194,
+              299
+            ],
+            "hand": [
+              248,
+              136
+            ],
+            "angle": 60,
+            "grip_rect": [
+              241,
+              129,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "painted/eira_04",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              0,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              171,
+              299
+            ],
+            "hand": [
+              235,
+              143
+            ],
+            "angle": 55,
+            "grip_rect": [
+              228,
+              136,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "painted/eira_05",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              314,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              194,
+              293
+            ],
+            "hand": [
+              236,
+              139
+            ],
+            "angle": 60,
+            "grip_rect": [
+              229,
+              132,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          }
+        ]
+      },
+      "attack": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "painted/eira_06",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              627,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              117,
+              28
+            ],
+            "angle": -55,
+            "grip_rect": [
+              110,
+              21,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12
+          },
+          {
+            "file": "painted/eira_07",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              940,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              181,
+              303
+            ],
+            "hand": [
+              88,
+              96
+            ],
+            "angle": -70,
+            "grip_rect": [
+              81,
+              89,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          },
+          {
+            "file": "painted/eira_08",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              301
+            ],
+            "hand": [
+              285,
+              133
+            ],
+            "angle": 90,
+            "grip_rect": [
+              278,
+              126,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12
+          },
+          {
+            "file": "painted/eira_09",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              235,
+              173
+            ],
+            "angle": 30,
+            "grip_rect": [
+              228,
+              166,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.18
+          },
+          {
+            "file": "painted/eira_00",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              223,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              216,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1
+          }
+        ]
+      },
+      "skill": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "painted/eira_10",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              627,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              229,
+              116
+            ],
+            "angle": 25,
+            "grip_rect": [
+              222,
+              109,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25
+          },
+          {
+            "file": "painted/eira_11",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              248,
+              64
+            ],
+            "angle": 25,
+            "grip_rect": [
+              241,
+              57,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.3
+          },
+          {
+            "file": "painted/eira_09",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              235,
+              173
+            ],
+            "angle": 30,
+            "grip_rect": [
+              228,
+              166,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.15
+          },
+          {
+            "file": "painted/eira_00",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              303
+            ],
+            "hand": [
+              223,
+              195
+            ],
+            "angle": 18,
+            "grip_rect": [
+              216,
+              188,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25
+          }
+        ]
+      },
+      "hurt": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "painted/eira_12",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              0,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              220,
+              126
+            ],
+            "angle": 25,
+            "grip_rect": [
+              213,
+              119,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.13
+          },
+          {
+            "file": "painted/eira_13",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              314,
+              940,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              225,
+              209
+            ],
+            "angle": 30,
+            "grip_rect": [
+              218,
+              202,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.13
+          }
+        ]
+      },
+      "death": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "painted/eira_14",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              627,
+              940,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              174,
+              296
+            ],
+            "hand": [
+              207,
+              219
+            ],
+            "angle": 0,
+            "grip_rect": [
+              200,
+              212,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.28
+          },
+          {
+            "file": "painted/eira_15",
+            "atlas": "painted/eira_atlas.png",
+            "region": [
+              940,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              174,
+              298
+            ],
+            "hand": [
+              240,
+              260
+            ],
+            "angle": 0,
+            "grip_rect": [
+              233,
+              253,
+              14,
+              14
+            ],
+            "render_scale": 0.64,
+            "duration": 0.72
+          }
+        ]
+      }
+    }
+  },
+  "weapons": {
+    "sword_1": {
+      "file": "painted/dawnveil.png",
+      "anchor": [
+        512,
+        1225
+      ],
+      "scale": 0.14,
+      "tint": [
+        0.82,
+        0.94,
+        1,
+        1
+      ]
+    },
+    "sword_2": {
+      "file": "painted/dawnveil.png",
+      "anchor": [
+        512,
+        1225
+      ],
+      "scale": 0.14,
+      "tint": [
+        1,
+        1,
+        0.93,
+        1
+      ]
+    }
+  },
+  "enemies": {
+    "slime": {
+      "atlas": "painted/forest_enemies.png",
+      "region": [
+        100,
+        200,
+        400,
+        280
+      ],
+      "anchor": [
+        200,
+        264
+      ],
+      "scale": 0.34
+    },
+    "wolf": {
+      "atlas": "painted/forest_enemies.png",
+      "region": [
+        640,
+        70,
+        590,
+        420
+      ],
+      "anchor": [
+        300,
+        400
+      ],
+      "scale": 0.3
+    },
+    "golem": {
+      "atlas": "painted/forest_enemies.png",
+      "region": [
+        24,
+        590,
+        580,
+        605
+      ],
+      "anchor": [
+        276,
+        582
+      ],
+      "scale": 0.35
+    },
+    "golem_charge": {
+      "atlas": "painted/forest_enemies.png",
+      "region": [
+        615,
+        580,
+        620,
+        620
+      ],
+      "anchor": [
+        340,
+        592
+      ],
+      "scale": 0.35
+    }
+  },
+  "backgrounds": {
+    "forest": "painted/forest.png"
+  },
+  "companions": {
+    "lumi": "painted/lumi.png"
+  }
+}
