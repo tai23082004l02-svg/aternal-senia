@@ -1,0 +1,864 @@
+{
+  "canvas": [
+    192,
+    240
+  ],
+  "anchor": [
+    96,
+    216
+  ],
+  "heroes": {
+    "eira": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "eira_idle_0.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_idle_1.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_idle_2.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_idle_3.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          }
+        ]
+      },
+      "run": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "eira_run_0.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_run_1.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_run_2.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_run_3.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              136
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_run_4.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_run_5.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          }
+        ]
+      },
+      "attack": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "eira_attack_0.svg",
+            "duration": 0.09,
+            "hand": [
+              127,
+              130
+            ],
+            "angle": -12
+          },
+          {
+            "file": "eira_attack_1.svg",
+            "duration": 0.1,
+            "hand": [
+              122,
+              88
+            ],
+            "angle": -85
+          },
+          {
+            "file": "eira_attack_2.svg",
+            "duration": 0.06,
+            "hand": [
+              148,
+              100
+            ],
+            "angle": -30
+          },
+          {
+            "file": "eira_attack_3.svg",
+            "duration": 0.08,
+            "hand": [
+              163,
+              145
+            ],
+            "angle": 75
+          },
+          {
+            "file": "eira_attack_4.svg",
+            "duration": 0.1,
+            "hand": [
+              145,
+              145
+            ],
+            "angle": 45
+          },
+          {
+            "file": "eira_attack_5.svg",
+            "duration": 0.17,
+            "hand": [
+              127,
+              128
+            ],
+            "angle": -12
+          }
+        ]
+      },
+      "skill": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "eira_skill_0.svg",
+            "duration": 0.12,
+            "hand": [
+              127,
+              130
+            ],
+            "angle": -12
+          },
+          {
+            "file": "eira_skill_1.svg",
+            "duration": 0.13,
+            "hand": [
+              127,
+              88
+            ],
+            "angle": -85
+          },
+          {
+            "file": "eira_skill_2.svg",
+            "duration": 0.12,
+            "hand": [
+              140,
+              100
+            ],
+            "angle": -30
+          },
+          {
+            "file": "eira_skill_3.svg",
+            "duration": 0.13,
+            "hand": [
+              149,
+              145
+            ],
+            "angle": 75
+          },
+          {
+            "file": "eira_skill_4.svg",
+            "duration": 0.16,
+            "hand": [
+              137,
+              145
+            ],
+            "angle": 45
+          },
+          {
+            "file": "eira_skill_5.svg",
+            "duration": 0.24,
+            "hand": [
+              127,
+              128
+            ],
+            "angle": -12
+          }
+        ]
+      },
+      "hurt": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "eira_hurt_0.svg",
+            "duration": 0.13,
+            "hand": [
+              115.4041386259064,
+              127.95440655229186
+            ],
+            "angle": 9
+          },
+          {
+            "file": "eira_hurt_1.svg",
+            "duration": 0.13,
+            "hand": [
+              114.77840076574547,
+              124.0036531899113
+            ],
+            "angle": 9
+          }
+        ]
+      },
+      "death": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "eira_death_0.svg",
+            "duration": 0.12,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_death_1.svg",
+            "duration": 0.14,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_death_2.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "eira_death_3.svg",
+            "duration": 1.0,
+            "hand": [
+              128,
+              136
+            ],
+            "angle": 18
+          }
+        ]
+      }
+    },
+    "ryn": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "ryn_idle_0.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_idle_1.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_idle_2.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_idle_3.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          }
+        ]
+      },
+      "run": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "ryn_run_0.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_run_1.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_run_2.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_run_3.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              136
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_run_4.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_run_5.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          }
+        ]
+      },
+      "attack": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "ryn_attack_0.svg",
+            "duration": 0.09,
+            "hand": [
+              127,
+              130
+            ],
+            "angle": -12
+          },
+          {
+            "file": "ryn_attack_1.svg",
+            "duration": 0.1,
+            "hand": [
+              122,
+              88
+            ],
+            "angle": -85
+          },
+          {
+            "file": "ryn_attack_2.svg",
+            "duration": 0.06,
+            "hand": [
+              148,
+              100
+            ],
+            "angle": -30
+          },
+          {
+            "file": "ryn_attack_3.svg",
+            "duration": 0.08,
+            "hand": [
+              163,
+              145
+            ],
+            "angle": 75
+          },
+          {
+            "file": "ryn_attack_4.svg",
+            "duration": 0.1,
+            "hand": [
+              145,
+              145
+            ],
+            "angle": 45
+          },
+          {
+            "file": "ryn_attack_5.svg",
+            "duration": 0.17,
+            "hand": [
+              127,
+              128
+            ],
+            "angle": -12
+          }
+        ]
+      },
+      "skill": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "ryn_skill_0.svg",
+            "duration": 0.12,
+            "hand": [
+              127,
+              130
+            ],
+            "angle": -12
+          },
+          {
+            "file": "ryn_skill_1.svg",
+            "duration": 0.13,
+            "hand": [
+              127,
+              88
+            ],
+            "angle": -85
+          },
+          {
+            "file": "ryn_skill_2.svg",
+            "duration": 0.12,
+            "hand": [
+              140,
+              100
+            ],
+            "angle": -30
+          },
+          {
+            "file": "ryn_skill_3.svg",
+            "duration": 0.13,
+            "hand": [
+              149,
+              145
+            ],
+            "angle": 75
+          },
+          {
+            "file": "ryn_skill_4.svg",
+            "duration": 0.16,
+            "hand": [
+              137,
+              145
+            ],
+            "angle": 45
+          },
+          {
+            "file": "ryn_skill_5.svg",
+            "duration": 0.24,
+            "hand": [
+              127,
+              128
+            ],
+            "angle": -12
+          }
+        ]
+      },
+      "hurt": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "ryn_hurt_0.svg",
+            "duration": 0.13,
+            "hand": [
+              115.4041386259064,
+              127.95440655229186
+            ],
+            "angle": 9
+          },
+          {
+            "file": "ryn_hurt_1.svg",
+            "duration": 0.13,
+            "hand": [
+              114.77840076574547,
+              124.0036531899113
+            ],
+            "angle": 9
+          }
+        ]
+      },
+      "death": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "ryn_death_0.svg",
+            "duration": 0.12,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_death_1.svg",
+            "duration": 0.14,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_death_2.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "ryn_death_3.svg",
+            "duration": 1.0,
+            "hand": [
+              128,
+              136
+            ],
+            "angle": 18
+          }
+        ]
+      }
+    },
+    "mira": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "mira_idle_0.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_idle_1.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_idle_2.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_idle_3.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          }
+        ]
+      },
+      "run": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "mira_run_0.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_run_1.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_run_2.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_run_3.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              136
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_run_4.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_run_5.svg",
+            "duration": 0.085,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          }
+        ]
+      },
+      "attack": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "mira_attack_0.svg",
+            "duration": 0.09,
+            "hand": [
+              127,
+              130
+            ],
+            "angle": -12
+          },
+          {
+            "file": "mira_attack_1.svg",
+            "duration": 0.1,
+            "hand": [
+              122,
+              88
+            ],
+            "angle": -85
+          },
+          {
+            "file": "mira_attack_2.svg",
+            "duration": 0.06,
+            "hand": [
+              148,
+              100
+            ],
+            "angle": -30
+          },
+          {
+            "file": "mira_attack_3.svg",
+            "duration": 0.08,
+            "hand": [
+              163,
+              145
+            ],
+            "angle": 75
+          },
+          {
+            "file": "mira_attack_4.svg",
+            "duration": 0.1,
+            "hand": [
+              145,
+              145
+            ],
+            "angle": 45
+          },
+          {
+            "file": "mira_attack_5.svg",
+            "duration": 0.17,
+            "hand": [
+              127,
+              128
+            ],
+            "angle": -12
+          }
+        ]
+      },
+      "skill": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "mira_skill_0.svg",
+            "duration": 0.12,
+            "hand": [
+              127,
+              130
+            ],
+            "angle": -12
+          },
+          {
+            "file": "mira_skill_1.svg",
+            "duration": 0.13,
+            "hand": [
+              127,
+              88
+            ],
+            "angle": -85
+          },
+          {
+            "file": "mira_skill_2.svg",
+            "duration": 0.12,
+            "hand": [
+              140,
+              100
+            ],
+            "angle": -30
+          },
+          {
+            "file": "mira_skill_3.svg",
+            "duration": 0.13,
+            "hand": [
+              149,
+              145
+            ],
+            "angle": 75
+          },
+          {
+            "file": "mira_skill_4.svg",
+            "duration": 0.16,
+            "hand": [
+              137,
+              145
+            ],
+            "angle": 45
+          },
+          {
+            "file": "mira_skill_5.svg",
+            "duration": 0.24,
+            "hand": [
+              127,
+              128
+            ],
+            "angle": -12
+          }
+        ]
+      },
+      "hurt": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "mira_hurt_0.svg",
+            "duration": 0.13,
+            "hand": [
+              115.4041386259064,
+              127.95440655229186
+            ],
+            "angle": 9
+          },
+          {
+            "file": "mira_hurt_1.svg",
+            "duration": 0.13,
+            "hand": [
+              114.77840076574547,
+              124.0036531899113
+            ],
+            "angle": 9
+          }
+        ]
+      },
+      "death": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "mira_death_0.svg",
+            "duration": 0.12,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_death_1.svg",
+            "duration": 0.14,
+            "hand": [
+              128,
+              128
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_death_2.svg",
+            "duration": 0.18,
+            "hand": [
+              128,
+              132
+            ],
+            "angle": 18
+          },
+          {
+            "file": "mira_death_3.svg",
+            "duration": 1.0,
+            "hand": [
+              128,
+              136
+            ],
+            "angle": 18
+          }
+        ]
+      }
+    }
+  }
+}

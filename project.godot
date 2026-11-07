@@ -2,12 +2,14 @@ config_version=5
 
 [application]
 config/name="Aternal Senia — First Light"
+config/version="0.2.0"
 run/main_scene="res://game/main.tscn"
 
 [display]
 window/size/viewport_width=540
 window/size/viewport_height=960
 window/stretch/mode="canvas_items"
+window/handheld/orientation=1
 
 [rendering]
 renderer/rendering_method="gl_compatibility"

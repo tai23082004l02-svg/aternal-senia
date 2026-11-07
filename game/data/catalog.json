@@ -1,0 +1,380 @@
+{
+  "version": 1,
+  "heroes": [
+    {
+      "id": "eira",
+      "name": "Eira",
+      "title": "Kiếm sĩ bình minh",
+      "element": "light",
+      "hp": 210,
+      "atk": 20,
+      "defense": 3,
+      "crit": 0.12,
+      "color": "#a9b9ed",
+      "unlock": 1,
+      "passive": "Kiếm quang: +12% sát thương kỹ năng",
+      "skill_bonus": 1.12
+    },
+    {
+      "id": "ryn",
+      "name": "Ryn",
+      "title": "Thương thủ hỏa vũ",
+      "element": "fire",
+      "hp": 240,
+      "atk": 23,
+      "defense": 2,
+      "crit": 0.18,
+      "color": "#efaa87",
+      "unlock": 2,
+      "passive": "Liều lĩnh: chí mạng 18%",
+      "skill_bonus": 1.0
+    },
+    {
+      "id": "mira",
+      "name": "Mira",
+      "title": "Pháp sư thủy triều",
+      "element": "water",
+      "hp": 190,
+      "atk": 25,
+      "defense": 4,
+      "crit": 0.1,
+      "color": "#88d6d1",
+      "unlock": 3,
+      "passive": "Dòng chảy: hồi phục mạnh hơn 25%",
+      "skill_bonus": 1.0
+    }
+  ],
+  "items": [
+    {
+      "id": "sword_1",
+      "name": "Kiếm sương",
+      "slot": "weapon",
+      "category": "sword",
+      "rarity": 1,
+      "atk": 6,
+      "hp": 0,
+      "defense": 0,
+      "color": "#b6dcec",
+      "element": "light",
+      "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "sword_2",
+      "name": "Kiếm nhật quang",
+      "slot": "weapon",
+      "category": "sword",
+      "rarity": 2,
+      "atk": 12,
+      "hp": 0,
+      "defense": 0,
+      "color": "#edc58a",
+      "element": "light",
+      "passive": "Kỹ năng hồi nhanh hơn 8%"
+    },
+    {
+      "id": "spear_1",
+      "name": "Thương than hồng",
+      "slot": "weapon",
+      "category": "spear",
+      "rarity": 1,
+      "atk": 6,
+      "hp": 0,
+      "defense": 0,
+      "color": "#b6dcec",
+      "element": "fire",
+      "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "spear_2",
+      "name": "Thương phượng",
+      "slot": "weapon",
+      "category": "spear",
+      "rarity": 2,
+      "atk": 12,
+      "hp": 0,
+      "defense": 0,
+      "color": "#edc58a",
+      "element": "fire",
+      "passive": "Kỹ năng hồi nhanh hơn 8%"
+    },
+    {
+      "id": "staff_1",
+      "name": "Trượng giọt sương",
+      "slot": "weapon",
+      "category": "staff",
+      "rarity": 1,
+      "atk": 6,
+      "hp": 0,
+      "defense": 0,
+      "color": "#b6dcec",
+      "element": "water",
+      "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "staff_2",
+      "name": "Trượng tinh tú",
+      "slot": "weapon",
+      "category": "staff",
+      "rarity": 2,
+      "atk": 12,
+      "hp": 0,
+      "defense": 0,
+      "color": "#edc58a",
+      "element": "water",
+      "passive": "Kỹ năng hồi nhanh hơn 8%"
+    },
+    {
+      "id": "armor_1",
+      "name": "Áo choàng lá",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 1,
+      "atk": 0,
+      "hp": 30,
+      "defense": 2,
+      "color": "#86baa5",
+      "element": "none",
+      "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "armor_2",
+      "name": "Giáp hoàng hôn",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 2,
+      "atk": 0,
+      "hp": 50,
+      "defense": 3,
+      "color": "#dba886",
+      "element": "none",
+      "passive": "Không có nội tại phụ"
+    },
+    {
+      "id": "armor_3",
+      "name": "Ấn mặt trăng",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 2,
+      "atk": 0,
+      "hp": 70,
+      "defense": 4,
+      "color": "#a9a4e6",
+      "element": "none",
+      "passive": "Không có nội tại phụ"
+    }
+  ],
+  "skills": [
+    {
+      "id": "slash",
+      "name": "Kiếm quang",
+      "kind": "damage",
+      "power": 2.5,
+      "cd": 5.0,
+      "cost": 20,
+      "hit": 0.25,
+      "duration": 0.65
+    },
+    {
+      "id": "heal",
+      "name": "Hồi phục",
+      "kind": "heal",
+      "power": 0.34,
+      "cd": 9.0,
+      "cost": 25,
+      "hit": 0.35,
+      "duration": 0.75
+    },
+    {
+      "id": "burst",
+      "name": "Tinh linh",
+      "kind": "damage",
+      "power": 4.2,
+      "cd": 12.0,
+      "cost": 35,
+      "hit": 0.5,
+      "duration": 0.95
+    }
+  ],
+  "stages": [
+    {
+      "id": 1,
+      "name": "Lối vào rừng",
+      "zone": "forest",
+      "enemy_hp": 55,
+      "enemy_atk": 14,
+      "boss_hp": 250,
+      "boss_atk": 35,
+      "boss": "Cổ thụ thức tỉnh",
+      "mechanic": "smash",
+      "gold": 35,
+      "xp": 30,
+      "first_gold": 35,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Eira: Ánh sáng ấy đang gọi chúng ta.",
+      "after": "Tinh linh: Một hạt sáng đã trở về rừng.",
+      "element": "nature"
+    },
+    {
+      "id": 2,
+      "name": "Tàn tích lửa",
+      "zone": "ruins",
+      "enemy_hp": 93,
+      "enemy_atk": 20,
+      "boss_hp": 395,
+      "boss_atk": 47,
+      "boss": "Hộ vệ than hồng",
+      "mechanic": "shield",
+      "gold": 50,
+      "xp": 40,
+      "first_gold": 45,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Ryn: Tro tàn vẫn còn ấm. Hãy cẩn thận.",
+      "after": "Ryn: Chúng ta có thể thắp lại nơi này.",
+      "element": "fire"
+    },
+    {
+      "id": 3,
+      "name": "Hồ gương",
+      "zone": "lake",
+      "enemy_hp": 131,
+      "enemy_atk": 26,
+      "boss_hp": 540,
+      "boss_atk": 59,
+      "boss": "Ảo ảnh thủy triều",
+      "mechanic": "counter",
+      "gold": 65,
+      "xp": 50,
+      "first_gold": 55,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Mira: Mặt hồ phản chiếu điều chưa xảy ra.",
+      "after": "Mira: Bóng tối chỉ là một phần của sự thật.",
+      "element": "water"
+    },
+    {
+      "id": 4,
+      "name": "Đỉnh sao",
+      "zone": "mountain",
+      "enemy_hp": 169,
+      "enemy_atk": 32,
+      "boss_hp": 685,
+      "boss_atk": 71,
+      "boss": "Chim sấm",
+      "mechanic": "smash",
+      "gold": 80,
+      "xp": 60,
+      "first_gold": 65,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Eira: Trên cao, tiếng chuông không còn vang.",
+      "after": "Eira: Mình nghe thấy tiếng chuông rồi.",
+      "element": "nature"
+    },
+    {
+      "id": 5,
+      "name": "Tháp bình minh",
+      "zone": "tower",
+      "enemy_hp": 207,
+      "enemy_atk": 38,
+      "boss_hp": 830,
+      "boss_atk": 83,
+      "boss": "Người giữ ánh sáng",
+      "mechanic": "shield",
+      "gold": 95,
+      "xp": 70,
+      "first_gold": 75,
+      "drops": [
+        "sword_2",
+        "spear_2",
+        "staff_2",
+        "armor_2",
+        "armor_3"
+      ],
+      "before": "Mira: Cánh cửa cuối cùng đã mở.",
+      "after": "Eira: Bình minh không đến một mình. Cảm ơn mọi người.",
+      "element": "dark"
+    }
+  ],
+  "quests": [
+    {
+      "id": "first",
+      "name": "Ánh sáng đầu tiên",
+      "metric": "wins",
+      "target": 1,
+      "gold": 40,
+      "shards": 2
+    },
+    {
+      "id": "hunter",
+      "name": "Người giữ rừng",
+      "metric": "kills",
+      "target": 12,
+      "gold": 70,
+      "shards": 3
+    },
+    {
+      "id": "smith",
+      "name": "Lửa lò rèn",
+      "metric": "enhances",
+      "target": 3,
+      "gold": 80,
+      "shards": 4
+    },
+    {
+      "id": "traveler",
+      "name": "Qua miền sương",
+      "metric": "clears",
+      "target": 3,
+      "gold": 100,
+      "shards": 5
+    },
+    {
+      "id": "master",
+      "name": "Ngọn tháp bình minh",
+      "metric": "clears",
+      "target": 5,
+      "gold": 180,
+      "shards": 8
+    }
+  ],
+  "assists": [
+    {
+      "id": "lumi",
+      "name": "Lumi",
+      "role": "Hồi phục",
+      "unlock": 1,
+      "power": 0.09,
+      "interval": 4.0
+    },
+    {
+      "id": "ash",
+      "name": "Ash",
+      "role": "Xạ thủ",
+      "unlock": 2,
+      "power": 0.9,
+      "interval": 2.2
+    }
+  ]
+}
