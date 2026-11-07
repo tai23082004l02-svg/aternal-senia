@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.24
+# Aternal Senia — First Light · 0.25
+
+## Bố cục Đội hình · 0.25
+
+Một ô hàng trước ở giữa, hai ô hàng sau cạnh nhau; thanh tinh linh, lưới chân
+dung hero đã sở hữu, hai công tắc AUTO và nút Nâng cấp/Hành trình. Giữ thao tác
+chọn ô rồi chọn tướng và hoán đổi. [Xem giao diện](docs/FORMATION_SCREEN.md).
 
 ## Chiến đấu 3vN · 0.24
 

@@ -1528,3 +1528,15 @@ func _prepare_team_next(id: int) -> void:
 func _open_formation() -> void:
 	_close_modal()
 	_select_tab(22)
+
+func _formation_spirits() -> void:
+	var column := _dialog("CHỌN TINH LINH", "Tinh linh hỗ trợ toàn đội, không chiếm ô tướng.", [{"text":"Đóng", "call":_close_modal}])
+	for spirit in catalog.data.assists:
+		var button := _button(column, ("✓ " if store.profile.assist == spirit.id else "") + spirit.name, Vector2.ZERO, Vector2(400, 46), _formation_choose_spirit.bind(spirit.id))
+		icons.apply(button, "spirit", 24)
+		button.disabled = _locked() or not store.available_assist(spirit.id)
+		column.move_child(button, column.get_child_count() - 2)
+
+func _formation_choose_spirit(id: String) -> void:
+	_close_modal()
+	_assist(id)

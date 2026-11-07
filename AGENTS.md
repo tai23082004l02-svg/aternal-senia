@@ -41,3 +41,5 @@
 - Tiện ích0.18: đọc docs/UTILITIES_MENU.md; chạy utilities_ui khi sửa menu/badge. Badge chỉ từ quest đủ điều kiện chưa nhận; Hộp thư/Giftcode chưa có dịch vụ, không tạo thư/quà/mã thưởng giả.
 
 - Nhiệm vụ0.20: đọc docs/MISSIONS.md; chạy missions/missions_ui và utilities_ui/player_profile khi sửa. Người dùng đã cho nhiệm vụ ngày/tuần nhận VIP EXP; mốc xếp cấp VIP chưa chốt. Record và reward/EXP/claimed cùng transaction, chu kỳ UTC chỉ tiến, bảo toàn claimed vĩnh viễn và save v6 cũ.
+
+- Đội hình0.25: đọc docs/FORMATION_SCREEN.md, chạy formation_layout/team_ui khi sửa bố cục/chọn tướng/tinh linh. Một ô trước, hai ô sau là slot0/1/2 cũ; không thay targeting/nghề/save vì hình minh họa. Khóa chỉnh sửa pending/read-only và hero chưa sở hữu.

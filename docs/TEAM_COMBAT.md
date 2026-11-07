@@ -114,3 +114,5 @@ không tự đổi đội hình hoặc cấp các nhân vật đó cho tài kho�
 ![Đội hình](previews/team-formation.png)
 ![3v3](previews/team-3v3.png)
 ![Boss và lính](previews/team-boss-adds.png)
+
+Từ0.25, giao diện đội hình đổi sang một ô trước/hai ô sau, thanh chọn tinh linh và lưới chân dung theo sơ đồ người dùng. Slot/model/save không đổi; xem [FORMATION_SCREEN.md](FORMATION_SCREEN.md).
