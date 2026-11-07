@@ -1,0 +1,243 @@
+{
+  "id": "aternal-senia-elevenlabs-sfx-v1",
+  "model_id": "eleven_text_to_sound_v2",
+  "output_format": "mp3_44100_128",
+  "max_requests": 39,
+  "max_total_duration_seconds": 45,
+  "assets": [
+    {
+      "id": "arrow_hit",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One arrow striking an old wooden target: tight dry wooden tap, small soft low thud."
+    },
+    {
+      "id": "ash",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One light bow releasing an arrow with a taut string snap and a fast narrow airy whistle."
+    },
+    {
+      "id": "boss_arrive",
+      "duration_seconds": 1.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. An ancient forest guardian awakens: deep wooden resonance, a restrained low rumble and a faint warm amber crystal ring. A short atmospheric arrival stinger."
+    },
+    {
+      "id": "boss_charge",
+      "duration_seconds": 1.0,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. An ancient wooden tree guardian drawing back a heavy branch to strike: creaking bark and gathering low air pressure, clearly readable warning."
+    },
+    {
+      "id": "boss_slam",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One heavy tree branch slamming onto a mossy stone floor: woody crack, weighty bass thump, a little stone grit. Powerful but not excessively loud."
+    },
+    {
+      "id": "burst",
+      "duration_seconds": 0.9,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One radiant sword magic release: focused rushing air, a warm bright crystalline flare and a compact low impact. Elegant hopeful dawn magic."
+    },
+    {
+      "id": "cast",
+      "duration_seconds": 0.7,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A silver swordswoman gathering dawn magic: gentle rising airy shimmer, a small amber crystal resonance, restrained anticipation."
+    },
+    {
+      "id": "confirm",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One subtle warm fantasy interface confirmation chime, two very short soft crystalline notes."
+    },
+    {
+      "id": "counter",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One rapid sword parry followed by a compact counterstrike: crisp metal deflection and a short weighted thump."
+    },
+    {
+      "id": "critical",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One decisive critical sword impact: sharp clean steel contact, solid compact body impact and a small sparkling crystal scatter tail."
+    },
+    {
+      "id": "defeat",
+      "duration_seconds": 1.6,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A short gentle melancholic defeat stinger: three soft descending crystal bell notes fading into quiet air. No orchestral music, no voice."
+    },
+    {
+      "id": "enemy_charge",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A small forest monster preparing to lunge: soft leathery creak, low breathy air and a tense little rustle. No human voice."
+    },
+    {
+      "id": "enemy_down",
+      "duration_seconds": 0.7,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A small magical forest creature dissolving: soft bark collapse and delicate crystal grains dispersing into air, no scream."
+    },
+    {
+      "id": "equip",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One elegant light armor buckle fastening with a soft leather movement and a tiny restrained metallic click."
+    },
+    {
+      "id": "forge",
+      "duration_seconds": 0.7,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One small blacksmith hammer hitting a slender sword: clear restrained steel ring with a tiny bright crystal finishing glint."
+    },
+    {
+      "id": "guard_hit",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One sword strike successfully deflected by an ivory metal guard: crisp resonant steel clink and a short firm blocked impact."
+    },
+    {
+      "id": "guard_ready",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A swordswoman bringing her gauntlet and sword into a defensive stance: brief cloth movement and a very soft small metal ring."
+    },
+    {
+      "id": "heal",
+      "duration_seconds": 1.2,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. Gentle healing magic: a few clear ascending glass chimes and a soft warm airy swell, delicate and comforting, not saccharine."
+    },
+    {
+      "id": "hurt",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One light armored character receiving a hit: short leather and cloth impact with a subdued body thump, no voice or grunt."
+    },
+    {
+      "id": "lumi",
+      "duration_seconds": 0.9,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A tiny ivory moon-moth forest spirit casting a small healing blessing: delicate wing flutter and two soft high crystal twinkles."
+    },
+    {
+      "id": "reward",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One small fantasy reward pickup: a few light gold coin touches with a warm brief crystal chime, clean and restrained."
+    },
+    {
+      "id": "shield_break",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One magical crystal shield breaking: compact glassy crack followed by a fine small cascade of tinkling fragments, not harsh."
+    },
+    {
+      "id": "shield_on",
+      "duration_seconds": 0.8,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A protective magical crystal shield forming: smooth rounded airy swell and a gentle hollow glass ring."
+    },
+    {
+      "id": "spear_hit",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One swift spear tip striking bark and light armor: tight dry pointed impact with a short low thud, no gore."
+    },
+    {
+      "id": "spear_swing",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One quick forward spear thrust through air: narrow focused airy swish and a subtle wooden shaft movement."
+    },
+    {
+      "id": "staff_hit",
+      "duration_seconds": 0.7,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One small water magic bolt striking a crystal target: a tight liquid-glass impact, delicate resonant chime and a very short airy tail."
+    },
+    {
+      "id": "staff_swing",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One magical staff swept through air: light smooth airy swish with a restrained watery crystal shimmer."
+    },
+    {
+      "id": "stage_start",
+      "duration_seconds": 1.0,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A short gentle forest adventure arrival cue: three soft warm crystal notes and a little moving air, inviting and mysterious, no music bed."
+    },
+    {
+      "id": "step",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. Exactly one soft leather boot footstep on a mossy stone path, compact stone tap with a quiet grassy rustle."
+    },
+    {
+      "id": "sword_hit_1",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One light clean sword impact against bark and a little crystal: crisp restrained steel tick with a compact woody body."
+    },
+    {
+      "id": "sword_hit_2",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One medium clean sword impact against an ancient wooden guard: firm short steel contact and a rounded dry bark thud."
+    },
+    {
+      "id": "sword_hit_3",
+      "duration_seconds": 0.6,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One slightly stronger clean sword impact against a crystal armored forest creature: concise steel clack with a small low thump and a delicate bright tail."
+    },
+    {
+      "id": "sword_swing_1",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. Exactly one fast light slender sword swing through air, bright focused smooth whoosh with a sharp attack and clean short tail."
+    },
+    {
+      "id": "sword_swing_2",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. Exactly one medium diagonal slender sword slash through air, slightly fuller airy whoosh, smooth and precise, compact tail."
+    },
+    {
+      "id": "sword_swing_3",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. Exactly one stronger horizontal slender sword swing through air, weighted but elegant rushing swish, short sharp attack, not a hit sound."
+    },
+    {
+      "id": "ui_click",
+      "duration_seconds": 0.5,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. Exactly one tiny soft wooden fantasy interface button tap with a delicate short click, no beep melody."
+    },
+    {
+      "id": "upgrade",
+      "duration_seconds": 1.1,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. One hopeful fantasy level-up cue: a compact upward cluster of warm clear crystal chimes, gentle soft air underneath, no speech or music bed."
+    },
+    {
+      "id": "victory",
+      "duration_seconds": 2.0,
+      "loop": false,
+      "text": "Original isolated one-shot sound effect for a gentle anime fantasy RPG. Clean studio-quality game-ready audio, no speech, no vocals, no music bed, no extra repeated events. Start the main transient immediately, leave a short clean natural tail. A brief elegant victory stinger for a hopeful anime fantasy story: four warm ascending bell notes and a soft luminous crystal finish. Gentle triumph, not bombastic, no music bed or voice."
+    },
+    {
+      "id": "forest_air",
+      "duration_seconds": 12.0,
+      "loop": true,
+      "text": "A seamless quiet stereo night forest ambience for a gentle mysterious anime fantasy RPG. Soft breeze moving leaves, sparse distant delicate insects, subtle layered forest air. Steady background texture, low dynamics, no sudden events, no voices, no speech, no music, no prominent animal calls. Smooth continuous loop."
+    }
+  ]
+}

@@ -14,3 +14,6 @@
 - Không dùng RNG chiến đấu để chọn âm. Mute phải dừng voice và tiêu thụ cursor; không phát lại backlog.
 - Audio dùng bus/pool riêng; không tăng số node vô hạn, giữ priority/limiter và save volume tương thích v2.
 - Sau sửa audio chạy tests/audio.gd và tests/validate_audio.py; kiểm mixer qua audio_capture.gd nếu đổi gain/asset/UI. Kiểm PCM không đồng nghĩa đã nghe loa thật.
+
+- Từ 0.5, 38 SFX + ambience dùng ElevenLabs; giữ raw MP3/receipt/provenance. Không tự đổi lại synth Python. tools/build_audio.py phải từ chối ghi đè provider audio.
+- Không đưa ElevenLabs key vào runtime, log hoặc source. Generation dùng secret tại GitHub; hậu kỳ local không cần key. Không tự retry request trả phí.

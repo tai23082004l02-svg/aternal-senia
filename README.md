@@ -1,4 +1,4 @@
-# Aternal Senia — First Light · 0.4
+# Aternal Senia — First Light · 0.5
 
 Game Godot 4 màn hình dọc, chiến đấu một nhân vật chính + một trợ chiến.
 Tham khảo cấu trúc Eternal Senia 2; nội dung, công thức và hình ảnh trong game
@@ -30,7 +30,7 @@ Hoặc `godot --path .` sau khi import. Chọn Hành trình → Vào ải → Ti
 | Phần thưởng | Vàng, XP, tinh thạch, loot; thưởng lần đầu; túi 40 ô, đổi loot dư |
 | Mục tiêu | 5 nhiệm vụ nhận một lần; 10 đoạn truyện và nhật ký xem lại |
 | Tiếp tế | Tích theo thời gian thực, kể cả khi đóng game; trần 2 giờ |
-| Trình bày | Eira 16 pose PNG / 6 trạng thái, kiếm Dawnveil, Lumi, rừng đêm và quái rừng mới; Ryn/Mira và các vùng khác còn SVG; 38 SFX mới + loop tiếng rừng |
+| Trình bày | Eira 16 pose PNG / 6 trạng thái, kiếm Dawnveil, Lumi, rừng đêm và quái rừng mới; Ryn/Mira và các vùng khác còn SVG; 38 SFX ElevenLabs + loop tiếng rừng ElevenLabs |
 
 Tăng cấp nhân vật dùng vàng + XP. Nâng kỹ năng/trợ chiến dùng vàng. Nâng trang
 bị dùng vàng + tinh thạch. Vũ khí bậc hiếm giảm hồi chiêu 8%; hệ khắc chế tăng
@@ -75,7 +75,7 @@ FPS/nhiệt. Audio đã được ghi từ mixer thật qua AudioEffectRecord v�
 - [Đối chiếu repo tham khảo](docs/REFERENCE_MAP.md): nguồn, bằng chứng, giới hạn.
 - [Kiến trúc và công thức](docs/SYSTEMS.md).
 - [Pipeline frame / vũ khí](docs/ART_PIPELINE.md).
-- `tools/build_catalog.py`, `tools/build_art.py`, `tools/build_audio.py`: tái tạo nội dung mẫu. `tools/build_painted_manifest.py` tái tạo metadata cho artwork PNG được giữ nguyên.
+- `tools/build_catalog.py`, `tools/build_art.py`: tái tạo nội dung mẫu. Bộ âm hiện tại được nhập bằng `tools/import_elevenlabs_audio.py`; `tools/build_audio.py` cũ từ chối ghi đè ElevenLabs. `tools/build_painted_manifest.py` tái tạo metadata cho artwork PNG được giữ nguyên.
 
 ## Tạo hình 0.3 · Eira và rừng đầu tiên
 
@@ -100,9 +100,11 @@ chỉnh hoàn toàn; có khác biệt nhỏ về nếp áo/chi tiết giữa cá
 Chưa có APK, nhạc nền dài hoặc nội dung dài hàng trăm ải. Không kèm tài nguyên gốc
 trích từ archive nghiên cứu.
 
-## Âm thanh 0.4
+## Âm thanh 0.5 · ElevenLabs
 
-Bộ SFX riêng khớp marker: tiếng vung/trúng theo vũ khí, chí mạng, kỹ năng,
+Toàn bộ 38 SFX và một ambience rừng đã được tạo qua **ElevenLabs Text to Sound v2**, dùng GitHub Secret tại repo Live-Youtube-American. Khóa không được đưa vào game.
+
+Bộ SFX khớp marker: tiếng vung/trúng theo vũ khí, chí mạng, kỹ năng,
 trợ chiến, thủ thế, khiên, boss và UI. Có 38 WAV / 34 cue và loop rừng stereo,
 pool voice và limiter chống âm dồn. Mute tức thì; pause dừng âm combat, UI vẫn
 nghe được. Volume độc lập, preview/áp dụng/hủy, tương thích save cũ.
@@ -112,4 +114,4 @@ nghe được. Volume độc lập, preview/áp dụng/hủy, tương thích sav
 [Ảnh bảng chỉnh âm](docs/previews/audio-settings.png).
 
 Kiểm thêm: `godot --headless --path . --script tests/audio.gd` (93 checks) và
-`python3 tests/validate_audio.py`. Các file âm tự tổng hợp, không nhập audio gốc.
+`python3 tests/validate_audio.py`. 39 yêu cầu tạo âm đều trả HTTP 200; có MP3 gốc, SHA256 và biên nhận trong `art/audio/elevenlabs/`. Python chỉ dùng căn onset/độ dài, chuẩn hóa và đổi định dạng sau khi tạo. Không dùng lại bộ âm tổng hợp bằng code hoặc audio từ game tham khảo.

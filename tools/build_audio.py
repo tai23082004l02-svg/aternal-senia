@@ -8,6 +8,8 @@ from scipy.signal import butter,sosfilt
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'art/audio';OUT.mkdir(parents=True,exist_ok=True)
+if (OUT/'provenance.json').exists() and json.loads((OUT/'provenance.json').read_text()).get('provider')=='ElevenLabs':
+ raise SystemExit('Runtime uses ElevenLabs. Refusing to overwrite provider audio with prototype synthesis; use tools/import_elevenlabs_audio.py.')
 SR=32000
 rng=np.random.default_rng(271828)
 def t(d): return np.arange(round(d*SR))/SR

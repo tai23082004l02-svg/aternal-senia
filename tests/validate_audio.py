@@ -1,6 +1,6 @@
 """Signal/manifest checks; this is not a substitute for human listening."""
 from pathlib import Path
-import argparse,json,math,wave
+import argparse,json,math,wave,hashlib
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser();p.add_argument('--capture',type=Path);args=p.parse_args()
@@ -18,7 +18,16 @@ for name in sorted(files):
  assert np.any(abs(y)>.01), name
  onset=np.argmax(abs(y)>.01)/32000
  assert onset<.035, (name,onset)
-print(f'PASS: {len(files)} original waveforms, manifest references, headroom, DC, edge fades and onset')
+provenance=json.loads((ROOT/'art/audio/provenance.json').read_text())
+if provenance.get('provider')=='ElevenLabs':
+ receipt=json.loads((ROOT/'art/audio/elevenlabs/receipt.json').read_text())
+ assert receipt['provider']=='ElevenLabs' and receipt['status']=='complete'
+ assert len(receipt['results'])==39 and all(x['http_status']==200 and x['state']=='generated' for x in receipt['results'])
+ assert manifest.get('provider')=='ElevenLabs'
+ for entry in provenance['files']+[provenance['ambience']]:
+  assert hashlib.sha256((ROOT/'art/audio'/entry['raw_file']).read_bytes()).hexdigest()==entry['raw_sha256']
+  assert hashlib.sha256((ROOT/'art/audio'/entry['file']).read_bytes()).hexdigest()==entry['sha256']
+print(f"PASS: {len(files)} runtime waveforms ({provenance.get('provider','prototype')}), manifest, headroom, DC, fades, onset and raw-source receipts")
 if args.capture:
  with wave.open(str(args.capture),'rb') as f:
   y=np.frombuffer(f.readframes(f.getnframes()),dtype='<i2').astype(float)/32768

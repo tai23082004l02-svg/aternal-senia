@@ -1,4 +1,4 @@
-# Âm thanh 0.4
+# Âm thanh 0.5 · ElevenLabs
 
 ## Quy tắc rút từ repo tham khảo
 
@@ -27,20 +27,41 @@ thuật toán trộn âm C#.
 
 Các mốc và công thức bên dưới là **thiết kế mới**, không gọi là timing gốc.
 
-## Bộ âm mới
+## Bộ âm ElevenLabs thực tế
 
-`art/audio/` có **38 WAV mono PCM16 32000 Hz**, **34 cue logic** và **một loop rừng
-stereo Ogg 12 giây**. Âm tự tổng hợp bằng noise có lọc, transient, cộng hưởng kim
-loại/gỗ, bell partial và echo nhẹ. Không dùng bản ghi, voice hoặc nhạc game gốc.
+Tạo qua [workflow dùng secret tại chỗ](https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42337597428)
+trên nhánh riêng `codex/aternal-elevenlabs-sfx-v1` của repo Live-Youtube-American.
+`main` và game Live không được chỉnh. Secret chỉ được dùng bởi request HTTPS tới
+`api.elevenlabs.io`; không xuất key, không chép key vào repo game hoặc artifact.
 
-- Ba biến thể tiếng vung và ba tiếng trúng kiếm; thương và trượng có màu âm khác.
-- Cast/release, burst, heal; Lumi chuông sáng nhẹ, Ash luồng tên và tiếng tiếp xúc.
-- Thủ thế/đỡ đòn, khiên/phá khiên, tụ lực/đập đất, phản đòn, quái tan biến.
-- Bước chuyển đợt, vào trận/boss, thắng/thua, UI, thay đồ, rèn, nâng cấp và thưởng.
-- Tiếng rừng là gió/lá/côn trùng tổng hợp, không phải nhạc nền hoặc voice.
+Batch `aternal-senia-elevenlabs-sfx-v1`: **39 yêu cầu, 39 HTTP 200**, model
+`eleven_text_to_sound_v2`, tổng duration yêu cầu 40,5s, output `mp3_44100_128`.
+Không tự retry request tạo âm hoặc rerun trả phí. Mỗi file có checksum gốc.
 
-Các tone prototype `art/hit.wav`, `heal.wav`, `hurt.wav`, `win.wav` còn trong lịch
-sử source nhưng không được AudioDirector nạp hoặc phát ở bản 0.4.
+- **38 SFX**: ba biến thể vung/trúng kiếm, thương/trượng, cast/burst/heal,
+  Lumi/Ash, đỡ đòn, khiên/phá khiên, cảnh báo/đập đất/phản đòn, quái tan biến,
+  bước chân, vào trận/boss, thắng/thua, UI/thay đồ/rèn/nâng cấp/thưởng.
+- **Một ambience rừng 12s**, yêu cầu loop, không nhạc nền hoặc giọng nói.
+- Giữ 34 cue logic và pool/mix/timeline cũ; asset phát đã được thay hoàn toàn.
+
+Nguồn và bằng chứng trong `art/audio/elevenlabs/`:
+- `raw/*.mp3`: đúng bytes từ API, không chỉnh sửa.
+- `receipt.json`: provider, batch, model, HTTP status, SHA256 và biên nhận.
+- `request.json`: các prompt/duration thực sự được gửi; không chứa credential.
+- `../provenance.json`: liên kết raw SHA với từng file runtime và phép xử lý.
+
+`tools/import_elevenlabs_audio.py` xác minh đầy đủ receipt/hash rồi mới thay file
+runtime: căn onset, bỏ khoảng im, rút độ dài bằng atempo giữ pitch khi cần, DC,
+fade mép, normalize và đổi thành WAV mono PCM16 32000 Hz. Đây là **hậu kỳ âm
+ElevenLabs**, không phải tổng hợp SFX thay thế bằng Python. Giữ raw để tinh lại
+mà không gọi API thêm. Vài UI/footstep cần rút ngắn nhiều để hợp nhịp game.
+
+Ambience đổi thành Ogg playback 2 kênh; giữ nguồn MP3 và loop flag trong receipt.
+`tools/build_audio.py` của prototype nay từ chối ghi đè khi bộ runtime có provider
+ElevenLabs. Không có fallback tự tạo âm bằng code, không gọi API khi chơi game.
+
+Các file tone `art/hit.wav`, `heal.wav`, `hurt.wav`, `win.wav` còn là lịch sử
+prototype, không được AudioDirector nạp hoặc phát.
 
 ## Timeline, quyền sở hữu và chống lặp
 
@@ -92,8 +113,7 @@ preview không ghi file theo từng tick slider. Save lỗi không trừ/đổi 
   driver Dummy, X11/Mesa; ghi trận, boss, kết quả và reward, chụp menu âm.
 - [Đoạn ghi trong game](audio/combat-preview.wav), downmix mono 22050 Hz để chia sẻ.
 - [Số đo capture](audio/verification.json), [trace marker](audio/capture-trace.json),
-  [ảnh menu](previews/audio-settings.png). Capture thử: 0 clipped samples, không
-  drop cue, tối đa 5 voice; số đo không thay thế đánh giá chất âm bằng người nghe.
+  [ảnh menu](previews/audio-settings.png). Capture thử: xem số đo thực tế trong verification.json; số đo không thay thế đánh giá chất âm bằng người nghe.
 
 Chưa nghe qua loa vật lý hoặc thử điện thoại; không tuyên bố âm đã được mastering
 cho thiết bị thật. Chưa có nhạc nền dài, voice hay reverb theo phòng động.
@@ -106,7 +126,12 @@ python3 tests/validate_audio.py
 godot --path . --script tests/audio_capture.gd
 ```
 
-Tái tạo: cài `tools/requirements-audio.txt`, có ffmpeg/libvorbis, chạy
-`python3 tools/build_audio.py`. WAV deterministic theo seed 271828 và các bản
-numpy/scipy đã pin. Ogg có thể khác byte giữa các phiên bản encoder. Runtime
-chỉ cần Godot, không có Python/SDK/server hay phí dịch vụ.
+Tái nhập mà không tốn thêm lượt API:
+```sh
+python3 tools/import_elevenlabs_audio.py /duong/dan/artifact-da-giai-nen \
+  --request art/audio/elevenlabs/request.json \
+  --run-url https://github.com/tai23082004l02-svg/Live-Youtube-American/actions/runs/42337597428
+```
+
+Cần numpy và ffmpeg cho hậu kỳ; runtime chỉ cần Godot. Để tạo âm mới cần yêu cầu
+batch mới qua workflow có secret; không lấy secret ra hoặc tự retry batch cũ.

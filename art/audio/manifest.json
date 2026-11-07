@@ -384,5 +384,7 @@
       "pitch_variation": 0,
       "bus": "ui"
     }
-  }
+  },
+  "provider": "ElevenLabs",
+  "provider_model": "eleven_text_to_sound_v2"
 }

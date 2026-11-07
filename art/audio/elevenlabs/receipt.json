@@ -1,0 +1,399 @@
+{
+  "provider": "ElevenLabs",
+  "batch": "aternal-senia-elevenlabs-sfx-v1",
+  "model": "eleven_text_to_sound_v2",
+  "format": "mp3_44100_128",
+  "results": [
+    {
+      "asset": "arrow_hit",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "55c781a3398c31ac960f308a0f26b02ef28620d2ef5dba05742d4ecc820a75f3",
+      "character_cost": 5
+    },
+    {
+      "asset": "ash",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "86977091b18433258cd0e4ff5d98b7ee400f9bc213ebad64326fac2c40accbf0",
+      "character_cost": 5
+    },
+    {
+      "asset": "boss_arrive",
+      "state": "generated",
+      "requested_seconds": 1.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 24702,
+      "sha256": "7917949e0c6a0be23262922736478a21289da8a11c33cae4106e89e68f325e60",
+      "character_cost": 15
+    },
+    {
+      "asset": "boss_charge",
+      "state": "generated",
+      "requested_seconds": 1.0,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 17179,
+      "sha256": "ade3ed03012e8e621ef4abdc1aa9d4e6c6562672cf0dfa1b4b0be71db5620a02",
+      "character_cost": 10
+    },
+    {
+      "asset": "boss_slam",
+      "state": "generated",
+      "requested_seconds": 0.8,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 13835,
+      "sha256": "c921c03fe3182818f8aa664c8b3ed816e065ed689cde17b249e361bf6c7a3f6e",
+      "character_cost": 8
+    },
+    {
+      "asset": "burst",
+      "state": "generated",
+      "requested_seconds": 0.9,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 15089,
+      "sha256": "181e149b8563ae2716c90ea0312ddd8f1310cf9b36914fea64dc7ae9f4f67c73",
+      "character_cost": 9
+    },
+    {
+      "asset": "cast",
+      "state": "generated",
+      "requested_seconds": 0.7,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 12163,
+      "sha256": "2d80c3fe27c1851d67f790c657652e34b65216d865c737e95c2e798192412aa3",
+      "character_cost": 7
+    },
+    {
+      "asset": "confirm",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "1153bd21ffcd64b6a8b4094ee7b27e67647bedebee143eca63580fd6490b88ae",
+      "character_cost": 5
+    },
+    {
+      "asset": "counter",
+      "state": "generated",
+      "requested_seconds": 0.6,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 10492,
+      "sha256": "182847c1747513de78280997d887e25e33ad868f41f7dbe1e6e53b4afff9de59",
+      "character_cost": 6
+    },
+    {
+      "asset": "critical",
+      "state": "generated",
+      "requested_seconds": 0.8,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 13835,
+      "sha256": "a28dc374c0685a1be044f7e1562f6869c07b66289f519dcf20cc65e789b5d9d2",
+      "character_cost": 8
+    },
+    {
+      "asset": "defeat",
+      "state": "generated",
+      "requested_seconds": 1.6,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 26792,
+      "sha256": "0f7f9d591b6534fe65cb9f6b073ab625a627104367aa0d3fbc5a62288cef8799",
+      "character_cost": 16
+    },
+    {
+      "asset": "enemy_charge",
+      "state": "generated",
+      "requested_seconds": 0.6,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 10492,
+      "sha256": "ba1270bc8203b60afb67a5647045d5fa95704f8610cf1c531d9f657ef8df6a75",
+      "character_cost": 6
+    },
+    {
+      "asset": "enemy_down",
+      "state": "generated",
+      "requested_seconds": 0.7,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 12163,
+      "sha256": "ec5345aa0313d8f948d1e981ed7f59768a4fcb7e236fd5804e91445ccc611c3e",
+      "character_cost": 7
+    },
+    {
+      "asset": "equip",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "9a66afa615557e076c149b883ec272b1cd6e949fbd94e4bac1a2a3d17284b929",
+      "character_cost": 5
+    },
+    {
+      "asset": "forge",
+      "state": "generated",
+      "requested_seconds": 0.7,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 12163,
+      "sha256": "3b39df6e1d0c38035a6d6e382537565d5769d62e010da5d0b905e0d533488066",
+      "character_cost": 7
+    },
+    {
+      "asset": "guard_hit",
+      "state": "generated",
+      "requested_seconds": 0.6,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 10492,
+      "sha256": "3881ec42b2a3ccce3d242872483c457d1fd167ed0d03ac22595f5290b2ac774c",
+      "character_cost": 6
+    },
+    {
+      "asset": "guard_ready",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "2405f1c3caeedfcfc31d56151d39a746ede7b41f91090559df849fb670c6d6eb",
+      "character_cost": 5
+    },
+    {
+      "asset": "heal",
+      "state": "generated",
+      "requested_seconds": 1.2,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 20105,
+      "sha256": "dd2974110d769f06857f105453552db1bfa36d35883b77fba812f20d9bb297c5",
+      "character_cost": 12
+    },
+    {
+      "asset": "hurt",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "617c7d7bc3df9d354c292e60f7368042f96ee839447e99269228f1dcf61a9150",
+      "character_cost": 5
+    },
+    {
+      "asset": "lumi",
+      "state": "generated",
+      "requested_seconds": 0.9,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 15089,
+      "sha256": "b9b4b36b1572f7e5b6e12bb39ed133b31f06fcc5b1d7f62e9ace43588f8dfd2a",
+      "character_cost": 9
+    },
+    {
+      "asset": "reward",
+      "state": "generated",
+      "requested_seconds": 0.8,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 13835,
+      "sha256": "d80a68409978c1789a9fa058879f48b6ab21dfeaef10886a441fcce417531a45",
+      "character_cost": 8
+    },
+    {
+      "asset": "shield_break",
+      "state": "generated",
+      "requested_seconds": 0.8,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 13835,
+      "sha256": "585eab0d9da2195667660c749be1d5c780cb212b2635965794e5f5b75b849700",
+      "character_cost": 8
+    },
+    {
+      "asset": "shield_on",
+      "state": "generated",
+      "requested_seconds": 0.8,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 13835,
+      "sha256": "abd2465c3d64693dcd6dddc679a50d800fa10d936035d10d982b0d1f34befe40",
+      "character_cost": 8
+    },
+    {
+      "asset": "spear_hit",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "b738193fb8c39d4da20d8dc62bcf642260b28750630e34b3a6db5e14b215f5f9",
+      "character_cost": 5
+    },
+    {
+      "asset": "spear_swing",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "abdcade1f7b90107f1a33eee3fb790d88f1297aafbc954894bda5b43a29b9cf9",
+      "character_cost": 5
+    },
+    {
+      "asset": "staff_hit",
+      "state": "generated",
+      "requested_seconds": 0.7,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 12163,
+      "sha256": "ffd395d00c3d7e2969d34cdcf6eb5d0290ebd59906b72a64ee2e131db7cff134",
+      "character_cost": 7
+    },
+    {
+      "asset": "staff_swing",
+      "state": "generated",
+      "requested_seconds": 0.6,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 10492,
+      "sha256": "926e8fcb01202e84cbd73089c839481ed90dc6620c3866c8002b109926264364",
+      "character_cost": 6
+    },
+    {
+      "asset": "stage_start",
+      "state": "generated",
+      "requested_seconds": 1.0,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 17179,
+      "sha256": "5da8dae95987e1901eea78c2999ae6f1a62e1236a3fcd5973eae472200f6d07c",
+      "character_cost": 10
+    },
+    {
+      "asset": "step",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "fcc238051b759e909fdeb5cdeee46d9deeab1b192b66f4d27c3ce310c1d9b0fb",
+      "character_cost": 5
+    },
+    {
+      "asset": "sword_hit_1",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "a5de3a864297268a4ada5612ee9c341e8babf7ebca1cf04cd512c77c98ce99db",
+      "character_cost": 5
+    },
+    {
+      "asset": "sword_hit_2",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "79fbeba044d8889669cd11baed34046b741b8cf7fa6671bcad8e9fd8f903043b",
+      "character_cost": 5
+    },
+    {
+      "asset": "sword_hit_3",
+      "state": "generated",
+      "requested_seconds": 0.6,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 10492,
+      "sha256": "4880ded578819892585f6b47f60515c009645cc9d3d3822c137ee68264ea2ae5",
+      "character_cost": 6
+    },
+    {
+      "asset": "sword_swing_1",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "6bc1617fb6a6a592d2aa99c69b49c169c2723ba52e9b21aab63494ae6e22046b",
+      "character_cost": 5
+    },
+    {
+      "asset": "sword_swing_2",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "2a33e6621634e73d624a34e5b460348c7c6c7e8eb38348227f561a6d23da400b",
+      "character_cost": 5
+    },
+    {
+      "asset": "sword_swing_3",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "2d58a7061b9e63278a455e1a8a40d8096ddd9989a9ca0461ec5047ce1c1c5d9e",
+      "character_cost": 5
+    },
+    {
+      "asset": "ui_click",
+      "state": "generated",
+      "requested_seconds": 0.5,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 8820,
+      "sha256": "86453c250761e335f36c4f9aa841e31918914cfee47a285cafe9f5f638dffcc4",
+      "character_cost": 5
+    },
+    {
+      "asset": "upgrade",
+      "state": "generated",
+      "requested_seconds": 1.1,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 18433,
+      "sha256": "53158074b0dc22032081433eebdbc1815ba3d63eb09260a7ea88702979554876",
+      "character_cost": 11
+    },
+    {
+      "asset": "victory",
+      "state": "generated",
+      "requested_seconds": 2.0,
+      "loop": false,
+      "http_status": 200,
+      "bytes": 33061,
+      "sha256": "78714e5f8ebddc7934594a4750d2ccf56d130f1f648126002978d452d8c21f79",
+      "character_cost": 20
+    },
+    {
+      "asset": "forest_air",
+      "state": "generated",
+      "requested_seconds": 12.0,
+      "loop": true,
+      "http_status": 200,
+      "bytes": 193140,
+      "sha256": "3744c87394beb0b7f61b7b42b8a7779163d26bc9174495c7c72e14b47b68eac2",
+      "character_cost": 120
+    }
+  ],
+  "status": "complete"
+}
