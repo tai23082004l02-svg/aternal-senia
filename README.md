@@ -1,4 +1,13 @@
-# Aternal Senia — First Light · 0.12
+# Aternal Senia — First Light · 0.13
+
+## Ryn · Hỏa vũ trưởng thành · 0.13
+
+Ryn có tạo hình nữ trưởng thành 27 tuổi, giáp đỏ–đen và thương lửa mới. Chân
+dung tách thân/vũ khí và tóc/tà áo phía sau, có độ trễ/đung đưa khi kéo và nhún
+rõ hơn khi chạm. Có nút **Xem Ryn phóng lớn** trong màn Nhân vật.
+
+Trong trận đã thay SVG bằng 12 pose PNG cho bảy trạng thái. Giữ stats, skill,
+save và mốc gây sát thương. [Xem ảnh động và chi tiết](docs/RYN_ART.md).
 
 ## Shop, độ hiếm & nhân vật · 0.12
 

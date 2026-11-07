@@ -114,9 +114,10 @@ func portrait() -> void:
 	view.palette_tint = Wardrobe.tint(game.store.profile, hero)
 	if section == 6 and game.character_outfit_preview in Wardrobe.LOOKS:
 		view.palette_tint = Wardrobe.LOOKS[game.character_outfit_preview].tint
-	view.custom_minimum_size = Vector2(260, 205)
+	view.custom_minimum_size = Vector2(260, 350 if hero == "ryn" else 205)
 	body.add_child(view)
 	text("Chạm hoặc kéo nhẹ để tương tác" if view.interactive else "Tạo hình tĩnh", 11)
+	if hero == "ryn": button("Xem Ryn phóng lớn →", game._show_ryn_portrait)
 
 func stats_line(p: Dictionary) -> void:
 	var stats: Dictionary = game.catalog.stats(p, hero)
@@ -255,6 +256,10 @@ class Face extends Control:
 	var hero := "eira"
 	var dimmed := false
 	func _draw() -> void:
+		if frames.painted.get("portraits", {}).has(hero):
+			var rect: Array = frames.painted.portraits[hero].face
+			draw_texture_rect_region(frames.textures["portrait_" + hero], Rect2(Vector2.ZERO, size), Rect2(rect[0], rect[1], rect[2], rect[3]), Color(.5, .5, .5, 1) if dimmed else Color.WHITE)
+			return
 		var frame := frames.frame_at(hero, "idle", 0)
 		var region := Rect2(95, 0, 135, 135) if hero == "eira" else (Rect2(48, 0, 96, 110) if hero == "mira" else Rect2(48, 25, 96, 100))
 		draw_texture_rect_region(frames.textures[frame.file], Rect2(Vector2.ZERO, size), region, Color(.5, .5, .5, 1) if dimmed else Color.WHITE)

@@ -14,8 +14,10 @@ var pointer_origin := Vector2.ZERO
 var grab_origin := Vector2.ZERO
 var idle_time := 0.0
 var touch_glow := 0.0
+var accessory_motion := Vector2.ZERO
 
 func _ready() -> void:
+	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP if interactive else Control.MOUSE_FILTER_IGNORE
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND if interactive else Control.CURSOR_ARROW
 	set_process(interactive)
@@ -49,14 +51,14 @@ func begin_touch(position: Vector2, id: int) -> void:
 
 func move_touch(position: Vector2) -> void:
 	if not dragging: return
-	motion = (grab_origin + (position - pointer_origin) * .12).limit_length(11)
+	motion = (grab_origin + (position - pointer_origin) * (.2 if hero == "ryn" else .12)).limit_length(22 if hero == "ryn" else 11)
 	queue_redraw()
 
 func end_touch() -> void:
 	if not dragging: return
 	dragging = false
 	pointer = -2
-	velocity = Vector2(0, -30) if motion.length() < 1 else -motion * 4
+	velocity = Vector2(0, -105 if hero == "ryn" else -30) if motion.length() < 1 else -motion * (5.5 if hero == "ryn" else 4)
 	queue_redraw()
 
 func advance_motion(delta: float) -> void:
@@ -64,14 +66,16 @@ func advance_motion(delta: float) -> void:
 	while remaining > 0:
 		var dt := minf(remaining, 1.0 / 120)
 		if not dragging:
-			velocity += (-motion * 140 - velocity * 13) * dt
-			motion = (motion + velocity * dt).limit_length(14)
+			velocity += (-motion * (115 if hero == "ryn" else 140) - velocity * (8 if hero == "ryn" else 13)) * dt
+			motion = (motion + velocity * dt).limit_length(28 if hero == "ryn" else 14)
+		accessory_motion = accessory_motion.lerp(motion, 1 - exp(-9 * dt))
 		remaining -= dt
 	idle_time += clampf(delta, 0, .1)
 	touch_glow = maxf(0, touch_glow - delta * 1.8)
 	if not dragging and motion.length() < .005 and velocity.length() < .02:
 		motion = Vector2.ZERO
 		velocity = Vector2.ZERO
+		if accessory_motion.length() < .01: accessory_motion = Vector2.ZERO
 
 func _process(delta: float) -> void:
 	if not is_visible_in_tree(): return
@@ -86,6 +90,27 @@ func _notification(what: int) -> void:
 
 func _draw() -> void:
 	if library == null:
+		return
+	if library.textures.has("portrait_" + hero):
+		var texture: Texture2D = library.textures["portrait_" + hero]
+		var factor := minf((size.x - 36) / texture.get_width(), (size.y - 80) / texture.get_height())
+		var breath := sin(idle_time * 2.1) * .008 if interactive else 0.0
+		var scale := Vector2.ONE * factor * (1 + breath)
+		var center := size * .5 + (motion if interactive else Vector2.ZERO)
+		if library.textures.has("portrait_" + hero + "_body"):
+			var angle := motion.x * .003 if interactive else 0.0
+			var lag := (accessory_motion - motion) * .18 if interactive else Vector2.ZERO
+			var sway := clampf(lag.x * .01, -.025, .025) + sin(idle_time * 1.6) * .004 if interactive else 0.0
+			draw_set_transform(center + lag, angle + sway, scale)
+			draw_texture(library.textures["portrait_" + hero + "_back"], -texture.get_size() * .5, palette_tint)
+			draw_set_transform(center, angle, scale)
+			draw_texture(library.textures["portrait_" + hero + "_body"], -texture.get_size() * .5, palette_tint)
+		else:
+			draw_set_transform(center, motion.x * .003 if interactive else 0.0, scale)
+			draw_texture(texture, -texture.get_size() * .5, palette_tint)
+		draw_set_transform(Vector2.ZERO)
+		if interactive and touch_glow > 0:
+			draw_arc(size * .5, minf(size.x, size.y) * .4, 0, TAU, 64, Color(1, .68, .35, touch_glow * .3), 2, true)
 		return
 	var foot := Vector2(size.x / 2, 185)
 	draw_circle(foot - Vector2(0, 83), 79, Color("152936"))

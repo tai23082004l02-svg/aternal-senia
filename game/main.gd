@@ -1165,6 +1165,20 @@ func _shop_buy(id: String) -> void:
 	_close_modal()
 	_outcome(LocalShop.buy(store, id), "Đã nhận hàng từ cửa hàng vàng.", "reward")
 
+func _show_ryn_portrait() -> void:
+	var column := _dialog("RYN · Thương thủ hỏa vũ", "Chạm/kéo rồi thả để xem chuyển động.", [{"text": "Đóng", "call": _close_modal}])
+	var view := HeroPortrait.new()
+	view.library = frames
+	view.hero = "ryn"
+	view.interactive = store.available_hero("ryn") and Recruitment.rarity("hero", "ryn", catalog) == 5
+	view.palette_tint = Wardrobe.tint(store.profile, "ryn")
+	view.custom_minimum_size = Vector2(400, 480)
+	column.add_child(view)
+	column.move_child(view, 1)
+	var box: PanelContainer = modal.get_child(1)
+	box.position.y = 110
+	box.set_deferred("size", Vector2(472, 730))
+
 func _dungeons_panel() -> void:
 	_text("PHÓ BẢN", 25, Color("e5cd9e"))
 	_text("Thử thách để kiếm lõi tinh linh. Không tiêu vé; phần thưởng nhận khi thắng.")

@@ -38,7 +38,7 @@ class Gallery extends Node2D:
 				var foot := Vector2(90 + col * 180, 300 + row * 290)
 				var state: String = states[col]
 				var frame: Dictionary = library.frame_at(hero, state, .18 if state == "run" else (.55 if state == "skill" else .5))
-				library.draw_actor(self, frame, foot, ["sword_1", "spear_1", "staff_1"][row], Color.WHITE, state != "death", .52 if hero == "eira" else .8)
+				library.draw_actor(self, frame, foot, ["sword_1", "spear_1", "staff_1"][row], Color.WHITE, state != "death", .52 if hero == "eira" else (.5 if hero == "ryn" else .8))
 				draw_line(foot - Vector2(55, 0), foot + Vector2(55, 0), Color("64716d"), 1)
 				draw_circle(foot, 3, Color("e2b785"))
 				draw_string(ThemeDB.fallback_font, foot + Vector2(-65, 28), hero + " / " + state, HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("b0c6c1"))

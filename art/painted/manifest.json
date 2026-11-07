@@ -1248,6 +1248,435 @@
           }
         ]
       }
+    },
+    "ryn": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "painted/ryn_00",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              418
+            ],
+            "size": [
+              314,
+              418
+            ],
+            "anchor": [
+              166,
+              405
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.65,
+            "embedded_weapon": true
+          },
+          {
+            "file": "painted/ryn_01",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              314,
+              0,
+              313,
+              418
+            ],
+            "size": [
+              313,
+              418
+            ],
+            "anchor": [
+              166,
+              405
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.65,
+            "embedded_weapon": true
+          }
+        ]
+      },
+      "run": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "painted/ryn_02",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              627,
+              0,
+              313,
+              418
+            ],
+            "size": [
+              313,
+              418
+            ],
+            "anchor": [
+              218,
+              403
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.11,
+            "embedded_weapon": true
+          },
+          {
+            "file": "painted/ryn_03",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              940,
+              0,
+              314,
+              418
+            ],
+            "size": [
+              314,
+              418
+            ],
+            "anchor": [
+              218,
+              403
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.11,
+            "embedded_weapon": true
+          }
+        ]
+      },
+      "attack": {
+        "loop": false,
+        "hit_time": 0.22,
+        "frames": [
+          {
+            "file": "painted/ryn_04",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              0,
+              418,
+              314,
+              418
+            ],
+            "size": [
+              314,
+              418
+            ],
+            "anchor": [
+              180,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.22,
+            "embedded_weapon": true
+          },
+          {
+            "file": "painted/ryn_05",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              314,
+              418,
+              327,
+              418
+            ],
+            "size": [
+              327,
+              418
+            ],
+            "anchor": [
+              168,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.08,
+            "embedded_weapon": true
+          },
+          {
+            "file": "painted/ryn_06",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              627,
+              418,
+              313,
+              418
+            ],
+            "size": [
+              313,
+              418
+            ],
+            "anchor": [
+              180,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.16,
+            "embedded_weapon": true
+          },
+          {
+            "file": "painted/ryn_00",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              418
+            ],
+            "size": [
+              314,
+              418
+            ],
+            "anchor": [
+              166,
+              405
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.06,
+            "embedded_weapon": true
+          }
+        ]
+      },
+      "skill": {
+        "loop": false,
+        "hit_time": 0.5,
+        "frames": [
+          {
+            "file": "painted/ryn_07",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              940,
+              418,
+              314,
+              418
+            ],
+            "size": [
+              314,
+              418
+            ],
+            "anchor": [
+              171,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.5,
+            "embedded_weapon": true
+          },
+          {
+            "file": "painted/ryn_08",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              0,
+              836,
+              327,
+              418
+            ],
+            "size": [
+              327,
+              418
+            ],
+            "anchor": [
+              170,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.18,
+            "embedded_weapon": true
+          },
+          {
+            "file": "painted/ryn_06",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              627,
+              418,
+              313,
+              418
+            ],
+            "size": [
+              313,
+              418
+            ],
+            "anchor": [
+              180,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.17,
+            "embedded_weapon": true
+          },
+          {
+            "file": "painted/ryn_00",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              418
+            ],
+            "size": [
+              314,
+              418
+            ],
+            "anchor": [
+              166,
+              405
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.1,
+            "embedded_weapon": true
+          }
+        ]
+      },
+      "guard": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "painted/ryn_09",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              314,
+              836,
+              313,
+              418
+            ],
+            "size": [
+              313,
+              418
+            ],
+            "anchor": [
+              170,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.7,
+            "embedded_weapon": true
+          }
+        ]
+      },
+      "hurt": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "painted/ryn_10",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              627,
+              836,
+              313,
+              418
+            ],
+            "size": [
+              313,
+              418
+            ],
+            "anchor": [
+              171,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 0.25,
+            "embedded_weapon": true
+          }
+        ]
+      },
+      "death": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "painted/ryn_11",
+            "atlas": "painted/ryn_atlas.png",
+            "region": [
+              940,
+              836,
+              314,
+              418
+            ],
+            "size": [
+              314,
+              418
+            ],
+            "anchor": [
+              176,
+              397
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "angle": 0,
+            "render_scale": 0.5,
+            "duration": 1,
+            "embedded_weapon": true
+          }
+        ]
+      }
     }
   },
   "weapons": {
@@ -1346,6 +1775,22 @@
   "companions": {
     "lumi": "painted/lumi.png",
     "ash": "painted/ash.png"
+  },
+  "portraits": {
+    "ryn": {
+      "file": "painted/ryn_portrait.png",
+      "face": [
+        330,
+        130,
+        240,
+        250
+      ],
+      "adult_age": 27,
+      "layers": {
+        "body": "painted/ryn_body.png",
+        "back": "painted/ryn_back.png"
+      }
+    }
   },
   "guardian_clips": {
     "idle": {

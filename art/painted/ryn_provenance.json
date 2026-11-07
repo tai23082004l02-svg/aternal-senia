@@ -1,0 +1,27 @@
+{
+  "method": "Original image generation; clearly adult Ryn age 27. Portrait, extracted main-body and rear hair/sash layers, and 12-pose combat atlas. Raw selected PNG files unchanged. No original-game art or body rig.",
+  "adult_age": 27,
+  "assets": [
+    {
+      "file": "art/painted/ryn_portrait.png",
+      "bytes": 2180396,
+      "sha256": "37c893f652ab26fd6bcc126d58ee6b0241f6865d594d9339e8e312444cbbf9c8"
+    },
+    {
+      "file": "art/painted/ryn_body.png",
+      "bytes": 1716882,
+      "sha256": "2ca595a6a448f997b6993be1f53db8cea913ec32041653fb05d32d2fcbd5c0ab"
+    },
+    {
+      "file": "art/painted/ryn_back.png",
+      "bytes": 1568451,
+      "sha256": "68bbddef06fb05c04a26eebc9edc6a284d6e5258271e330d06abcbe0d32d0526"
+    },
+    {
+      "file": "art/painted/ryn_atlas.png",
+      "bytes": 2004436,
+      "sha256": "cf225fddb7073cb5dc4332672156acbe892b4e3ae9a0f9b2cae39e695754e330"
+    }
+  ],
+  "review": "Godot portrait composite and battle render reviewed. Body/back retain source placement on 1024x1536; atlas explicit 1254x1254 regions. Two thrust cells use extended regions to retain spear tips."
+}

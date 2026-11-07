@@ -38,6 +38,10 @@ func _init() -> void:
 		textures["bg_" + key] = _source(painted.backgrounds[key])
 	for key in painted.companions:
 		textures["companion_" + key] = _source(painted.companions[key])
+	for key in painted.get("portraits", {}):
+		textures["portrait_" + key] = _source(painted.portraits[key].file)
+		for layer in painted.portraits[key].get("layers", {}):
+			textures["portrait_" + key + "_" + layer] = _source(painted.portraits[key].layers[layer])
 
 	for clips in painted.get("guardian_clips", {}).values():
 		for frame in clips.frames:
@@ -116,7 +120,7 @@ func draw_actor(canvas: CanvasItem, frame: Dictionary, foot: Vector2, weapon: St
 	var factor: float = frame.get("render_scale", .88) if scale_override < 0 else scale_override
 	var origin := foot - anchor * factor
 	canvas.draw_texture_rect(textures[frame.file], Rect2(origin, dimensions * factor), false, tint)
-	if not show_weapon:
+	if not show_weapon or frame.get("embedded_weapon", false):
 		return
 	var hand := foot + (Vector2(frame.hand[0], frame.hand[1]) - anchor) * factor
 	var spec: Dictionary = weapon_specs.get(weapon, {"anchor": [32, 128], "scale": 1, "tint": [1, 1, 1, 1]})
