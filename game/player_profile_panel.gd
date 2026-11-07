@@ -24,8 +24,9 @@ static func show_profile(game) -> void:
 	name_input.editable = not game.store.read_only
 	column.add_child(name_input)
 	var chosen := {"avatar": identity.avatar}
-	var choices := HBoxContainer.new()
-	choices.alignment = BoxContainer.ALIGNMENT_CENTER
+	var choices := GridContainer.new()
+	choices.columns = 2
+	choices.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	column.add_child(choices)
 	var group := ButtonGroup.new()
 	for hero in game.catalog.data.heroes:

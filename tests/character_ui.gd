@@ -24,7 +24,7 @@ func run() -> void:
 	await process_frame
 	game._close_modal()
 	game.tabs[1].pressed.emit()
-	assert(screen().faces.size() == 3 and screen().section_buttons.size() == 7)
+	assert(screen().faces.size() == game.catalog.data.heroes.size() and screen().section_buttons.size() == 7)
 	screen().faces[1].pressed.emit()
 	assert(game.character_inspected == "ryn" and game.store.profile.hero == "eira")
 	await capture("character-locked")

@@ -23,7 +23,7 @@ func run() -> void:
 	root.get_texture().get_image().save_png(dir.path_join("08-animation-gallery.png"))
 	board.queue_free()
 	await process_frame
-	print("PASS: three heroes × six states, weapon sockets and foot anchors rendered")
+	print("PASS: four heroes × six states, weapon sockets and foot anchors rendered")
 	quit()
 
 class Gallery extends Node2D:

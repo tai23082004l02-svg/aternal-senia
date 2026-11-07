@@ -54,7 +54,7 @@ func find_row(group: String, id: Variant) -> Dictionary:
 	return {}
 
 func category(hero_id: String) -> String:
-	return {"eira": "sword", "ryn": "spear", "mira": "staff"}.get(hero_id, "sword")
+	return {"eira": "sword", "ryn": "spear", "lyra": "spear", "mira": "staff"}.get(hero_id, "sword")
 
 func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 	if hero_id.is_empty():

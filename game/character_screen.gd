@@ -261,5 +261,5 @@ class Face extends Control:
 			draw_texture_rect_region(frames.textures["portrait_" + hero], Rect2(Vector2.ZERO, size), Rect2(rect[0], rect[1], rect[2], rect[3]), Color(.5, .5, .5, 1) if dimmed else Color.WHITE)
 			return
 		var frame := frames.frame_at(hero, "idle", 0)
-		var region := Rect2(95, 0, 135, 135) if hero == "eira" else (Rect2(48, 0, 96, 110) if hero == "mira" else Rect2(48, 25, 96, 100))
+		var region := Rect2(95, 0, 135, 135) if hero in ["eira", "mira", "lyra"] else Rect2(48, 25, 96, 100)
 		draw_texture_rect_region(frames.textures[frame.file], Rect2(Vector2.ZERO, size), region, Color(.5, .5, .5, 1) if dimmed else Color.WHITE)

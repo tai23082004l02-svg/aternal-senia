@@ -25,7 +25,8 @@ func _init() -> void:
 			textures[key] = _source(key)
 	for weapon in painted.weapons:
 		weapon_specs[weapon] = painted.weapons[weapon]
-		textures[weapon + ".svg"] = _source(painted.weapons[weapon].file)
+		var spec: Dictionary = painted.weapons[weapon]
+		textures[weapon + ".svg"] = _region(spec.atlas, spec.region) if spec.has("atlas") else _source(spec.file)
 	for key in ["slime", "wolf", "golem", "guardian", "bird"]:
 		textures["enemy_" + key] = _source("enemy_" + key + ".svg")
 	for key in painted.enemies:
@@ -35,7 +36,8 @@ func _init() -> void:
 	for key in ["forest", "ruins", "lake", "mountain", "tower"]:
 		textures["bg_" + key] = _source("bg_" + key + ".svg")
 	for key in painted.backgrounds:
-		textures["bg_" + key] = _source(painted.backgrounds[key])
+		var spec = painted.backgrounds[key]
+		textures["bg_" + key] = _region(spec.atlas, spec.region) if spec is Dictionary else _source(spec)
 	for key in painted.companions:
 		textures["companion_" + key] = _source(painted.companions[key])
 	for key in painted.get("portraits", {}):
@@ -47,6 +49,14 @@ func _init() -> void:
 		for frame in clips.frames:
 			if not textures.has(frame.file):
 				textures[frame.file] = _region(frame.atlas, frame.region)
+	for clips in painted.get("enemy_clips", {}).values():
+		for clip in clips.values():
+			for frame in clip.frames: textures[frame.file] = _region(frame.atlas, frame.region)
+	for clip in painted.get("companion_clips", {}).values():
+		for frame in clip.frames: textures[frame.file] = _region(frame.atlas, frame.region)
+	if painted.has("icons"):
+		for key in painted.icons.regions:
+			textures["icon_" + key] = _region(painted.icons.regions[key].get("atlas", painted.icons.atlas), painted.icons.regions[key].region)
 	vfx_manifest = JSON.parse_string(FileAccess.get_file_as_string("res://art/combat/manifest.json"))
 	for key in vfx_manifest.effects:
 		textures["fx_" + key] = _region(vfx_manifest.atlas, vfx_manifest.effects[key].region)
@@ -137,3 +147,11 @@ func draw_actor(canvas: CanvasItem, frame: Dictionary, foot: Vector2, weapon: St
 		var grip: Array = frame.grip_rect
 		var region := Rect2(grip[0], grip[1], grip[2], grip[3])
 		canvas.draw_texture_rect_region(textures[frame.file], Rect2(origin + region.position * factor, region.size * factor), region, tint)
+
+func enemy_frame(type: String, state: String, elapsed: float) -> Dictionary:
+	return sample_clip(painted.enemy_clips[type].get(state, painted.enemy_clips[type].idle), elapsed)
+
+func companion_texture(type: String, age: float) -> Texture2D:
+	if painted.get("companion_clips", {}).has(type):
+		return textures[sample_clip(painted.companion_clips[type], age).file]
+	return textures["companion_" + type]

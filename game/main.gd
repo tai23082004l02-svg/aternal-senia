@@ -66,6 +66,7 @@ var character_inspected := ""
 var character_page := 0
 var character_outfit_preview := ""
 var shop_page := 0
+var currency_labels: Dictionary = {}
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
@@ -94,17 +95,18 @@ func _ready() -> void:
 		_notify("Vào ải để chiến đấu. Quản lý vật phẩm trong Túi đồ.")
 
 func _build_ui() -> void:
+	add_child(MenuBackdrop.new())
 	ui = Control.new()
 	ui.size = Vector2(540, 960)
 	ui.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var theme := Theme.new()
 	theme.default_font_size = 16
-	var normal := _style(Color("192d3b"), Color("3a505a"), 10)
-	var hover := _style(Color("304953"), Color("bca57a"), 10)
+	var normal := _style(Color("17313e"), Color("57615b"), 12)
+	var hover := _style(Color("294b56"), Color("d2bb83"), 12)
 	theme.set_stylebox("normal", "Button", normal)
 	theme.set_stylebox("hover", "Button", hover)
 	theme.set_stylebox("pressed", "Button", _style(Color("425951"), Color("d8c69d"), 10))
-	theme.set_stylebox("disabled", "Button", _style(Color("14232f"), Color("283943"), 10))
+	theme.set_stylebox("disabled", "Button", _style(Color("122733"), Color("35484f"), 12))
 	theme.set_color("font_color", "Button", Color("ede5d0"))
 	theme.set_color("font_disabled_color", "Button", Color("74858c"))
 	theme.set_color("font_color", "Label", Color("dedfd5"))
@@ -125,6 +127,18 @@ func _build_ui() -> void:
 	var vip_badge := _label(profile_button, "VIP · Chưa kích hoạt  ›", Vector2(70, 35), 13, Color("e1c38d"))
 	vip_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	wallet = _label(ui, "", Vector2(24, 88), 14, Color("e1c38d"))
+	wallet.visible = false
+	for i in range(3):
+		var key: String = ["gold", "shards", "xp"][i]
+		var icon := TextureRect.new()
+		icon.texture = frames.textures["icon_" + key]
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon.position = Vector2(24 + i * 166, 85)
+		icon.size = Vector2(28, 28)
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		ui.add_child(icon)
+		currency_labels[key] = _label(ui, "", Vector2(58 + i * 166, 91), 14, Color("e1c38d"))
 	mute_button = _button(ui, "Âm: bật", Vector2(422, 25), Vector2(94, 34), _toggle_sound)
 	_button(ui, "≡", Vector2(374, 25), Vector2(40, 34), _select_tab.bind(4)).tooltip_text = "Menu"
 	stage_label = _label(ui, "", Vector2(24, 143), 19, Color("eee8d6"))
@@ -242,7 +256,9 @@ func _refresh_hud() -> void:
 	var p: Dictionary = store.profile
 	profile_name.text = PlayerIdentity.state(p).name
 	profile_avatar.update_avatar(frames, PlayerIdentity.state(p).avatar)
-	wallet.text = "%d VÀNG     %d TINH THẠCH     %d KINH NGHIỆM" % [p.gold, p.shards, p.xp]
+	wallet.text = ""
+	for key in currency_labels:
+		currency_labels[key].text = "%d %s" % [p[key], {"gold": "Vàng", "shards": "Tinh thạch", "xp": "XP"}[key]]
 	var active := battle != null
 	var stats: Dictionary = battle.stats if active else catalog.stats(p)
 	var hero := catalog.find_row("heroes", stats.hero)
@@ -395,6 +411,7 @@ func _equipment_detail_panel() -> void:
 		for h in p.heroes:
 			if item.uid in p.heroes[h].equipment.values():
 				owner = catalog.find_row("heroes", h).name
+		_item_illustration(def.id)
 		_text(def.name, 24, Color(Recruitment.RARITIES[def.rarity].color))
 		_text("%s · Cường hóa +%d · Bậc %d%s" % [_rarity("item", item.base), item.enhance, item.rank, " · " + owner if owner != "" else ""])
 		if selected_item != item.uid:
@@ -430,7 +447,7 @@ func _journal_panel() -> void:
 		for part in ["before", "after"]:
 			var key := "%d_%s" % [stage.id, part]
 			if key in store.profile.seen_story:
-				_row(stage.name + (" · Khởi đầu" if part == "before" else " · Kết thúc"), _replay_story.bind(stage[part]))
+				_art_card(stage.name + (" · Khởi đầu" if part == "before" else " · Kết thúc"), stage[part], "bg_" + stage.zone, _replay_story.bind(stage[part]))
 	_text("Thế giới, nhân vật và hội thoại ở đây là nội dung mới. Nghiên cứu Eternal Senia 2 giúp tổ chức dữ liệu; không khẳng định phục hồi thuật toán gốc.")
 
 func _notify(text: String) -> void:
@@ -651,6 +668,13 @@ func _dialog(title: String, body: String, actions: Array) -> VBoxContainer:
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 18)
 	margin.add_child(column)
+	var medal := TextureRect.new()
+	medal.texture = frames.textures["icon_victory" if title == "CHIẾN THẮNG" else "icon_cores"]
+	medal.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	medal.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	medal.custom_minimum_size = Vector2(58, 58)
+	medal.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	column.add_child(medal)
 	var heading := _label(column, title, Vector2.ZERO, 25, Color("e5cd9e"))
 	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var label := _label(column, body, Vector2.ZERO, 18)
@@ -839,7 +863,7 @@ func _stage_entry(stage: Dictionary) -> void:
 		var id: int = stage.requires[0] if stage.has("requires") else stage.id - 1
 		requirement = " · cần qua " + catalog.find_row("stages", id).name
 	if not requirement.is_empty(): _text(requirement.trim_prefix(" · "), 14)
-	_row(("✓ " if stage.id in store.profile.cleared else "") + stage.name, _enter_stage.bind(stage.id), _locked() or not available)
+	_art_card(stage.name, "%d vàng · %d XP" % [stage.gold, stage.xp], "bg_" + stage.zone, _enter_stage.bind(stage.id), _locked() or not available, stage.id in store.profile.cleared)
 
 func _talent(id: String) -> void:
 	_outcome(Expansion.talent(store, id), "Đã cập nhật nhánh kỹ năng.", "upgrade")
@@ -983,7 +1007,7 @@ func _map_panel() -> void:
 	_text("BẢN ĐỒ HÀNH TRÌNH", 23, Color("e5cd9e"))
 	for stage in catalog.data.stages:
 		if stage.id > 5: continue
-		_row(("✓ " if stage.id in store.profile.cleared else "") + stage.name + (" · Đang chọn" if stage.id == selected_stage else ""), _map_stage.bind(stage.id), _locked() or not store.can_enter(stage.id))
+		_art_card(stage.name, "%d vàng · %d XP" % [stage.gold, stage.xp], "bg_" + stage.zone, _map_stage.bind(stage.id), _locked() or not store.can_enter(stage.id), stage.id == selected_stage)
 	_row("Chương truyện & Phụ bản →", _select_tab.bind(5))
 
 func _map_stage(id: int) -> void:
@@ -1063,8 +1087,14 @@ func _inventory_card(parent: Node, key: String, title: String, subtitle: String,
 	var image := TextureRect.new()
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.texture = icons.textures[key]
+	if action.get_method() == "_item_detail":
+		for item in store.profile.items:
+			if item.uid == action.get_bound_arguments()[0]: image.texture = frames.textures["icon_" + _item_art_key(item.base)]
+	elif action.get_method() == "_open_spirit": image.texture = frames.textures["companion_" + str(action.get_bound_arguments()[0])]
 	image.position = Vector2((width - 40) / 2.0, 10)
-	image.size = Vector2(40, 40)
+	image.size = Vector2(48, 48)
+	image.position.x -= 4
+	image.position.y -= 4
 	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	card.add_child(image)
@@ -1249,6 +1279,59 @@ func _preview_character_outfit(id: String) -> void:
 
 func _apply_character_outfit(hero: String, id: String) -> void:
 	_outcome(Wardrobe.apply(store, hero, id), "Đã áp dụng phối màu.")
+
+func _art_card(title: String, description: String, key: String, action: Callable, disabled: bool = false, selected: bool = false) -> Button:
+	var card := _button(panel, "", Vector2.ZERO, Vector2(464, 112), action)
+	card.disabled = disabled
+	card.tooltip_text = title + " · " + description
+	card.add_theme_stylebox_override("normal", _style(Color("1c3741") if selected else Color("122a38"), Color("d3b574") if selected else Color("3b5360"), 14))
+	card.add_theme_stylebox_override("disabled", _style(Color("172d38") if selected else Color("102430"), Color("b19b68") if selected else Color("32444e"), 14))
+	var margin := MarginContainer.new()
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for side in ["left", "right", "top", "bottom"]: margin.add_theme_constant_override("margin_" + side, 10)
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card.add_child(margin)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 14)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	margin.add_child(row)
+	var art := ArtThumbnail.new()
+	art.library = frames
+	art.custom_minimum_size = Vector2(128 if key.begins_with("bg_") else 78, 86)
+	art.clip_contents = true
+	if key.begins_with("hero_"):
+		art.hero = key.trim_prefix("hero_")
+		art.weapon = catalog.stats(store.profile, art.hero).weapon
+	else: art.key = key
+	art.modulate.a = .6 if disabled and not selected else 1.0
+	row.add_child(art)
+	var words := VBoxContainer.new()
+	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	words.alignment = BoxContainer.ALIGNMENT_CENTER
+	words.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(words)
+	var heading := _label(words, ("✓ " if selected else "") + title, Vector2.ZERO, 17, Color("ead6a6") if selected else Color("e3dfd0"))
+	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	heading.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	heading.max_lines_visible = 2
+	var body := _label(words, description, Vector2.ZERO, 13, Color("a9c4c6"))
+	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	body.max_lines_visible = 3
+	return card
+
+func _item_art_key(id: String) -> String:
+	if frames.textures.has("icon_" + id): return id
+	return "armor_3"
+
+func _item_illustration(id: String) -> void:
+	var image := TextureRect.new()
+	image.texture = frames.textures["icon_" + _item_art_key(id)]
+	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	image.custom_minimum_size = Vector2(120, 120)
+	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(image)
 
 func _show_player_profile() -> void:
 	if battle != null:

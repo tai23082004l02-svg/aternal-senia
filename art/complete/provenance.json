@@ -1,0 +1,38 @@
+{
+  "method": "Original image generation with existing Eira/forest as style reference. Reviewed regions and sockets; source PNG unchanged.",
+  "date": "2026-11-07",
+  "sources": [
+    {
+      "file": "armor.png",
+      "sha256": "7b523cf51069d31c647aa5f852f1631f4d1607c67a5575618374671abda4ad8b"
+    },
+    {
+      "file": "enemies.png",
+      "sha256": "3a3818533ecdfcb980de1374dda5723fafcad8976885bd0a7e67e80c22bfadce"
+    },
+    {
+      "file": "items.png",
+      "sha256": "c5422928f8fcbd96d9db1e9cb00acb65428e23725f77e651efad463d38f39320"
+    },
+    {
+      "file": "lyra.png",
+      "sha256": "db899db0990a91048c68061a239cc20013308de6242b942bbdee94ba7994efc6"
+    },
+    {
+      "file": "mira.png",
+      "sha256": "96926688a8f17aa6bdbdaf31847c8209a0dc272b70d13e0c4f533cd7c526c180"
+    },
+    {
+      "file": "shell.png",
+      "sha256": "f9fbb240198cc96d2f079982f767aa9931185f91e2d2da9c0aa383ed81a6d24a"
+    },
+    {
+      "file": "weapons.png",
+      "sha256": "c096f206f5e406f885f281066aec97bf8ab37bebfa7d3f86cb28d378f0f6e474"
+    },
+    {
+      "file": "worlds.png",
+      "sha256": "0ee0ce9e1ad787db4d8d6a18fbf78577786d5cd7ae1b0718841b486c508281d6"
+    }
+  ]
+}

@@ -1,4 +1,11 @@
-# Aternal Senia — First Light · 0.15
+# Aternal Senia — First Light · 0.16
+
+## Đồ họa đồng bộ & Lyra · 0.16
+
+Giữ nguyên Ryn trưởng thành, ảnh/layer và tương tác của 0.13. Nhân vật tóc nâu áo choàng đỏ mới là **Lyra**, thương thủ hoàng hôn 24 tuổi, mở sau chương 3 hoặc triệu hồi. Mira và Lyra có 16 pose PNG mỗi người; các vùng và boss còn lại đã có tranh, vũ khí rời mới, đủ 14 biểu tượng trang bị. Giao diện giữ Shop/Nhân vật/Hành trình/Phó bản/Túi đồ cùng các tính năng mới, bổ sung nền, thẻ tranh, ảnh item và huy hiệu chiến thắng.
+
+- [Video giao diện và trận ba boss](docs/previews/visual-showcase.mp4)
+- [Ảnh, phạm vi và bằng chứng kiểm tra](docs/GRAPHICS_COMPLETE.md)
 
 ## Hồ sơ & VIP · 0.15
 

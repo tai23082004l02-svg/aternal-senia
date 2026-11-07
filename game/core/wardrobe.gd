@@ -8,7 +8,7 @@ const LOOKS := {
 }
 
 static func fresh() -> Dictionary:
-	return {"eira": "original", "ryn": "original", "mira": "original"}
+	return {"eira": "original", "ryn": "original", "mira": "original", "lyra": "original"}
 
 static func selected(p: Dictionary, hero: String) -> String:
 	return p.get("outfits", fresh())[hero]
