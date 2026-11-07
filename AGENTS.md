@@ -7,8 +7,9 @@
 - BattleModel owns hit timing; View/FrameLibrary không được sửa HP hoặc ví.
 - Không tự thêm rig, SDK, quảng cáo, server, phí runtime hoặc phá save.
 - Chạy regression.gd, mechanics.gd, campaign.gd sau sửa logic. Với UI/art, chạy ui_flow.gd / animation_gallery.gd trên display và xem ảnh.
-- Báo đúng giới hạn: Eira/rừng có PNG mới; Ryn/Mira/Ash và vùng khác còn SVG. Chưa test điện thoại thật hoặc nghe audio.
+- Báo đúng giới hạn: Eira/Ash/rừng/phế tích/hồ có PNG; Ryn/Mira, núi/tháp và một số quái còn SVG. Ash chuyển động bằng transform một sprite. Chưa test điện thoại thật hoặc nghe audio.
 - Fetch/status trước khi đẩy; không force push, không ghi đè thay đổi của người khác.
+- Thuộc tính 0.8: chạy tests/attribute_training.gd khi sửa điểm hoặc stats; tests/training_ui.gd khi sửa màn thuộc tính/sổ tay. Trường training bổ sung trong save v3 là tùy chọn; save cũ giữ nguyên và có điểm chưa phân bổ theo cấp. Khóa build khi còn pending run.
 
 - Âm thanh: đọc docs/AUDIO.md. Model phát cue theo marker; View/Pose Lab không phát âm.
 - Không dùng RNG chiến đấu để chọn âm. Mute phải dừng voice và tiêu thụ cursor; không phát lại backlog.

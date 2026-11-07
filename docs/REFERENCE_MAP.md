@@ -53,3 +53,11 @@ chuyển nguyên hàng nghìn dữ liệu/asset từ catalog sang game mới.
 ## Mở rộng 0.7
 
 Đã áp dụng thêm cấu trúc `skillclass`/`passive`/`rune_*`, `ability`/`partner_rankup`, `realm`/`godRealm`/`platinumTrial`, hai nhóm skill trong `weapon`, `partner_collect`, `chapter`/`section`. Triển khai sáu nhánh chọn kỹ năng cho từng hero, ba bậc đồng hành, ba phụ bản, sáu trait vũ khí, bộ sưu tập/sáu thành tựu và mười màn truyện nhánh. Công thức, chi phí, nội dung và cân bằng đều thiết kế riêng; xem [EXPANSION.md](EXPANSION.md).
+
+## Mở rộng 0.8
+
+Đọc lại repo tham khảo tại `2c7af38c4c208656703814f64b05dfe0bd54844e`:
+`statspoint` (lv/statspoint/stats_req) làm cơ sở cấu trúc cho phân bổ thuộc tính
+theo cấp; `mob`/`mob_stats`/`dropgroup` gợi ý gom thông tin boss vào sổ tay đọc
+catalogue. Quy tắc 2 điểm/cấp, bonus HP/ATK/phòng thủ, hoàn miễn phí và UI sổ tay
+là thiết kế mới. Xem [TRAINING.md](TRAINING.md) cho cơ chế save và kiểm chứng.

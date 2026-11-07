@@ -110,6 +110,7 @@ func valid(p: Variant) -> bool:
 		if p.settings.has(key) and not _number(p.settings[key], 0, 1):
 			return false
 	if not Expansion.valid(self, p.get("expansion")): return false
+	if not AttributeTraining.valid(self, p): return false
 	return p.settings.get("speed") in [1, 2, 3] and p.settings.get("sound") is bool
 
 func _number(value: Variant, low: float, high: float) -> bool:

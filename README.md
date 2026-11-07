@@ -1,4 +1,14 @@
-# Aternal Senia — First Light · 0.7
+# Aternal Senia — First Light · 0.8
+
+## Tính năng 0.8 · Rèn luyện & Sổ tay boss
+
+- **Nhân vật → Điểm thuộc tính**: mỗi cấp sau cấp 1 cho 2 điểm riêng; mỗi điểm
+  cộng 10 HP, 1,5 ATK hoặc 0,75 phòng thủ. Cộng/bớt và hoàn điểm miễn phí ngoài
+  trận. Nhân vật từ save cũ nhận đủ điểm theo cấp hiện tại.
+- **Nhật ký → Sổ tay boss**: thông tin năm boss chính mở theo chương; xem chỉ
+  số, nguyên tố khắc chế, gợi ý thủ/phá khiên/phản đòn và loot có thể rơi.
+
+Giữ save v3 và toàn bộ nội dung/mỹ thuật 0.7. [Quy tắc và kiểm chứng](docs/TRAINING.md).
 
 ## Mỹ thuật tiếp nối · Phế tích, Hồ gương & Ash
 

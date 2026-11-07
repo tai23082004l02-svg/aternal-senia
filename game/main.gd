@@ -272,6 +272,8 @@ func _refresh_panel() -> void:
 		2: _items_panel()
 		3: _quests_panel()
 		4: _journal_panel()
+		9: _training_panel()
+		10: _boss_guide_panel()
 		_: _expansion_panel(tab)
 
 func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) -> void:
@@ -308,6 +310,7 @@ func _choose_stage(id: int) -> void:
 	_refresh_panel()
 
 func _heroes_panel() -> void:
+	_row("ĐIỂM THUỘC TÍNH · còn %d →" % AttributeTraining.remaining(store.profile, store.profile.hero), _select_tab.bind(9))
 	_row("CÂY KỸ NĂNG →", _select_tab.bind(6))
 	_row("TIẾN HÓA ĐỒNG HÀNH →", _select_tab.bind(7))
 	var p: Dictionary = store.profile
@@ -373,6 +376,7 @@ func _quests_panel() -> void:
 	_text("Nhiệm vụ được lưu vĩnh viễn; không nhận lại khi khởi động game.")
 
 func _journal_panel() -> void:
+	_row("SỔ TAY BOSS →", _select_tab.bind(10))
 	_text("NHẬT KÝ HÀNH TRÌNH", 17, Color("e5cd9e"))
 	for stage in catalog.data.stages:
 		for part in ["before", "after"]:
@@ -790,3 +794,53 @@ func _rank_assist() -> void:
 
 func _achievement(id: String) -> void:
 	_outcome(Expansion.claim(store, id), "Đã nhận thành tựu.", "reward")
+
+func _training_panel() -> void:
+	_row("← Trở về nhân vật", _select_tab.bind(1))
+	var p: Dictionary = store.profile
+	var points := AttributeTraining.allocation(p, p.hero)
+	var remaining := AttributeTraining.remaining(p, p.hero)
+	var stats := catalog.stats(p)
+	_text("ĐIỂM THUỘC TÍNH · " + catalog.find_row("heroes", p.hero).name, 21, Color("e5cd9e"))
+	_text("Mỗi cấp sau cấp 1 cho 2 điểm riêng cho nhân vật. Còn %d điểm. Cộng, bớt và hoàn điểm miễn phí ngoài trận." % remaining)
+	_text("HP %.0f · ATK %.1f · Thủ %.2f" % [stats.hp, stats.atk, stats.defense], 18, Color("e5cd9e"))
+	for stat in AttributeTraining.ATTRIBUTES:
+		var row: Dictionary = AttributeTraining.ATTRIBUTES[stat]
+		_text("%s · %d điểm · tổng +%s" % [row.name, points[stat], str(points[stat] * row.bonus)], 18, Color("e5cd9e"))
+		_row("+1 điểm · +%s %s" % [str(row.bonus), row.name], _train_attribute.bind(stat, 1), _locked() or remaining <= 0)
+		_row("−1 điểm · hoàn lại 1 điểm", _train_attribute.bind(stat, -1), _locked() or points[stat] <= 0)
+	_row("Hoàn toàn bộ điểm · miễn phí", _reset_attributes, _locked() or remaining == (p.heroes[p.hero].level - 1) * 2)
+	if not p.pending.is_empty():
+		_text("Đang có trận chưa kết thúc: điểm đã khóa theo build lúc vào trận.")
+
+func _train_attribute(stat: String, amount: int) -> void:
+	_outcome(AttributeTraining.change(store, stat, amount), "Đã cập nhật điểm thuộc tính.", "upgrade")
+
+func _reset_attributes() -> void:
+	_outcome(AttributeTraining.reset(store), "Đã hoàn điểm thuộc tính.")
+
+func _boss_guide_panel() -> void:
+	_row("← Trở về nhật ký", _select_tab.bind(4))
+	_text("SỔ TAY BOSS", 21, Color("e5cd9e"))
+	_text("Mở thông tin khi đường đến chương được mở. Chỉ số dưới đây là boss màn chính; ký ức và phụ bản có chỉ số riêng.")
+	var elements := {"nature": "Tự nhiên", "fire": "Lửa", "water": "Nước", "light": "Ánh sáng", "dark": "Bóng tối"}
+	var counters := {"nature": "Lửa", "fire": "Nước", "water": "Tự nhiên", "light": "Bóng tối", "dark": "Ánh sáng"}
+	var hints := {
+		"smash": "Đòn nặng: thủ thế ngay trước khi vòng báo đầy để giảm 80% sát thương. Giữ kỹ năng hồi phục khi máu thấp.",
+		"shield": "Khiên: kỹ năng Tinh linh phá khiên. Đòn không có nội tại xuyên khiên chỉ gây 35% sát thương khi khiên còn hoạt động.",
+		"counter": "Phản đòn: ngưng kỹ năng gây sát thương khi boss đang tụ lực. Đòn thường và thủ thế giúp chờ qua thời điểm nguy hiểm."
+	}
+	for stage in catalog.data.stages:
+		if stage.id > 5:
+			continue
+		if not store.can_enter(stage.id):
+			_text("Chương %d · Chưa mở · cần vượt chương trước" % stage.id)
+			continue
+		_text(stage.boss + (" · Đã hạ" if stage.id in store.profile.cleared else " · Chưa hạ"), 19, Color("e5cd9e"))
+		_text(stage.name + " · " + elements[stage.element])
+		_text("HP %d · ATK %d · Vũ khí hệ %s tăng 20%% sát thương" % [stage.boss_hp, stage.boss_atk, counters[stage.element]])
+		_text(hints[stage.mechanic])
+		var drops: Array[String] = []
+		for id in stage.drops:
+			drops.append(catalog.find_row("items", id).name)
+		_text("Có thể rơi: " + ", ".join(drops), 14)
