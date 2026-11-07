@@ -1039,12 +1039,33 @@ func _map_stage(id: int) -> void:
 	_select_tab(0)
 
 func _more_panel() -> void:
-	_text("TIỆN ÍCH", 23, Color("e5cd9e"))
-	_row("Nhiệm vụ & Phần thưởng →", _select_tab.bind(3))
-	_row("Nhật ký câu chuyện →", _select_tab.bind(16))
-	_row("SỔ TAY BOSS →", _select_tab.bind(10))
-	_row("Bộ sưu tập & thành tựu →", _select_tab.bind(8))
-	_row("Âm thanh & mức âm lượng →", _audio_settings)
+	var screen := UtilitiesScreen.new()
+	screen.game = self
+	panel.add_child(screen)
+
+func _utility_mail() -> void:
+	_dialog("HỘP THƯ", "Hộp thư trống.\n\nQuà hệ thống, thông báo và đền bù sẽ xuất hiện tại đây khi dịch vụ hộp thư mở.", [{"text": "Đóng", "call": _close_modal}])
+
+func _utility_giftcode() -> void:
+	var column := _dialog("ĐỔI MÃ QUÀ TẶNG", "Nhận giftcode từ các sự kiện. Hiện chưa có đợt đổi mã đang mở.", [{"text": "Đóng", "call": _close_modal}])
+	var input := LineEdit.new()
+	input.placeholder_text = "Nhập mã quà tặng"
+	input.editable = false
+	input.custom_minimum_size.y = 46
+	column.add_child(input)
+	column.move_child(input, 2)
+	var redeem := _button(column, "Đổi mã · Chưa mở", Vector2.ZERO, Vector2(400, 46), func(): pass)
+	redeem.disabled = true
+	column.move_child(redeem, 3)
+
+func _utility_settings() -> void:
+	_dialog("CÀI ĐẶT", "Tùy chỉnh trải nghiệm và hồ sơ người chơi.", [{"text": "Âm thanh & mức âm lượng", "call": _audio_settings}, {"text": "Đồ họa & hiển thị", "call": _utility_graphics}, {"text": "Tài khoản & Hồ sơ", "call": _show_player_profile}, {"text": "Đóng", "call": _close_modal}])
+
+func _utility_graphics() -> void:
+	_dialog("ĐỒ HỌA & HIỂN THỊ", "Game dùng giao diện dọc, tự co theo cửa sổ.\n\nHiện dùng cấu hình đồ họa mặc định. Tùy chọn chất lượng và giới hạn FPS sẽ được bổ sung sau.", [{"text": "Về cài đặt", "call": _utility_settings}, {"text": "Đóng", "call": _close_modal}])
+
+func _utility_help() -> void:
+	SummonScreen.show_text(self, "TRỢ GIÚP & HỖ TRỢ", "HƯỚNG DẪN\nChọn nhân vật và trang bị trước khi vào ải. Dùng tinh linh phá khiên, thủ thế trước đòn mạnh của Boss.\n\nNâng cấp nhân vật ở mục Nhân vật; quản lý trang bị và nguyên liệu trong Túi đồ. Xem tỷ lệ trước khi triệu hồi.\n\nBÁO LỖI\nKhi gửi lỗi cho nhóm phát triển, kèm phiên bản game, thiết bị, các bước tái hiện và ảnh hoặc video. Giữ bản sao save trước khi cài lại.\n\nPhiên bản: " + str(ProjectSettings.get_setting("application/config/version", "")) + "\n\nKênh liên hệ và gửi báo lỗi trong game chưa được cấu hình.")
 
 func _bag_open(section: String) -> void:
 	bag_section = section

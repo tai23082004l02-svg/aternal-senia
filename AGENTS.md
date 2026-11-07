@@ -26,3 +26,5 @@
 - Hồ sơ/VIP0.15: đọc docs/PLAYER_VIP.md, chạy tests/player_profile.gd. identity là trường tùy chọn save v5; VIP hiện chỉ giao diện 1–10 theo nạp tiền, không tự thêm điểm/cấp/quyền lợi/thanh toán hoặc thưởng giả.
 
 - Triệu hồi0.17: đọc docs/SUMMON_SCREEN.md, chạy summon_batch/summon_ui/recruitment. x1/x10 atomic; lịch sử tối đa100. Bộ đếm UI chỉ Cao cấp/Sự kiện, độc lập, mốc/phần thưởng chờ cấu hình; không tự mở hai banner. Pity Thường cũ giữ nội bộ, không dùng chung hai bộ đếm mới.
+
+- Tiện ích0.18: đọc docs/UTILITIES_MENU.md; chạy utilities_ui khi sửa menu/badge. Badge chỉ từ quest đủ điều kiện chưa nhận; Hộp thư/Giftcode chưa có dịch vụ, không tạo thư/quà/mã thưởng giả.

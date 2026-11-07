@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.17
+# Aternal Senia — First Light · 0.18
+
+## Tiện ích · 0.18
+
+Menu chia ba nhóm Hoạt động / Khám phá / Hệ thống, đủ tám mục với icon, mô tả
+và mũi tên. Huy hiệu Nhiệm vụ đếm thưởng có thể nhận thật. Hộp thư/Giftcode chưa
+mở dịch vụ; Cài đặt gom âm thanh, hiển thị và hồ sơ. [Ảnh và phạm vi](docs/UTILITIES_MENU.md).
 
 ## Triệu hồi · 0.17
 
