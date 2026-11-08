@@ -83,4 +83,4 @@ tests/supplies kiểm migration/backup/UID, rollback/claims/rương/cap/ticket �
 snapshot thuốc/mở lại/loss/replay, skill/seed/AFK. supplies_ui kiểm confirm/hủy,
 đúng hero/UID, bounds, source navigation, pending khóa và alpha thật.
 Workflow supplies.yml chạy thêm các suite save/combat/inventory/gacha/audio/UI
-cũ trước khi xuất ảnh. Chưa thử cảm ứng/FPS hoặc nghe qua loa điện thoại thật.
+cũ trước khi xuất ảnh (33 suite, gồm team_matrix/team_campaign/shop_ui và hai suite ba bộ mới). Chưa thử cảm ứng/FPS hoặc nghe qua loa điện thoại thật.
