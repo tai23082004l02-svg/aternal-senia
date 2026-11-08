@@ -6,7 +6,10 @@ static func show(game, id: String, section: String = "Information") -> void:
 	if row.is_empty(): return
 	var surface := UIDesignV2.overlay(game, "HeroShowcase")
 	surface.set_meta("hero_id", id)
-	UIDesignV2.art(surface, load(row.art.banner), Vector2(8, 8), Vector2(476, 480))
+	if row.art.get("inset_showcase",false):
+		UIDesignV2.art(surface, HeroContract.art_texture(row,"showcase"), Vector2(8,108), Vector2(338,380))
+	else:
+		UIDesignV2.art(surface, load(row.art.banner), Vector2(8, 8), Vector2(476, 480))
 	var veil := ColorRect.new()
 	veil.position = Vector2(8, 8)
 	veil.size = Vector2(476, 100)
@@ -48,6 +51,10 @@ static func show(game, id: String, section: String = "Information") -> void:
 	heading.add_theme_font_size_override("font_size", 20)
 	heading.add_theme_color_override("font_color", UIDesignV2.GOLD)
 	body.add_child(heading)
+	if id == "caelan" and not owned:
+		var recruit := UIDesignV2.button(game,body,"Recruit Caelan · Free",Vector2.ZERO,Vector2(430,44),game._confirm_caelan,true)
+		recruit.name = "RecruitCaelan"
+		recruit.disabled = game._locked() or 1 not in game.store.profile.cleared
 	var copy := Label.new()
 	copy.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	copy.add_theme_font_size_override("font_size", 14)
@@ -70,7 +77,7 @@ static func show(game, id: String, section: String = "Information") -> void:
 		var button := UIDesignV2.button(game, portraits, "", Vector2.ZERO, Vector2(96, 86), show.bind(game, hero.id), hero.id == id)
 		button.tooltip_text = hero.name
 		button.name = "ShowcaseHero_" + hero.id
-		UIDesignV2.art(button, load(hero.art.banner), Vector2(3, 3), Vector2(90, 55))
+		UIDesignV2.art(button, HeroContract.art_texture(hero,"card"), Vector2(3, 3), Vector2(90, 55))
 		UIDesignV2.text(button, hero.name, Vector2(4, 59), Vector2(88, 20), 12).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 static func manage(game, id: String, page: int) -> void:

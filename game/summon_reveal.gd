@@ -3,7 +3,7 @@ extends RefCounted
 
 # Present a deep copy of committed results. No RNG, summon, spending or grants.
 static func artwork(game, result: Dictionary) -> Texture2D:
-	if result.kind == "hero": return load(game.catalog.find_row("heroes", result.id).art.banner)
+	if result.kind == "hero": return HeroContract.art_texture(game.catalog.find_row("heroes", result.id),"reveal")
 	if result.kind == "spirit": return game.frames.textures.get("companion_" + result.id)
 	return game.icons.textures.get(result.id, game.icons.textures.get("equipment"))
 

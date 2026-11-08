@@ -56,5 +56,7 @@ p['version']=4
 print('Complete painted roster, weapons, environments, enemies, companion and UI icons')
 runpy.run_path(str(root/'tools/build_equipment_art.py'))
 
+runpy.run_path(str(root/'tools/build_caelan.py'))['build']()
+
 # Inventory illustrations remain original; register dimensions/provenance only.
 runpy.run_path(str(root/'tools/build_bag_art.py'))

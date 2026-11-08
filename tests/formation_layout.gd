@@ -35,7 +35,7 @@ func run() -> void:
 	assert(game.store.commit(p))
 	game._select_tab(22)
 	await capture("formation-layout")
-	assert(screen().slot_buttons.size() == 4 and screen().roster_buttons.size() == 4)
+	assert(screen().slot_buttons.size() == 4 and screen().roster_buttons.size() == game.catalog.data.heroes.size())
 	assert(screen().roster_buttons.lyra.disabled)
 	assert(screen().slot_buttons[0].global_position.x > screen().slot_buttons[2].global_position.x)
 	assert(screen().slot_buttons[0].global_position.y == screen().slot_buttons[2].global_position.y)

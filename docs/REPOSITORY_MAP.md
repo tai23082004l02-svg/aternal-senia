@@ -2,7 +2,7 @@
 
 | Đường dẫn | Nội dung/ghi chú |
 | --- | --- |
-|project.godot|Entry Godot, version0.37.0, canvas540×960, Compatibility; giữ config/name|
+|project.godot|Entry Godot, version0.38.0, canvas540×960, Compatibility; giữ config/name|
 |AGENTS.md|Quy tắc ngắn cho mọi phiên chat phát triển|
 |README.md|Cách chạy, trạng thái và lối vào tài liệu|
 |game/main.tscn, game/main.gd|Khởi động, điều hướng/callback, nối model/view/audio|
@@ -28,7 +28,7 @@
 
 ## Công cụ
 
-- `check_project.py`:43 suite mặc định; có chọn tên test, timeout, emits review khi cần.
+- `check_project.py`:47 suite mặc định; có chọn tên test, timeout, emits review khi cần.
 - `verify_repo.py`:kiểm tham chiếu literal, link nội bộ, file sinh ra, inventory JSON.
 - `export_android.sh`:xuất HEAD chỉ gồm project/game/art sang thư mục mới.
 - `pose_lab.tscn`/`pose_lab.gd`:xem frame/socket, không đổi model hoặc phát âm.

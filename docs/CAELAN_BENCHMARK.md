@@ -1,9 +1,10 @@
 # Caelan — bàn giao thiết kế nhân vật
 
+> **Đã tích hợp0.38/savev13 theo yêu cầu tiếp theo của chủ dự án.** Đây là brief nguồn và lịch sử thiết kế; trạng thái chơi được, kỹ năng đã áp dụng và migration ở [CAELAN_RUNTIME](CAELAN_RUNTIME.md).
+
 **Phạm vi theo phân công mới của chủ dự án:** tạo hình, trang phục, vũ khí,
 pose và bản sắc/kỹ năng nhân vật. UI, bố cục màn hình, cảnh nền và tích hợp
-runtime do người khác phụ trách. Gói này **chưa thêm hero chơi được**, chưa sửa
-save, pool triệu hồi, chỉ số, kỹ năng hoặc giao diện game hiện tại.
+runtime do người khác phụ trách. Gói nguồn ban đầu chỉ bàn giao thiết kế; bản tích hợp sau đó được ghi riêng ở CAELAN_RUNTIME.
 
 ## Nhận diện
 

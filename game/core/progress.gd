@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 12
+const VERSION = 13
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -27,6 +27,9 @@ func fresh() -> Dictionary:
 	var bag: Array = []
 	var starters := {}
 	for hero in catalog.data.heroes:
+		if not hero.get("starter_weapon",true):
+			units[hero.id].equipment.weapon = ""
+			continue
 		var base := catalog.category(hero.id) + "_1"
 		if not starters.has(base):
 			starters[base] = "starter_" + hero.id
@@ -442,6 +445,9 @@ func settle(run_id: String, won: bool, kills: int, elapsed: float = 0) -> bool:
 		p.xp += stage.xp
 		p.shards += 2
 		Supplies.award(p,int(run.stage))
+		if int(run.stage) == Recruitment.CAELAN_FRAGMENT_STAGE and run.has("team") and run.team.units.any(func(unit): return unit.stats.hero == "caelan"):
+			Recruitment.ensure(self,p)
+			p.recruitment.fragments.caelan += Recruitment.CAELAN_FRAGMENT_REWARD
 		if run.stage not in p.cleared:
 			p.gold += stage.first_gold
 			p.cleared.append(run.stage)
@@ -510,6 +516,39 @@ func setting(key: String, value: Variant) -> bool:
 	return commit(p)
 
 func _decode(file_path: String) -> Variant:
+	var source = GameCatalog.normalize(JSON.parse_string(FileAccess.get_file_as_string(file_path)))
+	if not source is Dictionary or not _whole(source.get("version"),1,12): return _decode_source(file_path)
+	var current_book := catalog
+	var legacy_book := GameCatalog.new()
+	legacy_book.data.heroes = legacy_book.data.heroes.filter(func(hero): return hero.id != "caelan")
+	catalog = legacy_book
+	var raw = _decode_source(file_path)
+	var eligible := false
+	if raw is Dictionary and raw.get("version") in [12,VERSION]:
+		var check: Dictionary = raw.duplicate(true)
+		check.version = VERSION
+		eligible = valid(check)
+		if eligible: raw = check
+	catalog = current_book
+	if not eligible: return source
+	var neutral_unit := {"level":1,"skills":[1,1,1],"equipment":{"weapon":"","armor":"","boots":"","accessory":""}}
+	if raw.heroes.has("caelan") and raw.heroes.caelan != neutral_unit: return source
+	if raw.expansion.builds.has("caelan") and raw.expansion.builds.caelan != {"learned":[],"selected":["","",""]}: return source
+	if raw.has("recruitment"):
+		if "caelan" in raw.recruitment.heroes or raw.recruitment.fragments.get("caelan",0) != 0 or raw.recruitment.awakening.get("caelan",1) != 1: return source
+	for field in ["training","evolution","outfits"]:
+		var neutral = {"hp":0,"atk":0,"defense":0} if field == "training" else ("original" if field == "outfits" else 1)
+		if raw.has(field) and raw[field].has("caelan") and raw[field].caelan != neutral: return source
+	raw.heroes["caelan"] = {"level":1,"skills":[1,1,1],"equipment":{"weapon":"","armor":"","boots":"","accessory":""}}
+	raw.expansion.builds["caelan"] = {"learned":[],"selected":["","",""]}
+	if raw.has("recruitment"):
+		raw.recruitment.fragments["caelan"] = 0
+		raw.recruitment.awakening["caelan"] = 1
+	for field in ["training","evolution","outfits"]:
+		if raw.has(field): raw[field]["caelan"] = {"hp":0,"atk":0,"defense":0} if field == "training" else ("original" if field == "outfits" else 1)
+	return raw
+
+func _decode_source(file_path: String) -> Variant:
 	var raw = GameCatalog.normalize(JSON.parse_string(FileAccess.get_file_as_string(file_path)))
 	var old_version: int = raw.get("version", 0) if raw is Dictionary else 0
 	if raw is Dictionary and raw.get("version") == 2:

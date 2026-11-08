@@ -257,6 +257,8 @@ func levels() -> void:
 	button("Gain %d LV" % count, game._character_level.bind(hero, count), locked() or p.gold < total * 30 or p.xp < total * 15)
 
 func stars_panel() -> void:
+	var source: String = game.catalog.find_row("heroes",hero).get("fragment_source", "")
+	if not source.is_empty(): text(tr(source),13)
 	var p: Dictionary = game.store.profile
 	var r := Recruitment.state(p)
 	var stars: int = r.awakening[hero]

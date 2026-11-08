@@ -2,6 +2,8 @@ class_name Recruitment
 extends RefCounted
 
 const PRICE := 120
+const CAELAN_FRAGMENT_STAGE := 103
+const CAELAN_FRAGMENT_REWARD := 2
 const HISTORY_LIMIT := 100
 const RARITIES := {
 	3: {"name": "Rare", "color": "608dff"},
@@ -87,6 +89,7 @@ static func pool(book: GameCatalog, tier: int) -> Array:
 	var result: Array = []
 	for pair in [["hero", "heroes"], ["spirit", "assists"], ["item", "items"]]:
 		for row in book.data[pair[1]]:
+			if pair[0] == "hero" and not row.get("summon_enabled", true): continue
 			var rank := rarity(pair[0], row.id, book)
 			var grade := int(row.summon_group) if pair[0] == "hero" else (2 if row.id == "lumi" else 3)
 			if pair[0] == "item": grade = int(row.summon_group)
@@ -145,6 +148,13 @@ static func _draw(store: ProgressStore, p: Dictionary, pay_gold: bool = true) ->
 	r.history.push_front(reward)
 	if r.history.size() > HISTORY_LIMIT: r.history.pop_back()
 	return true
+
+static func recruit_caelan(store: ProgressStore) -> bool:
+	if store.read_only or not store.profile.pending.is_empty() or 1 not in store.profile.cleared or store.available_hero("caelan"): return false
+	var p := store.profile.duplicate(true)
+	ensure(store,p)
+	p.recruitment.heroes.append("caelan")
+	return store.commit(p)
 
 static func awaken(store: ProgressStore, hero_id: String = "") -> bool:
 	if store.read_only or not store.profile.pending.is_empty(): return false

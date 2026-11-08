@@ -48,19 +48,19 @@ nguyên tác đã phục hồi. Nghiên cứu bone/Spine không có nghĩa game 
 - Không chuyển sang ảnh thật,3D, pixel art hoặc placeholder hình học. Tỷ lệ chibi
   là lựa chọn mỹ thuật, không phải xác nhận tuổi.
 
-## Caelan — mẫu thiết kế nhân vật, chưa đưa vào runtime
+## Caelan — mẫu thiết kế đã tích hợp0.38
 
-Theo phân công mới, phần này chỉ bàn giao thiết kế nhân vật; UI, cảnh nền và tích hợp do người khác phụ trách.
+Đã tích hợp Caelan theo yêu cầu tiếp theo của chủ dự án, giữ UI V2 và bố cục của nhánh UI.
 Caelan / planningH02 / ID đề xuất `caelan`, nam trưởng thành30 tuổi, Light Vanguard5★.
 Tóc vàng tro vuốt về sau có bím nhỏ, mắt teal, giáp ngà chạm vàng, cape navy lót teal,
 khiên lam họa tiết bình minh, kiếm riêng. Bộ nguồn ở `art/caelan/`: minh họa toàn thân,
 turnaround trước/nghiêng/sau, atlas16 pose và props kiếm/khiên. Giữ nguyên byte nguồn.
-[CAELAN_BENCHMARK](CAELAN_BENCHMARK.md) là brief bàn giao và định hướng kit, **không phải code gameplay đã triển khai**.
-Bốn hero đang chơi được dưới đây vẫn giữ nhận diện, asset, chỉ số và kỹ năng runtime hiện tại.
+[CAELAN_BENCHMARK](CAELAN_BENCHMARK.md) là brief nguồn; trạng thái kit và gameplay đã áp dụng ở [CAELAN_RUNTIME](CAELAN_RUNTIME.md).
+Bốn hero cũ giữ nhận diện, asset và chỉ số; Ryn/Lyra có kit mới cho trận mới, pending cũ bất biến.
 
 ## Đội hình và nhận diện bắt buộc
 
-Bốn hero chơi được, đều có rarity gốc5★. Sao thức tỉnh1–5 là hệ riêng, không phải
+Năm hero chơi được, đều có rarity gốc5★. Sao thức tỉnh1–5 là hệ riêng, không phải
 điều kiện mở tương tác chân dung. Từ0.24, trận mới dùng tối đa3 hero đã sở hữu +1 tinh linh, ba ô không khóa
 nghề. Trận singleton đang dở giữ model cũ; xem [TEAM_COMBAT.md](TEAM_COMBAT.md).
 
@@ -70,6 +70,7 @@ nghề. Trận singleton đang dở giữ model cũ; xem [TEAM_COMBAT.md](TEAM_C
 | `ryn` | Thương thủ hỏa vũ / fire | Tóc đỏ rượu ngang vai gợn nhẹ, bím nhỏ bên tóc, kẹp phượng vàng; mắt hổ phách; cape đỏ rượu | 27 |
 | `mira` | Pháp sư thủy triều / water | Tóc teal tối ngắn/ngang vai, mắt aquamarine, vòng trán trăng bạc, áo ngà/teal, cape xanh đêm viền bạc | Chưa chốt |
 | `lyra` | Thương thủ hoàng hôn / fire | Tóc nâu đỏ buộc đuôi ngựa cao dài, mắt hổ phách, phụ kiện phượng, cape đỏ viền vàng, giáp ngà | 24 |
+| `caelan` | Dawn Vanguard / light | Tóc vàng tro có bím nhỏ, giáp ngà/vàng, cape navy/teal, khiên lam bình minh | 30 |
 
 ### Eira
 

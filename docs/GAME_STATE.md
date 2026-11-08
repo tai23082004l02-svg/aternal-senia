@@ -2,7 +2,7 @@
 
 > **Đã triển khai 2026-11-08:** Đội hình tối đa **4 hero + 1 tinh linh**, bố cục 2 trước + 2 sau, không khóa nghề. Save v12 đọc đội 3/4 ô; xem đội cũ chỉ thêm ô trống trên bản sao, ghi 4 ô khi người chơi chỉnh đội. Snapshot v1 và singleton cũ giữ nguyên; trận mới dùng v2. Xem [TEAM_COMBAT](TEAM_COMBAT.md).
 
-Cập nhật2026-11-08. Game **0.37.0**, **Godot4.6.3**, save **v12**.
+Cập nhật2026-11-08. Game **0.38.0**, **Godot4.6.3**, save **v13**.
 Đợt dọn repo không đổi gameplay hoặc schema. Repo triển khai:
 [tai23082004l02-svg/aternal-senia](https://github.com/tai23082004l02-svg/aternal-senia).
 Repo tham khảo: [Tham-kh-o-game](https://github.com/tai23082004l02-svg/Tham-kh-o-game).
@@ -60,14 +60,18 @@ RAM, không ghi save/formation/avatar. Module và handoff riêng ở
 
 Gallery dùng lưới chân dung4 cột, khung vàng/navy, bộ đếm sở hữu thật, tab hệ,
 lọc vai trò/sở hữu, reset và chế độ thẻ chi tiết2 cột. Hero khóa vẫn xem được;
-xem/lọc/preview không đổi đội hình hoặc save. Hiện có4 hero runtime, không tạo
+xem/lọc/preview không đổi đội hình hoặc save. Hiện có5 hero runtime, không tạo
 hero giả cho đủ24. Xem [HERO_COLLECTION](HERO_COLLECTION.md).
+
+## Caelan và kit riêng — đã tích hợp0.38
+
+[CAELAN_RUNTIME](CAELAN_RUNTIME.md): Caelan chơi được, có16 pose/kiếm riêng, tuyển miễn phí qua Showcase sau stage1 và farm2 mảnh tại103 khi có trong đội. Ryn có Ember Guard; Lyra có Twilight Comet đơn mục tiêu. Savev13 giữ pending/UID/đầu tư, UI V2 và đội4+1 hiện có.
 
 ## Đã hoạt động
 
 | Phần | Trạng thái thực |
 | --- | --- |
-| Hero | Eira/light, Ryn/fire, Mira/water, Lyra/fire;4 hero gốc5★, mở theo tiến trình/triệu hồi; không sở hữu mặc định tất cả |
+| Hero | Eira/light, Ryn/fire, Mira/water, Lyra/fire, Caelan/light;5 hero gốc5★, bốn hero đầu qua tiến trình/triệu hồi, Caelan qua tuyển miễn phí sau stage1; không sở hữu mặc định tất cả |
 | Tinh linh | Lumi/SR, Ash/SSR; hỗ trợ đội, nâng cấp/nhánh/tiến hóa; UR mới là bậc dự trữ |
 | Trận mới | Tối đa4 hero sở hữu +1 tinh linh, auto battle, điều khiển Ultimate/target/tốc độ, tối đa4 địch cùng lúc |
 | Đội hình | Hai ô trước, hai ô sau; không khóa nghề; snapshot lúc vào trận |
@@ -123,8 +127,8 @@ Resume không trừ lại; auto-next/đánh lại không tự chọn thuốc m�
 
 ## Dữ liệu và tương thích bắt buộc
 
-Save `user://first_light_v2.json`, schema12, giữ project name để không chuyển user://.
-Đọc v2–v11 và đường chuyển v1, bảo toàn UID/đầu tư/mảnh/ví/pending.
+Save `user://first_light_v2.json`, schema13, giữ project name để không chuyển user://.
+Đọc v2–v12 và đường chuyển v1, bảo toàn UID/đầu tư/mảnh/ví/pending.
 v11→12 chỉ thêm ledger rỗng, không tự phát vật phẩm; v10 bổ sung18 ID mảnh0 theo
 migration trang bị trước khi thêm ledger. Save hỏng/future giữ nguyên, có backup.
 
@@ -148,7 +152,7 @@ Bước tiếp theo hợp lý: kiểm thử bản0.37 trên điện thoại củ
 
 Bản0.37 đã qua39 suite trên Godot4.6.3/Linux/Xvfb:
 [biên bản](verification/supplies-0.37.json).
-Sau dọn repo, dùng workflow Project verification, runner43 suite và kiểm tra
+Sau dọn repo, dùng workflow Project verification, runner47 suite và kiểm tra
 tham chiếu/audio. Ảnh/log/PCM mới ở work/checks hoặc artifact của lượt chạy,
 không đưa output trở lại repo. Xem [TESTING](TESTING.md) và
 [REPOSITORY_CLEANUP](REPOSITORY_CLEANUP.md) cho kết quả cụ thể.

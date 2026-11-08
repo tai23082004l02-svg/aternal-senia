@@ -2,7 +2,7 @@
 
 Phiên mới: [AGENTS](../AGENTS.md) → [GAME_STATE](GAME_STATE.md) →
 [SYSTEMS](SYSTEMS.md) → chuyên đề cần sửa → [TESTING](TESTING.md).
-Trạng thái chuẩn là0.37/savev12. Phần mang số phiên bản cũ trong chuyên đề mô tả
+Trạng thái chuẩn là0.38/savev13. Phần mang số phiên bản cũ trong chuyên đề mô tả
 thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc savev4/v7.
 
 ## Bàn giao và thao tác
@@ -60,7 +60,7 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 
 ## Nhân vật, mỹ thuật và âm thanh
 
-[CAELAN_BENCHMARK](CAELAN_BENCHMARK.md): gói thiết kế Caelan gồm minh họa, turnaround,16 pose, props và định hướng kỹ năng; chưa tích hợp runtime/UI.
+[CAELAN_BENCHMARK](CAELAN_BENCHMARK.md): gói nguồn Caelan gồm minh họa, turnaround,16 pose và props. [CAELAN_RUNTIME](CAELAN_RUNTIME.md): hero đã chơi được, nguồn nhận, kit và migration13.
 
 | Tài liệu | Phạm vi |
 | --- | --- |

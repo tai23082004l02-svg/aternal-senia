@@ -186,7 +186,7 @@ func rebuild() -> void:
 		cards.add_child(card)
 		card_buttons[row.id] = card
 		var portrait := GalleryPortrait.new()
-		portrait.texture = load(row.art.banner)
+		portrait.texture = HeroContract.art_texture(row,"card")
 		portrait.locked = not owned
 		portrait.position = Vector2(3, 3)
 		portrait.size = Vector2(card.custom_minimum_size.x - 6, 162 if detailed else 121)

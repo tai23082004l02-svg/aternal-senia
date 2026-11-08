@@ -210,7 +210,10 @@ class TeamField extends Control:
 			state = "attack" if last.kind == "attack" else "skill"
 			marker = last.marker
 			duration = last.duration
-			if last.kind != "heal": foot.x += CombatPresentation.lunge(elapsed, marker, duration) * .25
+			if last.kind != "heal":
+				var kit: Dictionary = ally.stats.get("combat",{})
+				var force := .55 if last.kind == "ultimate" and kit.get("ultimate") == "execute" else (.08 if kit.get("basic") == "shield_ally" else .25)
+				foot.x += CombatPresentation.lunge(elapsed,marker,duration)*force
 		elif model.time - ally.hurt < .25:
 			state = "hurt"
 			elapsed = model.time - ally.hurt

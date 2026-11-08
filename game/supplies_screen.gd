@@ -101,7 +101,8 @@ func detail(id: String) -> void:
 				button(self,"%s +%d · %s\n%d Gold + 1 Stone" % [row.name,item.enhance,item.uid,(item.enhance+1)*20],game._supply_confirm.bind("stone",item.uid,0),busy or owned<1 or item.enhance>=15 or game.store.profile.gold<(item.enhance+1)*20)
 		"memory_shard":
 			var hero: String = game.supply_hero if not game.supply_hero.is_empty() else game.store.profile.hero
-			var heroes := HBoxContainer.new()
+			var heroes := GridContainer.new()
+			heroes.columns = 3
 			add_child(heroes)
 			for row in game.catalog.data.heroes:
 				var select: Button = game._button(heroes,row.name,Vector2.ZERO,Vector2(110,44),game._supply_hero.bind(row.id))

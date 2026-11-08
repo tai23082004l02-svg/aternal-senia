@@ -27,7 +27,7 @@
       "crit": 0.18,
       "color": "#efaa87",
       "unlock": 2,
-      "passive": "Reckless: 18% Critical Rate",
+      "passive": "Ember Resolve: 10% less damage taken; 18% Critical Rate.",
       "skill_bonus": 1.0,
       "rarity": 5
     },
@@ -57,10 +57,26 @@
       "crit": 0.15,
       "color": "#dca58b",
       "unlock": 4,
-      "passive": "Embers: +8% Skill Damage",
+      "passive": "Embers: +8% Skill Damage; direct hits gain 35% damage below 30% enemy HP.",
       "skill_bonus": 1.08,
       "rarity": 5,
       "age": 24
+    },
+    {
+      "id": "caelan",
+      "name": "Caelan",
+      "title": "Warden of the First Dawn",
+      "element": "light",
+      "hp": 285,
+      "atk": 17,
+      "defense": 6,
+      "crit": 0.08,
+      "color": "#87c5df",
+      "unlock": 99,
+      "passive": "Dawnward: while in the front slot, living allies take 12% less damage.",
+      "skill_bonus": 1.0,
+      "rarity": 5,
+      "age": 30
     }
   ],
   "items": [

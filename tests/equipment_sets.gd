@@ -157,6 +157,8 @@ func run() -> void:
 	# A genuine v7 shape: fourteen fragment IDs, two slots, paid moon amulet.
 	var legacy := store.fresh()
 	legacy.version = 7
+	legacy.heroes.erase("caelan")
+	legacy.expansion.builds.erase("caelan")
 	legacy.gold = 456
 	for id in legacy.collection_fragments.items.keys():
 		if id not in EquipmentSystem.OLD_ITEMS: legacy.collection_fragments.items.erase(id)

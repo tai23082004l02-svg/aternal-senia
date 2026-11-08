@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
-heroes=[dict(id='eira',name='Eira',title='Dawn Swordswoman',element='light',hp=210,atk=20,defense=3,crit=.12,color='#a9b9ed',unlock=1,passive='Lightblade: +12% Skill Damage',skill_bonus=1.12),dict(id='ryn',name='Ryn',title='Flamefeather Lancer',element='fire',hp=240,atk=23,defense=2,crit=.18,color='#efaa87',unlock=2,passive='Reckless: 18% Critical Rate',skill_bonus=1.0),dict(id='mira',name='Mira',title='Tidal Mage',element='water',hp=190,atk=25,defense=4,crit=.10,color='#88d6d1',unlock=3,passive='Flow: healing increased by 25%',skill_bonus=1.0)]
+heroes=[dict(id='eira',name='Eira',title='Dawn Swordswoman',element='light',hp=210,atk=20,defense=3,crit=.12,color='#a9b9ed',unlock=1,passive='Lightblade: +12% Skill Damage',skill_bonus=1.12),dict(id='ryn',name='Ryn',title='Flamefeather Lancer',element='fire',hp=240,atk=23,defense=2,crit=.18,color='#efaa87',unlock=2,passive='Ember Resolve: 10% less damage taken; 18% Critical Rate.',skill_bonus=1.0),dict(id='mira',name='Mira',title='Tidal Mage',element='water',hp=190,atk=25,defense=4,crit=.10,color='#88d6d1',unlock=3,passive='Flow: healing increased by 25%',skill_bonus=1.0)]
 for hero in heroes: hero['rarity']=5
 items=[]
 for cat,names in [('sword',['Frost Sword','Sunlight Sword']),('spear',['Ember Spear','Phoenix Spear']),('staff',['Dewdrop Staff','Starlight Staff'])]:
@@ -29,7 +29,8 @@ for stage,element in zip(stages,['nature','fire','water','nature','dark']):
 data=dict(version=1,heroes=heroes,items=items,skills=skills,stages=stages,quests=quests,assists=[dict(id='lumi',name='Lumi',rarity='SR',role='Restoration',unlock=1,power=.09,interval=4.),dict(id='ash',name='Ash',rarity='SSR',role='Archer',unlock=2,power=.9,interval=2.2)],opponents=[dict(id=id,name=name,rarity=rank) for id,name,rank in [('slime','Forest Slime',1),('wolf','Forest Wolf',2),('golem','Elder Tree',3),('guardian','Guardian',4),('bird','Thunderbird',4)]])
 
 # Additive roster expansion: preserve existing hero IDs and append Lyra.
-data['heroes'].append(dict(id='lyra',name='Lyra',title='Twilight Lancer',element='fire',hp=225,atk=22,defense=3,crit=.15,color='#dca58b',unlock=4,passive='Embers: +8% Skill Damage',skill_bonus=1.08,rarity=5,age=24))
+data['heroes'].append(dict(id='lyra',name='Lyra',title='Twilight Lancer',element='fire',hp=225,atk=22,defense=3,crit=.15,color='#dca58b',unlock=4,passive='Embers: +8% Skill Damage; direct hits gain 35% damage below 30% enemy HP.',skill_bonus=1.08,rarity=5,age=24))
+data['heroes'].append(dict(id='caelan',name='Caelan',title='Warden of the First Dawn',element='light',hp=285,atk=17,defense=6,crit=.08,color='#87c5df',unlock=99,passive='Dawnward: while in the front slot, living allies take 12% less damage.',skill_bonus=1.0,rarity=5,age=30))
 from build_equipment import extend
 extend(data)
 (root/'game/data/catalog.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')

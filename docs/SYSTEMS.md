@@ -1,6 +1,6 @@
 # Kiến trúc hiện hành
 
-Áp dụng cho game0.37/savev12. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
+Áp dụng cho game0.38/savev13. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
 Công thức singleton0.2 được giữ riêng trong [tài liệu lịch sử](history/SYSTEMS_0_2.md);
 không lấy trần+10, loot đổi shard hoặc đội1 người ở đó áp vào trận mới.
 
@@ -13,7 +13,7 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 | Thành phần | Trách nhiệm/nguồn |
 | --- | --- |
 |GameCatalog|Nạp catalog.json, ghép expansion.json và team_encounters.json; normalize số, validate ID/drop/slot/skill, suy ra stats|
-|ProgressStore|Profile, migration v1–v12, backup/read-only, validate/commit, begin_run/settle và giao dịch gear|
+|ProgressStore|Profile, migration v1–v13, backup/read-only, validate/commit, begin_run/settle và giao dịch gear|
 |Formation|Roster/slot/assist/auto options và snapshot team/encounter; bốn slot không khóa nghề; đọc đội v12 ba ô qua bản sao|
 |TeamBattle|Trận mới4vN, action/hit marker, HP/năng lượng, target, hiệu ứng/đội, kết quả|
 |BattleModel|Nền model và đường chạy pending singleton cũ; không được xóa chỉ vì UI dùng TeamBattle|
@@ -37,8 +37,10 @@ Showcase/Home read catalogue/profile without saving. See [UI handoff](UI_DESIGN_
 
 ## Dữ liệu nguồn và builder
 
+Caelan dùng manifest riêng được FrameLibrary ghép, sword signature chỉ đổi visual; builder hoàn chỉnh gọi build_caelan.py. Migration13 và runtime ở [CAELAN_RUNTIME](CAELAN_RUNTIME.md).
+
 - `game/data/hero_contracts.json`: cấu hình vũ khí/vai trò/skill hiện hành, Gallery và summon group; được HeroContract kiểm tra. Không import registry launch.
-- `game/data/catalog.json`:4 hero,44 gear,6 bộ,5 màn chính; builder
+- `game/data/catalog.json`:5 hero,44 gear,6 bộ,5 màn chính; builder
   `tools/build_catalog.py` gọi `build_equipment.py`.
 - `game/data/expansion.json`:10 nhánh,3 challenge, nhánh kỹ năng/traits/achievements/
   chapters; builder `build_expansion.py`.

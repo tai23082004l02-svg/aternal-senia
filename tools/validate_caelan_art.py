@@ -31,5 +31,5 @@ assert set(manifest['heroes']['caelan'])=={'idle','run','attack','skill','guard'
 for prop in manifest['signature_props'].values():
     x,y,w,h=prop['region']
     assert 0<=x<x+w<=1536 and 0<=y<y+h<=1024
-assert manifest['delivery_status']=='CHARACTER_DESIGN_ONLY_NOT_RUNTIME'
-print('PASS: four original PNG hashes/dimensions, alpha, provenance, sixteen source poses, seven states and prop bounds; character-only delivery')
+assert manifest['delivery_status']=='RUNTIME_INTEGRATED'
+print('PASS: four original PNG hashes/dimensions, alpha, provenance, sixteen source poses, seven states and prop bounds; runtime character metadata; source pixels preserved')

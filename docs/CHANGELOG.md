@@ -1,10 +1,11 @@
 # Các mốc phát triển
 
 Các mốc mô tả lịch sử, không thay [GAME_STATE](GAME_STATE.md).
-Game vẫn0.37.0 sau dọn repo vì không đổi gameplay/schema.
+Bản hiện tại0.38/savev13; mốc dọn repo trước đó không đổi gameplay/schema.
 
 | Mốc | Thay đổi |
 | --- | --- |
+|0.38|Caelan chơi được,16 pose/kiếm riêng, tuyển miễn phí sau stage1 và mảnh103; Ryn/Lyra kit riêng, migration13 giữ snapshot/UID; giữ UI V2 và4+1|
 |Gallery2026-11-08|Contract hero/vũ khí/kỹ năng giữ hành vi cũ; Gallery4 hero; Summon Reveal vàng/vé, tổng kết và replay lô đã commit; giữ savev12|
 |Dọn repo2026-11-08|Bỏ output minh họa khỏi checkout, tài liệu bàn giao hiện hành, CI40 suite/artifact, xuất Android gọn|
 |0.37|8 vật phẩm dùng thật,106 icon, ledger supplies, savev12|

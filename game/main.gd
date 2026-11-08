@@ -491,6 +491,20 @@ func _choose_stage(id: int) -> void:
 	view.battle = null
 	_refresh_panel()
 
+func _confirm_caelan() -> void:
+	_dialog(tr("Recruit Caelan?"),tr("Forest Entrance cleared. Welcome the Dawn Vanguard to your collection for free."),[{"text":tr("Recruit"),"call":_recruit_caelan},{"text":tr("Cancel"),"call":_close_modal}])
+
+
+func _recruit_caelan() -> void:
+	_close_modal()
+	if not Recruitment.recruit_caelan(store):
+		_outcome(false, "")
+		return
+	_refresh_panel()
+	audio.play("rarity_reveal")
+	SummonReveal.show_batch(self,[{"kind":"hero","id":"caelan","rarity":5,"duplicate":false}])
+
+
 func _gallery_panel() -> void:
 	var gallery := HeroGallery.new()
 	gallery.game = self
@@ -670,6 +684,7 @@ func _finish() -> void:
 	var queued_before: int = store.profile.bag_rewards.size()
 	var fragments_before: Dictionary = store.profile.collection_fragments.items.duplicate()
 	var supply_before: Dictionary = store.profile.supplies.counts.duplicate(true)
+	var caelan_fragments_before: int = Recruitment.state(store.profile).fragments.caelan
 	var old_uids: Array = []
 	for item in store.profile.items:
 		old_uids.append(item.uid)
@@ -688,6 +703,8 @@ func _finish() -> void:
 		for id in Supplies.ORDER:
 			var gained: int = store.profile.supplies.counts[id]-supply_before[id]
 			if gained>0: loot += "\n+%d × %s" % [gained,Supplies.NAMES[id]]
+		var caelan_gained: int = Recruitment.state(store.profile).fragments.caelan-caelan_fragments_before
+		if caelan_gained > 0: loot += "\n" + tr("+%d Caelan Fragments") % caelan_gained
 		_queue_result("VICTORY", "%s\n\n+%d Gold · +%d XP · +%d Crystals\n%s" % [(stage.after + ("\n+%d Spirit Cores · Best score %d" % [stage.cores, store.profile.expansion.records[str(stage.id)].score] if stage.get("kind") == "challenge" else "")), store.profile.gold - gold_before, stage.xp, store.profile.shards - shards_before, loot], [{"text": "Back to Journey", "call": _return_to_camp}, {"text": "Retry", "call": _replay}])
 	else:
 		_queue_result("THE LIGHT ENDURES", (battle.defeat_reason + "\nTry changing formation, upgrading heroes or equipment, or adjusting Ultimates." if battle is TeamBattle else "No rewards claimed. Upgrade your weapon, switch companions, or time your Guard."), [{"text": "Prepare Again", "call": _return_to_camp}, {"text": "Try Again", "call": _replay}])

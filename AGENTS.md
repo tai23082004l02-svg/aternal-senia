@@ -38,10 +38,14 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 - Không suy diễn tính năng đã xong từ ảnh concept. Dữ liệu và hành vi thật là chuẩn.
 - Không ghi API key, token hoặc secret vào code, tài liệu, log hay runtime.
 
+## Caelan đã chơi được · 0.38/savev13
+
+Theo yêu cầu mới, đã tích hợp `caelan`/Light/Vanguard/5★ vào runtime; tuyển miễn phí sau stage1 qua Gallery → Showcase, có xác nhận. Không nằm trong pool Thường; thắng103 với Caelan trong snapshot đội nhận2 mảnh qua settle atomic. Kit Ryn/Lyra mới chỉ cho trận mới. Dùng art nguyên byte, sword signature chỉ là visual, không đổi UID/stat gear. Giữ UI V2 và4+1; migration kiểm roster cũ trước thêm map, giữ snapshot v1/v2/singleton. Đọc [CAELAN_RUNTIME](docs/CAELAN_RUNTIME.md).
+
 ## Save, sở hữu và giao dịch
 
-- `ProgressStore.VERSION=12`; file `user://first_light_v2.json` và config/name phải
-  giữ ổn định. Đọc v2–v11 qua migration và đường chuyển v1 hiện có. Không xóa/reset
+- `ProgressStore.VERSION=13`; file `user://first_light_v2.json` và config/name phải
+  giữ ổn định. Đọc v2–v12 qua migration và đường chuyển v1 hiện có. Không xóa/reset
   save lỗi; giữ backup/corrupt/future-version read-only. Tests dùng profile riêng.
 - Deep copy → validate → ghi/kiểm file → commit thành công mới thay RAM.
   Reward/run ID, pending snapshot, seed, UID và lịch sử nhận phải được bảo toàn.

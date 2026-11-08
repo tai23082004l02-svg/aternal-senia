@@ -46,10 +46,11 @@
       "role": "Bruiser",
       "gallery_order": 2,
       "combat": {
-        "basic": "damage",
+        "basic": "ember_guard",
         "ultimate": "damage",
         "damage_taken": 0.9,
-        "ultimate_shield": true
+        "ultimate_shield": true,
+        "kit_version": 2
       },
       "summon_group": 3,
       "acquisition": "Clear campaign stage 1 or obtain from Standard Summon.",
@@ -57,7 +58,7 @@
         "banner": "res://art/banners/ryn.png"
       },
       "skill_descriptions": {
-        "basic": "Automatically use damage skills when ready.",
+        "basic": "Ember Guard: strike and gain a shield equal to 8% max HP for 4s.",
         "ultimate": "Deal damage to multiple targets and heal yourself; also gain a shield. Requires 100 Energy."
       }
     },
@@ -67,9 +68,13 @@
       "gallery_order": 3,
       "combat": {
         "basic": "damage",
-        "ultimate": "damage",
+        "ultimate": "execute",
         "damage_taken": 1.0,
-        "ultimate_shield": false
+        "ultimate_shield": false,
+        "kit_version": 2,
+        "basic_cooldown": 4.3,
+        "execute_threshold": 0.3,
+        "execute_multiplier": 1.35
       },
       "summon_group": 3,
       "acquisition": "Clear campaign stage 3 or obtain from Standard Summon.",
@@ -77,9 +82,53 @@
         "banner": "res://art/banners/lyra.png"
       },
       "skill_descriptions": {
-        "basic": "Automatically use damage skills when ready.",
-        "ultimate": "Deal damage to multiple targets and heal yourself. Requires 100 Energy."
+        "basic": "Flare Thrust: damage skill every 4.3s. Direct hits deal 35% extra damage to foes below 30% HP.",
+        "ultimate": "Twilight Comet: strike the lowest-health enemy for 440% skill-scaled ATK. Requires 100 Energy. No self-heal."
       }
+    },
+    "caelan": {
+      "weapon_category": "sword",
+      "role": "Vanguard",
+      "gallery_order": 4,
+      "combat": {
+        "basic": "shield_ally",
+        "ultimate": "team_barrier",
+        "damage_taken": 0.88,
+        "ultimate_shield": false,
+        "guard_aura": 0.12,
+        "kit_version": 2
+      },
+      "summon_group": 3,
+      "summon_enabled": false,
+      "acquisition": "Clear Forest Entrance, then recruit Caelan for free in Gallery.",
+      "art": {
+        "banner": "res://art/caelan/illustration.png",
+        "card_region": [
+          200,
+          0,
+          680,
+          980
+        ],
+        "showcase_region": [
+          60,
+          0,
+          904,
+          900
+        ],
+        "reveal_region": [
+          60,
+          0,
+          904,
+          900
+        ],
+        "inset_showcase": true
+      },
+      "skill_descriptions": {
+        "basic": "Shield Line: strike for 125% skill-scaled ATK and shield the lowest-HP living ally for 14% of their max HP for 5s.",
+        "ultimate": "Unbroken Dawn: shield each living ally for 22% of their max HP for 6s. Requires 100 Energy."
+      },
+      "starter_weapon": false,
+      "fragment_source": "Earn 2 Caelan Fragments per Dawn Triad victory with Caelan in your squad."
     }
   }
 }

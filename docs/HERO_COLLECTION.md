@@ -1,5 +1,7 @@
 # Hero contracts, Gallery and Summon Reveal
 
+> Update0.38/save13: Caelan is the fifth playable hero. The original four-hero/v12 sections below describe the foundation milestone; current acquisition, skills and migration are in [CAELAN_RUNTIME](CAELAN_RUNTIME.md).
+
 Implemented for the four existing heroes. The approved 24-hero launch roster is
 still a production target; the planning registry is not imported into runtime.
 No character art, identity, stat, unlock milestone, summon price, probability,

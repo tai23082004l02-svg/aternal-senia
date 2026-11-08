@@ -14,8 +14,16 @@ func capture(name: String) -> void:
 		assert(root.get_texture().get_image().save_png(dir.path_join(name + ".png")) == OK)
 func check_buttons(parent: Node) -> void:
 	for button in parent.find_children("*", "Button", true, false):
-		assert(button.get_global_rect().position.x >= 24)
-		assert(button.get_global_rect().end.x <= 516)
+		var ancestor := button.get_parent()
+		var carousel: ScrollContainer
+		while ancestor != null and ancestor != parent:
+			if ancestor is ScrollContainer and ancestor.horizontal_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED: carousel = ancestor
+			ancestor = ancestor.get_parent()
+		if carousel != null:
+			assert(carousel.get_global_rect().position.x >= 24 and carousel.get_global_rect().end.x <= 516)
+		else:
+			assert(button.get_global_rect().position.x >= 24)
+			assert(button.get_global_rect().end.x <= 516)
 		assert(button.get_global_rect().end.y <= 864)
 		assert(button.size.y >= UIDesignV2.HIT)
 		assert(button.get_theme_font("font") == UIFonts.font("display"))

@@ -16,6 +16,9 @@ func _initialize() -> void:
 	var modern: Dictionary = store.profile.pending.duplicate(true)
 	var legacy := modern.duplicate(true)
 	for unit in legacy.team.units: unit.stats.erase("combat")
+	for unit in modern.team.units:
+		var id: String = unit.stats.hero
+		unit.stats.combat = {"basic":"adaptive_heal" if id == "mira" else "damage", "ultimate":"team_heal" if id == "mira" else "damage", "damage_taken":.9 if id == "ryn" else 1.0, "ultimate_shield":id == "ryn"}
 	assert(Formation.valid_snapshot(store, legacy.team))
 	var invalid := modern.duplicate(true)
 	invalid.team.units[0].stats.combat.damage_taken = -1

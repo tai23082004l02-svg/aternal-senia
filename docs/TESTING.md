@@ -21,14 +21,14 @@ python3 tests/validate_audio.py --capture work/checks/audio_capture/audio-runtim
 git diff --exit-code
 ```
 
-Runner45 suite:39 suite của bản0.37 cộng audio_capture, english_ui, hero_contract, collection_ui, formation_layout và ui_design_v2. Mỗi test dùng profile riêng,
+Runner47 suite:45 suite trước đó cộng caelan và caelan_ui; caelan_gallery chạy thêm khi xem pose/socket. Mỗi test dùng profile riêng,
 stdout/stderr và timeout75 giây, không bỏ qua assertion/parse error.
 Ảnh/PCM/log/results ở **work/checks/**; thư mục có .gdignore, không commit.
 Giữ import log khi cần, không in API token hoặc toàn bộ save người chơi.
 
 Workflow [.github/workflows/verify.yml](../.github/workflows/verify.yml) chạy trên
 main/PR và nhánh dọn repo, contents:read. Kiểm JSON/link/resource, Python syntax,
-import bản đầy đủ và bản xuất Android,45 suite, hash ElevenLabs và mixer.
+import bản đầy đủ và bản xuất Android,47 suite, hash ElevenLabs và mixer.
 Artifact Project verification giữ7 ngày. Không tự commit screenshot hoặc push nhánh.
 
 ## Chạy tập trung

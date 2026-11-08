@@ -199,7 +199,7 @@ func _hero_combat(ally: Dictionary) -> Dictionary:
 	return {"basic": "adaptive_heal" if ally.id == "mira" else "damage", "ultimate": "team_heal" if ally.id == "mira" else "damage", "damage_taken": .9 if ally.id == "ryn" else 1.0, "ultimate_shield": ally.id == "ryn"}
 
 func _basic(ally: Dictionary) -> void:
-	ally.basic_cd = 5.5 * ally.stats.get("cooldown_scale", 1.0)
+	ally.basic_cd = float(_hero_combat(ally).get("basic_cooldown",5.5)) * ally.stats.get("cooldown_scale", 1.0)
 	var heal: bool = prioritize_heal and _hero_combat(ally).basic == "adaptive_heal" and _lowest() >= 0 and allies[_lowest()].hp < allies[_lowest()].stats.hp * .85
 	var power: float = (1.7 + (ally.stats.skills[0] - 1) * .12) * ally.stats.skill_bonus
 	if "focus" in ally.stats.get("variants", []): power *= 1.25
@@ -208,6 +208,12 @@ func _basic(ally: Dictionary) -> void:
 func _schedule_ally(ally: Dictionary, kind: String, power: float, marker: float, duration: float) -> void:
 	ally.clock = 0
 	ally.target = _lowest() if kind == "heal" else _target()
+	if kind == "ultimate" and _hero_combat(ally).ultimate == "execute":
+		var ratio := 2.0
+		for i in range(enemies.size()):
+			if enemies[i].hp > 0 and float(enemies[i].hp)/float(enemies[i].max_hp) < ratio:
+				ratio = float(enemies[i].hp)/float(enemies[i].max_hp)
+				ally.target = i
 	ally.action = {"id":next_action, "kind":kind, "power":power, "marker":marker, "duration":duration, "started":time, "target":ally.target, "hit":false}
 	next_action += 1
 	ally.last = ally.action.duplicate(true)
@@ -218,7 +224,7 @@ func ultimate(index: int) -> bool:
 	var ally: Dictionary = allies[index]
 	if ally.hp <= 0 or ally.energy < 100 or not ally.action.is_empty(): return false
 	ally.energy = 0
-	_schedule_ally(ally, "ultimate", 3.0 * ally.stats.skill_bonus * (1 + (ally.stats.skills[0] - 1) * .12), .5, .95)
+	_schedule_ally(ally, "ultimate", (4.4 if _hero_combat(ally).ultimate == "execute" else 3.0) * ally.stats.skill_bonus * (1 + (ally.stats.skills[0] - 1) * .12), .5, .95)
 	return true
 
 func spirit_ultimate() -> bool:
@@ -245,6 +251,12 @@ func _advance_ally(ally: Dictionary) -> void:
 					allies[target].barrier = maxf(allies[target].barrier, allies[target].stats.hp * .15)
 					allies[target].barrier_until = time + 5
 				_heal(target, allies[target].stats.hp * power, allies.find(ally))
+		elif action.kind == "ultimate" and _hero_combat(ally).ultimate == "team_barrier":
+			for i in range(allies.size()):
+				_grant_barrier(i,allies[i].stats.hp*.22,6,allies.find(ally))
+		elif action.kind == "ultimate" and _hero_combat(ally).ultimate == "execute":
+			var target: int = action.target if action.target >= 0 and action.target < enemies.size() and enemies[action.target].hp > 0 else _target()
+			if target >= 0: _damage_enemy(target,ally.stats.atk*action.power,ally,true)
 		elif action.kind == "ultimate" and _hero_combat(ally).ultimate == "team_heal":
 			for i in range(allies.size()):
 				if allies[i].hp > 0:
@@ -264,7 +276,14 @@ func _advance_ally(ally: Dictionary) -> void:
 					ally.barrier_until = time + 5
 		else:
 			var target: int = action.target if action.target >= 0 and action.target < enemies.size() and enemies[action.target].hp > 0 else _target()
-			if target >= 0: _damage_enemy(target, ally.stats.atk * action.power, ally, action.kind != "attack")
+			if target >= 0:
+				var power: float = action.power
+				if action.kind == "basic" and _hero_combat(ally).basic == "shield_ally": power *= 1.25/1.7
+				_damage_enemy(target, ally.stats.atk * power, ally, action.kind != "attack")
+			if action.kind == "basic" and _hero_combat(ally).basic == "ember_guard": _grant_barrier(allies.find(ally),ally.stats.hp*.08,4,allies.find(ally))
+			if action.kind == "basic" and _hero_combat(ally).basic == "shield_ally":
+				var protected := _lowest()
+				if protected >= 0: _grant_barrier(protected,allies[protected].stats.hp*.14,5,allies.find(ally))
 		ally.energy = minf(100, ally.energy + (8 if action.kind == "attack" else (12 if action.kind != "ultimate" else 0)))
 	if time >= action.started + action.duration: ally.action = {}
 
@@ -274,6 +293,8 @@ func _damage_enemy(index: int, amount: float, ally: Dictionary, ability: bool, s
 	if enemy.hp <= 0: return
 	var s: Dictionary = ally.stats
 	var weapon_trait: String = s.get("weapon_trait", "")
+	var kit: Dictionary = _hero_combat(ally)
+	if not spirit and not dot and kit.has("execute_threshold") and float(enemy.hp)/float(enemy.max_hp) < kit.execute_threshold: amount *= kit.execute_multiplier
 	var critical: bool = not spirit and not dot and rng.randf() < s.crit
 	if critical: amount *= 1.6
 	var advantage := {"fire":"nature", "nature":"water", "water":"fire", "light":"dark", "dark":"light"}
@@ -323,6 +344,9 @@ func _damage_ally(index: int, amount: float, source: int) -> void:
 		return
 	amount = maxf(1, amount - ally.stats.defense) * (1-ally.stats.get("damage_reduction",0))
 	amount *= float(_hero_combat(ally).damage_taken)
+	for protector in allies:
+		if protector.hp > 0 and protector.slot in [0,1] and protector != ally:
+			amount *= 1.0-float(_hero_combat(protector).get("guard_aura",0))
 	var absorbed := minf(ally.barrier, amount)
 	ally.barrier -= absorbed
 	amount -= absorbed
@@ -336,6 +360,13 @@ func _damage_ally(index: int, amount: float, source: int) -> void:
 		defeat_reason = "Team defeated"
 		_end(false)
 	_sync_totals()
+
+func _grant_barrier(index: int, amount: float, duration: float, source: int) -> void:
+	if index < 0 or index >= allies.size() or allies[index].hp <= 0: return
+	var ally: Dictionary = allies[index]
+	ally.barrier = maxf(ally.barrier,amount)
+	ally.barrier_until = maxf(ally.barrier_until,time+duration)
+	_team_emit("guard",source,index,"Shield", "shield_on")
 
 func _heal(index: int, amount: float, source: int) -> void:
 	var ally: Dictionary = allies[index]

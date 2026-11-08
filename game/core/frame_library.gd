@@ -12,6 +12,16 @@ var vfx_manifest: Dictionary
 func _init() -> void:
 	manifest = JSON.parse_string(FileAccess.get_file_as_string("res://art/clips.json"))
 	painted = JSON.parse_string(FileAccess.get_file_as_string("res://art/painted/manifest.json"))
+	var addition: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://art/caelan/manifest.json"))
+	for group in ["heroes", "portraits", "presentation"]:
+		if not painted.has(group): painted[group] = {}
+		painted[group].merge(addition[group], true)
+	for key in addition.get("signature_props", {}):
+		var spec: Dictionary = addition.signature_props[key]
+		if not spec.has("grip"): continue
+		var design_key: String = "caelan_" + key
+		weapon_specs[design_key] = {"anchor":spec.grip,"scale":spec.recommended_scale,"tint":[1,1,1,1]}
+		textures[design_key+".svg"] = _region(spec.atlas,spec.region)
 	for hero in painted.heroes:
 		manifest.heroes[hero] = painted.heroes[hero]
 	for hero in manifest.heroes:
@@ -136,6 +146,7 @@ func draw_actor(canvas: CanvasItem, frame: Dictionary, foot: Vector2, weapon: St
 	canvas.draw_texture_rect(textures[frame.file], Rect2(origin, dimensions * factor), false, tint)
 	if not show_weapon or frame.get("embedded_weapon", false):
 		return
+	weapon = str(frame.get("signature_weapon",weapon))
 	var hand := foot + (Vector2(frame.hand[0], frame.hand[1]) - anchor) * factor
 	var spec: Dictionary = weapon_specs.get(weapon, {"anchor": [32, 128], "scale": 1, "tint": [1, 1, 1, 1]})
 	var weapon_factor: float = factor * spec.scale
