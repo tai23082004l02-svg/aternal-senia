@@ -24,6 +24,7 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 | Tài liệu | Dùng khi |
 | --- | --- |
 |[THE_WORLD_THAT_FORGOT_TOMORROW](story/THE_WORLD_THAT_FORGOT_TOMORROW.md)|**Draft V1.0, chưa chốt canon**: đại cốt truyện độc lập với roster hiện có, nhân vật, tinh linh, trang bị, 5 hồi và kế hoạch sản xuất; đọc trước khi lên ý tưởng nội dung mới|
+|[CHARACTER_STORY_BIBLE](story/CHARACTER_STORY_BIBLE.md)|**Draft V0.1, chưa chốt canon**: 8 nhân vật trung tâm, arc năm hồi, quan hệ, cảnh bắt buộc, kiểm tra logic và vấn đề timeline; đọc sau đại cốt truyện|
 
 **Lưu ý:** Kịch bản sáng tác có thể thay thế toàn bộ nội dung game cũ nhưng không phải lệnh tự đổi ID, xóa asset hoặc thay save. Các thay đổi runtime cần đặc tả và quyết định triển khai riêng.
 
