@@ -18,3 +18,7 @@ PNG giữ nguyên byte, hash và xuất xứ ở provenance.json cùng thư mụ
 Đây là design board để xem phong cách, chưa phải atlas chiến đấu hoặc
 sprite sẵn để nhập game. Khi mẫu được chọn, có thể sản xuất nguồn nhân vật
 và pose riêng trước khi đồng bộ các hero cũ.
+
+## Bộ thiết kế mở rộng
+
+Theo yêu cầu tiếp theo, đã tạo chín ảnh nguồn và hướng dẫn mỹ thuật: [SELENA_ART_BIBLE](SELENA_ART_BIBLE.md). Đây là bộ để xem, chưa tích hợp gameplay.

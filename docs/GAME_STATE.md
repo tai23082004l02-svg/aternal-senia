@@ -169,3 +169,7 @@ Sau dọn repo, dùng workflow Project verification, runner48 suite và kiểm t
 tham chiếu/audio. Ảnh/log/PCM mới ở work/checks hoặc artifact của lượt chạy,
 không đưa output trở lại repo. Xem [TESTING](TESTING.md) và
 [REPOSITORY_CLEANUP](REPOSITORY_CLEANUP.md) cho kết quả cụ thể.
+
+## Selena — bộ ảnh mẫu
+
+Đã tạo chín ảnh nguồn theo mẫu Selena được chủ dự án thích, kèm [hướng dẫn mỹ thuật](SELENA_ART_BIBLE.md). Chưa đổi roster, UI, save hoặc kit; pose/VFX là keyframe thiết kế, chưa animation runtime.

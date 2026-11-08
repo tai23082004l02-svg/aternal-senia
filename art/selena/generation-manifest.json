@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-08",
+  "tool": "image_gen.imagegen",
+  "identity_prompt": "SELENA, the SAME adult moonlight mage from the approved reference: graceful mature face, luminous violet eyes, very long silver-lavender hair, white lily and small gold leaves on the same side as reference, violet diamond pendant, ivory/lilac layered dress with warm-gold celestial filigree and dark violet inner fabric, detached flowing sleeves, long pale-lilac ribbons. Her exact face, costume construction, jewelry and colors must match across every view. Staff is slender gold, crescent head containing a suspended eight-point star and violet crystal. Premium hand-painted 2D fantasy anime, exquisitely beautiful nuanced face, crisp controlled linework and rich material shading, not 3D or realistic photography. Clearly an adult woman.",
+  "jobs": [
+    "cutout",
+    "expressions",
+    "battle_atlas",
+    "staff",
+    "skill_icons",
+    "vfx_atlas"
+  ],
+  "sources": [
+    {
+      "key": "key_art",
+      "name": "key-art",
+      "path": "/workspace/generated_images/exec-9d38a4a7-5195-4c30-b01b-38accf1ec1af.png"
+    },
+    {
+      "key": "turnaround",
+      "name": "turnaround",
+      "path": "/workspace/generated_images/exec-cba95773-049e-4765-a83f-c34c0d835968.png"
+    },
+    {
+      "key": "cutout",
+      "name": "cutout",
+      "path": "/workspace/generated_images/exec-4d338045-a2de-4fe4-b24b-81aaa67a2fd4.png"
+    },
+    {
+      "key": "expressions",
+      "name": "expressions",
+      "path": "/workspace/generated_images/exec-0a95fb7a-5b99-4f47-a828-3fba5d369a75.png"
+    },
+    {
+      "key": "battle_atlas",
+      "name": "action-poses",
+      "path": "/workspace/generated_images/exec-5a8c5525-661d-4928-a9d1-e97fb41171ab.png"
+    },
+    {
+      "key": "battle_chibi",
+      "name": "battle-chibi",
+      "path": "/workspace/generated_images/exec-3cc0b34d-7e69-4a26-878d-b89c8ce87c4f.png"
+    },
+    {
+      "key": "staff",
+      "name": "staff",
+      "path": "/workspace/generated_images/exec-a404db2e-331c-42f7-954c-38dd8e3e93df.png"
+    },
+    {
+      "key": "skill_icons",
+      "name": "skill-icons",
+      "path": "/workspace/generated_images/exec-fb073f8e-4b8e-425f-8a0b-a9c3b6995923.png"
+    },
+    {
+      "key": "vfx_atlas",
+      "name": "vfx-atlas",
+      "path": "/workspace/generated_images/exec-aad839f5-6196-4b35-8bcd-a78078e40c86.png"
+    }
+  ]
+}
