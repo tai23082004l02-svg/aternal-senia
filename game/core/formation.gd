@@ -1,13 +1,19 @@
 class_name Formation
 extends RefCounted
 
+const HERO_LIMIT := 4
+
 static func state(p: Dictionary, book: GameCatalog) -> Dictionary:
-	if p.has("formation"): return p.formation
+	if p.has("formation"):
+		# Expand a copy only: viewing old v12 teams must never write a save.
+		var f: Dictionary = p.formation.duplicate(true)
+		while f.slots.size() < HERO_LIMIT: f.slots.append("")
+		return f
 	var slots: Array = [p.hero]
 	for hero in book.data.heroes:
-		if slots.size() >= 3: break
+		if slots.size() >= HERO_LIMIT: break
 		if hero.id not in slots and owned(book, p, hero.id): slots.append(hero.id)
-	while slots.size() < 3: slots.append("")
+	while slots.size() < HERO_LIMIT: slots.append("")
 	return {"slots":slots, "auto_ult":true, "auto_next":false}
 
 static func owned(book: GameCatalog, p: Dictionary, id: String) -> bool:
@@ -20,7 +26,7 @@ static func owned(book: GameCatalog, p: Dictionary, id: String) -> bool:
 static func valid(store, p: Dictionary) -> bool:
 	if not p.has("formation"): return true
 	var f = p.formation
-	if not f is Dictionary or not f.get("slots") is Array or f.slots.size() != 3: return false
+	if not f is Dictionary or not f.get("slots") is Array or f.slots.size() not in [3, HERO_LIMIT]: return false
 	if not f.get("auto_ult") is bool or not f.get("auto_next") is bool: return false
 	var seen := []
 	for id in f.slots:
@@ -31,7 +37,7 @@ static func valid(store, p: Dictionary) -> bool:
 	return not seen.is_empty() and p.hero == seen[0]
 
 static func assign(store, slot: int, id: String) -> bool:
-	if slot < 0 or slot > 2 or store.read_only or not store.profile.pending.is_empty(): return false
+	if slot < 0 or slot >= HERO_LIMIT or store.read_only or not store.profile.pending.is_empty(): return false
 	if not id.is_empty() and not store.available_hero(id): return false
 	var p: Dictionary = store.profile.duplicate(true)
 	p.formation = state(p, store.catalog).duplicate(true)
@@ -58,11 +64,11 @@ static func option(store, key: String, enabled: bool) -> bool:
 static func snapshot(book: GameCatalog, p: Dictionary, stage: Dictionary) -> Dictionary:
 	var units := []
 	var f := state(p, book)
-	for slot in range(3):
+	for slot in range(HERO_LIMIT):
 		var id: String = f.slots[slot]
 		if id.is_empty(): continue
 		units.append({"slot":slot, "stats":book.stats(p, id)})
-	return GameCatalog.normalize({"version":1, "units":units, "assist":p.assist, "auto_ult":f.auto_ult, "auto_next":f.auto_next, "prioritize_heal":p.settings.get("prioritize_heal",true), "encounter":encounter(stage)})
+	return GameCatalog.normalize({"version":2, "units":units, "assist":p.assist, "auto_ult":f.auto_ult, "auto_next":f.auto_next, "prioritize_heal":p.settings.get("prioritize_heal",true), "encounter":encounter(stage)})
 
 static func encounter(stage: Dictionary) -> Dictionary:
 	if stage.has("team_encounter"): return stage.team_encounter.duplicate(true)
@@ -90,12 +96,12 @@ static func kill_cap(encounter_data: Dictionary) -> int:
 
 static func valid_snapshot(store, team: Variant) -> bool:
 	if team is Dictionary and team.has("prioritize_heal") and not team.prioritize_heal is bool: return false
-	if not team is Dictionary or team.get("version") != 1 or not team.get("units") is Array or team.units.is_empty() or team.units.size() > 3: return false
+	if not team is Dictionary or team.get("version") not in [1, 2] or not team.get("units") is Array or team.units.is_empty() or team.units.size() > (3 if team.version == 1 else HERO_LIMIT): return false
 	if not team.get("auto_ult") is bool or not team.get("auto_next") is bool or store.catalog.find_row("assists", team.get("assist")).is_empty(): return false
 	var ids := []
 	var slots := []
 	for unit in team.units:
-		if not unit is Dictionary or not store._whole(unit.get("slot"), 0, 2) or unit.slot in slots or not unit.get("stats") is Dictionary: return false
+		if not unit is Dictionary or not store._whole(unit.get("slot"), 0, 2 if team.version == 1 else HERO_LIMIT - 1) or unit.slot in slots or not unit.get("stats") is Dictionary: return false
 		var s: Dictionary = unit.stats
 		if store.catalog.find_row("heroes", s.get("hero")).is_empty() or s.hero in ids or s.get("assist") != team.assist: return false
 		for key in ["hp", "atk", "defense", "crit", "skill_bonus", "assist_level"]:

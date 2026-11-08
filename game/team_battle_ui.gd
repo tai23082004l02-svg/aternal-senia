@@ -24,10 +24,10 @@ func _ready() -> void:
 	field.position = Vector2(0, 46)
 	field.size = Vector2(540, 330)
 	add_child(field)
-	for i in range(4):
+	for i in range(5):
 		var box := Panel.new()
-		box.position = Vector2(24 + i * 125, 391)
-		box.size = Vector2(117, 117)
+		box.position = Vector2(24 + i * 125, 371) if i < 4 else Vector2(24, 494)
+		box.size = Vector2(117, 117) if i < 4 else Vector2(492, 52)
 		box.add_theme_stylebox_override("panel", game._style(Color("152c37"), Color("8e7b53"), 10))
 		add_child(box)
 		names.append(game._label(box, "", Vector2(8, 5), 16, Color("e5cd9e")))
@@ -38,9 +38,10 @@ func _ready() -> void:
 		box.add_child(hp)
 		health.append(hp)
 		hp_texts.append(game._label(box, "", Vector2(8, 25), 10))
+		if i == 4: hp.hide()
 		_bar_style(hp, Color("8bd6b6"))
 		var nrg := ProgressBar.new()
-		nrg.position = Vector2(8, 54)
+		nrg.position = Vector2(8, 54) if i < 4 else Vector2(170, 23)
 		nrg.size = Vector2(101, 7)
 		nrg.show_percentage = false
 		box.add_child(nrg)
@@ -48,16 +49,19 @@ func _ready() -> void:
 		_bar_style(nrg, Color("d4b56d"))
 		var button: Button = game._button(box, "", Vector2(7, 65), Vector2(103, 42), _ultimate.bind(i))
 		button.add_theme_font_size_override("font_size", 13)
+		if i == 4:
+			button.position = Vector2(318, 5)
+			button.size = Vector2(166, 42)
 		ultimates.append(button)
-	auto_button = game._button(self, "", Vector2(24, 522), Vector2(148, 44), _auto)
+	auto_button = game._button(self, "", Vector2(24, 554), Vector2(148, 44), _auto)
 	auto_button.add_theme_font_size_override("font_size", 14)
-	speed_button = game._button(self, "×1", Vector2(180, 522), Vector2(64, 44), game._speed)
-	pause_button = game._button(self, "Stop", Vector2(252, 522), Vector2(96, 44), game._toggle_pause)
-	next_button = game._button(self, "", Vector2(356, 522), Vector2(160, 44), _next)
+	speed_button = game._button(self, "×1", Vector2(180, 554), Vector2(64, 44), game._speed)
+	pause_button = game._button(self, "Stop", Vector2(252, 554), Vector2(96, 44), game._toggle_pause)
+	next_button = game._button(self, "", Vector2(356, 554), Vector2(160, 44), _next)
 	next_button.add_theme_font_size_override("font_size", 14)
-	game._button(self, "Retreat · No rewards", Vector2(24, 581), Vector2(492, 46), game._confirm_abandon)
-	game._button(self, "Formation & Heroes", Vector2(24, 640), Vector2(492, 46), game._select_tab.bind(22))
-	notice = game._label(self, "", Vector2(24, 698), 12)
+	game._button(self, "Retreat · No rewards", Vector2(24, 606), Vector2(492, 46), game._confirm_abandon)
+	game._button(self, "Formation & Heroes", Vector2(24, 658), Vector2(492, 46), game._select_tab.bind(22))
+	notice = game._label(self, "", Vector2(24, 710), 12)
 	notice.size = Vector2(492, 24)
 	notice.clip_text = true
 
@@ -78,8 +82,8 @@ func _process(_delta: float) -> void:
 	heading.text = "STAGE %s · %s · %02d:%02d · Wave %d/%d" % [code, model.stage.name, int(model.time) / 60, int(model.time) % 60, model.wave + 1, model.wave_count()]
 	heading.add_theme_font_size_override("font_size", 14)
 	var can_play := model.state == "battle" and not model.paused and game.modal == null
-	for i in range(4):
-		if i < 3:
+	for i in range(5):
+		if i < Formation.HERO_LIMIT:
 			if i >= model.allies.size():
 				names[i].text = "Empty slot"
 				hp_texts[i].text = "No hero"
@@ -121,7 +125,7 @@ func _bar_style(bar: ProgressBar, color: Color) -> void:
 
 func _ultimate(index: int) -> void:
 	if game.battle is TeamBattle and game.modal == null:
-		if index == 3: game.battle.spirit_ultimate()
+		if index == Formation.HERO_LIMIT: game.battle.spirit_ultimate()
 		else: game.battle.ultimate(index)
 func _auto() -> void:
 	if game.battle is TeamBattle: game.battle.auto_ultimate = not game.battle.auto_ultimate
@@ -131,7 +135,10 @@ func _next() -> void:
 class TeamField extends Control:
 	var game
 	var model: TeamBattle
-	const ALLY_FEET := [Vector2(213, 273), Vector2(102, 200), Vector2(92, 310)]
+	const ALLY_FEET := [Vector2(211, 190), Vector2(211, 304), Vector2(88, 190), Vector2(88, 304)]
+	const LEGACY_ALLY_FEET := [Vector2(213, 273), Vector2(102, 200), Vector2(92, 310)]
+	func ally_feet() -> Array:
+		return LEGACY_ALLY_FEET if model.run.team.version == 1 else ALLY_FEET
 	const ENEMY_FEET := [Vector2(348, 272), Vector2(439, 200), Vector2(456, 312), Vector2(346, 134)]
 	func _ready() -> void:
 		clip_contents = true
@@ -159,7 +166,7 @@ class TeamField extends Control:
 		draw_string(font, Vector2(20, 22), "OUR TEAM", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
 		draw_string(font, Vector2(407, 22), "ENEMIES", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
 		var order := []
-		for i in range(model.allies.size()): order.append({"enemy":false,"index":i,"y":ALLY_FEET[model.allies[i].slot].y})
+		for i in range(model.allies.size()): order.append({"enemy":false,"index":i,"y":ally_feet()[model.allies[i].slot].y})
 		for i in range(model.enemies.size()): order.append({"enemy":true,"index":i,"y":ENEMY_FEET[i].y})
 		order.sort_custom(func(a,b): return a.y < b.y)
 		for row in order:
@@ -176,7 +183,7 @@ class TeamField extends Control:
 			var ally_target: bool = event.kind in ["hurt","heal","guard"]
 			if ally_target and event.target >= model.allies.size() or not ally_target and event.target >= model.enemies.size(): continue
 			if not ally_target and event.get("target_uid", -1) != model.enemies[event.target].id: continue
-			var point: Vector2 = ALLY_FEET[model.allies[event.target].slot] if ally_target else ENEMY_FEET[event.target]
+			var point: Vector2 = ally_feet()[model.allies[event.target].slot] if ally_target else ENEMY_FEET[event.target]
 			var color := Color("87e6b5") if event.kind == "heal" else (Color("ffcb78") if event.kind == "critical" else Color("f5ddd2"))
 			color.a = 1 - age / .7
 			if options.damage_numbers: draw_string(font, point + Vector2(-10, -82 - age * 25), event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, color)
@@ -185,7 +192,7 @@ class TeamField extends Control:
 				if options.quality == "high": draw_arc(point - Vector2(0, 35), 12 + age * 80, 0, TAU, 16, color, 2, true)
 	func _ally(index: int, library: FrameLibrary) -> void:
 		var ally: Dictionary = model.allies[index]
-		var foot: Vector2 = ALLY_FEET[ally.slot]
+		var foot: Vector2 = ally_feet()[ally.slot]
 		var state := "idle"
 		var elapsed: float = model.time
 		var marker := -1.0

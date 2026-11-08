@@ -17,7 +17,7 @@ func run() -> void:
 	await process_frame
 	game._close_modal()
 	var p: Dictionary = game.store.profile.duplicate(true)
-	p.cleared = [1,2]
+	p.cleared = [1,2,3,4,5]
 	p.hero = "ryn"
 	p.assist = "ash"
 	p.formation = {"slots":["ryn","mira","eira"],"auto_ult":false,"auto_next":false}
@@ -25,8 +25,10 @@ func run() -> void:
 	game._select_tab(22)
 	await capture("formation")
 	game._formation_assign(1, "eira")
-	assert(game.store.profile.formation.slots == ["ryn","eira","mira"])
+	assert(game.store.profile.formation.slots == ["ryn","eira","mira",""])
 	game._formation_assign(1, "mira")
+	game._formation_assign(3, "lyra")
+	await capture("formation-four")
 	game.selected_stage = 6
 	game._begin()
 	assert(game.battle is TeamBattle and game.team_ui != null)
@@ -35,8 +37,24 @@ func run() -> void:
 	game.battle.paused = true
 	await capture("team-3v3")
 	assert(game.team_ui.visible and not game.view.visible and not game.scroll.visible)
-	assert(game.battle.allies.size() == 3 and game.battle.enemies.size() == 3)
+	assert(game.battle.allies.size() == 4 and game.battle.enemies.size() == 3)
 	assert(not Formation.assign(game.store, 0, "eira"))
+	assert(game.team_ui.ultimates.size() == 5)
+	var hud_buttons: Array = game.team_ui.find_children("*", "Button", true, false)
+	for i in range(hud_buttons.size()):
+		for j in range(i + 1, hud_buttons.size()):
+			assert(not hud_buttons[i].get_global_rect().intersects(hud_buttons[j].get_global_rect()), "Battle HUD buttons must not overlap")
+	for button in game.team_ui.ultimates:
+		assert(button.get_global_rect().end.x <= 516)
+		assert(button.get_global_rect().size.y >= 42)
+	game.battle.paused = false
+	game.battle.allies[3].energy = 100
+	game.team_ui._ultimate(3)
+	assert(not game.battle.allies[3].action.is_empty())
+	game.battle.spirit_energy = 100
+	game.team_ui._ultimate(4)
+	assert(not game.battle.spirit_action.is_empty())
+	game.battle.paused = true
 	game.battle.allies[0].energy = 100
 	assert(not game.battle.ultimate(0)) # Paused.
 	game.battle.paused = false
@@ -77,5 +95,5 @@ func run() -> void:
 	await create_timer(.3).timeout
 	game.queue_free()
 	await process_frame
-	print("PASS: formation/swap/lock, painted 3v3/boss adds, ultimate, x1/x2 and legacy singleton resume UI")
+	print("PASS: formation/swap/lock, painted 4v3/boss adds and five independent Ultimate controls, ultimate, x1/x2 and legacy singleton resume UI")
 	quit()

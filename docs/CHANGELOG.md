@@ -35,3 +35,15 @@ Game vẫn0.37.0 sau dọn repo vì không đổi gameplay/schema.
 [Bản README đầy đủ trước dọn repo](https://github.com/tai23082004l02-svg/aternal-senia/blob/8422241ab7c6361b215b235d75208425d1597207/README.md)
 lưu diễn giải từng lần triển khai. Dùng link cố định này khi nghiên cứu lịch sử,
 không sao chép cơ chế lỗi thời trở lại code.
+
+## 2026-11-08 — Four-hero teams
+
+- Implement 4 owned heroes + 1 spirit, 2 front/2 back formation and Journey preview, four hero Ultimate cards plus a separate spirit strip.
+- Keep v12 three-slot formations readable without view-time writes; new edits save four slots. New battle snapshots are v2; v1 three-hero and singleton pending runs remain compatible.
+- Preserve slot-priority targeting, ownership, transaction guards, rewards and combat coefficients. Add four-hero determinism, reload, rollback, settlement and UI coverage.
+
+## 2026-11-08 — Portrait Gallery refresh
+
+- Replace the text-heavy hero list with four-column portrait cards, navy/gold styling, real owned/total count and affinity tabs.
+- Add compact/detail views, combined ownership/role filters, reset and empty results. Locked heroes remain inspectable; source artwork, acquisition and save data stay intact.
+- Extend collection_ui with card bounds, 24-entry scrolling fixtures and view/filter interactions without profile mutation.

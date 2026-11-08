@@ -12,7 +12,7 @@ Mở `project.godot` trong Godot 4.6.x, đợi import rồi chạy F5.
 Vào **Hành trình**, chuẩn bị đội hình và chọn vào ải.
 Không cần API key, tài khoản hoặc dịch vụ trả phí để chơi.
 
-- Bốn hero Eira, Ryn, Mira, Lyra; đội tối đa ba hero đã sở hữu và một tinh linh.
+- Bốn hero Eira, Ryn, Mira, Lyra; đội tối đa bốn hero đã sở hữu và một tinh linh.
 - 5 màn chính, 10 màn nhánh và 3 phó bản chơi được.
 - 44 trang bị, 6 bộ, 4 vị trí/hero; nhiều bản cùng tên có UID riêng, túi 40 món.
 - 8 vật phẩm thiết yếu; xem công dụng, nguồn và nhận quà trong **Túi đồ → Vật phẩm**.

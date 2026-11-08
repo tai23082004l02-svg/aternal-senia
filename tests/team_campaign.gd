@@ -7,9 +7,9 @@ func run() -> void:
 	var store := ProgressStore.new(book, dir.path_join("save.json"))
 	for stage_id in [1,6,7,2,8,9,3,10,11,4,12,13,5,14,15]:
 		var roster := []
-		for id in ["ryn","mira","eira"]:
+		for id in ["ryn","mira","eira","lyra"]:
 			if store.available_hero(id): roster.append(id)
-		while roster.size() < 3: roster.append("")
+		while roster.size() < 4: roster.append("")
 		var p := store.profile.duplicate(true)
 		p.formation = {"slots":roster,"auto_ult":true,"auto_next":false}
 		p.hero = roster[0]

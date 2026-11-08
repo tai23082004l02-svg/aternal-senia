@@ -35,10 +35,10 @@ func run() -> void:
 	assert(game.store.commit(p))
 	game._select_tab(22)
 	await capture("formation-layout")
-	assert(screen().slot_buttons.size() == 3 and screen().roster_buttons.size() == 4)
+	assert(screen().slot_buttons.size() == 4 and screen().roster_buttons.size() == 4)
 	assert(screen().roster_buttons.lyra.disabled)
-	assert(screen().slot_buttons[0].global_position.x > screen().slot_buttons[1].global_position.x)
-	assert(screen().slot_buttons[1].global_position.y == screen().slot_buttons[2].global_position.y)
+	assert(screen().slot_buttons[0].global_position.x > screen().slot_buttons[2].global_position.x)
+	assert(screen().slot_buttons[0].global_position.y == screen().slot_buttons[2].global_position.y)
 	assert(screen().get_rect().size.y <= game.scroll.size.y)
 	assert(screen().roster_scroll.size.y == FormationScreen.ROSTER_HEIGHT)
 	for button in screen().find_children("*", "Button", true, false):
@@ -79,7 +79,7 @@ func run() -> void:
 	await process_frame
 	screen().slot_buttons[0].pressed.emit()
 	screen().roster_buttons.ryn.pressed.emit()
-	assert(game.store.profile.formation.slots == ["ryn","eira","mira"])
+	assert(game.store.profile.formation.slots == ["ryn","eira","mira",""])
 	assert(game.store.profile.hero == "ryn")
 	choose_spirit("lumi")
 	assert("Lumi" in screen().spirit_button.text)
@@ -115,5 +115,5 @@ func run() -> void:
 	game = null
 	await process_frame
 	await process_frame
-	print("PASS: centered front/two rear layout, visible controls, owned roster clicks/swaps, spirit picker, atomic write and pending lock")
+	print("PASS: two front/two back layout, visible controls, owned roster clicks/swaps, spirit picker, atomic write and pending lock")
 	quit()

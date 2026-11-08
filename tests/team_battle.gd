@@ -16,12 +16,68 @@ func run() -> void:
 	var dir := "user://first_light_tests/team_%d" % Time.get_ticks_usec()
 	DirAccess.make_dir_recursive_absolute(dir)
 	var store := fixture(dir.path_join("save.json"))
+	# v12 three-slot formations expand without changing RAM or file bytes.
+	var old_profile := store.profile.duplicate(true)
+	var formation_bytes := FileAccess.get_file_as_bytes(store.path)
+	assert(Formation.state(store.profile, book).slots == ["ryn","mira","eira",""])
+	assert(store.profile == old_profile and FileAccess.get_file_as_bytes(store.path) == formation_bytes)
+	var four := fixture(dir.path_join("four.json"))
+	assert(not Formation.assign(four, 3, "lyra")) # Still locked.
+	var unlocked := four.profile.duplicate(true)
+	unlocked.cleared = [1,2,3,4,5]
+	assert(four.commit(unlocked))
+	four.fail_writes = true
+	var before_four := four.profile.duplicate(true)
+	assert(not Formation.assign(four, 3, "lyra") and four.profile == before_four)
+	four.fail_writes = false
+	assert(Formation.assign(four, 3, "lyra"))
+	assert(Formation.assign(four, 0, "lyra"))
+	assert(four.profile.formation.slots == ["lyra","mira","eira","ryn"])
+	assert(not Formation.assign(four, 4, "eira"))
+	assert(four.begin_run(1))
+	var four_run: Dictionary = four.profile.pending.duplicate(true)
+	assert(four_run.team.version == 2 and four_run.team.units.size() == 4)
+	assert(not Formation.assign(four, 3, ""))
+	var reloaded := ProgressStore.new(book, four.path)
+	assert(not reloaded.read_only and reloaded.profile.pending == four_run)
+	var four_model := TeamBattle.new(book)
+	var fast_model := TeamBattle.new(book)
+	four_model.start(four_run)
+	fast_model.start(four_run)
+	assert(four_model._front() == 0)
+	four_model.allies[0].hp = 0
+	assert(four_model._front() == 1)
+	four_model.start(four_run)
+	fast_model.speed = 2
+	for i in range(12000):
+		four_model.advance(1.0 / 60)
+		fast_model.advance(1.0 / 120)
+		if four_model.state != "battle": break
+	assert(four_model.state == "won" and fast_model.state == four_model.state)
+	assert(four_model.hp == fast_model.hp and four_model.kills == fast_model.kills)
+	assert(four.settle(four_run.id, true, four_model.kills, four_model.time))
+	var rewarded := four.profile.duplicate(true)
+	assert(four.settle(four_run.id, true, four_model.kills, four_model.time))
+	assert(four.profile == rewarded)
+	# Real v1 three-unit pending remains unchanged through reload and resume.
+	var legacy_team := fixture(dir.path_join("legacy_team.json"))
+	assert(legacy_team.begin_run(1))
+	var old_pending := legacy_team.profile.duplicate(true)
+	old_pending.pending.team.version = 1
+	assert(legacy_team.commit(old_pending))
+	var resumed := ProgressStore.new(book, legacy_team.path)
+	assert(not resumed.read_only and resumed.profile.pending == old_pending.pending)
+	four_model.start(resumed.profile.pending)
+	assert(four_model.allies.size() == 3)
+	var invalid_team: Dictionary = four_run.team.duplicate(true)
+	invalid_team.version = 1
+	assert(not Formation.valid_snapshot(four, invalid_team))
 	var saved := store.profile.duplicate(true)
 	store.fail_writes = true
 	assert(not Formation.assign(store, 1, "eira") and store.profile == saved)
 	store.fail_writes = false
 	assert(Formation.assign(store, 1, "eira"))
-	assert(store.profile.formation.slots == ["ryn","eira","mira"])
+	assert(store.profile.formation.slots == ["ryn","eira","mira",""])
 	assert(Formation.assign(store, 1, "mira"))
 	assert(store.begin_run(1))
 	var pending: Dictionary = store.profile.pending.duplicate(true)
@@ -156,5 +212,5 @@ func run() -> void:
 		model.advance(1.0 / 60)
 		if model.state != "battle": break
 	assert(model.state == "won", "Fresh Eira profile must clear first stage")
-	print("PASS: formation/owned/swap/write failure, 3vN targets/markers/spirits/timeout/boss adds, deterministic results, opening balance, legacy pending")
+	print("PASS: formation/owned/swap/write failure, 4vN and legacy 3vN targets/markers/spirits/timeout/boss adds, deterministic results, opening balance, legacy pending")
 	quit()

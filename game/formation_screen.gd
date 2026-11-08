@@ -30,14 +30,14 @@ func _ready() -> void:
 	add_child(header)
 	var title := label(header, "✧ FORMATION", 25, GOLD)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	label(header, "%d/3 heroes · 1 spirit" % filled, 13)
+	label(header, "%d/4 heroes · 1 spirit" % filled, 13)
 	var stage := FormationStage.new()
 	stage.texture = game.frames.textures["bg_" + game.catalog.find_row("stages", game.selected_stage).zone]
 	stage.custom_minimum_size = Vector2(492, 240)
 	add_child(stage)
-	for i in range(3):
+	for i in range(Formation.HERO_LIMIT):
 		var button := slot_card(stage, i, f.slots[i])
-		button.position = [Vector2(166,14), Vector2(8,110), Vector2(324,110)][i]
+		button.position = [Vector2(248,0), Vector2(248,120), Vector2(58,0), Vector2(58,120)][i]
 		slot_buttons.append(button)
 	spirit_button = game._button(self, "Spirit: " + game.catalog.find_row("assists", p.assist).name + "  ›", Vector2.ZERO, Vector2(492, 46), game._formation_spirits)
 	style_button(spirit_button, false)
@@ -182,11 +182,11 @@ func _bind_card(button: Button, hero: Dictionary) -> void:
 
 func slot_card(parent: Control, index: int, id: String) -> Button:
 	var button := Button.new()
-	button.size = Vector2(160, 124)
+	button.size = Vector2(160, 120)
 	button.flat = true
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	button.pressed.connect(game._on_button.bind(game._formation_slot.bind(index)))
-	button.tooltip_text = ["Front row", "Back left", "Back right"][index] + " · Select to switch hero"
+	button.tooltip_text = ["Front upper · Target priority 1", "Front lower · Target priority 2", "Back upper · Target priority 3", "Back lower · Target priority 4"][index] + " · Select to switch hero"
 	parent.add_child(button)
 	var actor := SlotActor.new()
 	actor.game = game
@@ -202,8 +202,8 @@ func slot_card(parent: Control, index: int, id: String) -> Button:
 	title.size = Vector2(160,20)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_stylebox_override("normal", game._style(Color("0b2934"), GOLD if index == slot else Color("608d95"), 10))
-	var rank := label(button, "FRONT ROW" if index == 0 else "BACK ROW", 10, GOLD)
-	rank.position = Vector2(0,116)
+	var rank := label(button, "FRONT ROW" if index < 2 else "BACK ROW", 10, GOLD)
+	rank.position = Vector2(0,108)
 	rank.size.x = 160
 	rank.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	return button
@@ -247,8 +247,8 @@ class FormationStage extends Control:
 	func _ready() -> void: mouse_filter = Control.MOUSE_FILTER_IGNORE
 	func _draw() -> void:
 		draw_texture_rect(texture, Rect2(Vector2.ZERO,size), false)
-		draw_line(Vector2(246,80),Vector2(88,182),Color(.3,.7,.8,.4),1,true)
-		draw_line(Vector2(246,80),Vector2(404,182),Color(.3,.7,.8,.4),1,true)
+		draw_line(Vector2(138,80),Vector2(328,80),Color(.3,.7,.8,.4),1,true)
+		draw_line(Vector2(138,200),Vector2(328,200),Color(.3,.7,.8,.4),1,true)
 
 class SlotActor extends Control:
 	var game
