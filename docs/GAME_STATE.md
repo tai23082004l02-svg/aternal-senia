@@ -1,5 +1,7 @@
 # Trạng thái dự án — bắt đầu ở đây
 
+> **Mới duyệt 2026-11-08:** Mục tiêu thiết kế đội hình **4 hero + 1 tinh linh** (thay mục tiêu 3+1). **Chưa triển khai:** bản 0.37 hiện vẫn hỗ trợ tối đa 3 hero + 1 tinh linh. Codex phải audit migration, pending snapshots, combat/UI và cân bằng trước khi sửa. Xem [GAME_DESIGN_V1](GAME_DESIGN_V1.md).
+
 Cập nhật2026-11-08. Game **0.37.0**, **Godot4.6.3**, save **v12**.
 Đợt dọn repo không đổi gameplay hoặc schema. Repo triển khai:
 [tai23082004l02-svg/aternal-senia](https://github.com/tai23082004l02-svg/aternal-senia).
