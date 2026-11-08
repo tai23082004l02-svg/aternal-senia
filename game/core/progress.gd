@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 10
+const VERSION = 11
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -39,7 +39,7 @@ func valid(p: Variant, legacy_version: int = 0) -> bool:
 		return false
 	for key in fresh():
 		if legacy_version == 6 and key == "collection_fragments": continue
-		if legacy_version > 0 and key == "bag_rewards": continue
+		if legacy_version in [6,7,8,9] and key == "bag_rewards": continue
 		if not p.has(key):
 			return false
 	for key in ["gold", "shards", "xp", "next_uid", "last_offline"]:
@@ -49,17 +49,19 @@ func valid(p: Variant, legacy_version: int = 0) -> bool:
 		return false
 	if not p.heroes is Dictionary or not p.assists is Dictionary or not p.items is Array or p.items.size() > BAG_CAP:
 		return false
-	if legacy_version != 6 and not CollectionFragments.valid(self, p.collection_fragments, legacy_version in [7, 8]): return false
-	if legacy_version == 0:
+	if legacy_version != 6 and not CollectionFragments.valid(self, p.collection_fragments, legacy_version in [7, 8],legacy_version in [9,10]): return false
+	if legacy_version in [0,10]:
 		if not p.bag_rewards is Array or p.bag_rewards.size() > 128: return false
 		for base in p.bag_rewards:
 			if not base is String or catalog.find_row("items", base).is_empty(): return false
+			if legacy_version == 10 and not EquipmentSystem.previous_item(catalog,base): return false
 	var bases: Array = []
 	var uids: Array = []
 	for item in p.items:
 		if not item is Dictionary or not item.get("uid") is String or item.uid.is_empty() or item.uid in uids:
 			return false
 		if legacy_version in [6, 7, 8] and item.get("base") not in EquipmentSystem.OLD_ITEMS: return false
+		if legacy_version in [9,10] and not EquipmentSystem.previous_item(catalog,item.get("base", "")): return false
 		if catalog.find_row("items", item.get("base")).is_empty() or not _whole(item.get("enhance"), 0, 10 if legacy_version in [6, 7, 8] else EquipmentSystem.MAX_ENHANCE) or not _whole(item.get("rank"), 1, 3):
 			return false
 		if legacy_version in [7, 8, 9] and item.base in bases: return false
@@ -552,7 +554,11 @@ func _decode(file_path: String) -> Variant:
 		raw.bag_rewards = []
 		raw.version = VERSION
 	if old_version == 9 and valid(raw, 9):
+		EquipmentSystem.migrate(raw,catalog)
 		raw.bag_rewards = []
+		raw.version = VERSION
+	if old_version == 10 and valid(raw,10):
+		EquipmentSystem.migrate(raw,catalog)
 		raw.version = VERSION
 	return raw
 

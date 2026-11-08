@@ -72,7 +72,9 @@ func run() -> void:
 	assert(game.scroll.scroll_vertical > 30 and game.tab == 3 and game.store.profile == original)
 	# Real nested inventory scroller must consume the drag without moving outer UI.
 	var p: Dictionary = original.duplicate(true)
-	for row in game.catalog.data.items: assert(game.store._add_item(p,row.id))
+	for row in game.catalog.data.items:
+		if p.items.size() >= ProgressStore.BAG_CAP: break
+		assert(game.store._add_item(p,row.id))
 	assert(game.store.commit(p))
 	original = game.store.profile.duplicate(true)
 	game._bag_open("equipment")

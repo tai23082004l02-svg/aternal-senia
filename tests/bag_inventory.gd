@@ -67,6 +67,8 @@ func run() -> void:
 	# Genuine v9 keeps all old paid items/fragments and frozen team data.
 	var legacy := store.fresh()
 	legacy.version = 9
+	for id in legacy.collection_fragments.items.keys():
+		if not EquipmentSystem.previous_item(book,id): legacy.collection_fragments.items.erase(id)
 	legacy.erase("bag_rewards")
 	legacy.collection_fragments.items.sword_1 = 70
 	legacy.pending = pending.duplicate(true)
@@ -78,7 +80,8 @@ func run() -> void:
 	var bytes := FileAccess.get_file_as_bytes(path)
 	var migrated := ProgressStore.new(book,path)
 	assert(not migrated.read_only and migrated.profile.version == ProgressStore.VERSION)
-	assert(migrated.profile.items == legacy.items and migrated.profile.collection_fragments == legacy.collection_fragments and migrated.profile.pending == legacy.pending)
+	assert(migrated.profile.items == legacy.items and migrated.profile.pending == legacy.pending)
+	for id in legacy.collection_fragments.items: assert(migrated.profile.collection_fragments.items[id] == legacy.collection_fragments.items[id])
 	assert(migrated.setting("sound",false) and FileAccess.get_file_as_bytes(path+".bak") == bytes)
 	var invalid := migrated.profile.duplicate(true)
 	invalid.bag_rewards = ["missing_item"]

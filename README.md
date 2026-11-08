@@ -1,4 +1,11 @@
-# Aternal Senia — First Light · 0.34
+# Aternal Senia — First Light · 0.35
+
+## Ba bộ trang bị mới · 0.35
+
+18 món với icon riêng: Lâm Vệ chống chịu, Lôi Ảnh tốc đánh/chí mạng, Nguyệt Tinh
+hồi năng lượng/sát thương kỹ năng. Mỗi bộ đủ ba loại vũ khí và ba phòng cụ,
+có thưởng2/4 món. Rèn Lâm Vệ hoặc tìm trong triệu hồi Thường; savev11 giữ đồ
+và trận cũ. [Xem bộ, cách nhận và quy tắc](docs/ADDITIONAL_EQUIPMENT.md).
 
 ## Thế giới Phó bản · 0.34
 

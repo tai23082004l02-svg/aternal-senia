@@ -109,7 +109,7 @@ event một lần; giữ bộ âm ElevenLabs hiện có khi chỉ đổi hình.
 Nếu **thêm hero mới**, kiểm cả catalogue, clips/manifest, weapon, avatar,
 portrait, UI, pool triệu hồi và map dữ liệu cố định trong Recruitment.fresh,
 HeroEvolution.fresh, Wardrobe.fresh và CollectionFragments.fresh. AttributeTraining dùng catalogue động.
-Đọc tests/migration trước khi bổ sung ID. Save hiện v10 đọc v2–v9, giữ đường dẫn
+Đọc tests/migration trước khi bổ sung ID. Save hiện v11 đọc v2–v10, giữ đường dẫn
 `first_light_v2.json`; giữ ví, item UID, sở hữu, pity và pending run snapshot.
 Snapshot hero/variant/assist/weapon/look của trận đang dở phải bất biến.
 Không reset save hoặc âm thầm sửa save hiện hành hỏng thành profile mới.

@@ -14,6 +14,23 @@ func check(value: bool, label: String) -> void:
 func _initialize() -> void:
 	call_deferred("run")
 
+func verify_unlock(kind: String, id: String, path: String) -> void:
+	var target_store := ProgressStore.new(book,path)
+	var fixture := target_store.profile.duplicate(true)
+	fixture.gold = 1000
+	fixture.recruitment = Recruitment.fresh()
+	fixture.recruitment.pity = 19
+	var found := false
+	for seed in range(1,4097):
+		fixture.recruitment.seed = seed
+		var probe := fixture.duplicate(true)
+		assert(Recruitment._draw(target_store,probe))
+		if probe.recruitment.history[0].kind == kind and probe.recruitment.history[0].id == id:
+			found = true
+			break
+	check(found and target_store.commit(fixture) and Recruitment.summon(target_store),"Targeted real draw without relying on the old catalogue's seed sequence")
+	check(target_store.available_hero(id) if kind == "hero" else target_store.available_assist(id),"Summoned %s unlocks before chapter clear" % id)
+
 func run() -> void:
 	var dir := "user://first_light_tests/recruitment_%d" % Time.get_ticks_usec()
 	DirAccess.make_dir_recursive_absolute(dir)
@@ -94,7 +111,10 @@ func run() -> void:
 		categories[reward.kind] = true
 		check(store.profile.recruitment.pity <= 19 and store.profile.recruitment.history.size() <= Recruitment.HISTORY_LIMIT, "Bounded pity and history")
 	check(categories.size() == 3, "Fixed seed covers all three reward categories")
-	check(store.available_hero("ryn") and store.available_hero("mira") and store.available_assist("ash"), "Summoned entities unlock before chapter clear")
+	for id in store.profile.recruitment.heroes:
+		check(store.available_hero(id), "Every actually summoned hero is selectable")
+	for id in store.profile.recruitment.spirits: check(store.available_assist(id), "Every actually summoned spirit is selectable")
+	for pair in [["hero","ryn"],["hero","mira"],["spirit","ash"]]: verify_unlock(pair[0],pair[1],path+pair[1])
 	check(store.profile.recruitment.fragments.eira + store.profile.recruitment.fragments.ryn + store.profile.recruitment.fragments.mira + store.profile.recruitment.fragments.lyra > 0 and store.profile.collection_fragments.spirits.lumi + store.profile.collection_fragments.spirits.ash > 0, "Duplicate heroes and spirits convert to materials")
 	check(store.profile.items.size() <= ProgressStore.BAG_CAP, "Equipment copies fit physical capacity")
 	check(store.profile.collection_fragments.items.armor_1 == 0 and store.profile.shards == p.shards+dismantled_gain, "Duplicate gear stays physical, no automatic fragment conversion")

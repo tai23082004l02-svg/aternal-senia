@@ -11,7 +11,7 @@ func run() -> void:
 	root.size = Vector2i(540, 960)
 	var icons := UIIcons.new()
 	var frames := FrameLibrary.new()
-	assert(icons.manifest.regions.size() == 80)
+	assert(icons.manifest.regions.size() == 98)
 	var catalog := GameCatalog.new()
 	for item in catalog.data.items:
 		assert(icons.textures.has(item.id))
@@ -22,7 +22,7 @@ func run() -> void:
 		assert(texture.region.end.x <= texture.atlas.get_width() and texture.region.end.y <= texture.atlas.get_height())
 		assert(texture.filter_clip)
 		assert(not texture.get_image().is_invisible())
-	for sheet in ["navigation", "systems", "equipment", "resources", "gear"]:
+	for sheet in ["navigation", "systems", "equipment", "resources", "gear", "grove", "storm", "moon"]:
 		var canvas := Control.new()
 		root.add_child(canvas)
 		var title := Label.new()
@@ -58,5 +58,5 @@ func run() -> void:
 		assert(root.get_texture().get_image().save_png(output.path_join("icons-" + sheet + ".png")) == OK)
 		canvas.queue_free()
 		await process_frame
-	print("PASS: 80 visible bounded icon cells, all catalog items covered, shared UI/item regions and 28px/104px galleries")
+	print("PASS: 98 visible bounded icon cells, all catalog items covered, shared UI/item regions and 28px/104px galleries")
 	quit()

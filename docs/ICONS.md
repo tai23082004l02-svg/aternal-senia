@@ -1,5 +1,7 @@
 # Bộ icon giao diện và đạo cụ · 0.22
 
+Từ0.35 có98 icon, thêm ba sheet3x2 grove/storm/moon cho18 món mới; xem [ADDITIONAL_EQUIPMENT](ADDITIONAL_EQUIPMENT.md). Builder chia grid theo từng sheet, không giả định toàn bộ atlas4x4.
+
 > Từ [0.27](EQUIPMENT_SETS.md) registry có80 icon với sheet `gear.png` bổ sung16 ô. Catalogue có26 item. Danh mục64 icon dưới đây mô tả bộ nền0.22.
 
 64 icon gốc được tạo bằng image generation, cùng nét fantasy anime vẽ tay,

@@ -610,6 +610,387 @@
       "summon_only": true,
       "cooldown_scale": 0.92,
       "element": "water"
+    },
+    {
+      "id": "sword_grove",
+      "name": "Kiếm Lâm Vệ",
+      "slot": "weapon",
+      "category": "sword",
+      "rarity": 3,
+      "atk": 9,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {},
+      "set_id": "grove",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#608dff",
+      "summon_group": 2,
+      "summon_only": false,
+      "cooldown_scale": 0.98,
+      "element": "nature"
+    },
+    {
+      "id": "spear_grove",
+      "name": "Thương Lâm Vệ",
+      "slot": "weapon",
+      "category": "spear",
+      "rarity": 3,
+      "atk": 9,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {},
+      "set_id": "grove",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#608dff",
+      "summon_group": 2,
+      "summon_only": false,
+      "cooldown_scale": 0.98,
+      "element": "nature"
+    },
+    {
+      "id": "staff_grove",
+      "name": "Trượng Lâm Vệ",
+      "slot": "weapon",
+      "category": "staff",
+      "rarity": 3,
+      "atk": 9,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {},
+      "set_id": "grove",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#608dff",
+      "summon_group": 2,
+      "summon_only": false,
+      "cooldown_scale": 0.98,
+      "element": "nature"
+    },
+    {
+      "id": "armor_grove",
+      "name": "Giáp Lâm Vệ",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 3,
+      "atk": 0,
+      "hp": 55,
+      "defense": 3,
+      "secondary": {},
+      "set_id": "grove",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#608dff",
+      "summon_group": 2,
+      "summon_only": false,
+      "cooldown_scale": 1.0,
+      "element": "nature"
+    },
+    {
+      "id": "boots_grove",
+      "name": "Giày Lâm Vệ",
+      "slot": "boots",
+      "category": "all",
+      "rarity": 3,
+      "atk": 0,
+      "hp": 10,
+      "defense": 1,
+      "secondary": {},
+      "set_id": "grove",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#608dff",
+      "summon_group": 2,
+      "summon_only": false,
+      "cooldown_scale": 1.0,
+      "element": "nature",
+      "haste": 0.02
+    },
+    {
+      "id": "accessory_grove",
+      "name": "Ấn Lâm Vệ",
+      "slot": "accessory",
+      "category": "all",
+      "rarity": 3,
+      "atk": 0,
+      "hp": 50,
+      "defense": 0,
+      "secondary": {},
+      "set_id": "grove",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#608dff",
+      "summon_group": 2,
+      "summon_only": false,
+      "cooldown_scale": 1.0,
+      "element": "nature"
+    },
+    {
+      "id": "sword_storm",
+      "name": "Kiếm Lôi Ảnh",
+      "slot": "weapon",
+      "category": "sword",
+      "rarity": 4,
+      "atk": 15,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.02
+      },
+      "set_id": "storm",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#aa70ff",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.96,
+      "element": "light"
+    },
+    {
+      "id": "spear_storm",
+      "name": "Thương Lôi Ảnh",
+      "slot": "weapon",
+      "category": "spear",
+      "rarity": 4,
+      "atk": 15,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.02
+      },
+      "set_id": "storm",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#aa70ff",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.96,
+      "element": "light"
+    },
+    {
+      "id": "staff_storm",
+      "name": "Trượng Lôi Ảnh",
+      "slot": "weapon",
+      "category": "staff",
+      "rarity": 4,
+      "atk": 15,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.02
+      },
+      "set_id": "storm",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#aa70ff",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.96,
+      "element": "light"
+    },
+    {
+      "id": "armor_storm",
+      "name": "Giáp Lôi Ảnh",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 4,
+      "atk": 0,
+      "hp": 90,
+      "defense": 4,
+      "secondary": {},
+      "set_id": "storm",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#aa70ff",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "light"
+    },
+    {
+      "id": "boots_storm",
+      "name": "Giày Lôi Ảnh",
+      "slot": "boots",
+      "category": "all",
+      "rarity": 4,
+      "atk": 0,
+      "hp": 15,
+      "defense": 1,
+      "secondary": {},
+      "set_id": "storm",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#aa70ff",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "light",
+      "haste": 0.04
+    },
+    {
+      "id": "accessory_storm",
+      "name": "Ấn Lôi Ảnh",
+      "slot": "accessory",
+      "category": "all",
+      "rarity": 4,
+      "atk": 0,
+      "hp": 70,
+      "defense": 0,
+      "secondary": {
+        "crit": 0.02
+      },
+      "set_id": "storm",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#aa70ff",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "light"
+    },
+    {
+      "id": "sword_moon",
+      "name": "Kiếm Nguyệt Tinh",
+      "slot": "weapon",
+      "category": "sword",
+      "rarity": 5,
+      "atk": 17,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "sp_regen": 0.25
+      },
+      "set_id": "moon",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.94,
+      "element": "water"
+    },
+    {
+      "id": "spear_moon",
+      "name": "Thương Nguyệt Tinh",
+      "slot": "weapon",
+      "category": "spear",
+      "rarity": 5,
+      "atk": 17,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "sp_regen": 0.25
+      },
+      "set_id": "moon",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.94,
+      "element": "water"
+    },
+    {
+      "id": "staff_moon",
+      "name": "Trượng Nguyệt Tinh",
+      "slot": "weapon",
+      "category": "staff",
+      "rarity": 5,
+      "atk": 17,
+      "hp": 0,
+      "defense": 0,
+      "secondary": {
+        "sp_regen": 0.25
+      },
+      "set_id": "moon",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 0.94,
+      "element": "water"
+    },
+    {
+      "id": "armor_moon",
+      "name": "Giáp Nguyệt Tinh",
+      "slot": "armor",
+      "category": "all",
+      "rarity": 5,
+      "atk": 0,
+      "hp": 110,
+      "defense": 6,
+      "secondary": {
+        "damage_reduction": 0.02
+      },
+      "set_id": "moon",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "water"
+    },
+    {
+      "id": "boots_moon",
+      "name": "Giày Nguyệt Tinh",
+      "slot": "boots",
+      "category": "all",
+      "rarity": 5,
+      "atk": 0,
+      "hp": 20,
+      "defense": 2,
+      "secondary": {},
+      "set_id": "moon",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "water",
+      "haste": 0.03
+    },
+    {
+      "id": "accessory_moon",
+      "name": "Ấn Nguyệt Tinh",
+      "slot": "accessory",
+      "category": "all",
+      "rarity": 5,
+      "atk": 0,
+      "hp": 90,
+      "defense": 0,
+      "secondary": {
+        "sp_regen": 0.25
+      },
+      "set_id": "moon",
+      "effect": "",
+      "effect_description": "",
+      "passive": "Không có nội tại phụ",
+      "color": "#efa52c",
+      "summon_group": 3,
+      "summon_only": true,
+      "cooldown_scale": 1.0,
+      "element": "water"
     }
   ],
   "skills": [
@@ -915,6 +1296,69 @@
           "description": "+1 SP mỗi giây",
           "stats": {
             "sp_regen": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "grove",
+      "name": "Lâm Vệ",
+      "icon": "accessory_grove",
+      "bonuses": [
+        {
+          "pieces": 2,
+          "description": "+8% HP tối đa",
+          "stats": {
+            "hp_pct": 0.08
+          }
+        },
+        {
+          "pieces": 4,
+          "description": "+6% giảm sát thương",
+          "stats": {
+            "damage_reduction": 0.06
+          }
+        }
+      ]
+    },
+    {
+      "id": "storm",
+      "name": "Lôi Ảnh",
+      "icon": "accessory_storm",
+      "bonuses": [
+        {
+          "pieces": 2,
+          "description": "+6% tốc độ đánh",
+          "stats": {
+            "haste": 0.06
+          }
+        },
+        {
+          "pieces": 4,
+          "description": "+5% chí mạng",
+          "stats": {
+            "crit": 0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "moon",
+      "name": "Nguyệt Tinh",
+      "icon": "accessory_moon",
+      "bonuses": [
+        {
+          "pieces": 2,
+          "description": "+0,5 năng lượng mỗi giây",
+          "stats": {
+            "sp_regen": 0.5
+          }
+        },
+        {
+          "pieces": 4,
+          "description": "+10% sát thương kỹ năng",
+          "stats": {
+            "skill_pct": 0.1
           }
         }
       ]

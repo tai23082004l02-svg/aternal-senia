@@ -3755,6 +3755,168 @@
         1,
         1
       ]
+    },
+    "sword_grove": {
+      "file": "painted/dawnveil.png",
+      "anchor": [
+        512,
+        1225
+      ],
+      "scale": 0.14,
+      "tint": [
+        1,
+        1,
+        0.93,
+        1
+      ]
+    },
+    "spear_grove": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        444,
+        0,
+        443,
+        887
+      ],
+      "anchor": [
+        224,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "staff_grove": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        1330,
+        0,
+        444,
+        887
+      ],
+      "anchor": [
+        219,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "sword_storm": {
+      "file": "painted/dawnveil.png",
+      "anchor": [
+        512,
+        1225
+      ],
+      "scale": 0.14,
+      "tint": [
+        1,
+        1,
+        0.93,
+        1
+      ]
+    },
+    "spear_storm": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        444,
+        0,
+        443,
+        887
+      ],
+      "anchor": [
+        224,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "staff_storm": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        1330,
+        0,
+        444,
+        887
+      ],
+      "anchor": [
+        219,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "sword_moon": {
+      "file": "painted/dawnveil.png",
+      "anchor": [
+        512,
+        1225
+      ],
+      "scale": 0.14,
+      "tint": [
+        1,
+        1,
+        0.93,
+        1
+      ]
+    },
+    "spear_moon": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        444,
+        0,
+        443,
+        887
+      ],
+      "anchor": [
+        224,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "staff_moon": {
+      "atlas": "complete/weapons.png",
+      "region": [
+        1330,
+        0,
+        444,
+        887
+      ],
+      "anchor": [
+        219,
+        650
+      ],
+      "scale": 0.38,
+      "tint": [
+        1,
+        1,
+        1,
+        1
+      ]
     }
   },
   "enemies": {
@@ -4478,6 +4640,204 @@
   "icons": {
     "atlas": "icons/resources.png",
     "regions": {
+      "sword_grove": {
+        "atlas": "icons/grove.png",
+        "region": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "sheet": "grove",
+        "cell": 0
+      },
+      "spear_grove": {
+        "atlas": "icons/grove.png",
+        "region": [
+          512,
+          0,
+          512,
+          512
+        ],
+        "sheet": "grove",
+        "cell": 1
+      },
+      "staff_grove": {
+        "atlas": "icons/grove.png",
+        "region": [
+          1024,
+          0,
+          512,
+          512
+        ],
+        "sheet": "grove",
+        "cell": 2
+      },
+      "armor_grove": {
+        "atlas": "icons/grove.png",
+        "region": [
+          0,
+          512,
+          512,
+          512
+        ],
+        "sheet": "grove",
+        "cell": 3
+      },
+      "boots_grove": {
+        "atlas": "icons/grove.png",
+        "region": [
+          512,
+          512,
+          512,
+          512
+        ],
+        "sheet": "grove",
+        "cell": 4
+      },
+      "accessory_grove": {
+        "atlas": "icons/grove.png",
+        "region": [
+          1024,
+          512,
+          512,
+          512
+        ],
+        "sheet": "grove",
+        "cell": 5
+      },
+      "sword_storm": {
+        "atlas": "icons/storm.png",
+        "region": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "sheet": "storm",
+        "cell": 0
+      },
+      "spear_storm": {
+        "atlas": "icons/storm.png",
+        "region": [
+          512,
+          0,
+          512,
+          512
+        ],
+        "sheet": "storm",
+        "cell": 1
+      },
+      "staff_storm": {
+        "atlas": "icons/storm.png",
+        "region": [
+          1024,
+          0,
+          512,
+          512
+        ],
+        "sheet": "storm",
+        "cell": 2
+      },
+      "armor_storm": {
+        "atlas": "icons/storm.png",
+        "region": [
+          0,
+          512,
+          512,
+          512
+        ],
+        "sheet": "storm",
+        "cell": 3
+      },
+      "boots_storm": {
+        "atlas": "icons/storm.png",
+        "region": [
+          512,
+          512,
+          512,
+          512
+        ],
+        "sheet": "storm",
+        "cell": 4
+      },
+      "accessory_storm": {
+        "atlas": "icons/storm.png",
+        "region": [
+          1024,
+          512,
+          512,
+          512
+        ],
+        "sheet": "storm",
+        "cell": 5
+      },
+      "sword_moon": {
+        "atlas": "icons/moon.png",
+        "region": [
+          0,
+          0,
+          512,
+          512
+        ],
+        "sheet": "moon",
+        "cell": 0
+      },
+      "spear_moon": {
+        "atlas": "icons/moon.png",
+        "region": [
+          512,
+          0,
+          512,
+          512
+        ],
+        "sheet": "moon",
+        "cell": 1
+      },
+      "staff_moon": {
+        "atlas": "icons/moon.png",
+        "region": [
+          1024,
+          0,
+          512,
+          512
+        ],
+        "sheet": "moon",
+        "cell": 2
+      },
+      "armor_moon": {
+        "atlas": "icons/moon.png",
+        "region": [
+          0,
+          512,
+          512,
+          512
+        ],
+        "sheet": "moon",
+        "cell": 3
+      },
+      "boots_moon": {
+        "atlas": "icons/moon.png",
+        "region": [
+          512,
+          512,
+          512,
+          512
+        ],
+        "sheet": "moon",
+        "cell": 4
+      },
+      "accessory_moon": {
+        "atlas": "icons/moon.png",
+        "region": [
+          1024,
+          512,
+          512,
+          512
+        ],
+        "sheet": "moon",
+        "cell": 5
+      },
       "boots_3": {
         "atlas": "icons/gear.png",
         "region": [

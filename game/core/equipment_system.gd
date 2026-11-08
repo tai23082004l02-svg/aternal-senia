@@ -5,7 +5,13 @@ const SLOTS := ["weapon", "armor", "boots", "accessory"]
 const SLOT_NAMES := {"weapon": "Vũ khí", "armor": "Giáp", "boots": "Giày", "accessory": "Phụ kiện"}
 const EFFECTS := ["radiance", "burn", "tide", "aegis"]
 const MAX_ENHANCE := 15
+const ADDED_SETS := ["grove", "storm", "moon"]
+
 const OLD_ITEMS := ["sword_1", "sword_2", "spear_1", "spear_2", "staff_1", "staff_2", "armor_1", "armor_2", "armor_3", "armor_uncommon", "armor_4", "armor_5", "armor_6", "armor_7"]
+const V10_ITEMS := ["sword_1", "sword_2", "spear_1", "spear_2", "staff_1", "staff_2", "armor_1", "armor_2", "armor_3", "armor_uncommon", "armor_4", "armor_5", "armor_6", "armor_7", "boots_3", "boots_4", "boots_5", "boots_6", "boots_7", "accessory_4", "accessory_5", "accessory_6", "accessory_7", "sword_dawn", "spear_ember", "staff_tide"]
+
+static func previous_item(_book: GameCatalog, id: String) -> bool:
+	return id in V10_ITEMS
 
 static func multiplier(item: Dictionary) -> float:
 	return 1.0 + item.enhance * .18 + (item.rank - 1) * .5
