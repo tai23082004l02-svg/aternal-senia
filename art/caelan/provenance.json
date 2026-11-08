@@ -1,0 +1,31 @@
+{
+  "method": "Original image generation; Eira banner and Ryn battle atlas as style references. Metadata regions/socket cropping only; original source PNGs preserved byte-for-byte.",
+  "date": "2026-11-08",
+  "identity": {
+    "id": "caelan",
+    "planning_id": "H02",
+    "adult_age": 30
+  },
+  "references": [
+    "art/banners/eira.png",
+    "art/ryn/atlas.png"
+  ],
+  "sources": [
+    {
+      "file": "atlas.png",
+      "sha256": "5a9ed29acb1e0343e72de4197d10d57ee2845efc10f263a9aeb3244d65a44ef5"
+    },
+    {
+      "file": "illustration.png",
+      "sha256": "e91fe19c62199adbe2f51a771a33eb76743393be8c58edc284edb8f7f4f63664"
+    },
+    {
+      "file": "props.png",
+      "sha256": "1bd6683c9630c692d2ea818dd1dbe26cc010ad44c4b7632bb88ee754b818964f"
+    },
+    {
+      "file": "turnaround.png",
+      "sha256": "4d9270829f2646597cc5d6b517fa6c883ca64716989f7e3505d58e20bc9c5fb9"
+    }
+  ]
+}
