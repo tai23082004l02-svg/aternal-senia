@@ -19,6 +19,9 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 **ĐỌC BẮT BUỘC:** [docs/GAME_DESIGN_V1.md](docs/GAME_DESIGN_V1.md) trước khi lập kế hoạch hoặc triển khai hero, Gallery, Summon Reveal, Bond, cốt truyện nhân vật. Chủ dự án đã duyệt **24 hero (12 nam/12 nữ), tất cả gốc 5★, ưu tiên Gallery/Summon Reveal, bổ sung Bond, truyện ngắn xoay quanh nhân vật, tiếp tục repo hiện tại**. Đây là quyết định mới hơn các câu ghi "24 hero chưa chốt" ở tài liệu cũ; **chỉ phạm vi sáu quyết định này được duyệt**, các con số khác trong Launch Content Matrix và thông số chi tiết vẫn là draft. Không coi tài liệu thiết kế là code đã chạy. **Bước Codex tiếp theo: WP01 audit chỉ đọc, không sửa/commit/push**, trừ khi chủ dự án giao task mới rõ ràng.
 
+
+**QUYẾT ĐỊNH MỚI (2026-11-08):** Mục tiêu đội hình V1.0 là **4 hero + 1 tinh linh**, thay cho 3 hero + 1 tinh linh. Runtime hiện tại vẫn 3+1; không tự sửa combat chỉ vì quyết định này. Codex WP01 phải đánh giá migration save v12, formation, pending battle snapshots, targeting/AI, UI và balance trước khi triển khai. Bố cục 2 trước + 2 sau là đề xuất, chưa chốt quy tắc khóa vị trí.
+
 ## Cộng tác và phạm vi
 
 - Người dùng yêu cầu luôn đẩy kết quả lên GitHub sau khi hoàn thành nhiệm vụ,

@@ -1,4 +1,6 @@
 # Aternal Senia — Launch Content Matrix
+
+> **OWNER-APPROVED UPDATE 2026-11-08:** Target formation for V1.0 is **4 heroes + 1 spirit**, superseding 3+1. This is not implemented in runtime; see [GAME_DESIGN_V1](GAME_DESIGN_V1.md). The 2-front/2-back arrangement is proposed, not approved as a class lock.
 ## Full Content Launch · Art / Characters / Spirits / Gear / Regions / Bosses / Dungeons
 
 > **CONTENT MATRIX V0.1 · PARTIALLY APPROVED · NOT IMPLEMENTED**\n> **Priority:** [GAME_DESIGN_V1.md](GAME_DESIGN_V1.md) is the approved product direction. **Approved:** 24 heroes (12 male/12 female), all base 5★. **Still draft:** 12 spirits, 12 gear sets, 7 regions/84 stages, 12 bosses, 8 dungeons, cosmetics, acquisition milestones, abilities, economy and all runtime changes.

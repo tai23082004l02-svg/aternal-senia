@@ -15,6 +15,13 @@
 
 The earlier **Full Content Launch** decision remains: build and QA internally in increments; do not publicly soft-launch a four-hero game as a gate to producing the approved roster.
 
+
+## Owner-approved formation decision — 2026-11-08
+
+**APPROVED TARGET: 4 heroes + 1 spirit per team.** This supersedes the earlier 3 heroes + 1 spirit target for V1.0. Current runtime remains 3+1 until a separately authorized and tested implementation. A proposed UI arrangement is 2 front + 2 back hero positions, with a separate spirit support slot; this is a layout proposal, not a fixed-class restriction.
+
+**Mandatory Codex WP01 extension:** audit formation data, TeamBattle/TeamBattleUI, action economy, targeting, AI, summon/ownership progression, four-hero skill balance, portrait and ultimate HUD, performance, save v12 migrations, and pending-run snapshot backward compatibility. Old 3-hero teams must load safely; no silent save reset or forced mutation. Preserve 3+1 battle resume for old snapshots if needed. Implement only on a later scoped task after owner review.
+
 ## 2. Product pillars and experience
 
 **Working positioning:** Anime Hero Collection Idle Fantasy RPG for English-language Android portrait users, initially targeting the US. Working creative line: *Collect Beauty. Build Legends.* This is a creative proposal, not an approved store tagline.
