@@ -9,6 +9,7 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 - Chủ dự án đã **hủy các bản thảo cốt truyện lớn vừa xây dựng**. Không sử dụng các bản thảo *The World That Forgot Tomorrow*, *Character Story Bible*, *World Mechanics* và *Master Timeline* làm định hướng hoặc canon khi đề xuất phát triển tiếp.
 - Mục tiêu ưu tiên là xây dựng một **mobile Idle/Auto-Battle RPG có khả năng kiếm tiền bền vững**, hướng đến người chơi Mỹ; phân tích retention, vòng lặp chơi, nội dung tái chơi, **rewarded ads tự nguyện** và **in-app purchases** trước khi mở rộng lore/art.
 - Cốt truyện là công cụ giúp tạo nhân vật, tinh linh, trang bị, quái vật, vùng đất và sự kiện hấp dẫn; **không đầu tư đại truyện dài nếu chưa phục vụ trải nghiệm và mục tiêu sản phẩm**. Các phương án thương mại vẫn cần kiểm chứng, chưa chốt tỷ lệ, giá hay gói nạp.
+- **Tài liệu kinh doanh ưu tiên:** [BUSINESS_MONETIZATION_PLAN](docs/BUSINESS_MONETIZATION_PLAN.md) — kế hoạch hybrid Idle RPG / retention / rewarded ads tự nguyện / IAP xác minh qua cửa hàng. Đọc trước các task product, economy, quảng cáo, thanh toán, onboarding, phát hành và mở rộng roster. Giá/KPI/placements là **giả thuyết**, chưa triển khai. Việc sửa hệ thống phải theo task cụ thể, chống trùng reward, xác minh IAP và giữ tiến trình người chơi.
 - Chưa được phép tự tích hợp SDK quảng cáo, thanh toán hoặc sửa economy/gameplay chỉ vì định hướng này; việc triển khai cần yêu cầu cụ thể, kế hoạch thử nghiệm và tương thích save. Không tự xóa nội dung game đang có.
 
 ## Cộng tác và phạm vi
