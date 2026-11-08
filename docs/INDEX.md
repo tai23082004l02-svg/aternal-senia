@@ -23,9 +23,9 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 
 | Tài liệu | Phạm vi |
 | --- | --- |
-|[BUSINESS_MONETIZATION_PLAN](BUSINESS_MONETIZATION_PLAN.md)|**Business Design V0.1, chưa triển khai**: thị trường Mỹ/Android, Idle RPG, vòng lặp chơi, rewarded ads, IAP, kinh tế, KPI, unit economics và cổng soft-launch; đọc trước mọi đề xuất kiếm tiền|
+|[BUSINESS_MONETIZATION_PLAN](BUSINESS_MONETIZATION_PLAN.md)|**Business Design V0.2 — Full Content Launch**: sản xuất nhiều hero nam/nữ đẹp, tinh linh, gear, Boss và phó bản trước khi phát hành chính thức; rewarded ads + IAP thật, QA nội bộ, kinh tế, business KPI sau phát hành|
 
-**Ưu tiên:** Kiểm chứng retention và gameplay trước khi mở SDK quảng cáo, thanh toán hoặc mở rộng nội dung hàng loạt. Không tự coi giá, mức thưởng, KPI trong kế hoạch là đã chốt.
+**Ưu tiên:** Hoàn thiện dàn nội dung lớn và hệ kiếm tiền thật trước khi phát hành; QA nội bộ kỹ lưỡng, không public bản thiếu nội dung. Retention/KPI dùng sau phát hành để cải thiện sản phẩm. Giá, mức thưởng và số lượng nội dung trong kế hoạch chưa được chốt.
 
 ## Gameplay và dữ liệu
 
