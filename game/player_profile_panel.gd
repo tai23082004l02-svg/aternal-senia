@@ -13,10 +13,9 @@ static func label(parent: Node, value: String, font_size: int, color: Color = IV
 	var text := Label.new()
 	text.text = TranslationServer.translate(value)
 	text.add_theme_font_size_override("font_size", font_size)
-	if font_size >= 18:
-		var serif := SystemFont.new()
-		serif.font_names = PackedStringArray(["Noto Serif", "Georgia", "serif"])
-		text.add_theme_font_override("font", serif)
+	if font_size >= 24:
+		text.set_meta("font_role", "display")
+		text.add_theme_font_override("font", UIFonts.font("display"))
 	text.add_theme_color_override("font_color", color)
 	text.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(text)
@@ -52,7 +51,7 @@ static func show_profile(game) -> void:
 	trim.size = box.size
 	trim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(trim)
-	var heading := label(box, "✧  HỒ SƠ LỮ HÀNH", 24, GOLD)
+	var heading := label(box, "✧  TRAVELER PROFILE", 24, GOLD)
 	heading.position = Vector2(30, 17)
 	var close: Button = game._button(box, "×", Vector2(426, 12), Vector2(40, 40), game._close_modal)
 	close.name = "ProfileClose"
@@ -93,24 +92,24 @@ static func show_profile(game) -> void:
 	var display_name := label(column, identity.name, 27)
 	display_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	display_name.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	var subtitle := label(column, "Danh tính trong thế giới Aternal Senia", 14, Color("a9c1c2"))
+	var subtitle := label(column, "Your identity in the world of Aternal Senia", 14, Color("a9c1c2"))
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label(column, "✧  Tên hiển thị", 18, GOLD)
+	label(column, "✧  Display Name", 18, GOLD)
 	var name_input := LineEdit.new()
 	name_input.name = "PlayerNameInput"
 	name_input.text = identity.name
 	name_input.max_length = 20
-	name_input.placeholder_text = TranslationServer.translate("Tên người chơi (1–20 ký tự)")
+	name_input.placeholder_text = TranslationServer.translate("Player name (1–20 characters)")
 	name_input.custom_minimum_size.y = 40
 	name_input.editable = not game.store.read_only
 	name_input.add_theme_font_size_override("font_size", 20)
 	name_input.add_theme_stylebox_override("normal", game._style(Color("061a24"), GOLD, 10))
 	column.add_child(name_input)
-	label(column, "Tối đa 20 ký tự", 12, Color("a9c1c2"))
+	label(column, "Up to 20 characters", 12, Color("a9c1c2"))
 	var owned := 0
 	for hero in game.catalog.data.heroes:
 		if game.store.available_hero(hero.id): owned += 1
-	label(column, "✧  Chọn ảnh đại diện                 %s %d/%d" % [TranslationServer.translate("Sở hữu"), owned, game.catalog.data.heroes.size()], 17, GOLD)
+	label(column, "✧  Choose Avatar                 %s %d/%d" % [TranslationServer.translate("Owned"), owned, game.catalog.data.heroes.size()], 17, GOLD)
 	var chosen := {"avatar": identity.avatar}
 	var choices := HBoxContainer.new()
 	choices.add_theme_constant_override("separation", 8)
@@ -127,7 +126,7 @@ static func show_profile(game) -> void:
 		button.button_group = group
 		button.button_pressed = id == identity.avatar
 		button.disabled = game.store.read_only or not game.store.available_hero(id)
-		button.tooltip_text = TranslationServer.translate("Chọn avatar" if not button.disabled else "Cần sở hữu nhân vật")
+		button.tooltip_text = TranslationServer.translate("Select avatar" if not button.disabled else "Hero must be owned")
 		style_button(game, button)
 		var selected: StyleBoxFlat = game._style(Color("164b53"), Color("ffe5a1"), 12)
 		selected.set_border_width_all(3)
@@ -160,12 +159,12 @@ static func show_profile(game) -> void:
 	var vip_column := VBoxContainer.new()
 	vip_column.add_theme_constant_override("separation", 2)
 	vip.add_child(vip_column)
-	label(vip_column, "♛  Đặc quyền VIP       ·  Chưa kích hoạt", 18, GOLD)
-	var notice := label(vip_column, "VIP EXP tích lũy                         %d" % MissionBoard.state(game.store.profile).vip_exp, 16)
+	label(vip_column, "♛  VIP Privileges       ·  Inactive", 18, GOLD)
+	var notice := label(vip_column, "Accumulated VIP EXP                         %d" % MissionBoard.state(game.store.profile).vip_exp, 16)
 	notice.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	var vip_button: Button = game._button(vip_column, "Xem VIP 1–10                         ›", Vector2.ZERO, Vector2(0, 34), game._show_vip.bind(1))
+	var vip_button: Button = game._button(vip_column, "View VIP 1–10                         ›", Vector2.ZERO, Vector2(0, 34), game._show_vip.bind(1))
 	style_button(game, vip_button)
-	var save: Button = game._button(box, "✧   LƯU HỒ SƠ   ✧", Vector2(36, 678), Vector2(412, 48), func():
+	var save: Button = game._button(box, "✧   SAVE PROFILE   ✧", Vector2(36, 678), Vector2(412, 48), func():
 		if PlayerIdentity.save(game.store, name_input.text, chosen.avatar):
 			game._refresh_hud()
 			game._close_modal()
@@ -218,7 +217,7 @@ class ProfileTrim extends Control:
 
 static func show_vip(game, tier: int) -> void:
 	tier = clampi(tier, 1, PlayerIdentity.VIP_TIERS)
-	var column: VBoxContainer = game._dialog("ĐẶC QUYỀN VIP", "VIP EXP: %d · Chưa xếp hạng" % MissionBoard.state(game.store.profile).vip_exp, [])
+	var column: VBoxContainer = game._dialog("VIP PRIVILEGES", "VIP EXP: %d · Unranked" % MissionBoard.state(game.store.profile).vip_exp, [])
 	layout(column)
 	var grid := GridContainer.new()
 	grid.columns = 5
@@ -230,18 +229,18 @@ static func show_vip(game, tier: int) -> void:
 		button.name = "VipTier%d" % level
 		button.add_theme_font_size_override("font_size", 14)
 		if level == tier: button.modulate = Color("f6d48a")
-	var title: Label = game._label(column, "VIP %d · Chưa mở" % tier, Vector2.ZERO, 24, Color("e5cd9e"))
+	var title: Label = game._label(column, "VIP %d · Locked" % tier, Vector2.ZERO, 24, Color("e5cd9e"))
 	title.name = "VipTierTitle"
 	var body := Label.new()
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	body.custom_minimum_size = Vector2(400, 148)
 	body.add_theme_font_size_override("font_size", 18)
-	body.text = "Tích lũy VIP EXP qua nhiệm vụ ngày/tuần.\n\nMốc EXP và quyền lợi của bậc này đang chờ cấu hình.\n\nHiện chưa hỗ trợ thanh toán."
+	body.text = "Earn VIP EXP from daily and weekly missions.\n\nEXP thresholds and tier benefits are awaiting configuration.\n\nPayments are not supported yet."
 	column.add_child(body)
-	var topup: Button = game._button(column, "Nạp tiền · Sắp ra mắt", Vector2.ZERO, Vector2(400, 46), func(): pass)
+	var topup: Button = game._button(column, "Top Up · Coming soon", Vector2.ZERO, Vector2(400, 46), func(): pass)
 	topup.disabled = true
-	game._button(column, "Về hồ sơ", Vector2.ZERO, Vector2(400, 46), game._show_player_profile)
-	game._button(column, "Đóng", Vector2.ZERO, Vector2(400, 46), game._close_modal)
+	game._button(column, "Back to Profile", Vector2.ZERO, Vector2(400, 46), game._show_player_profile)
+	game._button(column, "Close", Vector2.ZERO, Vector2(400, 46), game._close_modal)
 
 class RoundAvatar extends Control:
 	var face: Control

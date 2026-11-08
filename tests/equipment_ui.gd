@@ -53,7 +53,7 @@ func run() -> void:
 	assert(game.panel.get_child(0) is EquipmentDetailScreen)
 	await capture("equipment-legendary-detail")
 	var gold: int = game.store.profile.gold
-	button("Cường hóa +8").pressed.emit()
+	button("Enhance +8").pressed.emit()
 	assert(game.store.profile.gold == gold-160 and EquipmentSystem.item_for(game.store.profile, item_uid("sword_dawn")).enhance == 8)
 	await capture("equipment-enhanced")
 	game._item_detail(item_uid("accessory_7"))
@@ -66,14 +66,14 @@ func run() -> void:
 	await capture("equipment-four-slots")
 	game._character_item_detail(item_uid("spear_ember"), "ryn")
 	var active: String = game.store.profile.hero
-	button("Tháo về túi").pressed.emit()
+	button("Unequip to bag").pressed.emit()
 	assert(game.store.profile.heroes.ryn.equipment.weapon == "" and game.store.profile.hero == active)
-	button("Trang bị").pressed.emit()
+	button("Equipment").pressed.emit()
 	assert(game.store.profile.heroes.ryn.equipment.weapon == item_uid("spear_ember") and game.store.profile.hero == active)
 	await capture("equipment-fire-set")
 	assert(game.store.begin_run(1))
 	game._item_detail(item_uid("sword_dawn"))
-	assert(button("Cường hóa").disabled and button("Tháo về túi").disabled and button("Phân giải").disabled)
+	assert(button("Enhance").disabled and button("Unequip to bag").disabled and button("Dismantle").disabled)
 	await capture("equipment-pending-lock")
 	# Render each rarity side by side for review without changing player data.
 	var overlay := CanvasLayer.new()

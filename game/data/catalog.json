@@ -4,7 +4,7 @@
     {
       "id": "eira",
       "name": "Eira",
-      "title": "Kiếm sĩ bình minh",
+      "title": "Dawn Swordswoman",
       "element": "light",
       "hp": 210,
       "atk": 20,
@@ -12,14 +12,14 @@
       "crit": 0.12,
       "color": "#a9b9ed",
       "unlock": 1,
-      "passive": "Kiếm quang: +12% sát thương kỹ năng",
+      "passive": "Lightblade: +12% Skill Damage",
       "skill_bonus": 1.12,
       "rarity": 5
     },
     {
       "id": "ryn",
       "name": "Ryn",
-      "title": "Thương thủ hỏa vũ",
+      "title": "Flamefeather Lancer",
       "element": "fire",
       "hp": 240,
       "atk": 23,
@@ -27,14 +27,14 @@
       "crit": 0.18,
       "color": "#efaa87",
       "unlock": 2,
-      "passive": "Liều lĩnh: chí mạng 18%",
+      "passive": "Reckless: 18% Critical Rate",
       "skill_bonus": 1.0,
       "rarity": 5
     },
     {
       "id": "mira",
       "name": "Mira",
-      "title": "Pháp sư thủy triều",
+      "title": "Tidal Mage",
       "element": "water",
       "hp": 190,
       "atk": 25,
@@ -42,14 +42,14 @@
       "crit": 0.1,
       "color": "#88d6d1",
       "unlock": 3,
-      "passive": "Dòng chảy: hồi phục mạnh hơn 25%",
+      "passive": "Flow: healing increased by 25%",
       "skill_bonus": 1.0,
       "rarity": 5
     },
     {
       "id": "lyra",
       "name": "Lyra",
-      "title": "Thương thủ hoàng hôn",
+      "title": "Twilight Lancer",
       "element": "fire",
       "hp": 225,
       "atk": 22,
@@ -57,7 +57,7 @@
       "crit": 0.15,
       "color": "#dca58b",
       "unlock": 4,
-      "passive": "Dư hỏa: +8% sát thương kỹ năng",
+      "passive": "Embers: +8% Skill Damage",
       "skill_bonus": 1.08,
       "rarity": 5,
       "age": 24
@@ -66,7 +66,7 @@
   "items": [
     {
       "id": "sword_1",
-      "name": "Kiếm sương",
+      "name": "Frost Sword",
       "slot": "weapon",
       "category": "sword",
       "rarity": 3,
@@ -77,7 +77,7 @@
       "defense": 0,
       "color": "#608dff",
       "element": "light",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "",
       "secondary": {},
       "effect": "",
@@ -85,7 +85,7 @@
     },
     {
       "id": "sword_2",
-      "name": "Kiếm nhật quang",
+      "name": "Sunlight Sword",
       "slot": "weapon",
       "category": "sword",
       "rarity": 3,
@@ -96,7 +96,7 @@
       "defense": 0,
       "color": "#608dff",
       "element": "light",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "dawn",
       "secondary": {},
       "effect": "",
@@ -104,7 +104,7 @@
     },
     {
       "id": "spear_1",
-      "name": "Thương than hồng",
+      "name": "Ember Spear",
       "slot": "weapon",
       "category": "spear",
       "rarity": 3,
@@ -115,7 +115,7 @@
       "defense": 0,
       "color": "#608dff",
       "element": "fire",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "",
       "secondary": {},
       "effect": "",
@@ -123,7 +123,7 @@
     },
     {
       "id": "spear_2",
-      "name": "Thương phượng",
+      "name": "Phoenix Spear",
       "slot": "weapon",
       "category": "spear",
       "rarity": 3,
@@ -134,7 +134,7 @@
       "defense": 0,
       "color": "#608dff",
       "element": "fire",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "ember",
       "secondary": {},
       "effect": "",
@@ -142,7 +142,7 @@
     },
     {
       "id": "staff_1",
-      "name": "Trượng giọt sương",
+      "name": "Dewdrop Staff",
       "slot": "weapon",
       "category": "staff",
       "rarity": 3,
@@ -153,7 +153,7 @@
       "defense": 0,
       "color": "#608dff",
       "element": "water",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "",
       "secondary": {},
       "effect": "",
@@ -161,7 +161,7 @@
     },
     {
       "id": "staff_2",
-      "name": "Trượng tinh tú",
+      "name": "Starlight Staff",
       "slot": "weapon",
       "category": "staff",
       "rarity": 3,
@@ -172,7 +172,7 @@
       "defense": 0,
       "color": "#608dff",
       "element": "water",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "tide",
       "secondary": {},
       "effect": "",
@@ -180,7 +180,7 @@
     },
     {
       "id": "armor_1",
-      "name": "Áo choàng lá",
+      "name": "Leaf Cloak",
       "slot": "armor",
       "category": "all",
       "rarity": 3,
@@ -191,7 +191,7 @@
       "color": "#608dff",
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "tide",
       "secondary": {},
       "effect": "",
@@ -199,7 +199,7 @@
     },
     {
       "id": "armor_2",
-      "name": "Giáp hoàng hôn",
+      "name": "Twilight Armor",
       "slot": "armor",
       "category": "all",
       "rarity": 3,
@@ -210,7 +210,7 @@
       "color": "#608dff",
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "ember",
       "secondary": {},
       "effect": "",
@@ -218,7 +218,7 @@
     },
     {
       "id": "armor_3",
-      "name": "Ấn mặt trăng",
+      "name": "Moon Seal",
       "slot": "accessory",
       "category": "all",
       "rarity": 3,
@@ -229,7 +229,7 @@
       "color": "#608dff",
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "tide",
       "secondary": {},
       "effect": "",
@@ -237,7 +237,7 @@
     },
     {
       "id": "armor_uncommon",
-      "name": "Áo choàng sương sớm",
+      "name": "Morning Mist Cloak",
       "slot": "armor",
       "category": "all",
       "rarity": 3,
@@ -248,7 +248,7 @@
       "color": "#608dff",
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "tide",
       "secondary": {},
       "effect": "",
@@ -256,7 +256,7 @@
     },
     {
       "id": "armor_4",
-      "name": "Giáp tinh vân",
+      "name": "Nebula Armor",
       "slot": "armor",
       "category": "all",
       "rarity": 4,
@@ -268,7 +268,7 @@
       "summon_group": 3,
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "ember",
       "secondary": {},
       "effect": "",
@@ -276,7 +276,7 @@
     },
     {
       "id": "armor_5",
-      "name": "Giáp thiên quang",
+      "name": "Heavenlight Armor",
       "slot": "armor",
       "category": "all",
       "rarity": 5,
@@ -288,7 +288,7 @@
       "summon_group": 3,
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "dawn",
       "secondary": {
         "damage_reduction": 0.02
@@ -298,7 +298,7 @@
     },
     {
       "id": "armor_6",
-      "name": "Giáp cổ thần",
+      "name": "Ancient Deity Armor",
       "slot": "armor",
       "category": "all",
       "rarity": 6,
@@ -310,7 +310,7 @@
       "summon_group": 3,
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "dawn",
       "secondary": {
         "damage_reduction": 0.03
@@ -320,7 +320,7 @@
     },
     {
       "id": "armor_7",
-      "name": "Giáp thần thánh",
+      "name": "Divine Armor",
       "slot": "armor",
       "category": "all",
       "rarity": 7,
@@ -332,7 +332,7 @@
       "summon_group": 3,
       "cooldown_scale": 1.0,
       "element": "none",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "set_id": "dawn",
       "secondary": {
         "damage_reduction": 0.04
@@ -342,7 +342,7 @@
     },
     {
       "id": "boots_3",
-      "name": "Giày thủy triều",
+      "name": "Tidal Boots",
       "slot": "boots",
       "category": "all",
       "rarity": 3,
@@ -354,7 +354,7 @@
       "set_id": "tide",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#608dff",
       "summon_group": 1,
       "summon_only": false,
@@ -363,7 +363,7 @@
     },
     {
       "id": "boots_4",
-      "name": "Giày hỏa vũ",
+      "name": "Flamefeather Boots",
       "slot": "boots",
       "category": "all",
       "rarity": 4,
@@ -377,7 +377,7 @@
       "set_id": "ember",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#aa70ff",
       "summon_group": 3,
       "summon_only": true,
@@ -386,7 +386,7 @@
     },
     {
       "id": "boots_5",
-      "name": "Giày bình minh",
+      "name": "Dawn Boots",
       "slot": "boots",
       "category": "all",
       "rarity": 5,
@@ -400,7 +400,7 @@
       "set_id": "dawn",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -409,7 +409,7 @@
     },
     {
       "id": "boots_6",
-      "name": "Giày cổ thần",
+      "name": "Ancient Deity Boots",
       "slot": "boots",
       "category": "all",
       "rarity": 6,
@@ -423,7 +423,7 @@
       "set_id": "dawn",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#ef5555",
       "summon_group": 3,
       "summon_only": true,
@@ -432,7 +432,7 @@
     },
     {
       "id": "boots_7",
-      "name": "Giày thiên dực",
+      "name": "Celestial Wing Boots",
       "slot": "boots",
       "category": "all",
       "rarity": 7,
@@ -446,7 +446,7 @@
       "set_id": "dawn",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#e5c569",
       "summon_group": 3,
       "summon_only": true,
@@ -455,7 +455,7 @@
     },
     {
       "id": "accessory_4",
-      "name": "Bùa hỏa vũ",
+      "name": "Flamefeather Charm",
       "slot": "accessory",
       "category": "all",
       "rarity": 4,
@@ -469,7 +469,7 @@
       "set_id": "ember",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#aa70ff",
       "summon_group": 3,
       "summon_only": true,
@@ -478,7 +478,7 @@
     },
     {
       "id": "accessory_5",
-      "name": "Ấn bình minh",
+      "name": "Dawn Seal",
       "slot": "accessory",
       "category": "all",
       "rarity": 5,
@@ -492,7 +492,7 @@
       "set_id": "dawn",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -501,7 +501,7 @@
     },
     {
       "id": "accessory_6",
-      "name": "Ấn cổ thần",
+      "name": "Ancient Deity Seal",
       "slot": "accessory",
       "category": "all",
       "rarity": 6,
@@ -515,7 +515,7 @@
       "set_id": "dawn",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#ef5555",
       "summon_group": 3,
       "summon_only": true,
@@ -524,7 +524,7 @@
     },
     {
       "id": "accessory_7",
-      "name": "Ấn thiên dực",
+      "name": "Celestial Wing Seal",
       "slot": "accessory",
       "category": "all",
       "rarity": 7,
@@ -537,8 +537,8 @@
       },
       "set_id": "dawn",
       "effect": "aegis",
-      "effect_description": "Kỹ năng Tinh linh tạo khiên bằng 8% HP trong 5 giây.",
-      "passive": "Không có nội tại phụ",
+      "effect_description": "Spirit skills grant an 8% HP shield for 5 seconds.",
+      "passive": "No additional passive",
       "color": "#e5c569",
       "summon_group": 3,
       "summon_only": true,
@@ -547,7 +547,7 @@
     },
     {
       "id": "sword_dawn",
-      "name": "Kiếm thiên quang",
+      "name": "Heavenlight Sword",
       "slot": "weapon",
       "category": "sword",
       "rarity": 5,
@@ -559,8 +559,8 @@
       },
       "set_id": "dawn",
       "effect": "radiance",
-      "effect_description": "Kiếm quang tạo khiên bằng 5% HP trong 5 giây.",
-      "passive": "Kiếm quang tạo khiên bằng 5% HP trong 5 giây.",
+      "effect_description": "Lightblade grants a 5% HP shield for 5 seconds.",
+      "passive": "Lightblade grants a 5% HP shield for 5 seconds.",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -569,7 +569,7 @@
     },
     {
       "id": "spear_ember",
-      "name": "Thương hỏa vũ",
+      "name": "Flamefeather Spear",
       "slot": "weapon",
       "category": "spear",
       "rarity": 5,
@@ -581,8 +581,8 @@
       },
       "set_id": "ember",
       "effect": "burn",
-      "effect_description": "Đòn thường có 15% cơ hội thiêu đốt 3 giây; mỗi giây gây 12% ATK. Không cộng dồn.",
-      "passive": "Đòn thường có 15% cơ hội thiêu đốt 3 giây; mỗi giây gây 12% ATK. Không cộng dồn.",
+      "effect_description": "Basic attacks have a 15% chance to burn for 3 seconds, dealing 12% ATK per second. Does not stack.",
+      "passive": "Basic attacks have a 15% chance to burn for 3 seconds, dealing 12% ATK per second. Does not stack.",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -591,7 +591,7 @@
     },
     {
       "id": "staff_tide",
-      "name": "Trượng thủy triều",
+      "name": "Tidal Staff",
       "slot": "weapon",
       "category": "staff",
       "rarity": 5,
@@ -603,8 +603,8 @@
       },
       "set_id": "tide",
       "effect": "tide",
-      "effect_description": "Kỹ năng Hồi phục hoàn lại 5 SP khi thi triển thành công.",
-      "passive": "Kỹ năng Hồi phục hoàn lại 5 SP khi thi triển thành công.",
+      "effect_description": "Restoration refunds 5 SP on successful use.",
+      "passive": "Restoration refunds 5 SP on successful use.",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -613,7 +613,7 @@
     },
     {
       "id": "sword_grove",
-      "name": "Kiếm Lâm Vệ",
+      "name": "Forest Warden Sword",
       "slot": "weapon",
       "category": "sword",
       "rarity": 3,
@@ -624,7 +624,7 @@
       "set_id": "grove",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#608dff",
       "summon_group": 2,
       "summon_only": false,
@@ -633,7 +633,7 @@
     },
     {
       "id": "spear_grove",
-      "name": "Thương Lâm Vệ",
+      "name": "Forest Warden Spear",
       "slot": "weapon",
       "category": "spear",
       "rarity": 3,
@@ -644,7 +644,7 @@
       "set_id": "grove",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#608dff",
       "summon_group": 2,
       "summon_only": false,
@@ -653,7 +653,7 @@
     },
     {
       "id": "staff_grove",
-      "name": "Trượng Lâm Vệ",
+      "name": "Forest Warden Staff",
       "slot": "weapon",
       "category": "staff",
       "rarity": 3,
@@ -664,7 +664,7 @@
       "set_id": "grove",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#608dff",
       "summon_group": 2,
       "summon_only": false,
@@ -673,7 +673,7 @@
     },
     {
       "id": "armor_grove",
-      "name": "Giáp Lâm Vệ",
+      "name": "Forest Warden Armor",
       "slot": "armor",
       "category": "all",
       "rarity": 3,
@@ -684,7 +684,7 @@
       "set_id": "grove",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#608dff",
       "summon_group": 2,
       "summon_only": false,
@@ -693,7 +693,7 @@
     },
     {
       "id": "boots_grove",
-      "name": "Giày Lâm Vệ",
+      "name": "Forest Warden Boots",
       "slot": "boots",
       "category": "all",
       "rarity": 3,
@@ -704,7 +704,7 @@
       "set_id": "grove",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#608dff",
       "summon_group": 2,
       "summon_only": false,
@@ -714,7 +714,7 @@
     },
     {
       "id": "accessory_grove",
-      "name": "Ấn Lâm Vệ",
+      "name": "Forest Warden Seal",
       "slot": "accessory",
       "category": "all",
       "rarity": 3,
@@ -725,7 +725,7 @@
       "set_id": "grove",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#608dff",
       "summon_group": 2,
       "summon_only": false,
@@ -734,7 +734,7 @@
     },
     {
       "id": "sword_storm",
-      "name": "Kiếm Lôi Ảnh",
+      "name": "Stormshadow Sword",
       "slot": "weapon",
       "category": "sword",
       "rarity": 4,
@@ -747,7 +747,7 @@
       "set_id": "storm",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#aa70ff",
       "summon_group": 3,
       "summon_only": true,
@@ -756,7 +756,7 @@
     },
     {
       "id": "spear_storm",
-      "name": "Thương Lôi Ảnh",
+      "name": "Stormshadow Spear",
       "slot": "weapon",
       "category": "spear",
       "rarity": 4,
@@ -769,7 +769,7 @@
       "set_id": "storm",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#aa70ff",
       "summon_group": 3,
       "summon_only": true,
@@ -778,7 +778,7 @@
     },
     {
       "id": "staff_storm",
-      "name": "Trượng Lôi Ảnh",
+      "name": "Stormshadow Staff",
       "slot": "weapon",
       "category": "staff",
       "rarity": 4,
@@ -791,7 +791,7 @@
       "set_id": "storm",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#aa70ff",
       "summon_group": 3,
       "summon_only": true,
@@ -800,7 +800,7 @@
     },
     {
       "id": "armor_storm",
-      "name": "Giáp Lôi Ảnh",
+      "name": "Stormshadow Armor",
       "slot": "armor",
       "category": "all",
       "rarity": 4,
@@ -811,7 +811,7 @@
       "set_id": "storm",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#aa70ff",
       "summon_group": 3,
       "summon_only": true,
@@ -820,7 +820,7 @@
     },
     {
       "id": "boots_storm",
-      "name": "Giày Lôi Ảnh",
+      "name": "Stormshadow Boots",
       "slot": "boots",
       "category": "all",
       "rarity": 4,
@@ -831,7 +831,7 @@
       "set_id": "storm",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#aa70ff",
       "summon_group": 3,
       "summon_only": true,
@@ -841,7 +841,7 @@
     },
     {
       "id": "accessory_storm",
-      "name": "Ấn Lôi Ảnh",
+      "name": "Stormshadow Seal",
       "slot": "accessory",
       "category": "all",
       "rarity": 4,
@@ -854,7 +854,7 @@
       "set_id": "storm",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#aa70ff",
       "summon_group": 3,
       "summon_only": true,
@@ -863,7 +863,7 @@
     },
     {
       "id": "sword_moon",
-      "name": "Kiếm Nguyệt Tinh",
+      "name": "Moonstar Sword",
       "slot": "weapon",
       "category": "sword",
       "rarity": 5,
@@ -876,7 +876,7 @@
       "set_id": "moon",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -885,7 +885,7 @@
     },
     {
       "id": "spear_moon",
-      "name": "Thương Nguyệt Tinh",
+      "name": "Moonstar Spear",
       "slot": "weapon",
       "category": "spear",
       "rarity": 5,
@@ -898,7 +898,7 @@
       "set_id": "moon",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -907,7 +907,7 @@
     },
     {
       "id": "staff_moon",
-      "name": "Trượng Nguyệt Tinh",
+      "name": "Moonstar Staff",
       "slot": "weapon",
       "category": "staff",
       "rarity": 5,
@@ -920,7 +920,7 @@
       "set_id": "moon",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -929,7 +929,7 @@
     },
     {
       "id": "armor_moon",
-      "name": "Giáp Nguyệt Tinh",
+      "name": "Moonstar Armor",
       "slot": "armor",
       "category": "all",
       "rarity": 5,
@@ -942,7 +942,7 @@
       "set_id": "moon",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -951,7 +951,7 @@
     },
     {
       "id": "boots_moon",
-      "name": "Giày Nguyệt Tinh",
+      "name": "Moonstar Boots",
       "slot": "boots",
       "category": "all",
       "rarity": 5,
@@ -962,7 +962,7 @@
       "set_id": "moon",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -972,7 +972,7 @@
     },
     {
       "id": "accessory_moon",
-      "name": "Ấn Nguyệt Tinh",
+      "name": "Moonstar Seal",
       "slot": "accessory",
       "category": "all",
       "rarity": 5,
@@ -985,7 +985,7 @@
       "set_id": "moon",
       "effect": "",
       "effect_description": "",
-      "passive": "Không có nội tại phụ",
+      "passive": "No additional passive",
       "color": "#efa52c",
       "summon_group": 3,
       "summon_only": true,
@@ -996,7 +996,7 @@
   "skills": [
     {
       "id": "slash",
-      "name": "Kiếm quang",
+      "name": "Lightblade",
       "kind": "damage",
       "power": 2.5,
       "cd": 5.0,
@@ -1006,7 +1006,7 @@
     },
     {
       "id": "heal",
-      "name": "Hồi phục",
+      "name": "Restoration",
       "kind": "heal",
       "power": 0.34,
       "cd": 9.0,
@@ -1016,7 +1016,7 @@
     },
     {
       "id": "burst",
-      "name": "Tinh linh",
+      "name": "Spirit",
       "kind": "damage",
       "power": 4.2,
       "cd": 12.0,
@@ -1028,13 +1028,13 @@
   "stages": [
     {
       "id": 1,
-      "name": "Lối vào rừng",
+      "name": "Forest Entrance",
       "zone": "forest",
       "enemy_hp": 55,
       "enemy_atk": 14,
       "boss_hp": 250,
       "boss_atk": 35,
-      "boss": "Cổ thụ thức tỉnh",
+      "boss": "Awakened Elder Tree",
       "mechanic": "smash",
       "gold": 35,
       "xp": 30,
@@ -1046,19 +1046,19 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Eira: Ánh sáng ấy đang gọi chúng ta.",
-      "after": "Tinh linh: Một hạt sáng đã trở về rừng.",
+      "before": "Eira: That light is calling us.",
+      "after": "Spirit: A spark of light has returned to the forest.",
       "element": "nature"
     },
     {
       "id": 2,
-      "name": "Tàn tích lửa",
+      "name": "Ember Ruins",
       "zone": "ruins",
       "enemy_hp": 93,
       "enemy_atk": 20,
       "boss_hp": 395,
       "boss_atk": 47,
-      "boss": "Hộ vệ than hồng",
+      "boss": "Ember Guardian",
       "mechanic": "shield",
       "gold": 50,
       "xp": 40,
@@ -1070,19 +1070,19 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Ryn: Tro tàn vẫn còn ấm. Hãy cẩn thận.",
-      "after": "Ryn: Chúng ta có thể thắp lại nơi này.",
+      "before": "Ryn: The ashes are still warm. Be careful.",
+      "after": "Ryn: We can light this place again.",
       "element": "fire"
     },
     {
       "id": 3,
-      "name": "Hồ gương",
+      "name": "Mirror Lake",
       "zone": "lake",
       "enemy_hp": 131,
       "enemy_atk": 26,
       "boss_hp": 540,
       "boss_atk": 59,
-      "boss": "Ảo ảnh thủy triều",
+      "boss": "Tidal Mirage",
       "mechanic": "counter",
       "gold": 65,
       "xp": 50,
@@ -1094,19 +1094,19 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Mira: Mặt hồ phản chiếu điều chưa xảy ra.",
-      "after": "Mira: Bóng tối chỉ là một phần của sự thật.",
+      "before": "Mira: The lake reflects what has not happened yet.",
+      "after": "Mira: Darkness is only part of the truth.",
       "element": "water"
     },
     {
       "id": 4,
-      "name": "Đỉnh sao",
+      "name": "Star Summit",
       "zone": "mountain",
       "enemy_hp": 169,
       "enemy_atk": 32,
       "boss_hp": 685,
       "boss_atk": 71,
-      "boss": "Chim sấm",
+      "boss": "Thunderbird",
       "mechanic": "smash",
       "gold": 80,
       "xp": 60,
@@ -1118,19 +1118,19 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Eira: Trên cao, tiếng chuông không còn vang.",
-      "after": "Eira: Mình nghe thấy tiếng chuông rồi.",
+      "before": "Eira: Up above, the bells no longer ring.",
+      "after": "Eira: I can hear the bells now.",
       "element": "nature"
     },
     {
       "id": 5,
-      "name": "Tháp bình minh",
+      "name": "Dawn Tower",
       "zone": "tower",
       "enemy_hp": 207,
       "enemy_atk": 38,
       "boss_hp": 830,
       "boss_atk": 83,
-      "boss": "Người giữ ánh sáng",
+      "boss": "Lightkeeper",
       "mechanic": "shield",
       "gold": 95,
       "xp": 70,
@@ -1142,15 +1142,15 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Mira: Cánh cửa cuối cùng đã mở.",
-      "after": "Eira: Bình minh không đến một mình. Cảm ơn mọi người.",
+      "before": "Mira: The final door has opened.",
+      "after": "Eira: Dawn never comes alone. Thank you, everyone.",
       "element": "dark"
     }
   ],
   "quests": [
     {
       "id": "first",
-      "name": "Ánh sáng đầu tiên",
+      "name": "First Light",
       "metric": "wins",
       "target": 1,
       "gold": 40,
@@ -1158,7 +1158,7 @@
     },
     {
       "id": "hunter",
-      "name": "Người giữ rừng",
+      "name": "Forest Keeper",
       "metric": "kills",
       "target": 12,
       "gold": 70,
@@ -1166,7 +1166,7 @@
     },
     {
       "id": "smith",
-      "name": "Lửa lò rèn",
+      "name": "Forgefire",
       "metric": "enhances",
       "target": 3,
       "gold": 80,
@@ -1174,7 +1174,7 @@
     },
     {
       "id": "traveler",
-      "name": "Qua miền sương",
+      "name": "Through the Mist",
       "metric": "clears",
       "target": 3,
       "gold": 100,
@@ -1182,7 +1182,7 @@
     },
     {
       "id": "master",
-      "name": "Ngọn tháp bình minh",
+      "name": "Tower of Dawn",
       "metric": "clears",
       "target": 5,
       "gold": 180,
@@ -1194,7 +1194,7 @@
       "id": "lumi",
       "name": "Lumi",
       "rarity": "SR",
-      "role": "Hồi phục",
+      "role": "Restoration",
       "unlock": 1,
       "power": 0.09,
       "interval": 4.0
@@ -1203,7 +1203,7 @@
       "id": "ash",
       "name": "Ash",
       "rarity": "SSR",
-      "role": "Xạ thủ",
+      "role": "Archer",
       "unlock": 2,
       "power": 0.9,
       "interval": 2.2
@@ -1212,46 +1212,46 @@
   "opponents": [
     {
       "id": "slime",
-      "name": "Slime rừng",
+      "name": "Forest Slime",
       "rarity": 1
     },
     {
       "id": "wolf",
-      "name": "Sói rừng",
+      "name": "Forest Wolf",
       "rarity": 2
     },
     {
       "id": "golem",
-      "name": "Cổ thụ",
+      "name": "Elder Tree",
       "rarity": 3
     },
     {
       "id": "guardian",
-      "name": "Hộ vệ",
+      "name": "Guardian",
       "rarity": 4
     },
     {
       "id": "bird",
-      "name": "Chim sấm",
+      "name": "Thunderbird",
       "rarity": 4
     }
   ],
   "sets": [
     {
       "id": "dawn",
-      "name": "Bình Minh",
+      "name": "Dawn",
       "icon": "set_dawn",
       "bonuses": [
         {
           "pieces": 2,
-          "description": "+8% HP tối đa",
+          "description": "+8% Max HP",
           "stats": {
             "hp_pct": 0.08
           }
         },
         {
           "pieces": 4,
-          "description": "+12% sát thương kỹ năng",
+          "description": "+12% Skill Damage",
           "stats": {
             "skill_pct": 0.12
           }
@@ -1260,19 +1260,19 @@
     },
     {
       "id": "ember",
-      "name": "Hỏa Vũ",
+      "name": "Flamefeather",
       "icon": "set_ember",
       "bonuses": [
         {
           "pieces": 2,
-          "description": "+6% tấn công",
+          "description": "+6% ATK",
           "stats": {
             "atk_pct": 0.06
           }
         },
         {
           "pieces": 4,
-          "description": "+5% chí mạng",
+          "description": "+5% Critical Rate",
           "stats": {
             "crit": 0.05
           }
@@ -1281,19 +1281,19 @@
     },
     {
       "id": "tide",
-      "name": "Thủy Triều",
+      "name": "Tide",
       "icon": "set_tide",
       "bonuses": [
         {
           "pieces": 2,
-          "description": "+8% phòng thủ",
+          "description": "+8% DEF",
           "stats": {
             "defense_pct": 0.08
           }
         },
         {
           "pieces": 4,
-          "description": "+1 SP mỗi giây",
+          "description": "+1 SP per second",
           "stats": {
             "sp_regen": 1.0
           }
@@ -1302,19 +1302,19 @@
     },
     {
       "id": "grove",
-      "name": "Lâm Vệ",
+      "name": "Forest Warden",
       "icon": "accessory_grove",
       "bonuses": [
         {
           "pieces": 2,
-          "description": "+8% HP tối đa",
+          "description": "+8% Max HP",
           "stats": {
             "hp_pct": 0.08
           }
         },
         {
           "pieces": 4,
-          "description": "+6% giảm sát thương",
+          "description": "+6% Damage Reduction",
           "stats": {
             "damage_reduction": 0.06
           }
@@ -1323,19 +1323,19 @@
     },
     {
       "id": "storm",
-      "name": "Lôi Ảnh",
+      "name": "Stormshadow",
       "icon": "accessory_storm",
       "bonuses": [
         {
           "pieces": 2,
-          "description": "+6% tốc độ đánh",
+          "description": "+6% Attack Speed",
           "stats": {
             "haste": 0.06
           }
         },
         {
           "pieces": 4,
-          "description": "+5% chí mạng",
+          "description": "+5% Critical Rate",
           "stats": {
             "crit": 0.05
           }
@@ -1344,19 +1344,19 @@
     },
     {
       "id": "moon",
-      "name": "Nguyệt Tinh",
+      "name": "Moonstar",
       "icon": "accessory_moon",
       "bonuses": [
         {
           "pieces": 2,
-          "description": "+0,5 năng lượng mỗi giây",
+          "description": "+0.5 Energy per second",
           "stats": {
             "sp_regen": 0.5
           }
         },
         {
           "pieces": 4,
-          "description": "+10% sát thương kỹ năng",
+          "description": "+10% Skill Damage",
           "stats": {
             "skill_pct": 0.1
           }

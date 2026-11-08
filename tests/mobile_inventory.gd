@@ -29,7 +29,7 @@ func run() -> void:
 	assert(not game.skill_buttons[0].visible and not game.attack_button.visible)
 	assert(game.tabs[2].position.y == 876 and game.tabs[2].size.y >= 44)
 	for i in range(5):
-		assert(game.tabs[i].tooltip_text == ["Shop", "Nhân vật", "Hành trình", "Phó bản", "Túi đồ"][i])
+		assert(game.tabs[i].tooltip_text == ["Shop", "Heroes", "Journey", "Dungeons", "Bag"][i])
 		game.tabs[i].pressed.emit()
 		assert(game.tab == [20, 1, 0, 21, 2][i])
 	game.tabs[0].pressed.emit()
@@ -110,7 +110,7 @@ func run() -> void:
 	game._bag_open("equipment")
 	assert(game.battle.paused)
 	game._item_detail("item_1")
-	assert(button("Cường hóa").disabled and button("Phân giải").disabled)
+	assert(button("Enhance").disabled and button("Dismantle").disabled)
 	var frozen: Dictionary = game.store.profile.duplicate(true)
 	game._enhance("item_1", false)
 	assert(game.store.profile == frozen)

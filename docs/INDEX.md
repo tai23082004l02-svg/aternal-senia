@@ -58,6 +58,7 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 |[AUDIO_ADDITIONS](AUDIO_ADDITIONS.md)|Moonlit Rest,8 SFX mới và ducking|
 |[SUMMON_VISUALS](SUMMON_VISUALS.md)|Triệu hồi0.33, banner/control và dịch vụ khóa|
 |[SUMMON_SCREEN](SUMMON_SCREEN.md)|Mốc0.17, x1/x10/counter; vé mới ở SUPPLIES|
+|[ENGLISH_UI](ENGLISH_UI.md)|Tiếng Anh mặc định, font theo vai trò và kiểm tra giao diện|
 |[MOBILE_SCROLL](MOBILE_SCROLL.md)|SwipeScroll, drag trên thẻ/nút và Android|
 |[REFERENCE_MAP](REFERENCE_MAP.md)|Bằng chứng từ repo tham khảo, giới hạn phục hồi|
 

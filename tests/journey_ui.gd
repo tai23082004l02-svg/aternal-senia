@@ -18,7 +18,7 @@ func run() -> void:
 	root.add_child(game)
 	await process_frame
 	game._close_modal()
-	assert(screen().progress_text.text == "Tiến độ chương · 0/3 ải")
+	assert(screen().progress_text.text == "Chapter progress · 0/3 stages")
 	assert(not screen().auto_play.disabled and not screen().challenge.disabled)
 	var original: Dictionary = game.store.profile.duplicate(true)
 	await capture("journey-top")
@@ -39,7 +39,7 @@ func run() -> void:
 	assert(game.store.commit(p))
 	game._refresh_panel()
 	assert(not screen().auto_play.disabled)
-	assert(screen().progress_text.text == "Tiến độ chương · 3/3 ải")
+	assert(screen().progress_text.text == "Chapter progress · 3/3 stages")
 	game._journey_afk()
 	game._journey_claim_afk()
 	assert(game.store.profile.gold >= 8)

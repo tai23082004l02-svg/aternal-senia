@@ -33,7 +33,7 @@
               "elite": false,
               "hp": 74.25,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -60,7 +60,7 @@
               "elite": false,
               "hp": 250.0,
               "mechanic": "smash",
-              "name": "Cổ thụ thức tỉnh",
+              "name": "Awakened Elder Tree",
               "type": "golem"
             }
           ]
@@ -93,7 +93,7 @@
               "elite": false,
               "hp": 144.0,
               "mechanic": "counter",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -120,7 +120,7 @@
               "elite": true,
               "hp": 291.6,
               "mechanic": "counter",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -130,7 +130,7 @@
               "elite": false,
               "hp": 194.4,
               "mechanic": "counter",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -157,7 +157,7 @@
               "elite": false,
               "hp": 594.0,
               "mechanic": "counter",
-              "name": "Ảo ảnh thủy triều",
+              "name": "Tidal Mirage",
               "type": "mirror"
             }
           ]
@@ -180,7 +180,7 @@
               "elite": false,
               "hp": 250.0,
               "mechanic": "smash",
-              "name": "Cổ thụ thức tỉnh",
+              "name": "Awakened Elder Tree",
               "type": "golem"
             }
           ]
@@ -213,7 +213,7 @@
               "elite": false,
               "hp": 93.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -240,7 +240,7 @@
               "elite": true,
               "hp": 156.0,
               "mechanic": "shield",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -250,7 +250,7 @@
               "elite": false,
               "hp": 104.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -277,7 +277,7 @@
               "elite": false,
               "hp": 115.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -287,7 +287,7 @@
               "elite": false,
               "hp": 115.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -314,7 +314,7 @@
               "elite": false,
               "hp": 126.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -324,7 +324,7 @@
               "elite": false,
               "hp": 126.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -351,7 +351,7 @@
               "elite": false,
               "hp": 138.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -361,7 +361,7 @@
               "elite": false,
               "hp": 138.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -388,7 +388,7 @@
               "elite": false,
               "hp": 632.0,
               "mechanic": "shield",
-              "name": "Hộ vệ than hồng",
+              "name": "Ember Guardian",
               "type": "guardian"
             }
           ]
@@ -411,7 +411,7 @@
               "elite": false,
               "hp": 540.0,
               "mechanic": "smash",
-              "name": "Cổ thụ thức tỉnh",
+              "name": "Awakened Elder Tree",
               "type": "golem"
             }
           ]
@@ -428,7 +428,7 @@
               "elite": false,
               "hp": 605.0,
               "mechanic": "shield",
-              "name": "Hộ vệ than hồng",
+              "name": "Ember Guardian",
               "type": "guardian"
             }
           ]
@@ -445,7 +445,7 @@
               "elite": false,
               "hp": 670.0,
               "mechanic": "counter",
-              "name": "Ảo ảnh thủy triều",
+              "name": "Tidal Mirage",
               "type": "wolf"
             }
           ]
@@ -478,7 +478,7 @@
               "elite": false,
               "hp": 164.0,
               "mechanic": "counter",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -505,7 +505,7 @@
               "elite": true,
               "hp": 332.1,
               "mechanic": "counter",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -515,7 +515,7 @@
               "elite": false,
               "hp": 221.4,
               "mechanic": "counter",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -542,7 +542,7 @@
               "elite": false,
               "hp": 675.0,
               "mechanic": "counter",
-              "name": "Ảo ảnh thủy triều",
+              "name": "Tidal Mirage",
               "type": "mirror"
             }
           ]
@@ -575,7 +575,7 @@
               "elite": false,
               "hp": 186.0,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -602,7 +602,7 @@
               "elite": true,
               "hp": 376.65,
               "mechanic": "smash",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -612,7 +612,7 @@
               "elite": false,
               "hp": 251.1,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -639,7 +639,7 @@
               "elite": false,
               "hp": 754.0,
               "mechanic": "smash",
-              "name": "Chim sấm",
+              "name": "Thunderbird",
               "type": "bird"
             }
           ]
@@ -672,7 +672,7 @@
               "elite": false,
               "hp": 211.0,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -699,7 +699,7 @@
               "elite": true,
               "hp": 427.275,
               "mechanic": "smash",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -709,7 +709,7 @@
               "elite": false,
               "hp": 284.85,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -736,7 +736,7 @@
               "elite": false,
               "hp": 856.0,
               "mechanic": "smash",
-              "name": "Chim sấm",
+              "name": "Thunderbird",
               "type": "bird"
             }
           ]
@@ -769,7 +769,7 @@
               "elite": false,
               "hp": 228.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -796,7 +796,7 @@
               "elite": true,
               "hp": 461.7,
               "mechanic": "shield",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -806,7 +806,7 @@
               "elite": false,
               "hp": 307.8,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -833,7 +833,7 @@
               "elite": false,
               "hp": 913.0,
               "mechanic": "shield",
-              "name": "Người giữ ánh sáng",
+              "name": "Lightkeeper",
               "type": "sentinel"
             }
           ]
@@ -866,7 +866,7 @@
               "elite": false,
               "hp": 259.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -893,7 +893,7 @@
               "elite": true,
               "hp": 524.475,
               "mechanic": "shield",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -903,7 +903,7 @@
               "elite": false,
               "hp": 349.65,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -930,7 +930,7 @@
               "elite": false,
               "hp": 1038.0,
               "mechanic": "shield",
-              "name": "Người giữ ánh sáng",
+              "name": "Lightkeeper",
               "type": "sentinel"
             }
           ]
@@ -963,7 +963,7 @@
               "elite": false,
               "hp": 93.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -990,7 +990,7 @@
               "elite": true,
               "hp": 188.325,
               "mechanic": "shield",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -1000,7 +1000,7 @@
               "elite": false,
               "hp": 125.55,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1027,7 +1027,7 @@
               "elite": false,
               "hp": 395.0,
               "mechanic": "shield",
-              "name": "Hộ vệ than hồng",
+              "name": "Ember Guardian",
               "type": "guardian"
             }
           ]
@@ -1060,7 +1060,7 @@
               "elite": false,
               "hp": 131.0,
               "mechanic": "counter",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1087,7 +1087,7 @@
               "elite": true,
               "hp": 265.275,
               "mechanic": "counter",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -1097,7 +1097,7 @@
               "elite": false,
               "hp": 176.85,
               "mechanic": "counter",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1124,7 +1124,7 @@
               "elite": false,
               "hp": 540.0,
               "mechanic": "counter",
-              "name": "Ảo ảnh thủy triều",
+              "name": "Tidal Mirage",
               "type": "mirror"
             }
           ]
@@ -1157,7 +1157,7 @@
               "elite": false,
               "hp": 169.0,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1184,7 +1184,7 @@
               "elite": true,
               "hp": 342.225,
               "mechanic": "smash",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -1194,7 +1194,7 @@
               "elite": false,
               "hp": 228.15,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1221,7 +1221,7 @@
               "elite": false,
               "hp": 685.0,
               "mechanic": "smash",
-              "name": "Chim sấm",
+              "name": "Thunderbird",
               "type": "bird"
             }
           ]
@@ -1254,7 +1254,7 @@
               "elite": false,
               "hp": 207.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1281,7 +1281,7 @@
               "elite": true,
               "hp": 419.175,
               "mechanic": "shield",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -1291,7 +1291,7 @@
               "elite": false,
               "hp": 279.45,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1318,7 +1318,7 @@
               "elite": false,
               "hp": 830.0,
               "mechanic": "shield",
-              "name": "Người giữ ánh sáng",
+              "name": "Lightkeeper",
               "type": "sentinel"
             }
           ]
@@ -1351,7 +1351,7 @@
               "elite": false,
               "hp": 61.0,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1378,7 +1378,7 @@
               "elite": true,
               "hp": 123.525,
               "mechanic": "smash",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -1388,7 +1388,7 @@
               "elite": false,
               "hp": 82.35,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1415,7 +1415,7 @@
               "elite": false,
               "hp": 275.0,
               "mechanic": "smash",
-              "name": "Cổ thụ thức tỉnh",
+              "name": "Awakened Elder Tree",
               "type": "golem"
             }
           ]
@@ -1448,7 +1448,7 @@
               "elite": false,
               "hp": 69.0,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1475,7 +1475,7 @@
               "elite": true,
               "hp": 139.725,
               "mechanic": "smash",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -1485,7 +1485,7 @@
               "elite": false,
               "hp": 93.15,
               "mechanic": "smash",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1512,7 +1512,7 @@
               "elite": false,
               "hp": 312.0,
               "mechanic": "smash",
-              "name": "Cổ thụ thức tỉnh",
+              "name": "Awakened Elder Tree",
               "type": "golem"
             }
           ]
@@ -1545,7 +1545,7 @@
               "elite": false,
               "hp": 102.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1572,7 +1572,7 @@
               "elite": true,
               "hp": 206.55,
               "mechanic": "shield",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -1582,7 +1582,7 @@
               "elite": false,
               "hp": 137.7,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1609,7 +1609,7 @@
               "elite": false,
               "hp": 435.0,
               "mechanic": "shield",
-              "name": "Hộ vệ than hồng",
+              "name": "Ember Guardian",
               "type": "guardian"
             }
           ]
@@ -1642,7 +1642,7 @@
               "elite": false,
               "hp": 116.0,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1669,7 +1669,7 @@
               "elite": true,
               "hp": 234.9,
               "mechanic": "shield",
-              "name": "Tinh anh",
+              "name": "Elite",
               "type": "wolf"
             },
             {
@@ -1679,7 +1679,7 @@
               "elite": false,
               "hp": 156.6,
               "mechanic": "shield",
-              "name": "Sói rừng",
+              "name": "Forest Wolf",
               "type": "wolf"
             },
             {
@@ -1706,7 +1706,7 @@
               "elite": false,
               "hp": 494.0,
               "mechanic": "shield",
-              "name": "Hộ vệ than hồng",
+              "name": "Ember Guardian",
               "type": "guardian"
             }
           ]

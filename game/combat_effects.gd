@@ -149,8 +149,8 @@ func _number(canvas: CanvasItem, item: Dictionary, hero_foot: Vector2, aim: Vect
 	color.a = alpha
 	var font_size := 27 if critical else 21
 	var pos := anchor + Vector2(-13 + (event.id % 3 - 1) * 15, -24 - p * 41 - (event.id % 2) * 9)
-	canvas.draw_string_outline(ThemeDB.fallback_font, pos, event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, 3, Color(0, .04, .06, alpha * .85))
-	canvas.draw_string(ThemeDB.fallback_font, pos, event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+	canvas.draw_string_outline(UIFonts.font("semibold"), pos, event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, 3, Color(0, .04, .06, alpha * .85))
+	canvas.draw_string(UIFonts.font("semibold"), pos, event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
 static func stamp(canvas: CanvasItem, library: FrameLibrary, key: String, center: Vector2, size: Vector2, alpha: float, rotation: float = 0, tint: Color = Color.WHITE) -> void:
 	if alpha <= 0:

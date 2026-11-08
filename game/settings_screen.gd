@@ -1,7 +1,7 @@
 class_name SettingsScreen
 extends Control
 
-const TITLES := {"home":"CÀI ĐẶT", "audio":"ÂM THANH & MỨC ÂM LƯỢNG", "graphics":"ĐỒ HỌA & HIỂN THỊ", "auto":"CHIẾN ĐẤU TỰ ĐỘNG", "notifications":"THÔNG BÁO", "account":"TÀI KHOẢN & DỮ LIỆU", "other":"GIỚI THIỆU & HỖ TRỢ", "restore":"KHÔI PHỤC DỮ LIỆU"}
+const TITLES := {"home":"SETTINGS", "audio":"AUDIO & VOLUME", "graphics":"GRAPHICS & DISPLAY", "auto":"AUTO BATTLE", "notifications":"NOTICES", "account":"ACCOUNT & DATA", "other":"ABOUT & SUPPORT", "restore":"RESTORE DATA"}
 const AUDIO_DEFAULTS := {"sound":true,"music_volume":.35,"sfx_volume":.8,"ui_volume":.8,"ambience_volume":.35}
 const GRAPHICS := ["quality","fps_limit","lighting","screen_shake","damage_numbers","battery_saver"]
 var game
@@ -107,9 +107,9 @@ func render(next: String) -> void:
 	gem.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	gem.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.add_child(gem)
-	button(top,"×",game._close_modal,Vector2(42,38)).tooltip_text = tr("Đóng cài đặt")
+	button(top,"×",game._close_modal,Vector2(42,38)).tooltip_text = tr("Close Settings")
 	label(layout,tr(TITLES[page]),23,Color("f1d18e"),true)
-	if page == "home": label(layout,tr("Tùy chỉnh trải nghiệm và hồ sơ người chơi."),13,Color("e7deca"),true)
+	if page == "home": label(layout,tr("Customize your experience and player profile."),13,Color("e7deca"),true)
 	var scroll := SwipeScroll.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -136,21 +136,21 @@ func render(next: String) -> void:
 	footer.add_theme_constant_override("separation",12)
 	layout.add_child(footer)
 	if page in ["audio","graphics","auto","notifications"]:
-		button(footer,tr("↶ Mặc định"),reset_page,Vector2(180,44)).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		primary = button(footer,tr("✓ LƯU"),save,Vector2(180,44),true)
+		button(footer,tr("↶ Defaults"),reset_page,Vector2(180,44)).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		primary = button(footer,tr("✓ SAVE"),save,Vector2(180,44),true)
 		primary.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		primary.disabled = game.store.read_only or page == "auto" and not game.store.profile.pending.is_empty()
 	elif page == "account":
-		primary = button(footer,tr("✓ Lưu hồ sơ"),save,Vector2(380,44),true)
+		primary = button(footer,tr("✓ Save Profile"),save,Vector2(380,44),true)
 		primary.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		primary.disabled = game.store.read_only
 	elif page == "restore":
-		button(footer,tr("Hủy"),go_back,Vector2(160,44)).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		primary = button(footer,tr("Khôi phục"),save,Vector2(180,44),true)
+		button(footer,tr("Cancel"),go_back,Vector2(160,44)).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		primary = button(footer,tr("Restore"),save,Vector2(180,44),true)
 		primary.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		primary.disabled = game.store.read_only or not game.store.profile.pending.is_empty()
 	else:
-		button(footer,tr("Đóng"),game._close_modal,Vector2(380,44)).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button(footer,tr("Close"),game._close_modal,Vector2(380,44)).size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	if page == "audio": preview_audio()
 	if page == "graphics": preview_graphics()
 
@@ -191,7 +191,7 @@ func card() -> VBoxContainer:
 	return content
 
 func home() -> void:
-	for entry in [["audio","Âm thanh & mức âm lượng","settings"],["graphics","Đồ họa & hiển thị","light"],["auto","Chiến đấu tự động","slash"],["notifications","Thông báo","mail"],["account","Tài khoản & dữ liệu","hero"],["other","Giới thiệu, ngôn ngữ & hỗ trợ","journal"]]:
+	for entry in [["audio","Audio & Volume","settings"],["graphics","Graphics & Display","light"],["auto","Auto Battle","slash"],["notifications","Notifications","mail"],["account","Account & Data","hero"],["other","About, language & support","journal"]]:
 		var row := button(body,tr(entry[1])+"  ›",navigate.bind(entry[0]),Vector2(0,57))
 		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		game.icons.apply(row,entry[2],30)
@@ -220,8 +220,8 @@ func toggle(key: String,title: String,description: String,disabled: bool = false
 func audio_page() -> void:
 	game.sound_sliders.clear()
 	game.sound_labels.clear()
-	game.sound_enabled = toggle("sound","Âm thanh trong game","Tắt để tắt toàn bộ âm thanh.")
-	for entry in [["music_volume","Nhạc nền"],["sfx_volume","Hiệu ứng kỹ năng"],["ui_volume","Âm giao diện"],["ambience_volume","Không gian rừng"]]:
+	game.sound_enabled = toggle("sound","Game Audio","Disable to mute all audio.")
+	for entry in [["music_volume","Music"],["sfx_volume","Skill Effects"],["ui_volume","UI Sounds"],["ambience_volume","Forest Ambience"]]:
 		var content := card()
 		var line := HBoxContainer.new()
 		content.add_child(line)
@@ -258,9 +258,9 @@ func audio_page() -> void:
 		percent_labels[entry[0]] = value
 		game.sound_sliders[entry[0]] = slider
 		game.sound_labels[entry[0]] = value
-	toggle("voice_unavailable","Giọng nhân vật","Chưa có gói thoại riêng; không tạo thanh âm lượng giả.",true,false)
-	label(body,tr("Âm thanh tự tạm ngưng khi ứng dụng chạy nền."),12,Color("cbd9d1"),true)
-	button(body,tr("Nghe thử hiệu ứng"),game._audition,Vector2(0,36))
+	toggle("voice_unavailable","Character Voices","Character voice packs are not available yet.",true,false)
+	label(body,tr("Audio pauses automatically when the app is in the background."),12,Color("cbd9d1"),true)
+	button(body,tr("Preview sound effects"),game._audition,Vector2(0,36))
 
 func preview_audio() -> void:
 	if not controls.has("sound") or sliders.size() != 4: return
@@ -287,13 +287,13 @@ func choose(key: String,value: Variant) -> void:
 	render(page)
 
 func graphics_page() -> void:
-	choice("quality","Chi tiết hiệu ứng 2D",["Thấp","Vừa","Cao"],["low","medium","high"])
-	choice("fps_limit","Giới hạn khung hình",["30 FPS","60 FPS"],[30,60])
-	toggle("lighting","Hiệu ứng ánh sáng","Hạt sáng và ánh phép trang trí.")
-	toggle("screen_shake","Rung màn hình","Rung nhẹ khi trúng đòn; không phải rung điện thoại.")
-	toggle("damage_numbers","Hiển thị sát thương","Số sát thương và hồi phục trong chiến đấu.")
-	toggle("battery_saver","Tiết kiệm pin","Giới hạn30 FPS và giảm hiệu ứng trang trí.")
-	label(body,tr("Không thay chất lượng tranh nguồn hoặc thời điểm gây sát thương."),12,Color("c4d4cd"),true)
+	choice("quality","2D effect detail",["Low","Medium","Cao"],["low","medium","high"])
+	choice("fps_limit","Frame Rate Limit",["30 FPS","60 FPS"],[30,60])
+	toggle("lighting","Lighting Effects","Decorative light particles and magical effects.")
+	toggle("screen_shake","Screen Shake","Light camera shake on hits; not device vibration.")
+	toggle("damage_numbers","Damage Numbers","Damage and healing numbers in battle.")
+	toggle("battery_saver","Battery Saver","Limit to 30 FPS and reduce decorative effects.")
+	label(body,tr("Does not change source artwork quality or damage timing."),12,Color("c4d4cd"),true)
 
 func preview_graphics() -> void:
 	var values := GameOptions.state(game.store.profile)
@@ -304,20 +304,20 @@ func auto_page() -> void:
 	var locked: bool = game.store.read_only or not game.store.profile.pending.is_empty()
 	draft.auto_ult = formation.auto_ult if not draft.has("auto_ult") else draft.auto_ult
 	draft.auto_next = formation.auto_next if not draft.has("auto_next") else draft.auto_next
-	toggle("auto_ult","Tự dùng Ultimate","Dùng khi đủ nộ; áp dụng cho trận mới.",locked)
-	toggle("prioritize_heal","Ưu tiên hồi máu khi HP thấp","Mira dùng kỹ năng cơ bản hồi người thấp HP khi dưới85%.",locked)
-	toggle("auto_next","Tự sang ải tiếp khi thắng","Chỉ tiếp tục sau khi đã lưu thưởng.",locked)
-	toggle("boss_fixed","Dừng trước Boss quan trọng","Quy tắc hiện hành luôn bật.",true,true)
-	toggle("sweep_unavailable","Quét phó bản3★","Chưa có hệ sao và quét phó bản.",true,false)
-	choice("speed","Tốc độ mặc định",["x1","x2"],[1,2],locked)
-	toggle("reduced_effects","Rút gọn hiệu ứng kỹ năng","Giảm hiệu ứng phụ, giữ chuyển động và dấu hiệu chiến đấu.",locked)
-	if locked: label(body,tr("Chỉnh tùy chọn tự chiến sau khi kết thúc trận."),12,Color("edc585"),true)
+	toggle("auto_ult","Auto Ultimate","Use when Energy is full; applies to new battles.",locked)
+	toggle("prioritize_heal","Prioritize healing at low HP","Mira's basic skill heals the lowest-HP ally below 85% HP.",locked)
+	toggle("auto_next","Advance after victory","Continue only after rewards are saved.",locked)
+	toggle("boss_fixed","Stop before major bosses","Current rules are always active.",true,true)
+	toggle("sweep_unavailable","3★ Dungeon Sweep","Dungeon stars and sweeps are not available yet.",true,false)
+	choice("speed","Default Battle Speed",["x1","x2"],[1,2],locked)
+	toggle("reduced_effects","Reduced Skill Effects","Reduce decorative effects while keeping movement and battle cues.",locked)
+	if locked: label(body,tr("Adjust auto battle options after the battle ends."),12,Color("edc585"),true)
 
 func notifications_page() -> void:
-	toggle("notify_rewards","Nhắc phần thưởng trong game","Hiển thị huy hiệu quà có thể nhận trong menu Tiện ích.")
-	toggle("afk_push_unavailable","Thông báo kho AFK đầy","Chưa tích hợp thông báo hệ thống khi tắt game.",true,false)
-	toggle("event_push_unavailable","Thông báo sự kiện","Chưa có dịch vụ sự kiện hoặc thông báo đẩy.",true,false)
-	label(body,tr("Không yêu cầu quyền thông báo hoặc thêm SDK chạy nền."),12,Color("c4d4cd"),true)
+	toggle("notify_rewards","In-game Reward Reminders","Show claimable reward badges in the Utilities menu.")
+	toggle("afk_push_unavailable","AFK Storage Full Reminder","Notifications while the game is closed are not supported yet.",true,false)
+	toggle("event_push_unavailable","Event Notifications","Event services and push notifications are not available yet.",true,false)
+	label(body,tr("Does not request notification permissions or add background services."),12,Color("c4d4cd"),true)
 
 func account_page() -> void:
 	var identity := PlayerIdentity.state(game.store.profile)
@@ -342,16 +342,16 @@ func account_page() -> void:
 	avatar_choice.selected = maxi(0,avatar_ids.find(identity.avatar))
 	avatar_choice.disabled = game.store.read_only
 	content.add_child(avatar_choice)
-	label(content,tr("Phiên bản: %s · Lưu cục bộ") % ProjectSettings.get_setting("application/config/version"),12,Color("e2d0a6"),true)
-	button(body,tr("Sao lưu dữ liệu ra tệp  ›"),file_picker.bind(true)).disabled = game.store.read_only or not game.store.profile.pending.is_empty()
-	button(body,tr("Khôi phục từ bản sao  ›"),file_picker.bind(false)).disabled = game.store.read_only or not game.store.profile.pending.is_empty()
-	button(body,tr("Sao chép thông tin hỗ trợ"),copy_support)
-	label(body,tr("Chưa có liên kết tài khoản, đồng bộ đám mây hoặc mã tài khoản máy chủ. Giftcode và chính sách dịch vụ chưa được cấu hình."),12,Color("bccfcb"),true)
-	label(body,tr("Sao lưu bằng tệp chỉ lưu tiến trình trên thiết bị; không phải đăng nhập mạng."),12,Color("c4d4cd"),true)
+	label(content,tr("Version: %s · Local save") % ProjectSettings.get_setting("application/config/version"),12,Color("e2d0a6"),true)
+	button(body,tr("Back up to file  ›"),file_picker.bind(true)).disabled = game.store.read_only or not game.store.profile.pending.is_empty()
+	button(body,tr("Restore from backup  ›"),file_picker.bind(false)).disabled = game.store.read_only or not game.store.profile.pending.is_empty()
+	button(body,tr("Copy Support Information"),copy_support)
+	label(body,tr("Account linking, cloud saves, and server account IDs are not available. Gift codes and service policies have not been configured."),12,Color("bccfcb"),true)
+	label(body,tr("File backups store progress on your device; they do not sign you into an online account."),12,Color("c4d4cd"),true)
 
 func copy_support() -> void:
 	DisplayServer.clipboard_set("Aternal Senia / "+str(ProjectSettings.get_setting("application/config/version"))+" / "+OS.get_name()+" / local save v"+str(game.store.profile.version))
-	notice.text = tr("Đã sao chép phiên bản, hệ điều hành và loại save; không sao chép nội dung save.")
+	notice.text = tr("Version, operating system, and save type copied. Save contents are not copied.")
 
 func file_picker(exporting: bool) -> void:
 	var dialog := FileDialog.new()
@@ -365,34 +365,34 @@ func file_picker(exporting: bool) -> void:
 	dialog.file_selected.connect(func(path):
 		dialog.queue_free()
 		if exporting:
-			notice.text = tr("Đã sao lưu dữ liệu.") if GameOptions.export_backup(game.store,path) else tr("Không ghi được bản sao; kiểm tra đường dẫn và quyền ghi.")
+			notice.text = tr("Data backed up.") if GameOptions.export_backup(game.store,path) else tr("Unable to write backup. Check the path and write permissions.")
 		else:
 			restore_candidate = GameOptions.read_backup(game.store,path)
-			if restore_candidate.is_empty(): notice.text = tr("Bản sao không hợp lệ, quá lớn hoặc có trận chưa hoàn tất.")
+			if restore_candidate.is_empty(): notice.text = tr("Invalid backup: oversized or contains an unfinished battle.")
 			else: render("restore"))
 	dialog.canceled.connect(dialog.queue_free)
 	dialog.popup_centered_ratio(.8)
 
 func restore_page() -> void:
-	label(body,tr("Thao tác này thay tiến trình cục bộ bằng bản sao đã chọn. Chỉ tiếp tục khi đây là dữ liệu bạn muốn dùng."),16,Color("f1d18e"))
-	label(body,tr("Tên: %s\nVàng: %d\nXP: %d\nTrang bị: %d\nPhiên bản save: %d") % [PlayerIdentity.state(restore_candidate).name,restore_candidate.gold,restore_candidate.xp,restore_candidate.items.size(),restore_candidate.version],15)
-	label(body,tr("Không khôi phục khi đang có trận chưa hoàn tất. File lỗi không được ghi đè lên save hiện tại."),13)
+	label(body,tr("This replaces local progress with the selected backup. Continue only if this is the data you want to use."),16,Color("f1d18e"))
+	label(body,tr("Name: %s\nGold: %d\nXP: %d\nEquipment: %d\nSave version: %d") % [PlayerIdentity.state(restore_candidate).name,restore_candidate.gold,restore_candidate.xp,restore_candidate.items.size(),restore_candidate.version],15)
+	label(body,tr("Cannot restore during an unfinished battle. Invalid files will not overwrite your current save."),13)
 
 func other_page() -> void:
 	var studio := card()
 	label(studio,tr("ZORVYKA Games"),22,Color("f0d395"),true)
-	label(studio,tr("Studio phát triển trò chơi"),14,Color("c4d4cd"),true)
+	label(studio,tr("Game Development Studio"),14,Color("c4d4cd"),true)
 	label(studio,"zorvykagames@gmail.com",16,Color("f0d395"),true)
-	button(studio,tr("Sao chép email hỗ trợ"),copy_email)
+	button(studio,tr("Copy Support Email"),copy_email)
 	var content := card()
-	label(content,tr("Ngôn ngữ hiện tại: Tiếng Việt"),17,Color("f0d395"))
-	label(content,tr("Chữ giao diện được tách khỏi tranh để bổ sung ngôn ngữ sau. Chưa có bộ bản dịch hoàn chỉnh hoặc tùy chọn đổi ngôn ngữ."),13)
-	label(card(),tr("Trợ giúp & báo lỗi\nKèm phiên bản, thiết bị, các bước tái hiện và ảnh/video khi báo lỗi. Bạn chủ động gửi email; game không tự gửi dữ liệu."),14)
-	label(card(),tr("Điều khoản & quyền riêng tư\nChưa có trang chính sách được cấu hình cho dịch vụ trực tuyến. Game hiện lưu cục bộ, không thêm máy chủ hoặc SDK từ màn này."),13)
+	label(content,tr("Primary language: English"),17,Color("f0d395"))
+	label(content,tr("English is the primary interface language. Player names remain unchanged and support Unicode."),13)
+	label(card(),tr("Help & Bug Reports\nInclude your version, device, steps to reproduce, and screenshots or video. You choose whether to send an email; the game never sends your data automatically."),14)
+	label(card(),tr("Terms & Privacy\nNo online service policy page has been configured. The game saves locally; this screen adds no server or SDK."),13)
 
 func copy_email() -> void:
 	DisplayServer.clipboard_set("zorvykagames@gmail.com")
-	notice.text = tr("Đã sao chép email của ZORVYKA Games.")
+	notice.text = tr("ZORVYKA Games support email copied.")
 
 func reset_page() -> void:
 	match page:
@@ -434,7 +434,7 @@ func save() -> void:
 			"notifications": values.notify_rewards = draft.notify_rewards
 		success = GameOptions.save(game.store,values,options)
 	if not success:
-		notice.text = game.store.error if not game.store.error.is_empty() else tr("Không lưu được. Bạn có thể thử lại hoặc đóng để hủy thay đổi.")
+		notice.text = game.store.error if not game.store.error.is_empty() else tr("Unable to save. Try again or close to discard changes.")
 		return
 	game.audio.play("confirm")
 	game._refresh_panel()

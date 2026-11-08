@@ -4,14 +4,14 @@ extends RefCounted
 const PRICE := 120
 const HISTORY_LIMIT := 100
 const RARITIES := {
-	3: {"name": "Hiếm", "color": "608dff"},
-	4: {"name": "Sử thi", "color": "aa70ff"},
-	5: {"name": "Huyền thoại", "color": "efa52c"},
-	6: {"name": "Thần thoại", "color": "ef5555"},
-	7: {"name": "Thần thánh", "color": "e5c569"}
+	3: {"name": "Rare", "color": "608dff"},
+	4: {"name": "Epic", "color": "aa70ff"},
+	5: {"name": "Legendary", "color": "efa52c"},
+	6: {"name": "Mythic", "color": "ef5555"},
+	7: {"name": "Divine", "color": "e5c569"}
 }
 const SPIRIT_RARITIES := {1: {"name": "SR", "color": "86caff"}, 2: {"name": "SSR", "color": "d7a4ff"}, 3: {"name": "UR", "color": "e5c569"}}
-const GROUP_NAMES := {1: "Cơ bản", 2: "Nâng cao", 3: "Cao cấp"}
+const GROUP_NAMES := {1: "Basic", 2: "Advanced", 3: "Premium"}
 
 static func rarity(kind: String, id: String, book: GameCatalog) -> int:
 	if kind == "item": return int(book.find_row("items", id).get("rarity", 3))
@@ -91,7 +91,7 @@ static func summon(store: ProgressStore, count: int = 1, use_ticket: bool = fals
 	if p.recruitment.count > 2147483647 - count: return false
 	for i in range(count):
 		if not _draw(store, p,not use_ticket):
-			store.error = "Túi trang bị đầy. Hãy phân giải hoặc hợp thành rồi thử lại; chưa trừ vàng hoặc vé."
+			store.error = "Your equipment bag is full. Dismantle or fuse items and try again; no Gold or tickets spent."
 			return false
 	MissionBoard.record(p, "summon", count)
 	return store.commit(p)

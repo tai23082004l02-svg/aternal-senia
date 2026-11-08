@@ -7,7 +7,7 @@ var errors: Array[String] = []
 func _init() -> void:
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/catalog.json"))
 	if not parsed is Dictionary:
-		errors.append("Catalog không đọc được")
+		errors.append("Unable to read the catalog")
 		return
 	data = normalize(parsed)
 	var expansion: Dictionary = normalize(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/expansion.json")))
@@ -15,48 +15,48 @@ func _init() -> void:
 	if FileAccess.file_exists("res://game/data/team_encounters.json"):
 		var encounters = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/team_encounters.json"))
 		if not encounters is Dictionary or not encounters.get("stages") is Dictionary:
-			errors.append("Dữ liệu 3vN không hợp lệ")
+			errors.append("Invalid 3vN data")
 		else:
 			for stage in data.stages:
 				if encounters.stages.has(str(stage.id)): stage.team_encounter = normalize(encounters.stages[str(stage.id)])
 	for key in ["talents", "traits", "achievements", "chapters"]:
 		data[key] = expansion[key]
 	for item in data.items:
-		if item.get("rarity") not in [3, 4, 5, 6, 7]: errors.append("Độ hiếm trang bị không hợp lệ")
-		if item.get("slot") not in EquipmentSystem.SLOTS: errors.append("Ô trang bị không hợp lệ")
-		if item.get("summon_group") not in [1, 2, 3]: errors.append("Nhóm triệu hồi không hợp lệ")
-		if not item.get("set_id", "").is_empty() and find_row("sets", item.set_id).is_empty(): errors.append("Bộ trang bị không hợp lệ")
-		if item.get("effect", "") not in [""] + EquipmentSystem.EFFECTS or (not item.get("effect", "").is_empty() and item.rarity < 5): errors.append("Hiệu ứng trang bị không hợp lệ")
+		if item.get("rarity") not in [3, 4, 5, 6, 7]: errors.append("Invalid equipment rarity")
+		if item.get("slot") not in EquipmentSystem.SLOTS: errors.append("Invalid equipment slot")
+		if item.get("summon_group") not in [1, 2, 3]: errors.append("Invalid summon group")
+		if not item.get("set_id", "").is_empty() and find_row("sets", item.set_id).is_empty(): errors.append("Invalid equipment set")
+		if item.get("effect", "") not in [""] + EquipmentSystem.EFFECTS or (not item.get("effect", "").is_empty() and item.rarity < 5): errors.append("Invalid equipment effect")
 		if data.traits.has(item.id): item.passive = data.traits[item.id].description
 	for hero in data.heroes:
-		if hero.get("rarity") not in [1, 2, 3, 4, 5]: errors.append("Độ hiếm gốc nhân vật không hợp lệ")
+		if hero.get("rarity") not in [1, 2, 3, 4, 5]: errors.append("Invalid hero base rarity")
 	for spirit in data.assists:
-		if spirit.get("rarity") not in ["SR", "SSR", "UR"]: errors.append("Độ hiếm tinh linh không hợp lệ")
+		if spirit.get("rarity") not in ["SR", "SSR", "UR"]: errors.append("Invalid spirit rarity")
 	for opponent in data.opponents:
-		if opponent.get("rarity") not in [1, 2, 3, 4]: errors.append("Độ hiếm đối thủ không hợp lệ")
+		if opponent.get("rarity") not in [1, 2, 3, 4]: errors.append("Invalid enemy rarity")
 	for group in ["sets", "heroes", "items", "skills", "stages", "quests", "assists", "talents", "achievements", "chapters"]:
 		var ids: Array = []
 		for row in data[group]:
 			if row.id in ids:
-				errors.append("ID trùng: %s" % row.id)
+				errors.append("Duplicate ID: %s" % row.id)
 			ids.append(row.id)
 	for row in data.skills:
 		if row.cd <= 0 or row.hit > row.duration or row.power <= 0:
-			errors.append("Kỹ năng không hợp lệ: " + row.id)
+			errors.append("Invalid skill: " + row.id)
 	for row in data.stages:
 		for id in row.drops:
 			if find_row("items", id).is_empty():
-				errors.append("Drop thiếu: " + id)
+				errors.append("Missing drop: " + id)
 
 	for row in data.stages:
 		for required in row.get("requires", []):
-			if required == row.id or find_row("stages", required).is_empty(): errors.append("Điều kiện ải không hợp lệ")
+			if required == row.id or find_row("stages", required).is_empty(): errors.append("Invalid stage requirements")
 		if row.has("waves"):
-			if row.waves.is_empty() or row.waves.size() > 12: errors.append("Số đợt không hợp lệ")
+			if row.waves.is_empty() or row.waves.size() > 12: errors.append("Invalid wave count")
 			for wave in row.waves:
-				if wave.hp <= 0 or wave.atk <= 0 or wave.mechanic not in ["smash", "shield", "counter"]: errors.append("Đợt không hợp lệ")
+				if wave.hp <= 0 or wave.atk <= 0 or wave.mechanic not in ["smash", "shield", "counter"]: errors.append("Invalid wave")
 	for row in data.talents:
-		if row.slot not in [0, 1, 2] or row.level < 2 or row.gold < 0 or row.shards < 0: errors.append("Nhánh kỹ năng không hợp lệ")
+		if row.slot not in [0, 1, 2] or row.level < 2 or row.gold < 0 or row.shards < 0: errors.append("Invalid skill branch")
 
 func find_row(group: String, id: Variant) -> Dictionary:
 	for row in data[group]:

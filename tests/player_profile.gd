@@ -21,7 +21,7 @@ func run() -> void:
 	var store: ProgressStore = game.store
 	var original := store.profile.duplicate(true)
 	assert(store.valid(original) and not original.has("identity"))
-	assert(PlayerIdentity.state(original).name == "Nhà lữ hành")
+	assert(PlayerIdentity.state(original).name == "Traveler")
 	assert(not PlayerIdentity.save(store, "\n", "eira"))
 	assert(not PlayerIdentity.save(store, "Tester", "ryn"))
 	assert(store.profile == original)
@@ -63,7 +63,7 @@ func run() -> void:
 	for tier in range(1, 11):
 		game._show_vip(tier)
 		var title: Label = game.modal.find_child("VipTierTitle", true, false)
-		assert(title.text == "VIP %d · Chưa mở" % tier)
+		assert(title.text == "VIP %d · Locked" % tier)
 		for level in range(1, 11):
 			assert(game.modal.find_child("VipTier%d" % level, true, false) != null)
 		assert(store.profile == saved)

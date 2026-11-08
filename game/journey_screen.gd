@@ -13,7 +13,7 @@ static func chapter_stages(book: GameCatalog, stage: Dictionary) -> Array:
 	return rows
 
 static func stage_code(book: GameCatalog, stage: Dictionary) -> String:
-	if stage.get("kind", "") == "challenge": return "PHÓ BẢN"
+	if stage.get("kind", "") == "challenge": return "DUNGEONS"
 	var rows := chapter_stages(book, stage)
 	for i in range(rows.size()):
 		if rows[i].id == stage.id: return "%d-%d" % [stage.get("base_stage", stage.id), i + 1]
@@ -51,19 +51,17 @@ func _ready() -> void:
 	preview.stage = stage
 	preview.size = Vector2(470, 238)
 	scene.add_child(preview)
-	var badge := text("ẢI %s · %s" % [stage_code(game.catalog, stage), "ĐÃ VƯỢT" if stage.id in p.cleared else ("PHÓ BẢN" if stage.get("kind", "") == "challenge" else "STORY")], 14, GOLD, content)
+	var badge := text("STAGE %s · %s" % [stage_code(game.catalog, stage), "CLEARED" if stage.id in p.cleared else ("DUNGEONS" if stage.get("kind", "") == "challenge" else "STORY")], 14, GOLD, content)
 	badge.add_theme_stylebox_override("normal", game._style(Color("123b43"), GOLD.darkened(.3), 16))
 	var title := text(stage.name, 32, IVORY, content)
-	var serif := SystemFont.new()
-	serif.font_names = PackedStringArray(["Noto Serif", "DejaVu Serif"])
-	serif.font_italic = true
-	title.add_theme_font_override("font", serif)
+	title.set_meta("font_role", "display")
+	title.add_theme_font_override("font", UIFonts.font("display"))
 	divider(content)
 	var spirit: Dictionary = game.catalog.find_row("assists", p.assist)
 	var team_names: Array[String] = []
 	for id in Formation.state(p, game.catalog).slots:
 		if not id.is_empty(): team_names.append(game.catalog.find_row("heroes", id).name)
-	text(" / ".join(team_names) + " / " + spirit.name + " đồng hành", 14, IVORY, content)
+	text(" / ".join(team_names) + " / " + spirit.name + " accompanying", 14, IVORY, content)
 	var power := 0
 	for id in Formation.state(p, game.catalog).slots:
 		if id.is_empty(): continue
@@ -74,15 +72,15 @@ func _ready() -> void:
 	stats.alignment = BoxContainer.ALIGNMENT_CENTER
 	stats.add_theme_constant_override("separation", 12)
 	content.add_child(stats)
-	for value in ["Lực chiến  %d" % power, "Gợi ý  %d" % recommended]:
+	for value in ["Power  %d" % power, "Recommended  %d" % recommended]:
 		var pill := text(value, 18, GOLD, stats)
 		pill.custom_minimum_size = Vector2(220, 38)
 		pill.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		pill.add_theme_stylebox_override("normal", game._style(Color("10383e"), Color("a68e5c"), 18))
-	text("Thưởng lần đầu: %d vàng · %d XP · 2 tinh thạch" % [stage.gold + stage.first_gold, stage.xp] if stage.id not in p.cleared else "Đánh lại: %d vàng · %d XP · 2 tinh thạch" % [stage.gold, stage.xp], 14, IVORY, content)
+	text("First clear: %d Gold · %d XP · 2 Crystals" % [stage.gold + stage.first_gold, stage.xp] if stage.id not in p.cleared else "Replay: %d Gold · %d XP · 2 Crystals" % [stage.gold, stage.xp], 14, IVORY, content)
 	var chapter_row: Dictionary = game.catalog.find_row("chapters", chapter)
-	text("Chương %d · %s" % [chapter, chapter_row.get("name", stage.name)] if stage.get("kind", "") != "challenge" else stage.name, 12, Color("a8c2bd"), content)
-	progress_text = text("Tiến độ chương · %d/%d ải" % [cleared, rows.size()] if not rows.is_empty() else "Phó bản thử thách", 12, Color("a8c2bd"), content)
+	text("Chapter %d · %s" % [chapter, chapter_row.get("name", stage.name)] if stage.get("kind", "") != "challenge" else stage.name, 12, Color("a8c2bd"), content)
+	progress_text = text("Chapter progress · %d/%d stages" % [cleared, rows.size()] if not rows.is_empty() else "Challenge Dungeon", 12, Color("a8c2bd"), content)
 	var progress := ProgressBar.new()
 	progress.custom_minimum_size.y = 4
 	progress.show_percentage = false
@@ -90,18 +88,18 @@ func _ready() -> void:
 	progress.add_theme_stylebox_override("background", game._style(Color("233c46"), Color("3a5357"), 2))
 	progress.add_theme_stylebox_override("fill", game._style(GOLD, GOLD, 2))
 	content.add_child(progress)
-	challenge = game._button(self, "THÁCH ĐẤU", Vector2.ZERO, Vector2(492, 64), game._enter_stage.bind(stage.id))
-	challenge.tooltip_text = "Thách đấu ải " + stage_code(game.catalog, stage)
+	challenge = game._button(self, "BATTLE", Vector2.ZERO, Vector2(492, 64), game._enter_stage.bind(stage.id))
+	challenge.tooltip_text = "Challenge stage " + stage_code(game.catalog, stage)
 	style_action(challenge, true)
 	game.icons.apply(challenge, "slash", 30)
 	challenge.disabled = game._locked() or not game.store.can_enter(stage.id)
-	auto_play = game._button(self, "Tự chiến & Ultimate", Vector2.ZERO, Vector2(492, 48), game._journey_auto)
+	auto_play = game._button(self, "Auto Battle & Ultimate", Vector2.ZERO, Vector2(492, 48), game._journey_auto)
 	style_action(auto_play, false)
 	auto_play.disabled = challenge.disabled
 	var shortcuts := HBoxContainer.new()
 	shortcuts.add_theme_constant_override("separation", 8)
 	add_child(shortcuts)
-	for entry in [["Bản đồ", game._select_tab.bind(15), "journey"], ["Đội hình", game._select_tab.bind(22), "hero"], ["AFK\nTối đa 2 giờ", game._journey_afk, "afk"]]:
+	for entry in [["Map", game._select_tab.bind(15), "journey"], ["Formation", game._select_tab.bind(22), "hero"], ["AFK\nUp to 2 hours", game._journey_afk, "afk"]]:
 		var button: Button = game._button(shortcuts, entry[0], Vector2.ZERO, Vector2(158, 54), entry[1])
 		button.add_theme_font_size_override("font_size", 14)
 		button.add_theme_stylebox_override("normal", game._style(Color("10353e"), Color("b59d68"), 14))

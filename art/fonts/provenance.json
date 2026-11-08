@@ -1,0 +1,43 @@
+[
+  {
+    "file": "BeVietnamPro-Regular.ttf",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-Regular.ttf",
+    "sha256": "cd1ef6e9d7db28ad5cdb88a65ccbe693870e60d340b791f349d248342b4fe4c3"
+  },
+  {
+    "file": "BeVietnamPro-Medium.ttf",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-Medium.ttf",
+    "sha256": "b60832bfa0fcd015158112c64d7e3fdad3b0c6287d1823f85a3103636e845268"
+  },
+  {
+    "file": "BeVietnamPro-SemiBold.ttf",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-SemiBold.ttf",
+    "sha256": "bd8e27eb02720b9d91e59e4f10a90878643219f25ce6a8d9a4f06a8a88d3bb71"
+  },
+  {
+    "file": "BeVietnamPro-Bold.ttf",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/BeVietnamPro-Bold.ttf",
+    "sha256": "7f738fe5c43c8872807b20e2d30d42163618de8a4daf7f48a939adac32c16847"
+  },
+  {
+    "file": "PlayfairDisplay.ttf",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/playfairdisplay/PlayfairDisplay%5Bwght%5D.ttf",
+    "sha256": "c40f2293766a503bc70cce9e512ef844a4ccb7cbcde792fe2ea31d191917d8d6"
+  },
+  {
+    "file": "BeVietnamPro-OFL.txt",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/bevietnampro/OFL.txt",
+    "sha256": "6b7f8f73609a25ea78c891e34cf37b06f8a676b7ea986e941e43b009110f2a85"
+  },
+  {
+    "file": "PlayfairDisplay-OFL.txt",
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/playfairdisplay/OFL.txt",
+    "sha256": "566be814f8e96e93dfa16101331557eb6b5467e9e03f627c0910fe93ca12300e"
+  },
+  {
+    "file": "PlayfairDisplay-Bold.ttf",
+    "source": "PlayfairDisplay.ttf",
+    "operation": "fontTools varLib.instancer wght=700, updateFontNames=True",
+    "sha256": "cba8d21ee48d1df453f137c4c0116ba6d18e92c89e4d74e06e55d26a429abc6a"
+  }
+]

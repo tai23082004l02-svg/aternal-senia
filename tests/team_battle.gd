@@ -65,7 +65,7 @@ func run() -> void:
 	model.start(pending)
 	model.time = 179.99
 	model.advance(.1)
-	assert(model.state == "lost" and model.defeat_reason == "Hết thời gian")
+	assert(model.state == "lost" and model.defeat_reason == "Time expired")
 	# Ultimate gating, pause and speed, marker damage and no early damage.
 	model.start(pending)
 	model.auto_ultimate = false

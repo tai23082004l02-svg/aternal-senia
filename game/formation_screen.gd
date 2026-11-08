@@ -28,9 +28,9 @@ func _ready() -> void:
 	var filled: int = f.slots.filter(func(id): return not id.is_empty()).size()
 	var header := HBoxContainer.new()
 	add_child(header)
-	var title := label(header, "✧ ĐỘI HÌNH", 25, GOLD)
+	var title := label(header, "✧ FORMATION", 25, GOLD)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	label(header, "%d/3 tướng · 1 tinh linh" % filled, 13)
+	label(header, "%d/3 heroes · 1 spirit" % filled, 13)
 	var stage := FormationStage.new()
 	stage.texture = game.frames.textures["bg_" + game.catalog.find_row("stages", game.selected_stage).zone]
 	stage.custom_minimum_size = Vector2(492, 240)
@@ -39,20 +39,20 @@ func _ready() -> void:
 		var button := slot_card(stage, i, f.slots[i])
 		button.position = [Vector2(166,14), Vector2(8,110), Vector2(324,110)][i]
 		slot_buttons.append(button)
-	spirit_button = game._button(self, "Tinh linh: " + game.catalog.find_row("assists", p.assist).name + "  ›", Vector2.ZERO, Vector2(492, 46), game._formation_spirits)
+	spirit_button = game._button(self, "Spirit: " + game.catalog.find_row("assists", p.assist).name + "  ›", Vector2.ZERO, Vector2(492, 46), game._formation_spirits)
 	style_button(spirit_button, false)
 	spirit_button.icon = game.frames.textures["companion_" + p.assist]
 	spirit_button.expand_icon = true
 	spirit_button.add_theme_constant_override("icon_max_width", 44)
-	spirit_button.tooltip_text = "Chọn tinh linh hỗ trợ · Không chiếm ô tướng"
+	spirit_button.tooltip_text = "Choose a support spirit · Uses no hero slot"
 	var roster_header := HBoxContainer.new()
 	add_child(roster_header)
-	var heading := label(roster_header, "Danh sách nhân vật", 18, GOLD)
+	var heading := label(roster_header, "Hero Roster", 18, GOLD)
 	heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var owned := 0
 	for hero in game.catalog.data.heroes:
 		if game.store.available_hero(hero.id): owned += 1
-	label(roster_header, "Sở hữu %d/%d" % [owned, game.catalog.data.heroes.size()], 13)
+	label(roster_header, "Owned %d/%d" % [owned, game.catalog.data.heroes.size()], 13)
 	roster_scroll = SwipeScroll.new()
 	roster_scroll.name = "FormationRosterScroll"
 	roster_scroll.custom_minimum_size = Vector2(492, ROSTER_HEIGHT)
@@ -76,15 +76,15 @@ func _ready() -> void:
 	_restore_roster.call_deferred()
 	var actions := HBoxContainer.new()
 	add_child(actions)
-	var hint := label(actions, "Chọn vị trí → chọn tướng · Không khóa nghề", 12)
+	var hint := label(actions, "Choose a slot → choose a hero · No class restrictions", 12)
 	hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var remove: Button = game._button(actions, "Bỏ khỏi ô", Vector2.ZERO, Vector2(108, 30), game._formation_assign.bind(slot, ""))
+	var remove: Button = game._button(actions, "Remove from slot", Vector2.ZERO, Vector2(108, 30), game._formation_assign.bind(slot, ""))
 	remove.add_theme_font_size_override("font_size", 12)
 	remove.disabled = game._locked() or f.slots[slot].is_empty() or filled <= 1
 	for key in ["auto_ult", "auto_next"]:
 		var check := CheckButton.new()
 		check.name = key
-		check.text = "Tự dùng Ultimate" if key == "auto_ult" else "Tự vượt ải · Dừng trước Boss chương"
+		check.text = "Auto Ultimate" if key == "auto_ult" else "Auto Advance · Stop before chapter bosses"
 		check.add_theme_font_size_override("font_size", 14)
 		check.add_theme_stylebox_override("normal", game._style(Color("12343e"), Color("617f80"), 14))
 		check.custom_minimum_size.y = 34
@@ -95,7 +95,7 @@ func _ready() -> void:
 	var navigation := HBoxContainer.new()
 	navigation.add_theme_constant_override("separation", 8)
 	add_child(navigation)
-	for entry in [["Nâng cấp", 1], ["Hành trình  ›", 0]]:
+	for entry in [["Upgrade", 1], ["Journey  ›", 0]]:
 		var button: Button = game._button(navigation, entry[0], Vector2.ZERO, Vector2(242, 46), game._select_tab.bind(entry[1]))
 		style_button(button, entry[1] == 0)
 
@@ -147,7 +147,7 @@ func _bind_card(button: Button, hero: Dictionary) -> void:
 	button.add_theme_stylebox_override("hover", game._style(Color("23515c"), IVORY, 12))
 	button.add_theme_stylebox_override("focus", game._style(Color(0,0,0,0), IVORY, 12))
 	button.disabled = not available or game._locked()
-	button.tooltip_text = "Đưa vào vị trí đang chọn; tự hoán đổi nếu đã trong đội" if available else "Chưa sở hữu nhân vật"
+	button.tooltip_text = "Assign to the selected slot; swap automatically if already on the team" if available else "Hero not owned"
 	var face := Portrait.new()
 	face.frames = game.frames
 	face.hero = id
@@ -167,11 +167,11 @@ func _bind_card(button: Button, hero: Dictionary) -> void:
 	name_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	name_text.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	var level: int = game.store.profile.heroes.get(id, {}).get("level", 1)
-	var status := label(button, ("LV%d · Sở hữu" % level) if available else "LV— · Chưa sở hữu", 11)
+	var status := label(button, ("LV%d · Owned" % level) if available else "LV— · Not owned", 11)
 	status.position = Vector2(4,106)
 	status.size = Vector2(140,16)
 	status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var state := label(button, "Đang ra trận" if deployed else ("Sẵn sàng" if available else "Khóa"), 11, Color("a8e0bc") if deployed else Color("9fb7bf"))
+	var state := label(button, "Deployed" if deployed else ("Ready" if available else "Locked"), 11, Color("a8e0bc") if deployed else Color("9fb7bf"))
 	state.position = Vector2(4,123)
 	state.size = Vector2(140,17)
 	state.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -186,7 +186,7 @@ func slot_card(parent: Control, index: int, id: String) -> Button:
 	button.flat = true
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	button.pressed.connect(game._on_button.bind(game._formation_slot.bind(index)))
-	button.tooltip_text = ["Hàng trước", "Hàng sau trái", "Hàng sau phải"][index] + " · Chọn để thay nhân vật"
+	button.tooltip_text = ["Front row", "Back left", "Back right"][index] + " · Select to switch hero"
 	parent.add_child(button)
 	var actor := SlotActor.new()
 	actor.game = game
@@ -197,12 +197,12 @@ func slot_card(parent: Control, index: int, id: String) -> Button:
 	button.add_child(actor)
 	var row: Dictionary = game.catalog.find_row("heroes", id)
 	var level: int = game.store.profile.heroes.get(id, {}).get("level", 1)
-	var title := label(button, "%s · LV%d" % [row.get("name", "Ô trống"), level] if not id.is_empty() else "＋ Chọn tướng", 13, IVORY)
+	var title := label(button, "%s · LV%d" % [row.get("name", "Empty slot"), level] if not id.is_empty() else "＋ Select hero", 13, IVORY)
 	title.position = Vector2(0,88)
 	title.size = Vector2(160,20)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_stylebox_override("normal", game._style(Color("0b2934"), GOLD if index == slot else Color("608d95"), 10))
-	var rank := label(button, "HÀNG TRƯỚC" if index == 0 else "HÀNG SAU", 10, GOLD)
+	var rank := label(button, "FRONT ROW" if index == 0 else "BACK ROW", 10, GOLD)
 	rank.position = Vector2(0,116)
 	rank.size.x = 160
 	rank.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

@@ -36,7 +36,7 @@ func _ready() -> void:
 	add_theme_constant_override("separation", 10)
 	var heading := HBoxContainer.new()
 	add_child(heading)
-	words(heading,"LÒ RÈN" if game.tab == 19 else "TÚI ĐỒ",30,Color("edcf85"))
+	words(heading,"FORGE" if game.tab == 19 else "BAG",30,Color("edcf85"))
 	game._button(heading,"?",Vector2.ZERO,Vector2(38,38),game._bag_help)
 	if game.tab == 19:
 		forge()
@@ -47,7 +47,7 @@ func _ready() -> void:
 	var tabs := HBoxContainer.new()
 	tabs.add_theme_constant_override("separation",6)
 	add_child(tabs)
-	for pair in [["equipment","Trang bị"],["spirits","Tinh linh"],["materials","Nguyên liệu"],["supplies","Vật phẩm"]]:
+	for pair in [["equipment","Equipment"],["spirits","Spirit"],["materials","Materials"],["supplies","Items"]]:
 		var button: Button = game._button(tabs,pair[1],Vector2.ZERO,Vector2(118,44),game._bag_open.bind(pair[0]))
 		button.add_theme_font_size_override("font_size",14)
 		if game.bag_section == pair[0]: button.add_theme_stylebox_override("normal",game._style(Color("493f24"),Color("f3cd76"),12))
@@ -75,18 +75,18 @@ func _ready() -> void:
 			body.add_child(screen)
 	var footer := HBoxContainer.new()
 	add_child(footer)
-	words(footer,("Trang bị: %d / 40" if game.bag_section == "supplies" else "Số lượng: %d / 40") % game.store.profile.items.size(),16,Color("e8d8ae"))
+	words(footer,("Equipment: %d / 40" if game.bag_section == "supplies" else "Quantity: %d / 40") % game.store.profile.items.size(),16,Color("e8d8ae"))
 	if game.bag_section == "equipment":
 		if game.bag_selecting:
-			game._button(footer,"Hủy",Vector2.ZERO,Vector2(70,44),game._bag_select_mode)
-			game._button(footer,"Tách %d" % game.bag_selected.size(),Vector2.ZERO,Vector2(112,44),game._bag_dismantle_confirm).disabled = game._locked() or game.bag_selected.is_empty()
-		else: game._button(footer,"♻ Tách",Vector2.ZERO,Vector2(150,44),game._bag_select_mode).disabled = game._locked()
-	else: game._button(footer,"← Tổng quan",Vector2.ZERO,Vector2(150,44),game._bag_open.bind(""))
+			game._button(footer,"Cancel",Vector2.ZERO,Vector2(70,44),game._bag_select_mode)
+			game._button(footer,"Dismantle %d" % game.bag_selected.size(),Vector2.ZERO,Vector2(112,44),game._bag_dismantle_confirm).disabled = game._locked() or game.bag_selected.is_empty()
+		else: game._button(footer,"♻ Dismantle",Vector2.ZERO,Vector2(150,44),game._bag_select_mode).disabled = game._locked()
+	else: game._button(footer,"← Overview",Vector2.ZERO,Vector2(150,44),game._bag_open.bind(""))
 	if not game.store.profile.bag_rewards.is_empty():
-		game._button(self,"Chiến lợi phẩm chờ nhận: %d →" % game.store.profile.bag_rewards.size(),Vector2.ZERO,Vector2(492,40),game._bag_claim_loot).disabled = game._locked() or game.store.profile.items.size() >= 40
+		game._button(self,"Unclaimed loot: %d →" % game.store.profile.bag_rewards.size(),Vector2.ZERO,Vector2(492,40),game._bag_claim_loot).disabled = game._locked() or game.store.profile.items.size() >= 40
 
 func home() -> void:
-	words(self,"Quản lý trang bị, tinh linh và nguyên liệu của bạn.",16,Color("b8cdc7"))
+	words(self,"Manage your equipment, spirits, and materials.",16,Color("b8cdc7"))
 	var types := {}
 	for item in game.store.profile.items: types[item.base] = true
 	var owned := 0
@@ -98,10 +98,10 @@ func home() -> void:
 	grid.add_theme_constant_override("v_separation",12)
 	add_child(grid)
 	for entry in [
-		["equipment","Trang bị","%d loại · %d món" % [types.size(),game.store.profile.items.size()],"equipment"],
-		["companion","Tinh linh","%d / %d đã mở" % [owned,game.catalog.data.assists.size()],"spirits"],
-		["crystal","Nguyên liệu","Tinh thạch · Lõi · Mảnh","materials"],
-		["forge","Lò rèn","Chế tạo · Cường hóa","forge"]]:
+		["equipment","Equipment","%d types · %d items" % [types.size(),game.store.profile.items.size()],"equipment"],
+		["companion","Spirit","%d / %d unlocked" % [owned,game.catalog.data.assists.size()],"spirits"],
+		["crystal","Materials","Crystals · Cores · Fragments","materials"],
+		["forge","Forge","Craft · Enhance","forge"]]:
 		var button: Button = game._button(grid,"",Vector2.ZERO,Vector2(240,210),game._select_tab.bind(19) if entry[3] == "forge" else game._bag_open.bind(entry[3]))
 		button.name = "BagCategory_"+entry[3]
 		var color := Color("b880dd") if entry[3] == "materials" else Color("e9bf65")
@@ -122,13 +122,13 @@ func home() -> void:
 		caption.size.x = 224
 		caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	game._button(self,"Vật phẩm · Thuốc, vé và nguyên liệu →",Vector2.ZERO,Vector2(492,44),game._supply_open.bind(""))
+	game._button(self,"Items · Potions, tickets & materials →",Vector2.ZERO,Vector2(492,44),game._supply_open.bind(""))
 	picture(self,scene_texture(0),Vector2(492,164))
 	if not game.store.profile.bag_rewards.is_empty():
-		game._button(self,"Nhận chiến lợi phẩm đang chờ (%d)" % game.store.profile.bag_rewards.size(),Vector2.ZERO,Vector2(492,40),game._bag_claim_loot).disabled = game._locked() or game.store.profile.items.size() >= 40
+		game._button(self,"Claim pending loot (%d)" % game.store.profile.bag_rewards.size(),Vector2.ZERO,Vector2(492,40),game._bag_claim_loot).disabled = game._locked() or game.store.profile.items.size() >= 40
 
 func spirits() -> void:
-	words(body,"Nâng cấp và chọn tinh linh đồng hành cùng đội.",14,Color("a9c4bc"))
+	words(body,"Upgrade and choose a spirit to accompany your team.",14,Color("a9c4bc"))
 	var grid := GridContainer.new()
 	grid.columns = 2
 	grid.add_theme_constant_override("h_separation",12)
@@ -146,24 +146,24 @@ func spirits() -> void:
 		name_label.size.x = 240
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var state: Label = game._label(button,"Đang đi cùng" if game.store.profile.assist == row.id else ("Có thể sử dụng" if game.store.available_assist(row.id) else "Chưa mở"),Vector2(0,184),13)
+		var state: Label = game._label(button,"Accompanying" if game.store.profile.assist == row.id else ("Usable" if game.store.available_assist(row.id) else "Locked"),Vector2(0,184),13)
 		state.size.x = 240
 		state.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		state.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var id: String = game.selected_spirit if not game.selected_spirit.is_empty() else game.store.profile.assist
 	var row: Dictionary = game.catalog.find_row("assists",id)
-	words(body,"✦ Chi tiết tinh linh · "+row.name,22,Color("ead49f"))
-	words(body,"LV %d/20 · Tiến hóa %d/3" % [game.store.profile.assists[id],game.store.profile.expansion.ranks[id]],17)
-	words(body,"Hồi máu và tạo khiên hỗ trợ đồng đội còn sống." if id == "lumi" else "Phượng lửa gây sát thương nhiều mục tiêu và hỗ trợ phá khiên.",16,Color("b6cdc5"))
-	words(body,"Mảnh %s: %d" % [row.name,game.store.profile.collection_fragments.spirits[id]],15)
+	words(body,"✦ Spirit Details · "+row.name,22,Color("ead49f"))
+	words(body,"LV %d/20 · Evolution %d/3" % [game.store.profile.assists[id],game.store.profile.expansion.ranks[id]],17)
+	words(body,"Heal and shield surviving allies." if id == "lumi" else "The fire phoenix damages multiple targets and helps break shields.",16,Color("b6cdc5"))
+	words(body,"%s Fragments: %d" % [row.name,game.store.profile.collection_fragments.spirits[id]],15)
 	var actions := HBoxContainer.new()
 	body.add_child(actions)
-	game._button(actions,"Nâng cấp · %d vàng" % (game.store.profile.assists[id]*35),Vector2.ZERO,Vector2(244,48),game._bag_upgrade_spirit.bind(id)).disabled = game._locked() or not game.store.available_assist(id) or game.store.profile.assists[id] >= 20 or game.store.profile.gold < game.store.profile.assists[id]*35
-	game._button(actions,"Đang đi cùng" if game.store.profile.assist == id else "Chọn đi cùng",Vector2.ZERO,Vector2(244,48),game._assist.bind(id)).disabled = game._locked() or not game.store.available_assist(id) or game.store.profile.assist == id
-	game._button(body,"Chi tiết kỹ năng & tiến hóa →",Vector2.ZERO,Vector2(492,44),game._open_spirit.bind(id))
+	game._button(actions,"Upgrade · %d Gold" % (game.store.profile.assists[id]*35),Vector2.ZERO,Vector2(244,48),game._bag_upgrade_spirit.bind(id)).disabled = game._locked() or not game.store.available_assist(id) or game.store.profile.assists[id] >= 20 or game.store.profile.gold < game.store.profile.assists[id]*35
+	game._button(actions,"Accompanying" if game.store.profile.assist == id else "Choose companion",Vector2.ZERO,Vector2(244,48),game._assist.bind(id)).disabled = game._locked() or not game.store.available_assist(id) or game.store.profile.assist == id
+	game._button(body,"Skills & evolution details →",Vector2.ZERO,Vector2(492,44),game._open_spirit.bind(id))
 
 func materials() -> void:
-	words(body,"Nguyên liệu hiện có · Chạm để xem chi tiết.",14,Color("abc5bc"))
+	words(body,"Available materials · Tap for details.",14,Color("abc5bc"))
 	var p: Dictionary = game.store.profile
 	var hero_total := 0
 	var spirit_total := 0
@@ -176,7 +176,7 @@ func materials() -> void:
 	grid.add_theme_constant_override("h_separation",6)
 	grid.add_theme_constant_override("v_separation",8)
 	body.add_child(grid)
-	for entry in [["gold","Vàng",p.gold],["shards","Tinh thạch",p.shards],["xp","XP",p.xp],["cores","Lõi tinh linh",p.expansion.cores],["fragments","Mảnh nhân vật",hero_total],["spirit","Mảnh tinh linh",spirit_total],["weapon_category","Mảnh trang bị",item_total]]:
+	for entry in [["gold","Gold",p.gold],["shards","Crystals",p.shards],["xp","XP",p.xp],["cores","Spirit Cores",p.expansion.cores],["fragments","Hero Fragments",hero_total],["spirit","Spirit Fragments",spirit_total],["weapon_category","Equipment Fragments",item_total]]:
 		var card: Button = game._button(grid,"",Vector2.ZERO,Vector2(158,164),game._bag_material_detail.bind(entry[0]))
 		card.add_theme_stylebox_override("normal",game._style(Color("102735"),Color("69888c"),16))
 		var icon := picture(card,game.icons.textures[entry[0]],Vector2.ZERO)
@@ -191,17 +191,17 @@ func materials() -> void:
 		count.size.x = 148
 		count.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		count.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	words(body,"Mảnh trang bị cũ vẫn được giữ. Trang bị nhận mới vào túi theo từng bản.",14,Color("a9c4bc"))
-	game._button(body,"⚒ Đến Lò rèn · Chế tạo và nâng cấp",Vector2.ZERO,Vector2(492,48),game._select_tab.bind(19))
+	words(body,"Legacy Equipment Fragments are preserved. New equipment enters your bag as individual copies.",14,Color("a9c4bc"))
+	game._button(body,"⚒ Go to Forge · Craft & Upgrade",Vector2.ZERO,Vector2(492,48),game._select_tab.bind(19))
 
 func forge() -> void:
-	words(self,"Chế tạo, cường hóa và phát triển trang bị.",16,Color("adc4bc"))
+	words(self,"Craft, enhance, and develop equipment.",16,Color("adc4bc"))
 	picture(self,scene_texture(1),Vector2(492,164))
 	var tabs := HBoxContainer.new()
 	tabs.add_theme_constant_override("separation",4)
 	add_child(tabs)
 	for i in range(4):
-		var button: Button = game._button(tabs,["Chế tạo","Cường hóa","Hợp thành","Phân giải"][i],Vector2.ZERO,Vector2(120,44),game._forge_tab.bind(i))
+		var button: Button = game._button(tabs,["Craft","Enhance","Fuse","Dismantle"][i],Vector2.ZERO,Vector2(120,44),game._forge_tab.bind(i))
 		button.add_theme_font_size_override("font_size",14)
 		if game.forge_page == i: button.modulate = Color("f6cf7a")
 	var scroll := SwipeScroll.new()
@@ -212,29 +212,29 @@ func forge() -> void:
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(body)
 	if game.forge_page == 0:
-		words(body,"65 vàng +3 tinh thạch / món · Mỗi bản có nâng cấp riêng.",14)
+		words(body,"65 Gold + 3 Crystals per item · Each copy has its own upgrades.",14)
 		var quantity := SpinBox.new()
 		quantity.name = "ForgeQuantity"
 		quantity.min_value = 1
 		quantity.max_value = 10
 		quantity.value = game.forge_count
-		quantity.prefix = "Số lượng: "
+		quantity.prefix = "Quantity: "
 		quantity.custom_minimum_size = Vector2(492,44)
 		quantity.value_changed.connect(func(value): game.forge_count = int(value))
 		body.add_child(quantity)
 		for row in game.catalog.data.items:
 			if row.get("summon_only",false): continue
-			var button: Button = game._button(body,"Rèn · "+row.name,Vector2.ZERO,Vector2(492,44),game._forge_batch_confirm.bind(row.id))
+			var button: Button = game._button(body,"Forge · "+row.name,Vector2.ZERO,Vector2(492,44),game._forge_batch_confirm.bind(row.id))
 			game.icons.apply(button,row.id,32)
 			button.disabled = game._locked()
 	else:
-		words(body,["","Chọn đúng bản trang bị cần cường hóa.","Giữ một bản, tiêu thụ hai bản +0 cùng món/cùng bậc để tăng một bậc. Không tiêu thụ món đang mặc.","Chọn trang bị trong kho để phân giải; món đang dùng được bảo vệ."][game.forge_page],15)
+		words(body,["","Select the exact equipment copy to enhance.","Keep one copy and consume two +0 copies of the same item and rank to gain one rank. Equipped items cannot be consumed.","Choose equipment from your bag to dismantle. Equipped items are protected."][game.forge_page],15)
 		for item in game.store.profile.items:
 			var row: Dictionary = game.catalog.find_row("items",item.base)
-			var button: Button = game._button(body,row.name+" +%d · Bậc%d · %s" % [item.enhance,item.rank,item.uid],Vector2.ZERO,Vector2(492,44),game._forge_fuse_confirm.bind(item.uid) if game.forge_page == 2 else game._item_detail.bind(item.uid))
+			var button: Button = game._button(body,row.name+" +%d · Rank %d · %s" % [item.enhance,item.rank,item.uid],Vector2.ZERO,Vector2(492,44),game._forge_fuse_confirm.bind(item.uid) if game.forge_page == 2 else game._item_detail.bind(item.uid))
 			game.icons.apply(button,row.id,30)
 			if game.forge_page == 2: button.disabled = game._locked() or game.store.fusion_donors(item.uid).size() != 2
-	game._button(self,"← Túi đồ",Vector2.ZERO,Vector2(492,44),game._bag_open.bind(""))
+	game._button(self,"← Bag",Vector2.ZERO,Vector2(492,44),game._bag_open.bind(""))
 
 class Flourish extends Control:
 	var tint := Color("e9bf65")

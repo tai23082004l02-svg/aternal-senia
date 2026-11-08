@@ -2,303 +2,303 @@
   "version": 1,
   "scope": "presentation_only",
   "groups": {
-    "resource": "Tài nguyên",
-    "tactic": "Chiến thuật",
-    "boss": "Săn Boss",
-    "endless": "Chinh phục"
+    "resource": "Resources",
+    "tactic": "Tactics",
+    "boss": "Boss Hunt",
+    "endless": "Conquest"
   },
   "entries": [
     {
       "id": "grove",
-      "title": "Sân Cổ Thụ",
+      "title": "Elder Tree Grove",
       "group": "resource",
       "art": 0,
       "stage": 101,
-      "summary": "Một đợt bảo vệ khu rừng cổ, thu thập lõi tinh linh.",
-      "rules": "Đối đầu Cổ thụ thức tỉnh và quái tiếp viện. Giữ đội hình sống sót qua đòn đập diện rộng.",
+      "summary": "Defend the ancient forest in one wave and collect Spirit Cores.",
+      "rules": "Face the Awakened Elder Tree and its reinforcements. Keep your team alive through sweeping slams.",
       "rewards": [
         "cores"
       ],
       "enemies": [
         [
-          "Cổ thụ thức tỉnh",
+          "Awakened Elder Tree",
           "enemy_golem"
         ]
       ]
     },
     {
       "id": "crystal_mine",
-      "title": "Mỏ Tinh Thạch",
+      "title": "Crystal Mine",
       "group": "resource",
       "art": 1,
       "stage": 0,
-      "summary": "Khám phá hầm mỏ, phá lớp khiên tinh thể để thu thập tinh thạch.",
-      "rules": "Thiết kế: Golem bảo vệ lõi tinh thể; phá khiên để mở thời điểm gây sát thương.",
+      "summary": "Explore the mines and break crystal shields to gather Crystals.",
+      "rules": "Planned: a golem protects its crystal core; break its shield to create a damage window.",
       "rewards": [
         "shards",
         "training_item"
       ],
       "enemies": [
         [
-          "Golem Tinh Thạch",
+          "Crystal Golem",
           0
         ],
         [
-          "Thú Tinh Thạch",
+          "Crystal Beast",
           1
         ],
         [
-          "Linh Thạch",
+          "Spiritstone",
           2
         ]
       ]
     },
     {
       "id": "ancient_forge",
-      "title": "Hầm Rèn Cổ Đại",
+      "title": "Ancient Forge",
       "group": "resource",
       "art": 2,
       "stage": 0,
-      "summary": "Tiến sâu vào lò rèn thất lạc, tìm vật liệu phát triển trang bị.",
-      "rules": "Thiết kế: lính gác cơ khí canh giữ các trạm rèn; vượt Boss thợ rèn ở cuối hành lang.",
+      "summary": "Venture into the lost forge to find equipment development materials.",
+      "rules": "Planned: mechanical guards defend forging stations; defeat the blacksmith boss at the corridor's end.",
       "rewards": [
         "training_item",
         "forge"
       ],
       "enemies": [
         [
-          "Lính gác cơ khí",
+          "Mechanical Guard",
           3
         ]
       ]
     },
     {
       "id": "spirit_sanctum",
-      "title": "Thánh Điện Linh Hồn",
+      "title": "Spirit Sanctuary",
       "group": "resource",
       "art": 3,
       "stage": 0,
-      "summary": "Bảo vệ tinh linh giữa những đợt tấn công trong thánh điện.",
-      "rules": "Thiết kế: bảo vệ mục tiêu tinh linh qua nhiều đợt. Kết hợp hồi phục, khiên và khống chế.",
+      "summary": "Protect the spirits through waves of attacks in the sanctuary.",
+      "rules": "Planned: protect a spirit through multiple waves. Combine healing, shields, and crowd control.",
       "rewards": [
         "cores",
         "spirit"
       ],
       "enemies": [
         [
-          "Linh thú thánh điện",
+          "Sanctuary Beast",
           7
         ]
       ]
     },
     {
       "id": "pirate_treasure",
-      "title": "Kho Báu Hải Tặc",
+      "title": "Pirate Treasure",
       "group": "resource",
       "art": 4,
       "stage": 0,
-      "summary": "Đánh bại thủ lĩnh, khám phá kho báu bên xác tàu.",
-      "rules": "Thiết kế: tiêu diệt thủ lĩnh trước khi hết giờ để mở kho báu hải tặc.",
+      "summary": "Defeat the captain and discover treasure by the shipwreck.",
+      "rules": "Planned: defeat the captain before time runs out to unlock the pirate treasure.",
       "rewards": [
         "gold",
         "chest"
       ],
       "enemies": [
         [
-          "Thủ lĩnh hải tặc",
+          "Pirate Captain",
           11
         ]
       ]
     },
     {
       "id": "six_waves",
-      "title": "Tháp Sáu Đợt",
+      "title": "Six-Wave Tower",
       "group": "tactic",
       "art": 5,
       "stage": 102,
-      "summary": "Giữ HP và năng lượng qua sáu đợt để vượt tầng cuối.",
-      "rules": "Đội hình liên tục qua sáu đợt; dùng kỹ năng đúng thời điểm và bảo toàn đồng đội trước Boss cuối.",
+      "summary": "Carry HP and Energy through six waves to reach the final floor.",
+      "rules": "Carry your team through six waves; time your skills and preserve allies for the final boss.",
       "rewards": [
         "cores"
       ],
       "enemies": [
         [
-          "Sói rừng",
+          "Forest Wolf",
           "enemy_wolf"
         ],
         [
-          "Hộ vệ than hồng",
+          "Ember Guardian",
           "enemy_guardian"
         ]
       ]
     },
     {
       "id": "mist_labyrinth",
-      "title": "Mê Cung Sương Mù",
+      "title": "Mist Labyrinth",
       "group": "tactic",
       "art": 6,
       "stage": 0,
-      "summary": "Chọn lối đi và sức mạnh phù hợp giữa màn sương.",
-      "rules": "Thiết kế: mỗi tầng chọn một trong hai hiệu ứng để tăng sức mạnh hoặc thay đổi thử thách.",
+      "summary": "Choose your path and powers wisely through the mist.",
+      "rules": "Planned: choose one of two effects per floor to strengthen your team or alter the challenge.",
       "rewards": [
         "shards",
         "xp"
       ],
       "enemies": [
         [
-          "Linh thú sương mù",
+          "Mist Beast",
           7
         ]
       ]
     },
     {
       "id": "element_arena",
-      "title": "Đấu Trường Nguyên Tố",
+      "title": "Elemental Arena",
       "group": "tactic",
       "art": 7,
       "stage": 0,
-      "summary": "Thay đổi đội hình để đối phó những lớp kháng hệ.",
-      "rules": "Thiết kế: đối thủ có kháng hệ riêng; lựa chọn tướng và tinh linh phù hợp để vượt từng đợt.",
+      "summary": "Adjust your team to overcome elemental resistance.",
+      "rules": "Planned: enemies have distinct elemental resistances; choose heroes and spirits for each wave.",
       "rewards": [
         "training_item",
         "xp"
       ],
       "enemies": [
         [
-          "Hộ vệ nguyên tố",
+          "Elemental Guardian",
           3
         ]
       ]
     },
     {
       "id": "mirror_hall",
-      "title": "Hành Lang Gương",
+      "title": "Hall of Mirrors",
       "group": "tactic",
       "art": 8,
       "stage": 0,
-      "summary": "Tìm mục tiêu thật giữa những bản sao trong gương.",
-      "rules": "Thiết kế: một kẻ địch tạo bản sao yếu hơn; nhận biết và tập trung hạ đúng mục tiêu.",
+      "summary": "Find the true target among mirror copies.",
+      "rules": "Planned: an enemy creates weaker copies; identify and focus on the real target.",
       "rewards": [
         "shards",
         "xp"
       ],
       "enemies": [
         [
-          "Ảo ảnh gương",
+          "Mirror Phantom",
           6
         ]
       ]
     },
     {
       "id": "time_ruins",
-      "title": "Phế Tích Thời Gian",
+      "title": "Ruins of Time",
       "group": "tactic",
       "art": 9,
       "stage": 0,
-      "summary": "Thích nghi với những giai đoạn thời gian biến đổi.",
-      "rules": "Thiết kế: hồi chiêu kỹ năng và tốc độ đánh thay đổi theo giai đoạn của phế tích.",
+      "summary": "Adapt to shifting phases of time.",
+      "rules": "Planned: skill cooldowns and attack speed change with the ruins' temporal phases.",
       "rewards": [
         "training_item",
         "xp"
       ],
       "enemies": [
         [
-          "Vệ binh thời gian",
+          "Time Sentinel",
           3
         ]
       ]
     },
     {
       "id": "dawn_wardens",
-      "title": "Tam Vệ Bình Minh",
+      "title": "Dawn Triad",
       "group": "boss",
       "art": 10,
       "stage": 103,
-      "summary": "Đấu liên tiếp ba Boss canh giữ con đường bình minh.",
-      "rules": "Ba đợt Boss hiện có: Cổ thụ thức tỉnh, Hộ vệ than hồng và Ảo ảnh thủy triều. Chuẩn bị kỹ năng cho từng cơ chế.",
+      "summary": "Face three consecutive bosses guarding the path to dawn.",
+      "rules": "Three existing boss waves: Awakened Elder Tree, Ember Guardian, and Tidal Mirage. Prepare your skills for each mechanic.",
       "rewards": [
         "cores"
       ],
       "enemies": [
         [
-          "Cổ thụ thức tỉnh",
+          "Awakened Elder Tree",
           "enemy_golem"
         ],
         [
-          "Hộ vệ than hồng",
+          "Ember Guardian",
           "enemy_guardian"
         ],
         [
-          "Ảo ảnh thủy triều",
+          "Tidal Mirage",
           "enemy_wolf"
         ]
       ]
     },
     {
       "id": "ancient_dragon",
-      "title": "Hang Rồng Cổ",
+      "title": "Ancient Dragon Cave",
       "group": "boss",
       "art": 11,
       "stage": 0,
-      "summary": "Đối mặt Cự Long Hỏa Ngục trong hang nham thạch.",
-      "rules": "Thiết kế: Boss nhiều giai đoạn, gây thiêu đốt và tung đòn diện rộng; tìm nguyên liệu rèn cao cấp.",
+      "summary": "Face the Infernal Dragon in its lava cave.",
+      "rules": "Planned: a multi-phase boss with burns and area attacks; gather high-tier forging materials.",
       "rewards": [
         "forge",
         "training_item"
       ],
       "enemies": [
         [
-          "Cự Long Hỏa Ngục",
+          "Infernal Dragon",
           8
         ]
       ]
     },
     {
       "id": "void_abyss",
-      "title": "Vực Thẳm Hư Không",
+      "title": "Void Abyss",
       "group": "boss",
       "art": 12,
       "stage": 0,
-      "summary": "Bước vào khe nứt nơi Kẻ Nuốt Ánh Sáng chờ đợi.",
-      "rules": "Thiết kế: Boss triệu hồi bóng tối và tự tạo khiên; cân bằng giữa dọn quái và phá khiên.",
+      "summary": "Enter the rift where the Light Devourer awaits.",
+      "rules": "Planned: the boss summons shadows and shields itself; balance clearing minions with breaking shields.",
       "rewards": [
         "forge",
         "shards"
       ],
       "enemies": [
         [
-          "Kẻ Nuốt Ánh Sáng",
+          "Light Devourer",
           9
         ]
       ]
     },
     {
       "id": "eclipse_palace",
-      "title": "Cung Điện Nguyệt Thực",
+      "title": "Eclipse Palace",
       "group": "boss",
       "art": 13,
       "stage": 0,
-      "summary": "Thách đấu Nữ Hoàng Nhật Nguyệt dưới bóng nguyệt thực.",
-      "rules": "Thiết kế: Boss luân phiên hai trạng thái ánh sáng và bóng tối, thay đổi cách phòng thủ và tấn công.",
+      "summary": "Challenge the Queen of Sun and Moon beneath the eclipse.",
+      "rules": "Planned: the boss alternates between Light and Dark forms, changing its defenses and attacks.",
       "rewards": [
         "forge",
         "training_item"
       ],
       "enemies": [
         [
-          "Nữ Hoàng Nhật Nguyệt",
+          "Queen of Sun and Moon",
           10
         ]
       ]
     },
     {
       "id": "endless_spire",
-      "title": "Tháp Vô Tận",
+      "title": "Endless Tower",
       "group": "endless",
       "art": 14,
       "stage": 0,
-      "summary": "Leo cao, chinh phục thử thách và nhận thưởng vượt tầng.",
-      "rules": "Thiết kế: 100 tầng, có thể mở rộng 500. Mỗi 5 tầng Elite, mỗi 10 tầng Boss; thưởng lần đầu từng tầng và thay đổi luật sau mỗi 10 tầng.",
+      "summary": "Climb higher, conquer challenges, and earn floor rewards.",
+      "rules": "Planned: 100 floors, potentially expanding to 500. Elites every 5 floors, bosses every 10; first-clear rewards per floor and new rules every 10 floors.",
       "rewards": [
         "shards",
         "achievement",
@@ -306,15 +306,15 @@
       ],
       "enemies": [
         [
-          "Hộ vệ tinh thể",
+          "Crystal Guardian",
           0
         ],
         [
-          "Kẻ canh vực thẳm",
+          "Abyss Watcher",
           9
         ],
         [
-          "Thú tinh thạch",
+          "Crystal Beast",
           1
         ]
       ]

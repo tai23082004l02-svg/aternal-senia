@@ -102,7 +102,7 @@ func run() -> void:
 	assert(screen().get_node("auto_ult").disabled)
 	screen().spirit_button.pressed.emit()
 	for button in game.modal.find_children("*", "Button", true, false):
-		if button.text != "Đóng": assert(button.disabled)
+		if button.text != "Close": assert(button.disabled)
 	assert(game.store.profile.pending == pending)
 	game._close_modal()
 	await capture("formation-layout-locked")

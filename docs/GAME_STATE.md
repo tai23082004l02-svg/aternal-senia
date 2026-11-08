@@ -23,6 +23,12 @@ trang trí hoặc triển khai tất cả đề xuất cùng lúc. Người dùn
 Đọc [hồ sơ nhân vật](CHARACTER_BIBLE.md) trước mọi thay đổi nhân vật.
 Ryn tóc ngang vai và Lyra đuôi ngựa cao là hai ID khác nhau; raw Ryn cũ đã xóa.
 
+## Giao diện tiếng Anh
+
+Toàn bộ chữ hiển thị, tên ải/Boss/vật phẩm, hội thoại và thông báo dùng tiếng Anh
+làm ngôn ngữ chính. Toàn bộ giao diện dùng font đóng gói Playfair Display Bold; xem [ENGLISH_UI](ENGLISH_UI.md). Giữ tên người chơi Unicode, savev12,
+ID và toàn bộ chỉ số/giao dịch.
+
 ## Đã hoạt động
 
 | Phần | Trạng thái thực |

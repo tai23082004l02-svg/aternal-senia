@@ -2,9 +2,9 @@ class_name Wardrobe
 extends RefCounted
 
 const LOOKS := {
-	"original": {"name": "Trang phục gốc", "tint": Color.WHITE},
-	"dawn": {"name": "Phối màu Bình minh", "tint": Color(1, .9, .78, 1)},
-	"moon": {"name": "Phối màu Ánh trăng", "tint": Color(.82, .9, 1, 1)}
+	"original": {"name": "Original Outfit", "tint": Color.WHITE},
+	"dawn": {"name": "Dawn Palette", "tint": Color(1, .9, .78, 1)},
+	"moon": {"name": "Moonlight Palette", "tint": Color(.82, .9, 1, 1)}
 }
 
 static func fresh() -> Dictionary:

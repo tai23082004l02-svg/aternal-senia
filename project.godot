@@ -5,6 +5,13 @@ config/name="Aternal Senia — First Light"
 config/version="0.37.0"
 run/main_scene="res://game/main.tscn"
 
+[autoload]
+Typography="*res://game/typography.gd"
+
+[internationalization]
+locale/fallback="en"
+locale/test="en"
+
 [display]
 window/size/viewport_width=540
 window/size/viewport_height=960

@@ -150,7 +150,7 @@ func load_profile() -> void:
 		var raw = _decode(path)
 		if raw is Dictionary and _number(raw.get("version"), VERSION + 1, 1e12):
 			read_only = true
-			error = "Save thuộc phiên bản mới hơn. Giữ nguyên file; cần cập nhật game."
+			error = "This save is from a newer version. File preserved; update the game to continue."
 			return
 		if valid(raw):
 			profile = raw
@@ -160,10 +160,10 @@ func load_profile() -> void:
 			var preserved := path + ".corrupt." + str(Time.get_ticks_usec())
 			if DirAccess.copy_absolute(path, preserved) == OK:
 				profile = backup
-				error = "Đã đọc bản sao lưu; save lỗi được giữ riêng."
+				error = "Backup loaded; damaged save preserved separately."
 				return
 		read_only = true
-		error = "Save không hợp lệ. Không ghi đè; hãy giữ file để phục hồi."
+		error = "Invalid save. It will not be overwritten; keep the file for recovery."
 		return
 	# One-way migration; v1 is left untouched.
 	var legacy_path := path.get_base_dir().path_join("first_light_v1.json")
@@ -171,7 +171,7 @@ func load_profile() -> void:
 		var legacy = _decode(legacy_path)
 		if not legacy is Dictionary or legacy.get("version") != 1 or not _number(legacy.get("gold"), 0, 1e12) or not _number(legacy.get("level"), 1, 100):
 			read_only = true
-			error = "Save v1 không hợp lệ; giữ nguyên để phục hồi."
+			error = "Invalid v1 save; preserved for recovery."
 			return
 		profile.gold = legacy.gold
 		profile.heroes.eira.level = legacy.level
@@ -179,30 +179,30 @@ func load_profile() -> void:
 
 func commit(candidate: Dictionary) -> bool:
 	if read_only or fail_writes:
-		error = "Không ghi được tiến trình; tài nguyên chưa bị trừ."
+		error = "Unable to save progress. No resources were spent."
 		return false
 	if not valid(candidate):
-		error = "Giao dịch không hợp lệ."
+		error = "Invalid transaction."
 		return false
 	var temp := path + ".tmp"
 	var file := FileAccess.open(temp, FileAccess.WRITE)
 	if file == null:
-		error = "Không mở được file lưu."
+		error = "Unable to open the save file."
 		return false
 	file.store_string(JSON.stringify(candidate, "", true, true))
 	file.flush()
 	var write_error := file.get_error()
 	file.close()
 	if write_error != OK or not valid(_decode(temp)):
-		error = "Kiểm tra file lưu thất bại."
+		error = "Save file validation failed."
 		return false
 	if FileAccess.file_exists(path):
 		var current = _decode(path)
 		if valid(current) and DirAccess.copy_absolute(path, path + ".bak") != OK:
-			error = "Không tạo được bản sao lưu."
+			error = "Unable to create a backup."
 			return false
 	if DirAccess.rename_absolute(temp, path) != OK:
-		error = "Không thay được file lưu."
+		error = "Unable to replace the save file."
 		return false
 	profile = candidate.duplicate(true)
 	error = ""

@@ -52,6 +52,6 @@ static func migrate(p: Dictionary, book: GameCatalog) -> void:
 static func reward_suffix(entry: Dictionary) -> String:
 	if not entry.get("duplicate", false): return ""
 	if entry.has("fragment_amount"):
-		return " · +%d mảnh %s" % [entry.fragment_amount, {"hero": "nhân vật", "spirit": "tinh linh", "item": "trang bị"}[entry.kind]]
+		return " · +%d %s Fragments" % [entry.fragment_amount, {"hero": "hero", "spirit": "spirit", "item": "equipment"}[entry.kind]]
 	# Old history describes rewards actually paid by the old version.
-	return " · +10 mảnh nhân vật" if entry.kind == "hero" else " · +2 lõi (lượt cũ)"
+	return " · +10 Hero Fragments" if entry.kind == "hero" else " · +2 Cores (legacy run)"

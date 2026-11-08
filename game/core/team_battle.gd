@@ -61,7 +61,7 @@ func _spawn() -> void:
 	spirit_action = {}
 	for row in definition.units: _add_enemy(row)
 	for ally in allies: ally.action = {}
-	_team_emit("wave", -1, -1, "Đợt %d/%d" % [wave + 1, wave_count()], "boss_arrive" if is_boss() else "stage_start")
+	_team_emit("wave", -1, -1, "Wave %d/%d" % [wave + 1, wave_count()], "boss_arrive" if is_boss() else "stage_start")
 	_sync_totals()
 
 func _add_enemy(row: Dictionary) -> void:
@@ -93,7 +93,7 @@ func _add_enemy(row: Dictionary) -> void:
 func _step() -> void:
 	time += STEP
 	if time >= encounter_data.limit:
-		defeat_reason = "Hết thời gian"
+		defeat_reason = "Time expired"
 		_end(false)
 		return
 	if move_clock > 0:
@@ -140,8 +140,8 @@ func _step() -> void:
 		if enemy.boss and not enemy.summoned and definition.summon_adds and enemy.hp <= enemy.max_hp * .5:
 			enemy.summoned = true
 			for i in range(2):
-				_add_enemy({"type":"slime", "name":"Lính triệu hồi", "hp":definition.adds_hp, "atk":definition.adds_atk, "boss":false, "elite":false, "mechanic":"smash", "element":enemy.element})
-			_team_emit("warning", -1, enemies.find(enemy), "Boss triệu hồi lính!", "cast")
+				_add_enemy({"type":"slime", "name":"Summoned Minion", "hp":definition.adds_hp, "atk":definition.adds_atk, "boss":false, "elite":false, "mechanic":"smash", "element":enemy.element})
+			_team_emit("warning", -1, enemies.find(enemy), "The boss summons reinforcements!", "cast")
 		if enemy.action.is_empty():
 			enemy.clock += STEP
 			if enemy.clock >= (3.2 if enemy.boss else 2.8):
@@ -314,7 +314,7 @@ func _damage_ally(index: int, amount: float, source: int) -> void:
 	var ally: Dictionary = allies[index]
 	if ally.hp <= 0: return
 	if ally.stats.get("dodge", 0) > 0 and rng.randf() < ally.stats.dodge:
-		_team_emit("guard", index, index, "Né tránh", "guard_hit", true)
+		_team_emit("guard", index, index, "Evasion", "guard_hit", true)
 		return
 	amount = maxf(1, amount - ally.stats.defense) * (1-ally.stats.get("damage_reduction",0))
 	if ally.id == "ryn": amount *= .9
@@ -328,7 +328,7 @@ func _damage_ally(index: int, amount: float, source: int) -> void:
 	_team_emit("hurt", source, index, str(int(amount)), "hurt", true)
 	if ally.hp <= 0: ally.action = {}
 	if _front() < 0:
-		defeat_reason = "Toàn đội bị hạ"
+		defeat_reason = "Team defeated"
 		_end(false)
 	_sync_totals()
 
@@ -385,7 +385,7 @@ func _end(won: bool) -> void:
 	for ally in allies: ally.action = {}
 	for enemy in enemies: enemy.action = {}
 	spirit_action = {}
-	_team_emit("result", -1, -1, "CHIẾN THẮNG" if won else defeat_reason, "victory" if won else "defeat")
+	_team_emit("result", -1, -1, "VICTORY" if won else defeat_reason, "victory" if won else "defeat")
 	_sync_totals()
 
 func _sync_totals() -> void:
@@ -408,7 +408,7 @@ func _team_emit(kind: String, source: int, target: int, text: String, cue: Strin
 	if events.size() > 128: events.pop_front()
 
 func warning() -> String:
-	return "%s · %d/%d địch · %ds còn lại" % ["Boss" if is_boss() else "Chiến đấu", enemies.filter(func(e): return e.hp > 0).size(), enemies.size(), maxi(0, int(encounter_data.limit - time))]
+	return "%s · %d/%d enemies · %ds left" % ["Boss" if is_boss() else "Battle", enemies.filter(func(e): return e.hp > 0).size(), enemies.size(), maxi(0, int(encounter_data.limit - time))]
 
 # Retired singleton commands must never mutate the new unit model.
 func attack() -> bool: return false

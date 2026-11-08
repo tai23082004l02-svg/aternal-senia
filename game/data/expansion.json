@@ -3,8 +3,8 @@
   "talents": [
     {
       "id": "focus",
-      "name": "Hội tụ",
-      "description": "Kiếm quang +25% sát thương.",
+      "name": "Convergence",
+      "description": "Lightblade damage +25%.",
       "slot": 0,
       "level": 2,
       "gold": 40,
@@ -12,8 +12,8 @@
     },
     {
       "id": "breaker",
-      "name": "Phá giáp",
-      "description": "Kiếm quang phá khiên như Tinh linh.",
+      "name": "Armor Break",
+      "description": "Lightblade breaks shields like Spirit skills.",
       "slot": 0,
       "level": 2,
       "gold": 40,
@@ -21,8 +21,8 @@
     },
     {
       "id": "restoration",
-      "name": "Nguồn sống",
-      "description": "Hồi phục +35% lượng máu.",
+      "name": "Lifewell",
+      "description": "Healing increased by 35%.",
       "slot": 1,
       "level": 3,
       "gold": 60,
@@ -30,8 +30,8 @@
     },
     {
       "id": "barrier",
-      "name": "Che chở",
-      "description": "Hồi phục tạo khiên bằng 15% HP tối đa, tồn tại 5 giây.",
+      "name": "Shelter",
+      "description": "Healing grants a shield equal to 15% Max HP for 5 seconds.",
       "slot": 1,
       "level": 3,
       "gold": 60,
@@ -39,8 +39,8 @@
     },
     {
       "id": "nova",
-      "name": "Bùng sáng",
-      "description": "Tinh linh +25% sát thương.",
+      "name": "Radiant Burst",
+      "description": "Spirit damage +25%.",
       "slot": 2,
       "level": 4,
       "gold": 80,
@@ -48,8 +48,8 @@
     },
     {
       "id": "flow",
-      "name": "Lưu chuyển",
-      "description": "Tinh linh chỉ tốn 25 SP và hồi chiêu nhanh hơn 20%.",
+      "name": "Circulation",
+      "description": "Spirit costs only 25 SP and has a 20% shorter cooldown.",
       "slot": 2,
       "level": 4,
       "gold": 80,
@@ -59,39 +59,39 @@
   "traits": {
     "sword_1": {
       "id": "spring",
-      "description": "Mỗi đòn thường trúng hồi thêm 2 SP."
+      "description": "Each basic attack hit restores 2 extra SP."
     },
     "sword_2": {
       "id": "riposte",
-      "description": "Thủ đòn thành công tăng 30% sát thương đòn vũ khí tiếp theo trong 4 giây; kỹ năng hồi nhanh hơn 8%."
+      "description": "A successful Guard boosts the next weapon attack by 30% for 4 seconds; skill cooldowns are 8% shorter."
     },
     "spear_1": {
       "id": "execute",
-      "description": "Tăng 20% sát thương vũ khí khi mục tiêu còn dưới 35% HP."
+      "description": "Weapon damage +20% against targets below 35% HP."
     },
     "spear_2": {
       "id": "pierce",
-      "description": "Đòn vũ khí xuyên một phần khiên: gây 70% thay vì 35%; kỹ năng hồi nhanh hơn 8%."
+      "description": "Weapon attacks partially penetrate shields, dealing 70% instead of 35% damage; skill cooldowns are 8% shorter."
     },
     "staff_1": {
       "id": "mending",
-      "description": "Kỹ năng hồi phục mạnh hơn 15%."
+      "description": "Healing skills are 15% stronger."
     },
     "staff_2": {
       "id": "conduit",
-      "description": "Kỹ năng hoàn lại 4 SP tại marker trúng; kỹ năng hồi nhanh hơn 8%."
+      "description": "Skills refund 4 SP on hit; skill cooldowns are 8% shorter."
     }
   },
   "stages": [
     {
       "id": 6,
-      "name": "Suối lạc quang",
+      "name": "Lostlight Stream",
       "zone": "forest",
       "enemy_hp": 61,
       "enemy_atk": 14,
       "boss_hp": 275,
       "boss_atk": 35,
-      "boss": "Cổ thụ thức tỉnh",
+      "boss": "Awakened Elder Tree",
       "mechanic": "smash",
       "gold": 50,
       "xp": 40,
@@ -103,8 +103,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Lumi: Có tiếng gọi nhỏ bên dòng suối.",
-      "after": "Eira: Ta sẽ đưa hạt sáng này về nơi nó thuộc về.",
+      "before": "Lumi: There is a quiet call beside the stream.",
+      "after": "Eira: We will return this spark to where it belongs.",
       "element": "nature",
       "base_stage": 1,
       "kind": "branch",
@@ -114,13 +114,13 @@
     },
     {
       "id": 7,
-      "name": "Gốc rễ ký ức",
+      "name": "Roots of Memory",
       "zone": "forest",
       "enemy_hp": 69,
       "enemy_atk": 14,
       "boss_hp": 312,
       "boss_atk": 35,
-      "boss": "Cổ thụ thức tỉnh",
+      "boss": "Awakened Elder Tree",
       "mechanic": "smash",
       "gold": 50,
       "xp": 40,
@@ -132,8 +132,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Cổ thụ: Rễ cây nhớ cả những bước chân đã mất.",
-      "after": "Eira: Ký ức không cần phải trở thành xiềng xích.",
+      "before": "Elder Tree: The roots remember even footsteps long forgotten.",
+      "after": "Eira: Memories need not become chains.",
       "element": "nature",
       "base_stage": 1,
       "kind": "branch",
@@ -143,13 +143,13 @@
     },
     {
       "id": 8,
-      "name": "Đường than nguội",
+      "name": "Cold Ember Path",
       "zone": "ruins",
       "enemy_hp": 102,
       "enemy_atk": 20,
       "boss_hp": 435,
       "boss_atk": 47,
-      "boss": "Hộ vệ than hồng",
+      "boss": "Ember Guardian",
       "mechanic": "shield",
       "gold": 65,
       "xp": 50,
@@ -161,8 +161,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Ash: Những dấu chân này dẫn khỏi chiến trường.",
-      "after": "Ryn: Vẫn có người từng chọn cứu lấy nhau.",
+      "before": "Ash: These footprints lead away from the battlefield.",
+      "after": "Ryn: There were still people who chose to save each other.",
       "element": "fire",
       "base_stage": 2,
       "kind": "branch",
@@ -172,13 +172,13 @@
     },
     {
       "id": 9,
-      "name": "Lò lửa cuối cùng",
+      "name": "The Last Furnace",
       "zone": "ruins",
       "enemy_hp": 116,
       "enemy_atk": 20,
       "boss_hp": 494,
       "boss_atk": 47,
-      "boss": "Hộ vệ than hồng",
+      "boss": "Ember Guardian",
       "mechanic": "shield",
       "gold": 65,
       "xp": 50,
@@ -190,8 +190,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Ryn: Lò rèn chưa tắt, chỉ đang đợi một bàn tay.",
-      "after": "Ash: Ngọn lửa này sẽ sưởi ấm, thay vì thiêu đốt.",
+      "before": "Ryn: The forge is not extinguished. It is waiting for a hand.",
+      "after": "Ash: This flame will warm, rather than burn.",
       "element": "fire",
       "base_stage": 2,
       "kind": "branch",
@@ -201,13 +201,13 @@
     },
     {
       "id": 10,
-      "name": "Bờ hồ lặng",
+      "name": "Stillwater Shore",
       "zone": "lake",
       "enemy_hp": 144,
       "enemy_atk": 26,
       "boss_hp": 594,
       "boss_atk": 59,
-      "boss": "Ảo ảnh thủy triều",
+      "boss": "Tidal Mirage",
       "mechanic": "counter",
       "gold": 80,
       "xp": 60,
@@ -219,8 +219,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Mira: Một gợn sóng đang đi ngược chiều gió.",
-      "after": "Lumi: Đó là lời chào từ phía bên kia.",
+      "before": "Mira: A ripple is moving against the wind.",
+      "after": "Lumi: It is a greeting from the other side.",
       "element": "water",
       "base_stage": 3,
       "kind": "branch",
@@ -230,13 +230,13 @@
     },
     {
       "id": 11,
-      "name": "Dưới mặt gương",
+      "name": "Beneath the Mirror",
       "zone": "lake",
       "enemy_hp": 164,
       "enemy_atk": 26,
       "boss_hp": 675,
       "boss_atk": 59,
-      "boss": "Ảo ảnh thủy triều",
+      "boss": "Tidal Mirage",
       "mechanic": "counter",
       "gold": 80,
       "xp": 60,
@@ -248,8 +248,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Mira: Đừng rút kiếm với bóng mình. Hãy lắng nghe.",
-      "after": "Mira: Ta có thể mang theo nỗi buồn mà vẫn bước tiếp.",
+      "before": "Mira: Do not draw your sword against your own shadow. Listen.",
+      "after": "Mira: We can carry our sadness and still move forward.",
       "element": "water",
       "base_stage": 3,
       "kind": "branch",
@@ -259,13 +259,13 @@
     },
     {
       "id": 12,
-      "name": "Lối chuông gió",
+      "name": "Windchime Path",
       "zone": "mountain",
       "enemy_hp": 186,
       "enemy_atk": 32,
       "boss_hp": 754,
       "boss_atk": 71,
-      "boss": "Chim sấm",
+      "boss": "Thunderbird",
       "mechanic": "smash",
       "gold": 95,
       "xp": 70,
@@ -277,8 +277,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Eira: Mỗi chiếc chuông mang một cái tên.",
-      "after": "Ryn: Hôm nay chúng lại được gọi thành tiếng.",
+      "before": "Eira: Every bell carries a name.",
+      "after": "Ryn: Today, their names are spoken once more.",
       "element": "nature",
       "base_stage": 4,
       "kind": "branch",
@@ -288,13 +288,13 @@
     },
     {
       "id": 13,
-      "name": "Tàn tinh rơi",
+      "name": "Fallen Stardust",
       "zone": "mountain",
       "enemy_hp": 211,
       "enemy_atk": 32,
       "boss_hp": 856,
       "boss_atk": 71,
-      "boss": "Chim sấm",
+      "boss": "Thunderbird",
       "mechanic": "smash",
       "gold": 95,
       "xp": 70,
@@ -306,8 +306,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Ash: Ngôi sao rơi xuống đây từ rất lâu.",
-      "after": "Eira: Ánh sáng nhỏ cũng đủ chỉ đường trong đêm.",
+      "before": "Ash: That star fell here long ago.",
+      "after": "Eira: Even a little light can guide us through the night.",
       "element": "nature",
       "base_stage": 4,
       "kind": "branch",
@@ -317,13 +317,13 @@
     },
     {
       "id": 14,
-      "name": "Hành lang cũ",
+      "name": "Old Corridor",
       "zone": "tower",
       "enemy_hp": 228,
       "enemy_atk": 38,
       "boss_hp": 913,
       "boss_atk": 83,
-      "boss": "Người giữ ánh sáng",
+      "boss": "Lightkeeper",
       "mechanic": "shield",
       "gold": 110,
       "xp": 80,
@@ -335,8 +335,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Mira: Những bức tường này lưu giữ tiếng cười.",
-      "after": "Eira: Nơi này từng là một mái nhà.",
+      "before": "Mira: These walls hold echoes of laughter.",
+      "after": "Eira: This place was once a home.",
       "element": "dark",
       "base_stage": 5,
       "kind": "branch",
@@ -346,13 +346,13 @@
     },
     {
       "id": 15,
-      "name": "Lời hứa bình minh",
+      "name": "Dawn's Promise",
       "zone": "tower",
       "enemy_hp": 259,
       "enemy_atk": 38,
       "boss_hp": 1038,
       "boss_atk": 83,
-      "boss": "Người giữ ánh sáng",
+      "boss": "Lightkeeper",
       "mechanic": "shield",
       "gold": 110,
       "xp": 80,
@@ -364,8 +364,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Eira: Mình đã hứa sẽ quay lại cùng mọi người.",
-      "after": "Lumi: Vậy thì bình minh của chúng ta đã bắt đầu.",
+      "before": "Eira: I promised I would return with everyone.",
+      "after": "Lumi: Then our dawn has begun.",
       "element": "dark",
       "base_stage": 5,
       "kind": "branch",
@@ -375,13 +375,13 @@
     },
     {
       "id": 101,
-      "name": "Săn cổ thụ",
+      "name": "Elder Tree Hunt",
       "zone": "forest",
       "enemy_hp": 55,
       "enemy_atk": 14,
       "boss_hp": 250,
       "boss_atk": 35,
-      "boss": "Cổ thụ thức tỉnh",
+      "boss": "Awakened Elder Tree",
       "mechanic": "smash",
       "gold": 60,
       "xp": 35,
@@ -393,8 +393,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Ash: Thử thách này dành cho những người đã sẵn sàng. Hãy chuẩn bị kỹ năng và đồng hành.",
-      "after": "Eira: Chúng ta đã tiến thêm một bước.",
+      "before": "Ash: This challenge is for those who are ready. Prepare your skills and companion.",
+      "after": "Eira: We have taken another step forward.",
       "element": "nature",
       "base_stage": 1,
       "kind": "challenge",
@@ -413,13 +413,13 @@
     },
     {
       "id": 102,
-      "name": "Tháp sáu đợt",
+      "name": "Six-Wave Tower",
       "zone": "ruins",
       "enemy_hp": 93,
       "enemy_atk": 20,
       "boss_hp": 395,
       "boss_atk": 47,
-      "boss": "Hộ vệ than hồng",
+      "boss": "Ember Guardian",
       "mechanic": "shield",
       "gold": 90,
       "xp": 50,
@@ -431,8 +431,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Ash: Thử thách này dành cho những người đã sẵn sàng. Hãy chuẩn bị kỹ năng và đồng hành.",
-      "after": "Eira: Chúng ta đã tiến thêm một bước.",
+      "before": "Ash: This challenge is for those who are ready. Prepare your skills and companion.",
+      "after": "Eira: We have taken another step forward.",
       "element": "fire",
       "base_stage": 2,
       "kind": "challenge",
@@ -481,13 +481,13 @@
     },
     {
       "id": 103,
-      "name": "Tam vệ bình minh",
+      "name": "Dawn Triad",
       "zone": "lake",
       "enemy_hp": 131,
       "enemy_atk": 26,
       "boss_hp": 540,
       "boss_atk": 59,
-      "boss": "Ảo ảnh thủy triều",
+      "boss": "Tidal Mirage",
       "mechanic": "counter",
       "gold": 120,
       "xp": 65,
@@ -499,8 +499,8 @@
         "armor_2",
         "armor_3"
       ],
-      "before": "Ash: Thử thách này dành cho những người đã sẵn sàng. Hãy chuẩn bị kỹ năng và đồng hành.",
-      "after": "Eira: Chúng ta đã tiến thêm một bước.",
+      "before": "Ash: This challenge is for those who are ready. Prepare your skills and companion.",
+      "after": "Eira: We have taken another step forward.",
       "element": "water",
       "base_stage": 3,
       "kind": "challenge",
@@ -513,7 +513,7 @@
           "hp": 540,
           "atk": 59,
           "mechanic": "smash",
-          "name": "Cổ thụ thức tỉnh",
+          "name": "Awakened Elder Tree",
           "enemy_type": "golem",
           "zone": "forest",
           "element": "nature"
@@ -523,7 +523,7 @@
           "hp": 605,
           "atk": 59,
           "mechanic": "shield",
-          "name": "Hộ vệ than hồng",
+          "name": "Ember Guardian",
           "enemy_type": "guardian",
           "zone": "ruins",
           "element": "fire"
@@ -533,7 +533,7 @@
           "hp": 670,
           "atk": 59,
           "mechanic": "counter",
-          "name": "Ảo ảnh thủy triều",
+          "name": "Tidal Mirage",
           "enemy_type": "wolf",
           "zone": "lake",
           "element": "water"
@@ -545,7 +545,7 @@
   "achievements": [
     {
       "id": "arms",
-      "name": "Kho vũ khí",
+      "name": "Armory",
       "metric": "items",
       "target": 6,
       "gold": 100,
@@ -554,7 +554,7 @@
     },
     {
       "id": "wardens",
-      "name": "Năm người giữ cửa",
+      "name": "Five Gatekeepers",
       "metric": "bosses",
       "target": 5,
       "gold": 180,
@@ -563,7 +563,7 @@
     },
     {
       "id": "bonds",
-      "name": "Bạn đồng hành",
+      "name": "Companion",
       "metric": "ranks",
       "target": 4,
       "gold": 120,
@@ -572,7 +572,7 @@
     },
     {
       "id": "paths",
-      "name": "Người tìm ký ức",
+      "name": "Memory Seeker",
       "metric": "branches",
       "target": 10,
       "gold": 200,
@@ -581,7 +581,7 @@
     },
     {
       "id": "trial_100",
-      "name": "Bước vào thử thách",
+      "name": "Enter the Trial",
       "metric": "score",
       "target": 100,
       "gold": 80,
@@ -590,7 +590,7 @@
     },
     {
       "id": "trial_500",
-      "name": "Ánh sáng bền bỉ",
+      "name": "Enduring Light",
       "metric": "score",
       "target": 500,
       "gold": 180,
@@ -601,23 +601,23 @@
   "chapters": [
     {
       "id": 1,
-      "name": "Tiếng gọi trong rừng"
+      "name": "A Call in the Forest"
     },
     {
       "id": 2,
-      "name": "Lửa còn trong tro"
+      "name": "Fire in the Ashes"
     },
     {
       "id": 3,
-      "name": "Mặt hồ ký ức"
+      "name": "Lake of Memories"
     },
     {
       "id": 4,
-      "name": "Chuông trên đỉnh sao"
+      "name": "Bells atop the Stars"
     },
     {
       "id": 5,
-      "name": "Bình minh trở lại"
+      "name": "Dawn Returns"
     }
   ]
 }

@@ -21,7 +21,7 @@ static func valid(settings: Dictionary) -> bool:
 static func save(store: ProgressStore,values: Dictionary,formation: Dictionary = {}) -> bool:
 	if not valid(values): return false
 	if (not formation.is_empty() or values.has("prioritize_heal") or values.has("speed")) and not store.profile.pending.is_empty():
-		store.error = "Chỉnh tùy chọn tự chiến sau khi kết thúc trận."
+		store.error = "Adjust auto battle options after the battle ends."
 		return false
 	var p := store.profile.duplicate(true)
 	for key in values:
@@ -29,7 +29,7 @@ static func save(store: ProgressStore,values: Dictionary,formation: Dictionary =
 		p.settings[key] = values[key]
 	if not formation.is_empty():
 		if not store.profile.pending.is_empty():
-			store.error = "Chỉnh tùy chọn đội hình sau khi kết thúc trận."
+			store.error = "Adjust formation options after the battle ends."
 			return false
 		p.formation = Formation.state(p,store.catalog).duplicate(true)
 		for key in formation:

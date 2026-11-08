@@ -50,9 +50,9 @@ func run() -> void:
 	var locale := TranslationServer.get_locale()
 	var translation := Translation.new()
 	translation.locale = "de"
-	translation.add_message("CỔNG\nCAO CẤP","DAS TOR DER\nFORTGESCHRITTENEN BESCHWÖRUNG")
-	translation.add_message("Triệu hồi ×10\nChưa mở","Zehnfache Beschwörung\nNoch nicht verfügbar")
-	translation.add_message("Bảo hiểm: %d lượt · Mốc chưa cấu hình","Garantiezähler: %d Versuche · Die Garantieschwelle ist noch nicht konfiguriert")
+	translation.add_message("PREMIUM\nGATE","DAS TOR DER\nFORTGESCHRITTENEN BESCHWÖRUNG")
+	translation.add_message("Summon ×10\nLocked","Zehnfache Beschwörung\nNoch nicht verfügbar")
+	translation.add_message("Pity: %d summons · Milestone pending","Garantiezähler: %d Versuche · Die Garantieschwelle ist noch nicht konfiguriert")
 	TranslationServer.add_translation(translation)
 	TranslationServer.set_locale("de")
 	game._select_summon_kind(1)

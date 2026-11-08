@@ -164,10 +164,10 @@ func _shadow(canvas: CanvasItem, pos: Vector2, radius: float, alpha: float = 1) 
 func _home_caption(canvas: CanvasItem, stats: Dictionary, stage: Dictionary) -> void:
 	for i in range(27):
 		canvas.draw_rect(Rect2(i*10, 178, 10, 330), Color(.015, .04, .065, .72 * (1-i/27.0)))
-	var font := ThemeDB.fallback_font
-	canvas.draw_string(font, Vector2(27, 230), "CHUYẾN ĐI", HORIZONTAL_ALIGNMENT_LEFT, -1, 29, Color("f2e3bb"))
-	canvas.draw_string(font, Vector2(27, 266), "CỦA ÁNH SÁNG", HORIZONTAL_ALIGNMENT_LEFT, -1, 26, Color("e4c58e"))
+	var font := UIFonts.font("medium")
+	canvas.draw_string(UIFonts.font("display"), Vector2(27, 230), "JOURNEY", HORIZONTAL_ALIGNMENT_LEFT, -1, 29, Color("f2e3bb"))
+	canvas.draw_string(UIFonts.font("display"), Vector2(27, 266), "OF LIGHT", HORIZONTAL_ALIGNMENT_LEFT, -1, 26, Color("e4c58e"))
 	canvas.draw_line(Vector2(28, 284), Vector2(126, 284), Color("c2a572"), 1)
-	canvas.draw_string(font, Vector2(28, 320), stage.name, HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color("c8ddda"))
-	canvas.draw_string(font, Vector2(28, 347), "Một lời hứa. Một bình minh mới.", HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color("a0bab8"))
+	canvas.draw_string(UIFonts.font("display"), Vector2(28, 320), stage.name, HORIZONTAL_ALIGNMENT_LEFT, -1, 18, Color("c8ddda"))
+	canvas.draw_string(font, Vector2(28, 347), "One promise. A new dawn.", HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color("a0bab8"))
 	canvas.draw_string(font, Vector2(28, 474), str(stats.hero).to_upper() + "  /  " + str(stats.assist).to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("e4c58e"))

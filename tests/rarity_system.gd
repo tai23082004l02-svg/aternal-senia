@@ -9,11 +9,11 @@ func run() -> void:
 	for item in book.data.items: tiers[item.rarity] = true
 	assert(tiers.size() == 5 and Recruitment.RARITIES.size() == 5)
 	for tier in [3, 4, 5, 6, 7]: assert(tiers.has(tier) and Recruitment.RARITIES.has(tier))
-	assert(Recruitment.label("item", "sword_1", book) == "Hiếm")
-	assert(Recruitment.label("item", "armor_uncommon", book) == "Hiếm")
+	assert(Recruitment.label("item", "sword_1", book) == "Rare")
+	assert(Recruitment.label("item", "armor_uncommon", book) == "Rare")
 	var names: Array = []
 	for tier in Recruitment.RARITIES: names.append(Recruitment.RARITIES[tier].name)
-	assert(names == ["Hiếm", "Sử thi", "Huyền thoại", "Thần thoại", "Thần thánh"])
+	assert(names == ["Rare", "Epic", "Legendary", "Mythic", "Divine"])
 	assert(book.find_row("items", "sword_1").cooldown_scale == 1.0)
 	assert(book.find_row("items", "sword_2").cooldown_scale == .92)
 	assert(book.find_row("items", "sword_1").summon_group == 1 and book.find_row("items", "sword_2").summon_group == 2)

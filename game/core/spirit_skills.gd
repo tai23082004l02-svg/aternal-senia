@@ -2,8 +2,8 @@ class_name SpiritSkills
 extends RefCounted
 
 const ADVANCED := {
-	"echo": {"name": "Cộng hưởng", "description": "Tinh linh gây thêm 15% sát thương.", "level": 6},
-	"aegis": {"name": "Hộ chủ", "description": "Tinh linh tạo khiên 10% HP trong 5 giây khi trúng.", "level": 6}
+	"echo": {"name": "Resonance", "description": "Spirits deal 15% more damage.", "level": 6},
+	"aegis": {"name": "Protector", "description": "Spirit hits grant a 10% HP shield for 5 seconds.", "level": 6}
 }
 
 static func builds(p: Dictionary) -> Dictionary:

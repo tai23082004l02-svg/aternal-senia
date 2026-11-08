@@ -2,6 +2,8 @@
 
 Game fantasy anime 2D, offline, xây bằng **Godot 4.6.3**, giao diện dọc **540 × 960**.
 Bản chơi hiện tại **0.37.0**, save schema **v12**.
+Giao diện chính **tiếng Anh**, dùng font đóng gói Playfair Display Bold;
+xem [English UI](docs/ENGLISH_UI.md).
 Studio **ZORVYKA Games** · **zorvykagames@gmail.com**.
 
 ## Bắt đầu
