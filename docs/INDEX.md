@@ -19,6 +19,14 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 |[ARCHIVED_MEDIA](ARCHIVED_MEDIA.md)|Ảnh/video/PCM cũ qua link cố định, không tải cùng repo|
 |[verification](verification/)|Biên bản JSON nhỏ đã phát hành|
 
+## Cốt truyện và định hướng sáng tác
+
+| Tài liệu | Dùng khi |
+| --- | --- |
+|[THE_WORLD_THAT_FORGOT_TOMORROW](story/THE_WORLD_THAT_FORGOT_TOMORROW.md)|**Draft V1.0, chưa chốt canon**: đại cốt truyện độc lập với roster hiện có, nhân vật, tinh linh, trang bị, 5 hồi và kế hoạch sản xuất; đọc trước khi lên ý tưởng nội dung mới|
+
+**Lưu ý:** Kịch bản sáng tác có thể thay thế toàn bộ nội dung game cũ nhưng không phải lệnh tự đổi ID, xóa asset hoặc thay save. Các thay đổi runtime cần đặc tả và quyết định triển khai riêng.
+
 ## Gameplay và dữ liệu
 
 | Tài liệu | Phạm vi |
