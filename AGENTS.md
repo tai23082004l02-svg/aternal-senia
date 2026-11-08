@@ -8,6 +8,7 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 - Đọc [bản thảo *The World That Forgot Tomorrow*](docs/story/THE_WORLD_THAT_FORGOT_TOMORROW.md) trước khi đề xuất **cốt truyện, nhân vật, tinh linh, trang bị, Boss hoặc World mới**. Đây là bản thảo đại cốt truyện được chủ dự án yêu cầu đưa vào repo để tiếp tục phát triển, **chưa chốt canon**.
 - Đọc thêm [Character Story Bible V0.1](docs/story/CHARACTER_STORY_BIBLE.md) khi nghiên cứu vai trò, động cơ, quan hệ và số phận nhân vật. Hồ sơ hiện là **draft**, không phải danh sách playable hero; xem phần C-01...C-08 về các điểm chưa chốt trước khi suy diễn timeline, quy luật hoặc danh tính.
+- Với luật thế giới/niên đại/cảnh mở đầu, đọc [WORLD_MECHANICS](docs/story/WORLD_MECHANICS.md) và [MASTER_TIMELINE](docs/story/MASTER_TIMELINE.md) sau Story Bible và Character Story Bible. Các nhãn **P-01…P-09** và **TL-01…TL-10** là phương án chưa chốt, không tự coi là canon. Đặc biệt không mặc định năm hồi = năm World game, hoặc sáu năm giữa prologue và hành trình là đã duyệt.
 - Khi sáng tác, **không ép câu chuyện phải khớp** hero, tinh linh, vật phẩm, tên ải hoặc hệ thống có sẵn: chủ dự án sẵn sàng thiết kế lại hoặc loại bỏ nội dung cũ để phục vụ câu chuyện.
 - Điều này **không cấp quyền tự sửa gameplay**: không xóa/đổi ID, asset, item, nhân vật hoặc reset/migrate save chỉ từ bản thảo. Mọi thay đổi runtime phải có yêu cầu triển khai cụ thể, phương án tương thích dữ liệu và kiểm thử. Phân biệt rõ *bản thảo*, *canon đã duyệt* và *đã triển khai*.
 
