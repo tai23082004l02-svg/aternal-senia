@@ -4,6 +4,12 @@
 Trạng thái tại lần dọn repo 2026-11-08: game0.37.0, Godot4.6.3, savev12.
 Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD và code trước khi làm.
 
+## Định hướng cốt truyện mới (đang duyệt)
+
+- Đọc [bản thảo *The World That Forgot Tomorrow*](docs/story/THE_WORLD_THAT_FORGOT_TOMORROW.md) trước khi đề xuất **cốt truyện, nhân vật, tinh linh, trang bị, Boss hoặc World mới**. Đây là bản thảo đại cốt truyện được chủ dự án yêu cầu đưa vào repo để tiếp tục phát triển, **chưa chốt canon**.
+- Khi sáng tác, **không ép câu chuyện phải khớp** hero, tinh linh, vật phẩm, tên ải hoặc hệ thống có sẵn: chủ dự án sẵn sàng thiết kế lại hoặc loại bỏ nội dung cũ để phục vụ câu chuyện.
+- Điều này **không cấp quyền tự sửa gameplay**: không xóa/đổi ID, asset, item, nhân vật hoặc reset/migrate save chỉ từ bản thảo. Mọi thay đổi runtime phải có yêu cầu triển khai cụ thể, phương án tương thích dữ liệu và kiểm thử. Phân biệt rõ *bản thảo*, *canon đã duyệt* và *đã triển khai*.
+
 ## Cộng tác và phạm vi
 
 - Người dùng yêu cầu luôn đẩy kết quả lên GitHub sau khi hoàn thành nhiệm vụ,
