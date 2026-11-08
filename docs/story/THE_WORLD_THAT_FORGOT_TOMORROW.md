@@ -10,6 +10,8 @@
 > **Ngôn ngữ thảo luận:** Tiếng Việt. **Ngôn ngữ phát hành:** English (US).
 > **Tình trạng:** Bản thảo để phát triển tiếp, có thể viết lại toàn bộ. **Không cố ép cốt truyện vào hệ thống game đã làm.**
 
+**Tài liệu đồng hành:** [Character Story Bible V0.1](CHARACTER_STORY_BIBLE.md) — hồ sơ tám nhân vật, quan hệ, cảnh quan trọng và các phương án giải quyết mâu thuẫn timeline/magic, tất cả chưa chốt canon.
+
 ## 0. Tuyên ngôn sáng tác
 
 **Không xây dựng cốt truyện để hợp thức hóa những gì đã có trong game. Xây dựng một câu chuyện thật sự hay, rồi thiết kế game phục vụ câu chuyện đó.**
