@@ -14,6 +14,11 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 - Mô hình kiếm tiền: **rewarded ads tự nguyện + IAP thật** có backend/receipt/entitlement/privacy; chuẩn bị để có thể hoạt động ngày phát hành. Cốt truyện chỉ hỗ trợ tạo ra hero, tinh linh, gear, Boss, vùng đất và nội dung chơi lại; không tiêu tốn nguồn lực vào saga dài nếu không phục vụ game.
 - Plan được quyền định hướng các task tiếp theo nhưng **không là lệnh tự tích hợp SDK, mở gói bán, tự xóa item/hero hoặc sửa economy/save**. Phải có chỉ định công việc cụ thể, kiểm thử và bảo toàn giao dịch. Đo retention/LTV sau phát hành để tối ưu kinh doanh, **không dùng như điều kiện cho phép xây roster gốc**.
 
+
+## Game Design V1.0 — quyết định đã duyệt (2026-11-08)
+
+**ĐỌC BẮT BUỘC:** [docs/GAME_DESIGN_V1.md](docs/GAME_DESIGN_V1.md) trước khi lập kế hoạch hoặc triển khai hero, Gallery, Summon Reveal, Bond, cốt truyện nhân vật. Chủ dự án đã duyệt **24 hero (12 nam/12 nữ), tất cả gốc 5★, ưu tiên Gallery/Summon Reveal, bổ sung Bond, truyện ngắn xoay quanh nhân vật, tiếp tục repo hiện tại**. Đây là quyết định mới hơn các câu ghi "24 hero chưa chốt" ở tài liệu cũ; **chỉ phạm vi sáu quyết định này được duyệt**, các con số khác trong Launch Content Matrix và thông số chi tiết vẫn là draft. Không coi tài liệu thiết kế là code đã chạy. **Bước Codex tiếp theo: WP01 audit chỉ đọc, không sửa/commit/push**, trừ khi chủ dự án giao task mới rõ ràng.
+
 ## Cộng tác và phạm vi
 
 - Người dùng yêu cầu luôn đẩy kết quả lên GitHub sau khi hoàn thành nhiệm vụ,
