@@ -42,6 +42,24 @@ func run() -> void:
 	game.profile_button.pressed.emit()
 	assert(game.modal.find_child("PlayerNameInput", true, false) != null)
 	await capture("player-profile")
+	var input: LineEdit = game.modal.find_child("PlayerNameInput", true, false)
+	var save_button: Button = game.modal.find_child("ProfileSave", true, false)
+	assert(save_button.get_global_rect().end.y <= 864)
+	for hero in game.catalog.data.heroes:
+		var choice: Button = game.modal.find_child("ProfileAvatar_" + hero.id, true, false)
+		assert(choice.disabled == not store.available_hero(hero.id))
+		assert(choice.get_global_rect().end.x <= 512)
+	input.text = "Tên chưa lưu"
+	game.modal.find_child("ProfileClose", true, false).pressed.emit()
+	assert(store.profile == saved)
+	game._show_player_profile()
+	input = game.modal.find_child("PlayerNameInput", true, false)
+	assert(input.text == "Người chơi Việt")
+	store.read_only = true
+	game._show_player_profile()
+	assert(not game.modal.find_child("PlayerNameInput", true, false).editable)
+	assert(game.modal.find_child("ProfileSave", true, false).disabled)
+	store.read_only = false
 	for tier in range(1, 11):
 		game._show_vip(tier)
 		var title: Label = game.modal.find_child("VipTierTitle", true, false)
