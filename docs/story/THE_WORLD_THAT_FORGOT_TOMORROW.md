@@ -12,6 +12,8 @@
 
 **Tài liệu đồng hành:** [Character Story Bible V0.1](CHARACTER_STORY_BIBLE.md) — hồ sơ tám nhân vật, quan hệ, cảnh quan trọng và các phương án giải quyết mâu thuẫn timeline/magic, tất cả chưa chốt canon.
 
+**Đề xuất luật và lịch sử chi tiết:** [World Mechanics V0.1](WORLD_MECHANICS.md) và [Master Timeline V0.1](MASTER_TIMELINE.md). Hai tài liệu bổ sung giải thích những lỗ hổng của draft gốc nhưng **chưa được duyệt thành canon**; nếu có điểm xung đột, ghi lại để duyệt thay vì lặng lẽ sửa truyện.
+
 ## 0. Tuyên ngôn sáng tác
 
 **Không xây dựng cốt truyện để hợp thức hóa những gì đã có trong game. Xây dựng một câu chuyện thật sự hay, rồi thiết kế game phục vụ câu chuyện đó.**
