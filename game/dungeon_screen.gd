@@ -107,7 +107,9 @@ func listing() -> void:
 		button.add_theme_font_size_override("font_size",12)
 	var overview := HBoxContainer.new()
 	add_child(overview)
-	words(overview,"15 dungeons · 4 categories",13,MUTED)
+	words(overview,"15 dungeons",13,MUTED)
+	var arena := action(overview,"Arena · AI vs AI",160,game._select_tab.bind(25),true)
+	arena.name = "DungeonArena"
 	action(overview,"Story chapters ›",144,game._select_tab.bind(5))
 	content_scroll(552)
 	if game.dungeon_group == "seasonal":

@@ -1,5 +1,9 @@
 # Các mốc phát triển
 
+## 0.41.0 · 2026-11-08
+
+Added Dungeons → Arena: a RAM-only hero exhibition with 1–4 selectable runtime heroes per side, mirror matches, seed, optional full Energy, practice-only HP multiplier, pause/x2/replay/setup. Original generated Celestial Courtyard background preserved with provenance/hash. No ownership, formation, campaign rewards or save changes; existing pending battles remain isolated. [Arena Lab](ARENA_LAB.md).
+
 ## 0.40.1 · 2026-11-08
 
 Applied owner-requested behavioral presets for five heroes: approach/spacing, pursuit, combo decisions, counter opportunities, low-HP retreat and movement-evasion reactions. Snapshotv4 freezes AI separately from progression stats; v3 arena and older pending rules remain intact. No upgrade/gear stat or skill-cooldown changes. This is an initial pass ahead of character redesign and balance. [Details](ARENA_COMBAT.md).

@@ -1,6 +1,6 @@
 # Kiến trúc hiện hành
 
-Áp dụng cho game0.40/savev13. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
+Áp dụng cho game0.41/savev13. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
 Công thức singleton0.2 được giữ riêng trong [tài liệu lịch sử](history/SYSTEMS_0_2.md);
 không lấy trần+10, loot đổi shard hoặc đội1 người ở đó áp vào trận mới.
 
@@ -16,6 +16,7 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 |ProgressStore|Profile, migration v1–v13, backup/read-only, validate/commit, begin_run/settle và giao dịch gear|
 |Formation|Roster/slot/assist/auto options và snapshot team/encounter; bốn slot không khóa nghề; đọc đội v12 ba ô qua bản sao|
 |TacticalArenaBattle|Trận mới/snapshotv4: preset AI đóng băng riêng từng hero; quyết định truy kích/combo/counter/cự ly/né, không đổi chỉ số nâng cấp|
+|ArenaLabScreen/ArenaExhibition|Page25 từ Dungeons: hero1–4 vs1–4, RAM-only/no rewards; không dùng ProgressStore hoặc game.battle|
 |ArenaBattle|Nền trận4vN/snapshotv3: di chuyển2D, nearest target, tầm đánh, projectiles và vùng cảnh báo; kế thừa TeamBattle|
 |TeamBattle|Trận pendingv1/v2, action/hit marker, HP/năng lượng, target, hiệu ứng/đội, kết quả|
 |BattleModel|Nền model và đường chạy pending singleton cũ; không được xóa chỉ vì UI dùng TeamBattle|

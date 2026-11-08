@@ -1,0 +1,12 @@
+{
+  "method": "Original image generation. PNG source copied byte-for-byte; no pixel processing.",
+  "date": "2026-11-08",
+  "brief": "Moonlit celestial sparring courtyard; ivory/slate stone, navy/teal arches, warm gold inlays, open fighting floor, no text or characters.",
+  "references": [],
+  "sources": [
+    {
+      "file": "celestial_courtyard.png",
+      "sha256": "643f8a34b5ce13093dc0c3abbb0bc62c81032e6fe5effe2e8156eedf2b824feb"
+    }
+  ]
+}

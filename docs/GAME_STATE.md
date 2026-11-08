@@ -1,12 +1,14 @@
 # Trạng thái dự án — bắt đầu ở đây
 
+> **0.41.0 — Arena trong Dungeons:** Đã thêm nơi setup hai phe1–4 hero và xem trận AI trên sân Celestial Courtyard được tạo mới. Thử hero runtime chưa sở hữu, full Energy, HP thử×1/3/5, Pause/x2/Replay; toàn bộ chỉ trong RAM, không phát thưởng hoặc đổi đội hình/save. Campaign và15 dungeon cũ giữ nguyên. Xem [ARENA_LAB](ARENA_LAB.md).
+
 > **0.40.1 — preset hành vi AI:** Theo yêu cầu mới, áp dụng cự ly/tốc độ di chuyển, áp sát/truy kích/nối chiêu/phản công/liều chiến/đổi mục tiêu/né di chuyển riêng từng hero. Giữ nguyên chỉ số nâng cấp/trang bị và cooldown kỹ năng. Trận mới snapshotv4 đóng băng preset; v3 giữ ArenaBattle cũ, v1/v2/singleton giữ đường cũ. Savev13 không đổi. Đây là lượt chỉnh thực dụng trước khi làm lại nhân vật/cân bằng sâu. Xem [ARENA_COMBAT](ARENA_COMBAT.md).
 
 > **0.40.0 — AI Arena:** Theo yêu cầu mới, trận mới dùng đấu trường2D di chuyển tự do: cận chiến áp sát, staff giữ cự ly/đạn phép, chọn mục tiêu gần, né vòng cảnh báo. Đội4+1 và các ải/phần thưởng hiện có giữ nguyên. Team snapshot mới **v3**; pendingv1/v2/singleton tiếp tục luật cũ. Savev13 không đổi. Đọc [ARENA_COMBAT](ARENA_COMBAT.md). Mô tả địch đánh theo slot bên dưới chỉ áp dụng combat cũ.
 
 > **Mốc0.38 — đội hình4+1 (combat đã thay ở0.40):** Đội hình tối đa **4 hero + 1 tinh linh**, bố cục 2 trước + 2 sau, không khóa nghề. Save v12 đọc đội 3/4 ô; xem đội cũ chỉ thêm ô trống trên bản sao, ghi 4 ô khi người chơi chỉnh đội. Snapshot v1 và singleton cũ giữ nguyên; trận mới dùng v2. Xem [TEAM_COMBAT](TEAM_COMBAT.md).
 
-Cập nhật2026-11-08. Game **0.40.1**, **Godot4.6.3**, save **v13**.
+Cập nhật2026-11-08. Game **0.41.0**, **Godot4.6.3**, save **v13**.
 Đợt dọn repo không đổi gameplay hoặc schema. Repo triển khai:
 [tai23082004l02-svg/aternal-senia](https://github.com/tai23082004l02-svg/aternal-senia).
 Repo tham khảo: [Tham-kh-o-game](https://github.com/tai23082004l02-svg/Tham-kh-o-game).

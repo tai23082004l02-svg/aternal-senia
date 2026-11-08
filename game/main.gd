@@ -18,6 +18,7 @@ var frames: FrameLibrary
 var view: BattleView
 var ui: Control
 var mission_tab := 0
+var arena_setup := {"teams":[["eira","","",""],["ryn","","",""]],"seed":17,"durability":3,"full_energy":true}
 var dungeon_group := "resource"
 var dungeon_selected := ""
 var dungeon_difficulty := 1
@@ -407,7 +408,7 @@ func _refresh_panel() -> void:
 		elif tab == 1 and character_page == 1: section = 1
 		elif tab in [2,17,18,19]: section = 2
 		elif tab in [20,11]: section = 20
-		elif tab in [3,4,5,8,10,13,15,16,21]: section = 4
+		elif tab in [3,4,5,8,10,13,15,16,21,25]: section = 4
 		tabs[i].modulate = Color("ffe3a1") if NAV_PAGES[i] == section else Color("b8c2d8")
 	if tab in [23, 24]:
 		for capsule in journey_wallet_frames:
@@ -440,6 +441,10 @@ func _refresh_panel() -> void:
 		21: _dungeons_panel()
 		22: _formation_panel()
 		23: _gallery_panel()
+		25:
+			var arena := ArenaLabScreen.new()
+			arena.game = self
+			panel.add_child(arena)
 		24:
 			var home := HomeScreen.new()
 			home.game = self
@@ -878,6 +883,10 @@ func _on_button(action: Callable) -> void:
 func _sync_audio() -> void:
 	if not audio_menu_open:
 		audio.apply_profile(store.profile)
+	if tab == 25 and panel.get_child_count() > 0 and panel.get_child(0) is ArenaLabScreen:
+		var practice: ArenaLabScreen = panel.get_child(0)
+		audio.context("ruins",practice.model != null and (practice.model.paused or modal != null),true,practice.model != null and practice.model.state == "battle")
+		return
 	var zone: String = catalog.find_row("stages", selected_stage).zone
 	audio.context(zone, battle != null and battle.paused, tab == 0, tab == 0 and battle != null and battle.state == "battle")
 

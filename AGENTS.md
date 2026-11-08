@@ -1,7 +1,7 @@
 # Hướng dẫn cho phiên chat phát triển tiếp
 
 Đọc README → docs/GAME_STATE.md → docs/SYSTEMS.md → docs/INDEX.md trước khi sửa.
-Trạng thái hiện hành 2026-11-08: game0.40.1, Godot4.6.3, savev13.
+Trạng thái hiện hành 2026-11-08: game0.41.0, Godot4.6.3, savev13.
 Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD và code trước khi làm.
 
 ## Định hướng sản phẩm và nội dung (2026-11-08)
@@ -21,6 +21,15 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 
 **QUYẾT ĐỊNH MỚI (2026-11-08):** Mục tiêu đội hình V1.0 là **4 hero + 1 tinh linh**, thay cho 3 hero + 1 tinh linh. Đã triển khai theo yêu cầu tiếp theo của chủ dự án: 2 trước + 2 sau, không khóa nghề; save v12 nhận đội cũ 3 ô và đội mới 4 ô, snapshot v1 giữ nguyên. Bản0.38 dùng snapshotv2/địch ưu tiên slot; bản0.40 chuyển trận mới sang ArenaBattle/snapshotv3 như bên dưới. Xem docs/TEAM_COMBAT.md.
+
+## Arena Lab0.41 — xem hero đấu nhau
+
+[Dungeons → Arena](docs/ARENA_LAB.md) là page25, model RAM riêng `ArenaExhibition`.
+Chọn1–4 hero runtime mỗi phe, kể cả chưa sở hữu; không cấp hero, không dùng
+`game.battle`, begin_run/settle/commit hoặc phát thưởng. Giữ campaign pending.
+Nguồn sân mới ở `art/arena/`, PNG nguyên byte và provenance/SHA256. Preview HP×1/3/5
+chỉ trong trận thử; không đổi stats phát triển. Đây là nơi xem mỹ thuật, không
+phải benchmark cân bằng PvP. Tests: arena_exhibition, arena_lab_ui và dungeon_world.
 
 ## AI Arena0.40 — yêu cầu mới đã triển khai
 

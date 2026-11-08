@@ -40,7 +40,7 @@ func _decide(ally: Dictionary) -> void:
 		if attacker >= 0 and time - ally.attacked_at < 1.5: target = attacker
 		# Intercept threats near the weakest ally; this does not force enemy aggro.
 		var weak := _lowest()
-		if ally.id == "caelan" and weak >= 0 and allies[weak].hp < allies[weak].stats.hp * .65:
+		if ally.stats.hero == "caelan" and weak >= 0 and allies[weak].hp < allies[weak].stats.hp * .65:
 			var threat := _nearest(allies[weak].pos, enemies)
 			if threat >= 0 and enemies[threat].pos.distance_to(allies[weak].pos) < 160: target = threat
 		if target >= 0 and (_enemy_index(ally.ai_target) < 0 or _roll(ally.ai.switch)):
