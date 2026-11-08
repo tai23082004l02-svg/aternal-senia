@@ -39,10 +39,9 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 ## Chiến đấu và giao diện
 
 - Ngôn ngữ chính của toàn bộ UI là tiếng Anh; nội dung mới dùng tiếng Anh.
-  Không dịch tên người chơi đã lưu. Font theo docs/ENGLISH_UI.md: Playfair Display
-  Bold cho tên ải/chương/Boss; Be Vietnam Pro Bold cho hành động, SemiBold cho
-  chỉ số, Regular cho mô tả và Medium cho menu/danh sách nhân vật.
-  Dùng font đóng gói và Typography, không dùng font hệ thống.
+  Không dịch tên người chơi đã lưu. Toàn bộ giao diện dùng Playfair Display Bold,
+  gồm tiêu đề, nút, chỉ số, mô tả, menu và ô nhập liệu; xem docs/ENGLISH_UI.md.
+  Dùng font đóng gói qua UIFonts và Typography, không dùng font hệ thống.
 
 - Trận mới: TeamBattle/TeamBattleUI, tối đa3 hero sở hữu +1 tinh linh, tối đa4 địch.
   Đội hình không khóa nghề. BattleModel giữ tương thích pending singleton cũ.

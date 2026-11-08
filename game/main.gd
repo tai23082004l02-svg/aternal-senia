@@ -98,7 +98,6 @@ func _ready() -> void:
 	if not catalog.errors.is_empty():
 		push_error(str(catalog.errors))
 		return
-	get_node("/root/Typography").configure(catalog)
 	store = Store.new(catalog)
 	frames = Frames.new()
 	view = View.new()

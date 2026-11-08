@@ -8,22 +8,17 @@ Legacy pending battles render enemy names through `legacy_enemy_names.json` alia
 without rewriting the stored encounter or snapshot.
 The project name remains unchanged so Godot continues to use the same save folder.
 
-## Font roles
+## Unified interface font
 
-| Content | Bundled font |
-| --- | --- |
-| Stage, chapter, and boss names; display headings | Playfair Display Bold |
-| Play, Battle, Summon and primary actions | Be Vietnam Pro Bold |
-| HP, ATK, DEF, Power and compact stat readouts | Be Vietnam Pro SemiBold |
-| Skill and item descriptions; body copy and text input | Be Vietnam Pro Regular |
-| Menus, navigation and character lists | Be Vietnam Pro Medium |
+All interface text uses **Playfair Display Bold**: stage/chapter/boss names,
+buttons, menus, character lists, HP/ATK/Power readouts, descriptions, text input,
+rich text, tooltips, and drawn combat text. English remains the primary language.
 
-`game/ui_fonts.gd` loads the bundled resources lazily, supporting clean imports
-and standalone test runners. `game/typography.gd` is the Typography autoload. It sets the English locale and
-applies bundled fonts when controls enter the tree. `configure()` registers stage,
-chapter, boss, and roster names. Label metadata `font_role` can explicitly select
-`display`, `bold`, `semibold`, `medium`, or `regular` when a control needs a specific
-role. Dynamically drawn battle numbers use the same bundled fonts.
+`game/ui_fonts.gd` loads the bundled font lazily for clean imports and standalone
+test runners. All legacy role names (`display`, `bold`, `semibold`, `medium`,
+`regular`) resolve to the same Playfair Display Bold resource, so existing screen
+code stays compatible. The Typography autoload applies it to text controls.
+The Be Vietnam Pro source files and licenses are retained but are not used by UI.
 
 Use English source copy for new UI and display data. Continue using `tr()` where
 present so additional translations remain possible. Keep technical IDs and saved
@@ -57,7 +52,7 @@ python3 tools/verify_repo.py
 python3 tools/check_project.py --tests english_ui journey_ui player_profile settings_ui summon_ui
 ```
 
-`english_ui` checks primary locale, font assignments, menu/settings/profile copy,
+`english_ui` checks primary locale, uniform Playfair Display Bold assignments, menu/settings/profile copy,
 read-only browsing, and Unicode player-name persistence. It captures rendered
 screens under ignored `work/checks/english_ui/`. The static validator checks
 runtime strings/data for remaining Vietnamese copy (including known ASCII-only

@@ -9,12 +9,12 @@ func _initialize() -> void:
 	call_deferred("run")
 
 func inspect(node: Node) -> void:
+	if node is Label or node is Button or node is LineEdit or node is TextEdit:
+		assert(node.get_theme_font("font") == typography.DISPLAY, "All interface text uses Playfair Display Bold")
 	if (node is Label or node is Button) and node != game.profile_name:
 		assert(vietnamese.search(node.text) == null, "Untranslated UI: " + node.text)
 		for legacy in ["Tinh linh", "TINH LINH", "Tinh anh", "Mua", "Xem VIP", "Xem ›", "Kho tinh linh"]:
 			assert(not legacy in node.text, "Untranslated UI: " + node.text)
-		if node is Label and node.text.begins_with("HP"):
-			assert(node.get_theme_font("font") == typography.SEMIBOLD)
 	for child in node.get_children(): inspect(child)
 
 func capture(name: String) -> void:
@@ -39,7 +39,8 @@ func run() -> void:
 	assert(PlayerIdentity.state(original).name == "Traveler")
 	assert(game.ui.theme.default_font == typography.REGULAR)
 	assert(typography.DISPLAY.get_font_name().contains("Playfair"))
-	assert(typography.BOLD.get_font_name().contains("Be Vietnam Pro"))
+	for font in [typography.REGULAR, typography.MEDIUM, typography.SEMIBOLD, typography.BOLD]:
+		assert(font == typography.DISPLAY)
 	for page in [0, 1, 2, 4, 11, 20, 21, 22]:
 		game._select_tab(page)
 		await capture("page-%d" % page)

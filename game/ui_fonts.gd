@@ -2,10 +2,10 @@ class_name UIFonts
 extends RefCounted
 ## Lazy font resources work in fresh imports and standalone SceneTree test scripts.
 const PATHS := {
-	"regular": "res://art/fonts/BeVietnamPro-Regular.ttf",
-	"medium": "res://art/fonts/BeVietnamPro-Medium.ttf",
-	"semibold": "res://art/fonts/BeVietnamPro-SemiBold.ttf",
-	"bold": "res://art/fonts/BeVietnamPro-Bold.ttf",
+	"regular": "res://art/fonts/PlayfairDisplay-Bold.ttf",
+	"medium": "res://art/fonts/PlayfairDisplay-Bold.ttf",
+	"semibold": "res://art/fonts/PlayfairDisplay-Bold.ttf",
+	"bold": "res://art/fonts/PlayfairDisplay-Bold.ttf",
 	"display": "res://art/fonts/PlayfairDisplay-Bold.ttf",
 }
 static var fonts: Dictionary = {}
