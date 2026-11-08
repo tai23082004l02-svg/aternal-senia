@@ -18,6 +18,7 @@ func run() -> void:
 	root.add_child(game)
 	await process_frame
 	game._close_modal()
+	game._select_tab(0)
 	assert(screen().progress_text.text == "Chapter progress · 0/3 stages")
 	assert(not screen().auto_play.disabled and not screen().challenge.disabled)
 	var original: Dictionary = game.store.profile.duplicate(true)

@@ -28,6 +28,13 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 |BattleView/TeamBattleUI/CombatEffects|Đọc model/events và vẽ; renderer không đổi HP/RNG/ví|
 |AudioDirector|Tiêu thụ marker/cursor, bus/pool/limiter và nhạc; presentation variation không dùng RNG trận|
 
+## Presentation V2
+
+`UIDesignV2` owns presentation tokens and controls; `HomeScreen` is startup page24,
+Journey remains page0. `HeroShowcase` and `SummonReveal` use `game.modal` for input
+blocking and the existing close lifecycle. Reveal reads committed copied results;
+Showcase/Home read catalogue/profile without saving. See [UI handoff](UI_DESIGN_V2.md).
+
 ## Dữ liệu nguồn và builder
 
 - `game/data/hero_contracts.json`: cấu hình vũ khí/vai trò/skill hiện hành, Gallery và summon group; được HeroContract kiểm tra. Không import registry launch.

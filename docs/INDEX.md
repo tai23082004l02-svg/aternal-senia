@@ -54,6 +54,10 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 |[UNIQUE_COLLECTION](UNIQUE_COLLECTION.md)|Lịch sử mảnh/migration; singleton gear0.23 đã bị0.30 thay thế|
 |[PROGRESSION_09](PROGRESSION_09.md)|Lịch sử skill/triệu hồi; dùng SUMMON_VISUALS/SUPPLIES cho UI/vé hiện tại|
 
+## UI và bàn giao riêng
+
+[UI_DESIGN_V2](UI_DESIGN_V2.md): tokens màu/font/khoảng cách/control, Gallery → Showcase → Reveal → Home, điều hướng và ranh giới UI/thiết kế nhân vật.
+
 ## Nhân vật, mỹ thuật và âm thanh
 
 | Tài liệu | Phạm vi |

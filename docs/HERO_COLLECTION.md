@@ -87,6 +87,15 @@ plus resource/link and English/font validators. Compact, detailed, empty and
 24-entry scroll captures were reviewed under ignored `work/checks/collection_ui/`.
 Physical phone touch, texture RAM, FPS and heat remain unverified.
 
+## V2 Showcase / Reveal handoff
+
+[UI_DESIGN_V2](UI_DESIGN_V2.md) is the presentation handoff, separate from character
+contracts and source artwork. Showcase now has full illustration, right-side tabs,
+read-only Information/Skills, guarded Equipment/Wardrobe routing and portrait
+navigation. Bond/Story stay locked. Reveal and its summary use V2 panels/controls,
+recorded result labels and reduced-motion handling. Home links to Gallery and
+Showcase; it never changes formation or avatar when cycling portraits.
+
 ## Player flow
 
 Heroes → Gallery opens the current four-hero collection. Filter by affinity,

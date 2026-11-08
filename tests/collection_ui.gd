@@ -4,6 +4,7 @@ func _initialize() -> void:
 	OS.set_environment("FIRST_LIGHT_SAVE_DIR",ProjectSettings.globalize_path("user://first_light_tests/collection_ui_%d" % Time.get_ticks_usec()))
 	call_deferred("run")
 func capture(name: String) -> void:
+	if "reveal" in name: await create_timer(.4).timeout
 	await process_frame
 	await process_frame
 	await RenderingServer.frame_post_draw
@@ -168,6 +169,8 @@ func run() -> void:
 	committed = game.store.profile.duplicate(true)
 	game._replay_summon()
 	await capture("summon-hero-reveal")
+	game.modal.find_child("RevealDetails", true, false).pressed.emit()
+	assert(game.modal.name == "HeroShowcase" and game.store.profile == committed)
 	game._close_modal()
 	assert(game.store.profile == committed)
 	p = committed.duplicate(true)

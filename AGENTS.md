@@ -22,6 +22,12 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 **QUYẾT ĐỊNH MỚI (2026-11-08):** Mục tiêu đội hình V1.0 là **4 hero + 1 tinh linh**, thay cho 3 hero + 1 tinh linh. Đã triển khai theo yêu cầu tiếp theo của chủ dự án: 2 trước + 2 sau, không khóa nghề; save v12 nhận đội cũ 3 ô và đội mới 4 ô, snapshot v1 giữ nguyên, trận mới dùng snapshot v2. Địch vẫn ưu tiên slot còn sống nhỏ nhất. Xem docs/TEAM_COMBAT.md.
 
+## Phân công UI / nhân vật — 2026-11-08
+
+- Người dùng giao UI, bố cục, điều hướng và cảnh nền cho nhánh công việc UI. Người khác phụ trách tạo hình, trang phục, vũ khí, pose, bản sắc và thiết kế kỹ năng nhân vật. Không trộn hoặc tự sửa đầu vào nhân vật trong task UI.
+- Handoff UI riêng: [docs/UI_DESIGN_V2.md](docs/UI_DESIGN_V2.md). Tokens ở `game/ui_design_v2.gd`; Gallery/Showcase/Reveal/Home là các module trình bày riêng, đọc art/contract hiện có. Giữ ID, provenance và source artwork; không di chuyển chúng chỉ để tổ chức UI.
+- Home mới là page24 khi khởi động; Journey vẫn page0. Header Home và More trên Home giữ điều hướng. Chọn portrait Home chỉ trong RAM, không ghi favorite/avatar/formation. Bond/Story vẫn khóa.
+
 ## Cộng tác và phạm vi
 
 - Người dùng yêu cầu luôn đẩy kết quả lên GitHub sau khi hoàn thành nhiệm vụ,

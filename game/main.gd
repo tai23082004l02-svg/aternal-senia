@@ -43,7 +43,8 @@ var speed_button: Button
 var mute_button: Button
 var tabs: Array[Button] = []
 var panel: VBoxContainer
-var tab := 0
+var tab := 24
+var home_hero := ""
 var selected_stage := 1
 var selected_item := ""
 var equipment_target := ""
@@ -179,7 +180,9 @@ func _build_ui() -> void:
 		ui.add_child(icon)
 		currency_labels[key] = _label(ui, "", Vector2(58 + i * 166, 91), 14, Color("e1c38d"))
 	mute_button = _button(ui, "Sound: On", Vector2(422, 25), Vector2(94, 34), _toggle_sound)
-	_button(ui, "≡", Vector2(374, 25), Vector2(40, 34), _select_tab.bind(4)).tooltip_text = "Menu"
+	var home_button: Button = _button(ui, "Home", Vector2(358, 25), Vector2(56, 44), _select_tab.bind(24))
+	home_button.tooltip_text = "Home"
+	home_button.add_theme_font_size_override("font_size", 12)
 	stage_label = _label(ui, "", Vector2(24, 143), 19, Color("eee8d6"))
 	stage_label.set_meta("font_role", "display")
 	var tap := Button.new()
@@ -365,7 +368,7 @@ func _refresh_panel() -> void:
 		child.queue_free()
 	var campaign := tab == 0
 	var fighting := battle != null
-	_style_journey_shell((campaign and not fighting) or tab == 22, 1 if tab == 22 else 2)
+	_style_journey_shell((campaign and not fighting) or tab in [22, 24], 1 if tab == 22 else 2)
 	team_ui.visible = campaign and battle is TeamBattle
 	view.visible = campaign and fighting and not battle is TeamBattle
 	for control in [hp_label, enemy_label, warning_label, hp_bar, enemy_bar, sp_bar, guard_button, attack_button, pause_button, auto_button, speed_button, stage_label, tap_target]:
@@ -384,6 +387,13 @@ func _refresh_panel() -> void:
 		tabs[i].position.y = 876
 		var section: int = 20 if tab in [20, 11] else (2 if tab in [2, 17, 18, 19] else (1 if tab in [1, 6, 7, 9, 12, 13, 22, 23] else (21 if tab in [5, 21] else 0)))
 		tabs[i].modulate = Color("e3c998") if NAV_PAGES[i] == section else Color.WHITE
+	if tab in [23, 24]:
+		for capsule in journey_wallet_frames:
+			capsule.show()
+			capsule.add_theme_stylebox_override("panel", UIDesignV2.panel())
+		for navigation in tabs:
+			navigation.add_theme_stylebox_override("normal", UIDesignV2.panel())
+			navigation.add_theme_stylebox_override("hover", UIDesignV2.panel(true))
 	view.preview = catalog.stats(store.profile)
 	view.selected_stage = catalog.find_row("stages", selected_stage)
 	match tab:
@@ -405,10 +415,16 @@ func _refresh_panel() -> void:
 		21: _dungeons_panel()
 		22: _formation_panel()
 		23: _gallery_panel()
+		24:
+			var home := HomeScreen.new()
+			home.game = self
+			panel.add_child(home)
 		_: _expansion_panel(tab)
 
 func _style_journey_shell(enabled: bool, active_index: int = 2) -> void:
-	for capsule in journey_wallet_frames: capsule.visible = enabled
+	for capsule in journey_wallet_frames:
+		capsule.visible = enabled
+		capsule.add_theme_stylebox_override("panel", _style(Color("0d303b"), Color("bca266"), 17))
 	for i in range(tabs.size()):
 		var button: Button = tabs[i]
 		for state in ["normal", "hover", "pressed"]:

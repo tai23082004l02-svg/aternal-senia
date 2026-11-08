@@ -9,7 +9,8 @@ Studio **ZORVYKA Games** · **zorvykagames@gmail.com**.
 ## Bắt đầu
 
 Mở `project.godot` trong Godot 4.6.x, đợi import rồi chạy F5.
-Vào **Hành trình**, chuẩn bị đội hình và chọn vào ải.
+Khởi động ở **Home**; mở **Journey** để chuẩn bị đội hình và chọn vào ải.
+UI và handoff riêng: [UI Design V2](docs/UI_DESIGN_V2.md).
 Không cần API key, tài khoản hoặc dịch vụ trả phí để chơi.
 
 - Bốn hero Eira, Ryn, Mira, Lyra; đội tối đa bốn hero đã sở hữu và một tinh linh.

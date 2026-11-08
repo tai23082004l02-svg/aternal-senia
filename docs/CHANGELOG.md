@@ -47,3 +47,10 @@ không sao chép cơ chế lỗi thời trở lại code.
 - Replace the text-heavy hero list with four-column portrait cards, navy/gold styling, real owned/total count and affinity tabs.
 - Add compact/detail views, combined ownership/role filters, reset and empty results. Locked heroes remain inspectable; source artwork, acquisition and save data stay intact.
 - Extend collection_ui with card bounds, 24-entry scrolling fixtures and view/filter interactions without profile mutation.
+
+## 2026-11-08 — UI Design V2: Showcase, Reveal, Home
+
+- Add shared presentation tokens and separate Home/Showcase modules; startup Home is page24, Journey stays page0 and the header has a Home action.
+- Replace Gallery's simple preview with a read-only Showcase, real Information/Skills and guarded Equipment/Wardrobe routes. Bond/Story remain locked.
+- Refresh committed-results Reveal and summary, including hero details and reduced motion. Preserve summon transactions, replay, old saves and pending battle behavior.
+- Document UI/character workstream boundaries in UI_DESIGN_V2; source character art, contracts and mechanics are unchanged.

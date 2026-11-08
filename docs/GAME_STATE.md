@@ -47,6 +47,15 @@ tổng kết và xem lại lô đã commit sau khi tải save. Giữ savev12, ch
 pool/pity/giá và art cũ; chưa thêm 20 hero, Bond hoặc combat launch mới.
 Chi tiết tương thích snapshot và kế hoạch migration roster: [HERO_COLLECTION](HERO_COLLECTION.md).
 
+## UI Design V2 — Showcase, Reveal, Home
+
+Đã có Home riêng khi khởi động (page24), nút Home trên header; Journey giữ page0.
+Showcase xem art/identity/skill copy thật, chọn portrait, mở Equipment/Wardrobe qua
+UI cũ; Bond/Story khóa. Reveal mới trình bày snapshot kết quả đã commit, có summary,
+skip/replay và reduced motion; không gọi summon/RNG. Chọn portrait Home chỉ trong
+RAM, không ghi save/formation/avatar. Module và handoff riêng ở
+[UI_DESIGN_V2](UI_DESIGN_V2.md); artwork, pose, kỹ năng và nhân vật không đổi.
+
 ## Gallery — giao diện mới 2026-11-08
 
 Gallery dùng lưới chân dung4 cột, khung vàng/navy, bộ đếm sở hữu thật, tab hệ,

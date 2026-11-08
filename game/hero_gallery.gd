@@ -1,9 +1,9 @@
 class_name HeroGallery
 extends VBoxContainer
 
-const GOLD := Color("dfbd79")
-const IVORY := Color("f6eddb")
-const MUTED := Color("9aaec2")
+const GOLD := UIDesignV2.GOLD
+const IVORY := UIDesignV2.IVORY
+const MUTED := UIDesignV2.MUTED
 var game
 var affinity := "All"
 var ownership := "All"
@@ -179,8 +179,7 @@ func rebuild() -> void:
 		card.custom_minimum_size = Vector2(226, 238) if detailed else Vector2(109, 184)
 		card.clip_contents = true
 		decorate(card)
-		var border: StyleBoxFlat = game._style(Color("142039"), GOLD if owned else Color("616b81"), 9)
-		border.set_border_width_all(2)
+		var border: StyleBoxFlat = UIDesignV2.card_frame(owned)
 		card.add_theme_stylebox_override("normal", border)
 		card.tooltip_text = "%s · %s · %s\n%s\n%s" % [row.name, str(row.element).capitalize(), row.role, tr("Owned" if owned else "Not owned"), row.acquisition]
 		card.pressed.connect(game._on_button.bind(showcase.bind(row.id)))
@@ -233,17 +232,4 @@ class GalleryPortrait extends Control:
 		if locked: draw_rect(Rect2(Vector2.ZERO, size), Color(.06,.08,.18,.18))
 
 func showcase(id: String) -> void:
-	var row: Dictionary = game.catalog.find_row("heroes", id)
-	if row.is_empty(): return
-	var column: VBoxContainer = game._dialog(row.name + " · 5★", row.acquisition, [{"text":tr("Hero details"), "call":func(): game._close_modal(); game._open_gallery_hero(id)}, {"text":tr("Close"), "call":game._close_modal}])
-	var image := TextureRect.new()
-	image.texture = load(row.art.banner)
-	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	image.custom_minimum_size = Vector2(400, 280)
-	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	column.add_child(image)
-	column.move_child(image, 1)
-	column.get_child(0).hide()
-	column.get_parent().get_parent().position.y = 100
-	column.get_parent().get_parent().set_deferred("size", Vector2(472, 720))
+	HeroShowcase.show(game, id)
