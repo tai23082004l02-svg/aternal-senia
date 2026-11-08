@@ -1,7 +1,7 @@
 # Hướng dẫn cho phiên chat phát triển tiếp
 
 Đọc README → docs/GAME_STATE.md → docs/SYSTEMS.md → docs/INDEX.md trước khi sửa.
-Trạng thái hiện hành sau dọn UI 2026-11-08: game0.38.0, Godot4.6.3, savev13.
+Trạng thái hiện hành sau cập nhật UI 2026-11-08: game0.39.0, Godot4.6.3, savev13.
 Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD và code trước khi làm.
 
 ## Định hướng sản phẩm và nội dung (2026-11-08)
@@ -22,6 +22,10 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 **QUYẾT ĐỊNH MỚI (2026-11-08):** Mục tiêu đội hình V1.0 là **4 hero + 1 tinh linh**, thay cho 3 hero + 1 tinh linh. Đã triển khai theo yêu cầu tiếp theo của chủ dự án: 2 trước + 2 sau, không khóa nghề; save v12 nhận đội cũ 3 ô và đội mới 4 ô, snapshot v1 giữ nguyên, trận mới dùng snapshot v2. Địch vẫn ưu tiên slot còn sống nhỏ nhất. Xem docs/TEAM_COMBAT.md.
 
+## UI Celestial0.39
+
+Theo yêu cầu mới, dùng bộ Selena để thay UI: đọc [UI_CELESTIAL_0_39](docs/UI_CELESTIAL_0_39.md). Home mặc định là Selena **design preview**; `selena_preview` chỉ ở CharacterPreviews, không phải hero được sở hữu hoặc nằm trong pool. Màn art-reveal preview tách khỏi kết quả triệu hồi thật. Giữ nguyên PNG nguồn và planning Selene. Bond/Story vẫn khóa, savev13 không đổi.
+
 ## Phân công UI / nhân vật — 2026-11-08
 
 - Người dùng giao UI, bố cục, điều hướng và cảnh nền cho nhánh công việc UI. Người khác phụ trách tạo hình, trang phục, vũ khí, pose, bản sắc và thiết kế kỹ năng nhân vật. Không trộn hoặc tự sửa đầu vào nhân vật trong task UI.
@@ -32,7 +36,7 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 - [docs/CLEANUP_0_38.md](docs/CLEANUP_0_38.md): đã bỏ helper UI không được gọi, màn skill/spirit trùng và ba recorder cũ. Không phục hồi chúng để làm UI mới. Page6/7 chuyển về màn hiện hành; vẫn giữ model/renderer cho pending singleton.
 - `CharacterPreviews` dành cho thiết kế chưa tích hợp. Caelan đã được nâng thành hero runtime theo yêu cầu mới, bỏ entry preview trùng; xem CAELAN_RUNTIME. Không tự đưa các thiết kế khác vào gameplay.
-- Home hiện v0.38.0. Android export in version/commit, dùng thư mục mới; việc thêm PNG không tự tạo hero hoặc cập nhật project cũ đã xuất.
+- Home hiện v0.39.0. Android export in version/commit, dùng thư mục mới; việc thêm PNG không tự tạo hero hoặc cập nhật project cũ đã xuất.
 
 ## Cộng tác và phạm vi
 

@@ -19,32 +19,58 @@ static func show_batch(game, entries: Array, index: int = 0) -> void:
 	UIDesignV2.text(surface, "%d / %d" % [index + 1, results.size()], Vector2(16, 42), Vector2(100, 24), 14)
 	UIDesignV2.button(game, surface, "Skip to summary", Vector2(312, 12), Vector2(164, 44), show_summary.bind(game, results)).name = "RevealSkip"
 	var aura := RevealAura.new()
-	aura.position = Vector2(8, 76)
-	aura.size = Vector2(476, 412)
+	aura.position = Vector2(8, 60)
+	aura.size = Vector2(476, 560)
 	aura.animate = not game.presentation_options.reduced_effects and not game.presentation_options.battery_saver
 	aura.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	surface.add_child(aura)
-	var image := UIDesignV2.art(surface, artwork(game, result), Vector2(16, 84), Vector2(460, 396), result.kind == "hero")
+	var image := UIDesignV2.art(surface, artwork(game, result), Vector2(8, 60), Vector2(476, 550), result.kind == "hero")
 	image.name = "RevealArtwork"
+	UIDesignV2.shade(surface,Vector2(8,430),Vector2(476,240),Color("0b143000"),Color("0b1430ff"))
+	# Header stays above the full illustration.
+	surface.move_child(surface.get_child(0),surface.get_child_count()-1)
+	surface.move_child(surface.get_child(0),surface.get_child_count()-1)
+	surface.move_child(surface.get_child(0),surface.get_child_count()-1)
 	if aura.animate:
 		image.modulate.a = 0
 		image.create_tween().tween_property(image, "modulate:a", 1.0, .35)
-	var name_label := UIDesignV2.text(surface, game._entity_name(result.kind, result.id), Vector2(16, 516), Vector2(460, 48), 32)
+	var name_label := UIDesignV2.text(surface, game._entity_name(result.kind, result.id), Vector2(16, 574), Vector2(460, 48), 32)
 	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var rarity := UIDesignV2.text(surface, "★★★★★" if result.kind == "hero" else Recruitment.label(result.kind, result.id, game.catalog), Vector2(16, 490), Vector2(460, 24), 18, UIDesignV2.GOLD)
+	var rarity := UIDesignV2.text(surface, "★★★★★" if result.kind == "hero" else Recruitment.label(result.kind, result.id, game.catalog), Vector2(16, 544), Vector2(460, 24), 18, UIDesignV2.GOLD)
 	rarity.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var detail: String = game.tr("Equipment added to your bag.")
 	if result.kind != "item": detail = game.tr("Duplicate · 10 matching Fragments") if result.get("duplicate", false) else game.tr("New companion acquired")
-	var receipt := UIDesignV2.text(surface, detail, Vector2(16, 574), Vector2(460, 46), 16, UIDesignV2.GOLD)
+	var receipt := UIDesignV2.text(surface, detail, Vector2(16, 638), Vector2(460, 46), 16, UIDesignV2.GOLD)
 	receipt.name = "RevealReceipt"
 	receipt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	if result.kind == "hero":
 		var row: Dictionary = game.catalog.find_row("heroes", result.id)
-		UIDesignV2.text(surface, str(row.element).capitalize() + " · " + row.role, Vector2(16, 626), Vector2(460, 26), 15, UIDesignV2.MUTED).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		UIDesignV2.button(game, surface, "Hero details", Vector2(16, 688), Vector2(216, 52), HeroShowcase.show.bind(game, result.id)).name = "RevealDetails"
+		UIDesignV2.text(surface, str(row.element).capitalize() + " · " + row.role, Vector2(16, 692), Vector2(460, 26), 15, UIDesignV2.MUTED).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		UIDesignV2.button(game, surface, "Hero details", Vector2(16, 764), Vector2(216, 52), HeroShowcase.show.bind(game, result.id)).name = "RevealDetails"
 	else:
-		UIDesignV2.button(game, surface, "Close", Vector2(16, 688), Vector2(216, 52), game._close_modal).name = "RevealClose"
-	UIDesignV2.button(game, surface, "Next" if index + 1 < results.size() else "Summary", Vector2(244, 688), Vector2(232, 52), show_batch.bind(game, results, index + 1), true).name = "RevealNext"
+		UIDesignV2.button(game, surface, "Close", Vector2(16, 764), Vector2(216, 52), game._close_modal).name = "RevealClose"
+	UIDesignV2.button(game, surface, "Next" if index + 1 < results.size() else "Summary", Vector2(244, 764), Vector2(232, 52), show_batch.bind(game, results, index + 1), true).name = "RevealNext"
+
+## Explicit illustration viewer; never impersonates a committed summon result.
+static func show_art_preview(game, id: String) -> void:
+	var row := CharacterPreviews.find(id)
+	if row.is_empty(): return
+	var surface := UIDesignV2.overlay(game,"ArtRevealPreview")
+	UIDesignV2.art(surface,load(row.art.banner),Vector2.ZERO,Vector2(492,840))
+	var aura := RevealAura.new()
+	aura.position = Vector2(8,40)
+	aura.size = Vector2(476,530)
+	aura.animate = not game.presentation_options.reduced_effects and not game.presentation_options.battery_saver
+	aura.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	surface.add_child(aura)
+	UIDesignV2.shade(surface,Vector2(0,440),Vector2(492,400),Color("0b143000"),Color("0b1430ff"))
+	UIDesignV2.shade(surface,Vector2.ZERO,Vector2(492,80),Color("0b1430ee"),Color("0b143000"))
+	UIDesignV2.text(surface,"ART PREVIEW · NOT A SUMMON RESULT",Vector2(16,16),Vector2(460,40),13,UIDesignV2.GOLD).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UIDesignV2.text(surface,row.name,Vector2(16,580),Vector2(460,56),40).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UIDesignV2.text(surface,"Moonlight Mage",Vector2(16,640),Vector2(460,32),18,UIDesignV2.GOLD).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UIDesignV2.text(surface,"Visual design preview. This character is not recruitable.",Vector2(36,690),Vector2(420,48),15).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UIDesignV2.button(game,surface,"View details",Vector2(16,764),Vector2(216,52),HeroShowcase.show.bind(game,id))
+	UIDesignV2.button(game,surface,"Close preview",Vector2(244,764),Vector2(232,52),game._close_modal,true).name = "ArtPreviewClose"
 
 static func show_summary(game, entries: Array) -> void:
 	var results: Array = entries.duplicate(true)
@@ -83,7 +109,7 @@ static func show_summary(game, entries: Array) -> void:
 		if result.get("duplicate", false): description.text += "\n" + game.tr("Duplicate · 10 matching Fragments")
 		elif result.kind != "item": description.text += "\n" + game.tr("New companion")
 		content.add_child(description)
-	UIDesignV2.button(game, surface, "Close", Vector2(16, 688), Vector2(460, 52), game._close_modal, true).name = "SummaryClose"
+	UIDesignV2.button(game, surface, "Close", Vector2(16, 764), Vector2(460, 52), game._close_modal, true).name = "SummaryClose"
 
 class RevealAura extends Control:
 	var elapsed := 0.0

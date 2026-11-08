@@ -9,6 +9,7 @@ var hp_texts: Array[Label] = []
 var health: Array[ProgressBar] = []
 var energy: Array[ProgressBar] = []
 var ultimates: Array[Button] = []
+var portraits: Array[CharacterScreen.Face] = []
 var auto_button: Button
 var next_button: Button
 var pause_button: Button
@@ -26,43 +27,56 @@ func _ready() -> void:
 	add_child(field)
 	for i in range(5):
 		var box := Panel.new()
-		box.position = Vector2(24 + i * 125, 371) if i < 4 else Vector2(24, 494)
-		box.size = Vector2(117, 117) if i < 4 else Vector2(492, 52)
-		box.add_theme_stylebox_override("panel", game._style(Color("152c37"), Color("8e7b53"), 10))
+		box.position = Vector2(24 + i * 125, 371) if i < 4 else Vector2(24, 518)
+		box.size = Vector2(117, 138) if i < 4 else Vector2(492, 52)
+		box.add_theme_stylebox_override("panel", UIDesignV2.panel())
 		add_child(box)
-		names.append(game._label(box, "", Vector2(8, 5), 16, Color("e5cd9e")))
+		if i < 4:
+			var portrait := CharacterScreen.Face.new()
+			portrait.frames = game.frames
+			portrait.hero = "eira"
+			portrait.position = Vector2(7,5)
+			portrait.size = Vector2(44,44)
+			portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			box.add_child(portrait)
+			portraits.append(portrait)
+		names.append(game._label(box, "", Vector2(54,10) if i < 4 else Vector2(8,5),12 if i < 4 else 16,UIDesignV2.GOLD))
+		names[-1].size = Vector2(60,38) if i < 4 else Vector2(160,24)
+		names[-1].autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		var hp := ProgressBar.new()
-		hp.position = Vector2(8, 40)
+		hp.position = Vector2(8, 70)
 		hp.size = Vector2(101, 7)
 		hp.show_percentage = false
 		box.add_child(hp)
 		health.append(hp)
-		hp_texts.append(game._label(box, "", Vector2(8, 25), 10))
-		if i == 4: hp.hide()
+		hp_texts.append(game._label(box, "", Vector2(8, 53), 10))
+		if i == 4:
+			hp.hide()
+			hp_texts[-1].position = Vector2(170,4)
 		_bar_style(hp, Color("8bd6b6"))
 		var nrg := ProgressBar.new()
-		nrg.position = Vector2(8, 54) if i < 4 else Vector2(170, 23)
+		nrg.position = Vector2(8, 81) if i < 4 else Vector2(170, 23)
 		nrg.size = Vector2(101, 7)
 		nrg.show_percentage = false
 		box.add_child(nrg)
 		energy.append(nrg)
 		_bar_style(nrg, Color("d4b56d"))
-		var button: Button = game._button(box, "", Vector2(7, 65), Vector2(103, 42), _ultimate.bind(i))
+		var button: Button = game._button(box, "", Vector2(7, 94), Vector2(103, 42), _ultimate.bind(i))
 		button.add_theme_font_size_override("font_size", 13)
 		if i == 4:
 			button.position = Vector2(318, 5)
 			button.size = Vector2(166, 42)
 		ultimates.append(button)
-	auto_button = game._button(self, "", Vector2(24, 554), Vector2(148, 44), _auto)
+	auto_button = game._button(self, "", Vector2(24, 580), Vector2(148, 44), _auto)
 	auto_button.add_theme_font_size_override("font_size", 14)
-	speed_button = game._button(self, "×1", Vector2(180, 554), Vector2(64, 44), game._speed)
-	pause_button = game._button(self, "Stop", Vector2(252, 554), Vector2(96, 44), game._toggle_pause)
-	next_button = game._button(self, "", Vector2(356, 554), Vector2(160, 44), _next)
+	speed_button = game._button(self, "×1", Vector2(180, 580), Vector2(64, 44), game._speed)
+	pause_button = game._button(self, "Stop", Vector2(252, 580), Vector2(96, 44), game._toggle_pause)
+	next_button = game._button(self, "", Vector2(356, 580), Vector2(160, 44), _next)
 	next_button.add_theme_font_size_override("font_size", 14)
-	game._button(self, "Retreat · No rewards", Vector2(24, 606), Vector2(492, 46), game._confirm_abandon)
-	game._button(self, "Formation & Heroes", Vector2(24, 658), Vector2(492, 46), game._select_tab.bind(22))
-	notice = game._label(self, "", Vector2(24, 710), 12)
-	notice.size = Vector2(492, 24)
+	game._button(self, "Retreat · No rewards", Vector2(24, 632), Vector2(492, 46), game._confirm_abandon)
+	game._button(self, "Formation & Heroes", Vector2(24, 682), Vector2(492, 44), game._select_tab.bind(22))
+	notice = game._label(self, "", Vector2(24, 728), 10)
+	notice.size = Vector2(492, 14)
 	notice.clip_text = true
 
 func _process(_delta: float) -> void:
@@ -85,6 +99,7 @@ func _process(_delta: float) -> void:
 	for i in range(5):
 		if i < Formation.HERO_LIMIT:
 			if i >= model.allies.size():
+				portraits[i].visible = false
 				names[i].text = "Empty slot"
 				hp_texts[i].text = "No hero"
 				health[i].value = 0
@@ -93,6 +108,9 @@ func _process(_delta: float) -> void:
 				ultimates[i].disabled = true
 				continue
 			var ally: Dictionary = model.allies[i]
+			portraits[i].visible = true
+			portraits[i].hero = ally.id
+			portraits[i].queue_redraw()
 			names[i].text = game.catalog.find_row("heroes", ally.id).name
 			hp_texts[i].text = "%d / %d HP" % [ally.hp, ally.stats.hp]
 			health[i].value = ally.hp / ally.stats.hp * 100

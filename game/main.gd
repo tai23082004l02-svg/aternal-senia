@@ -132,12 +132,12 @@ func _build_ui() -> void:
 	theme.set_font("font", "LineEdit", UIFonts.font("regular"))
 	theme.set_font("font", "OptionButton", UIFonts.font("medium"))
 	theme.set_font("font", "ItemList", UIFonts.font("medium"))
-	var normal := _style(Color("17313e"), Color("57615b"), 12)
-	var hover := _style(Color("294b56"), Color("d2bb83"), 12)
+	var normal := UIDesignV2.panel()
+	var hover := UIDesignV2.panel(true)
 	theme.set_stylebox("normal", "Button", normal)
 	theme.set_stylebox("hover", "Button", hover)
-	theme.set_stylebox("pressed", "Button", _style(Color("425951"), Color("d8c69d"), 10))
-	theme.set_stylebox("disabled", "Button", _style(Color("122733"), Color("35484f"), 12))
+	theme.set_stylebox("pressed", "Button", UIDesignV2.panel(true))
+	theme.set_stylebox("disabled", "Button", _style(Color("10182b"), Color("40465d"), 7))
 	theme.set_color("font_color", "Button", Color("ede5d0"))
 	theme.set_color("font_disabled_color", "Button", Color("74858c"))
 	theme.set_color("font_color", "Label", Color("dedfd5"))
@@ -166,7 +166,7 @@ func _build_ui() -> void:
 		capsule.position = Vector2(20 + i * 168, 83)
 		capsule.size = Vector2(160, 34)
 		capsule.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		capsule.add_theme_stylebox_override("panel", _style(Color("0d303b"), Color("bca266"), 17))
+		capsule.add_theme_stylebox_override("panel", UIDesignV2.panel())
 		ui.add_child(capsule)
 		journey_wallet_frames.append(capsule)
 		var key: String = ["gold", "shards", "xp"][i]
@@ -236,6 +236,9 @@ func _build_ui() -> void:
 
 func _style(fill: Color, border: Color, radius: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
+	# Unify legacy dark teal panels with the celestial navy theme.
+	if fill.v < .5 and fill.g > fill.r:
+		fill = Color.from_hsv(.64,.62,maxf(fill.v,.12),fill.a)
 	style.bg_color = fill
 	style.border_color = border
 	style.set_border_width_all(1)
@@ -374,7 +377,7 @@ func _refresh_panel() -> void:
 		child.queue_free()
 	var campaign := tab == 0
 	var fighting := battle != null
-	_style_journey_shell((campaign and not fighting) or tab in [22, 24], 1 if tab == 22 else 2)
+	_style_currency_shell()
 	team_ui.visible = campaign and battle is TeamBattle
 	view.visible = campaign and fighting and not battle is TeamBattle
 	for control in [hp_label, enemy_label, warning_label, hp_bar, enemy_bar, sp_bar, guard_button, attack_button, pause_button, auto_button, speed_button, stage_label, tap_target]:
@@ -397,9 +400,13 @@ func _refresh_panel() -> void:
 		for capsule in journey_wallet_frames:
 			capsule.show()
 			capsule.add_theme_stylebox_override("panel", UIDesignV2.panel())
-		for navigation in tabs:
-			navigation.add_theme_stylebox_override("normal", UIDesignV2.panel())
-			navigation.add_theme_stylebox_override("hover", UIDesignV2.panel(true))
+	for navigation in tabs:
+		for state in ["normal","pressed","focus"]:
+			navigation.add_theme_stylebox_override(state,StyleBoxEmpty.new())
+		var glow := StyleBoxFlat.new()
+		glow.bg_color = Color("d6ad5a18")
+		glow.set_corner_radius_all(6)
+		navigation.add_theme_stylebox_override("hover",glow)
 	view.preview = catalog.stats(store.profile)
 	view.selected_stage = catalog.find_row("stages", selected_stage)
 	match tab:
@@ -426,18 +433,10 @@ func _refresh_panel() -> void:
 			panel.add_child(home)
 		_: _expansion_panel(tab)
 
-func _style_journey_shell(enabled: bool, active_index: int = 2) -> void:
+func _style_currency_shell() -> void:
 	for capsule in journey_wallet_frames:
-		capsule.visible = enabled
-		capsule.add_theme_stylebox_override("panel", _style(Color("0d303b"), Color("bca266"), 17))
-	for i in range(tabs.size()):
-		var button: Button = tabs[i]
-		for state in ["normal", "hover", "pressed"]:
-			button.remove_theme_stylebox_override(state)
-		if enabled:
-			button.add_theme_stylebox_override("normal", _style(Color("19555b") if i == active_index else Color("0a2935"), Color("f6d27a") if i == active_index else Color("8d805b"), 17))
-			button.add_theme_stylebox_override("hover", _style(Color("24646a"), Color("f6d27a"), 17))
-			button.add_theme_stylebox_override("pressed", _style(Color("1e6f73"), Color("f8f3e3"), 17))
+		capsule.visible = true
+		capsule.add_theme_stylebox_override("panel",UIDesignV2.panel())
 
 func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) -> void:
 	var label := _label(panel, text, Vector2.ZERO, font_size, color)

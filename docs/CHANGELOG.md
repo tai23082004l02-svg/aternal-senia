@@ -1,5 +1,10 @@
 # Các mốc phát triển
 
+## 0.39.0 · 2026-11-08
+
+Celestial navy/gold UI: replaced Home composition, shared menu glyphs/panels, taller Gallery cards and Showcase, left-rail Summon, taller Reveal and portrait battle HUD. Selena remains a labeled visual preview, including a separate non-transactional art reveal. Original art, five playable hero IDs, recruitment economy, combat behavior and savev13 are preserved. See [UI handoff](UI_CELESTIAL_0_39.md).
+
+
 Các mốc mô tả lịch sử, không thay [GAME_STATE](GAME_STATE.md).
 Bản hiện tại0.38/savev13; mốc dọn repo trước đó không đổi gameplay/schema.
 

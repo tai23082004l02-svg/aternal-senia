@@ -61,9 +61,9 @@ func run() -> void:
 	var original: Dictionary = game.store.profile.duplicate(true)
 	game._select_tab(23)
 	var gallery: HeroGallery = game.panel.get_child(0)
-	assert(gallery.visible_ids.size() == game.catalog.data.heroes.size())
+	assert(gallery.visible_ids.size() == game.catalog.data.heroes.size() + CharacterPreviews.rows().size())
 	await capture("gallery-all")
-	assert(gallery.cards.columns == 4 and gallery.card_buttons.size() == game.catalog.data.heroes.size())
+	assert(gallery.cards.columns == 4 and gallery.card_buttons.size() == game.catalog.data.heroes.size() + CharacterPreviews.rows().size())
 	assert(gallery.collection_count.text == "Owned 1 / %d" % game.catalog.data.heroes.size())
 	for button in gallery.card_buttons.values():
 		assert(button.get_global_rect().size.x >= 100)

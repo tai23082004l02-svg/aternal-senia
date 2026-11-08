@@ -30,8 +30,9 @@ func _ready() -> void:
 		tabs.append(b)
 	strip.set_deferred("scroll_horizontal", maxi(0, selected * 128 - 160))
 	var content := SwipeScroll.new()
-	content.position = Vector2(0, 96)
-	content.size = Vector2(492, 624)
+	content.position = Vector2(0, 0 if selected == 2 else 96)
+	content.size = Vector2(492, 720 if selected == 2 else 624)
+	strip.visible = selected != 2
 	content.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(content)
 	body = VBoxContainer.new()

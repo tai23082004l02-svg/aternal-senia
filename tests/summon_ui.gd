@@ -30,7 +30,8 @@ func run() -> void:
 	assert(screen().featured.size() == 5)
 	for tile in screen().featured_buttons:
 		assert(tile.get_global_rect().encloses(tile.get_child(1).get_global_rect()),"Reward artwork stays inside its clickable tile")
-	assert(screen().kind_buttons[0].global_position.y == screen().kind_buttons[2].global_position.y)
+	assert(screen().kind_buttons[0].global_position.x == screen().kind_buttons[2].global_position.x)
+	assert(screen().kind_buttons[0].global_position.y < screen().kind_buttons[2].global_position.y)
 	assert(screen().draw_one.size.x > 200 and screen().draw_ten.size.x > 200)
 	screen().featured_buttons[0].pressed.emit()
 	assert(game.modal != null and game.store.profile == p)

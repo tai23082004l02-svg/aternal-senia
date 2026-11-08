@@ -2,8 +2,10 @@
 
 Phiên mới: [AGENTS](../AGENTS.md) → [GAME_STATE](GAME_STATE.md) →
 [SYSTEMS](SYSTEMS.md) → chuyên đề cần sửa → [TESTING](TESTING.md).
-Trạng thái chuẩn là0.38/savev13. Phần mang số phiên bản cũ trong chuyên đề mô tả
+Trạng thái chuẩn là0.39/savev13. Phần mang số phiên bản cũ trong chuyên đề mô tả
 thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc savev4/v7.
+
+[UI Celestial0.39 — Selena](UI_CELESTIAL_0_39.md): bàn giao UI mới, preview và giới hạn runtime.
 
 ## Bàn giao và thao tác
 

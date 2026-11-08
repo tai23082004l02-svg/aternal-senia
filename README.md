@@ -1,12 +1,14 @@
 # Aternal Senia — First Light
 
 Game fantasy anime 2D, offline, xây bằng **Godot 4.6.3**, giao diện dọc **540 × 960**.
-Bản chơi hiện tại **0.38.0**, save schema **v13**.
+Bản chơi hiện tại **0.39.0**, save schema **v13**.
 Giao diện chính **tiếng Anh**, dùng font đóng gói Playfair Display Bold;
 xem [English UI](docs/ENGLISH_UI.md).
 Studio **ZORVYKA Games** · **zorvykagames@gmail.com**.
 
 Caelan đã chơi được: vượt **Forest Entrance**, vào **Heroes → Gallery → Caelan → Recruit Caelan · Free**. [Chi tiết](docs/CAELAN_RUNTIME.md).
+
+UI Celestial mới: Home/Selena preview, Gallery, Showcase, Summon/Reveal và HUD chiến đấu. [Bàn giao UI0.39](docs/UI_CELESTIAL_0_39.md). Selena là thiết kế xem trước, chưa phải hero có thể tuyển.
 
 ## Bắt đầu
 

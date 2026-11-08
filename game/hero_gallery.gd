@@ -131,7 +131,7 @@ func text(parent: Node, value: String, font_size: int, color: Color) -> Label:
 
 func decorate(button: BaseButton, selected: bool = false) -> void:
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
-	button.add_theme_stylebox_override("normal", game._style(Color("234c78") if selected else Color("15243b"), GOLD if selected else Color("52627a"), 8))
+	button.add_theme_stylebox_override("normal", game._style(Color("4166a8") if selected else Color("14244a"), GOLD if selected else Color("93829c"), 8))
 	button.add_theme_stylebox_override("hover", game._style(Color("294465"), GOLD, 8))
 	button.add_theme_stylebox_override("pressed", game._style(Color("365b83"), GOLD, 8))
 	button.add_theme_stylebox_override("focus", game._style(Color("15243b00"), IVORY, 8))
@@ -182,7 +182,7 @@ func rebuild() -> void:
 		visible_ids.append(row.id)
 		var card := Button.new()
 		card.name = "Hero_" + row.id
-		card.custom_minimum_size = Vector2(226, 238) if detailed else Vector2(109, 184)
+		card.custom_minimum_size = Vector2(226, 300) if detailed else Vector2(109, 210)
 		card.clip_contents = true
 		decorate(card)
 		var border: StyleBoxFlat = UIDesignV2.card_frame(owned)
@@ -196,29 +196,31 @@ func rebuild() -> void:
 		portrait.locked = not owned and not preview
 		portrait.face = row.art.get("face", [])
 		portrait.position = Vector2(3, 3)
-		portrait.size = Vector2(card.custom_minimum_size.x - 6, 162 if detailed else 121)
+		portrait.size = Vector2(card.custom_minimum_size.x - 6, 218 if detailed else 151)
 		portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(portrait)
+		UIDesignV2.shade(card,Vector2(3,100 if not detailed else 160),Vector2(card.custom_minimum_size.x-6,54),Color("0b143000"),Color("0b1430ee"))
+		UIDesignV2.ornament(card,owned)
 		var badge := text(card, ("Preview" if preview else str(row.element).capitalize()), 10, IVORY)
-		badge.position = Vector2(7, (140 if detailed else 99) if preview else 7)
+		badge.position = Vector2(7, (196 if detailed else 129) if preview else 7)
 		badge.add_theme_stylebox_override("normal", game._style(Color("101a32e8"), Color("82704d"), 4))
 		var name_label := text(card, row.name, 15 if detailed else 13, IVORY)
-		name_label.position = Vector2(4, 168 if detailed else 125)
+		name_label.position = Vector2(4, 224 if detailed else 155)
 		name_label.size = Vector2(card.custom_minimum_size.x - 8, 22)
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		var status := text(card, "Preview" if preview else ("Owned" if owned else "◇ Locked"), 11, Color("a8d8cb") if owned else MUTED)
-		status.position = Vector2(4, 192 if detailed else 148)
+		status.position = Vector2(4, 250 if detailed else 178)
 		status.size.x = card.custom_minimum_size.x - 8
 		status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		if detailed:
 			var role_label := text(card, row.role + " · 5★", 12, GOLD)
-			role_label.position = Vector2(4, 215)
+			role_label.position = Vector2(4, 277)
 			role_label.size.x = card.custom_minimum_size.x - 8
 			role_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		else:
 			var stars := text(card, "★★★★★", 10, GOLD)
-			stars.position = Vector2(4, 165)
+			stars.position = Vector2(4, 193)
 			stars.size.x = card.custom_minimum_size.x - 8
 			stars.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	collection_count.text = tr("Owned %d / %d") % [owned_count, rows.size() - preview_count]

@@ -1,6 +1,43 @@
 {
   "version": 1,
-  "characters": [],
+  "characters": [
+    {
+      "id": "selena_preview",
+      "name": "Selena",
+      "title": "Moonlight Mage \u00b7 Visual Preview",
+      "element": "light",
+      "role": "Mage",
+      "gallery_order": 6,
+      "rarity": 5,
+      "acquisition": "Visual design preview. Not recruitable; no combat or summon pool entry.",
+      "quote": "Character design collection",
+      "art": {
+        "banner": "res://art/selena/selena_splash_art.png",
+        "card_region": [
+          160,
+          40,
+          640,
+          850
+        ],
+        "showcase_region": [
+          0,
+          0,
+          1024,
+          1536
+        ],
+        "reveal_region": [
+          0,
+          0,
+          1024,
+          1536
+        ]
+      },
+      "skill_descriptions": {
+        "basic": "Not configured.",
+        "ultimate": "Not configured."
+      }
+    }
+  ],
   "promoted_to_runtime": [
     "caelan"
   ]

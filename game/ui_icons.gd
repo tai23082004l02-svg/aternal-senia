@@ -33,14 +33,7 @@ func tab(button: Button, key: String) -> void:
 	button.text = ""
 	button.custom_minimum_size = Vector2(93, 56)
 	button.size = Vector2(93, 56)
-	var icon := TextureRect.new()
-	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	icon.texture = textures[key]
-	icon.position = Vector2(31, 3)
-	icon.size = Vector2(31, 31)
-	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	button.add_child(icon)
+	UIDesignV2.glyph(button,key,Vector2(31,2),Vector2(31,31))
 	var label := Label.new()
 	label.text = title
 	label.position = Vector2(0, 33)

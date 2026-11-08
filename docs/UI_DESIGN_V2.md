@@ -1,5 +1,7 @@
 # UI Design V2 — presentation system and handoff
 
+> Visual/layout rules updated by [Celestial UI0.39](UI_CELESTIAL_0_39.md). The sections below describe the earlier V2 delivery.
+
 Owner assignment, 2026-11-08: UI, screen layouts, navigation and scene backgrounds
 belong to the UI workstream. Another contributor owns character identity, clothing,
 weapons, poses, personality and ability design. This delivery does not change hero

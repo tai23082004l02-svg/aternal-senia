@@ -9,11 +9,14 @@ static func show(game, id: String, section: String = "Information") -> void:
 	if preview: section = "Information"
 	var surface := UIDesignV2.overlay(game, "HeroShowcase")
 	surface.set_meta("hero_id", id)
-	if row.art.get("inset_showcase",false):
-		UIDesignV2.art(surface, HeroContract.art_texture(row,"showcase"), Vector2(8,108), Vector2(338,380))
-	else:
-		var illustration := UIDesignV2.art(surface, load(row.art.banner), Vector2(8,112) if preview else Vector2(8,8), Vector2(476,376) if preview else Vector2(476,480))
-		if preview: illustration.focus.y = 0
+	var illustration := UIDesignV2.art(surface,load(row.art.banner),Vector2(0,0),Vector2(492,840))
+	illustration.focus = Vector2(.5,.04)
+	if preview or row.art.get("inset_showcase",false):
+		illustration.position.y = 100
+		illustration.size.y = 740
+		illustration.focus.y = 0
+	UIDesignV2.shade(surface,Vector2(0,0),Vector2(492,210),Color("070e29d9"),Color("070e2900"))
+	UIDesignV2.shade(surface,Vector2(0,380),Vector2(492,460),Color("070e2900"),Color("070e29fa"))
 	var veil := ColorRect.new()
 	veil.position = Vector2(8, 8)
 	veil.size = Vector2(476, 100)
@@ -29,20 +32,20 @@ static func show(game, id: String, section: String = "Information") -> void:
 		var name_text: String = ["Information", "Skills", "Equipment", "Wardrobe", "Bond · Locked", "Story · Locked"][i]
 		var action: Callable = show.bind(game, id, "Skills" if i == 1 else "Information")
 		if i in [2,3]: action = manage.bind(game, id, 1 if i == 2 else 6)
-		var button := UIDesignV2.button(game, surface, name_text, Vector2(354, 120 + i * 51), Vector2(122, 44), action, section == name_text)
+		var button := UIDesignV2.button(game, surface, name_text, Vector2(354, 120 + i * 55), Vector2(122, 44), action, section == name_text)
 		button.name = "ShowcaseTab%d" % i
 		button.add_theme_font_size_override("font_size", 12)
 		if i >= 4 or preview and i >= 1:
 			button.disabled = true
 			button.tooltip_text = game.tr("Not available yet")
 	var detail := Panel.new()
-	detail.position = Vector2(8, 488)
-	detail.size = Vector2(476, 156)
+	detail.position = Vector2(8, 552)
+	detail.size = Vector2(476, 164)
 	detail.add_theme_stylebox_override("panel", UIDesignV2.panel())
 	surface.add_child(detail)
 	var scroller := SwipeScroll.new()
 	scroller.position = Vector2(12, 8)
-	scroller.size = Vector2(452, 140)
+	scroller.size = Vector2(452, 148)
 	scroller.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	detail.add_child(scroller)
 	var body := VBoxContainer.new()
@@ -55,6 +58,8 @@ static func show(game, id: String, section: String = "Information") -> void:
 	heading.add_theme_font_size_override("font_size", 20)
 	heading.add_theme_color_override("font_color", UIDesignV2.GOLD)
 	body.add_child(heading)
+	if preview:
+		UIDesignV2.button(game,body,"Preview reveal",Vector2.ZERO,Vector2(430,44),SummonReveal.show_art_preview.bind(game,id),true).name = "PreviewReveal"
 	if id == "caelan" and not owned:
 		var recruit := UIDesignV2.button(game,body,"Recruit Caelan · Free",Vector2.ZERO,Vector2(430,44),game._confirm_caelan,true)
 		recruit.name = "RecruitCaelan"
@@ -69,7 +74,7 @@ static func show(game, id: String, section: String = "Information") -> void:
 		copy.text += "\n\nLV%d · HP %.0f · ATK %.0f · DEF %.2f" % [game.store.profile.heroes[id].level, stats.hp, stats.atk, stats.defense]
 	body.add_child(copy)
 	var strip := SwipeScroll.new()
-	strip.position = Vector2(16, 658)
+	strip.position = Vector2(16, 730)
 	strip.size = Vector2(460, 94)
 	strip.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	surface.add_child(strip)
@@ -83,7 +88,13 @@ static func show(game, id: String, section: String = "Information") -> void:
 		var button := UIDesignV2.button(game, portraits, "", Vector2.ZERO, Vector2(96, 86), show.bind(game, hero.id), hero.id == id)
 		button.tooltip_text = hero.name
 		button.name = "ShowcaseHero_" + hero.id
-		UIDesignV2.art(button, HeroContract.art_texture(hero,"card"), Vector2(3, 3), Vector2(90, 55))
+		var portrait := HeroGallery.GalleryPortrait.new()
+		portrait.texture = HeroContract.art_texture(hero,"card")
+		portrait.face = hero.art.get("face",[])
+		portrait.position = Vector2(3,3)
+		portrait.size = Vector2(90,55)
+		portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.add_child(portrait)
 		UIDesignV2.text(button, hero.name, Vector2(4, 59), Vector2(88, 20), 12).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 static func manage(game, id: String, page: int) -> void:

@@ -23,12 +23,8 @@ func words(parent: Node,value: String,font_size: int = 14,color: Color = Color("
 	return label
 
 func style(active: bool = false) -> StyleBoxFlat:
-	var box: StyleBoxFlat = game._style(Color(.025,.13,.17,.96),Color("d6b877") if active else Color("8b927b"),16)
+	var box := UIDesignV2.panel(active)
 	box.set_content_margin_all(8)
-	if active:
-		box.bg_color = Color("37432e")
-		box.shadow_color = Color(1,.66,.14,.35)
-		box.shadow_size = 6
 	return box
 
 func button(parent: Node,value: String,callback: Callable,dimension: Vector2,active: bool = false) -> Button:
@@ -37,10 +33,7 @@ func button(parent: Node,value: String,callback: Callable,dimension: Vector2,act
 	result.add_theme_font_size_override("font_size",14)
 	result.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	result.add_theme_stylebox_override("normal",style(active))
-	var trim := GoldTrim.new()
-	trim.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	result.add_child(trim)
-	trim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	UIDesignV2.ornament(result,active)
 	return result
 
 func _ready() -> void:
@@ -55,40 +48,49 @@ func _ready() -> void:
 	var active: bool = game.summon_kind == 0
 	words(body,tr("✦ SUMMON GATE ✦"),26,Color("f2d18b"),true)
 	words(body,tr("Choose a banner to begin"),13,Color("ded2ae"),true)
-	var kinds := HBoxContainer.new()
+	var stage := HBoxContainer.new()
+	stage.add_theme_constant_override("separation",8)
+	body.add_child(stage)
+	var kinds := VBoxContainer.new()
+	kinds.custom_minimum_size.x = 94
 	kinds.add_theme_constant_override("separation",8)
-	body.add_child(kinds)
+	stage.add_child(kinds)
 	for i in range(3):
-		var choice := button(kinds,tr(["Standard","Premium","Events"][i]),game._select_summon_kind.bind(i),Vector2(140,36),game.summon_kind == i)
-		game.icons.apply(choice,["summon","vip","event"][i],23)
+		var choice := button(kinds,tr(["Standard","Premium","Events"][i]),game._select_summon_kind.bind(i),Vector2(94,68),game.summon_kind == i)
+		UIDesignV2.ornament(choice,game.summon_kind == i)
 		kind_buttons.append(choice)
+	button(kinds,tr("History"),game._summon_history,Vector2(94,48))
+	var rules := button(kinds,tr("Rates"),game._summon_rates,Vector2(94,48))
+	rules.disabled = not active
+	button(kinds,tr("Art details"),HeroShowcase.show.bind(game,"selena_preview"),Vector2(94,48))
 	var banner := Control.new()
-	banner.custom_minimum_size = Vector2(0,218)
+	banner.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	banner.custom_minimum_size = Vector2(0,420)
 	banner.clip_contents = true
-	body.add_child(banner)
-	var art := TextureRect.new()
-	art.texture = load("res://art/summon/gateway.png")
-	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	stage.add_child(banner)
+	var art := UIDesignV2.Artwork.new()
+	art.texture = load("res://art/selena/selena_splash_art.png")
+	art.focus = Vector2(.5,0)
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	banner.add_child(art)
 	art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	UIDesignV2.shade(banner,Vector2.ZERO,Vector2(388,420),Color("0b143000"),Color("0b1430e8"))
 	var title := VBoxContainer.new()
 	banner.add_child(title)
-	title.anchor_right = .43
+	title.anchor_right = 1.0
 	title.offset_left = 18
 	title.offset_right = -4
-	title.offset_top = 35
+	title.offset_top = 260
 	title.add_theme_constant_override("separation",8)
 	words(title,tr(["DAWN\nGATE","PREMIUM\nGATE","EVENT\nGATE"][game.summon_kind]),27,Color("f7d68c"))
-	words(title,tr("Heroes · Spirits · Equipment") if active else tr("Preparing"),12,Color("eee1be"))
+	words(title,tr("Standard pool · Selena not included") if active else tr("Preparing"),12,Color("eee1be"))
 	var badge := PanelContainer.new()
 	badge.add_theme_stylebox_override("panel",style())
 	banner.add_child(badge)
-	badge.anchor_left = .68
+	badge.anchor_left = .04
 	badge.anchor_right = .97
 	badge.offset_top = 10
-	words(badge,tr("Ryn Preview") if active else tr("Coming Soon"),11,Color("f3d28c"),true)
+	words(badge,tr("Selena · Art Preview") if active else tr("Coming Soon"),11,Color("f3d28c"),true)
 	if not active:
 		pity_counter = PanelContainer.new()
 		pity_counter.name = "BannerPityCounter"
@@ -102,7 +104,7 @@ func _ready() -> void:
 		words(pity_counter,tr("Pity: %d summons · Milestone pending") % Recruitment.banner_pity(game.store.profile,key),12,Color("f3d28c"),true)
 	var fit_banner := func():
 		var reserved: float = pity_counter.get_combined_minimum_size().y+20 if pity_counter != null else 16.0
-		banner.custom_minimum_size.y = maxf(218,title.offset_top+title.get_combined_minimum_size().y+reserved)
+		banner.custom_minimum_size.y = maxf(420,title.offset_top+title.get_combined_minimum_size().y+reserved)
 		if pity_counter != null:
 			pity_counter.anchor_top = 0
 			pity_counter.offset_top = banner.size.y-pity_counter.get_combined_minimum_size().y-12
@@ -163,7 +165,12 @@ func _ready() -> void:
 	var note := PanelContainer.new()
 	note.add_theme_stylebox_override("panel",style())
 	body.add_child(note)
-	words(note,tr("Ryn illustration · No featured rate boost. Read the rules before summoning.") if active else tr("Banner locked · Pity milestone pending. No resources spent."),12,Color("c7d5ca"),true)
+	words(note,tr("Selena art preview only · Not in this pool. No featured rate boost.") if active else tr("Banner locked · Pity milestone pending. No resources spent."),12,Color("c7d5ca"),true)
+
+	# Keep real prices and summon actions directly below the illustrated banner.
+	body.move_child(wallet,3)
+	body.move_child(draws,4)
+	body.move_child(note,5)
 
 func feature(parent: Node,entry: Dictionary) -> void:
 	var tile := button(parent,"",show_feature.bind(entry),Vector2(64,60),entry.kind == "hero")
@@ -214,13 +221,6 @@ func preview_rewards() -> void:
 		lines.append(tr("GROUP %s") % tr(Recruitment.GROUP_NAMES[tier]))
 		for entry in Recruitment.pool(game.catalog,tier): lines.append("• %s · %s" % [tr(game._entity_name(entry.kind,entry.id)),tr(game._rarity(entry.kind,entry.id))])
 	SummonScreen.show_text(game,tr("REWARD POOL"),"\n".join(lines))
-
-class GoldTrim extends Control:
-	func _draw() -> void:
-		var color := Color(.91,.74,.4,.65)
-		for x in [4.0,size.x-4]:
-			var c := Vector2(x,size.y*.5)
-			draw_polyline(PackedVector2Array([c+Vector2(0,-7),c+Vector2(3,0),c+Vector2(0,7),c+Vector2(-3,0),c+Vector2(0,-7)]),color,1,true)
 
 static func show_text(game, title: String, text: String) -> void:
 	var column: VBoxContainer = game._dialog(title, "", [{"text": "Close", "call": game._close_modal}])

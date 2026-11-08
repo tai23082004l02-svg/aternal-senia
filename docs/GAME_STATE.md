@@ -2,7 +2,7 @@
 
 > **Đã triển khai 2026-11-08:** Đội hình tối đa **4 hero + 1 tinh linh**, bố cục 2 trước + 2 sau, không khóa nghề. Save v12 đọc đội 3/4 ô; xem đội cũ chỉ thêm ô trống trên bản sao, ghi 4 ô khi người chơi chỉnh đội. Snapshot v1 và singleton cũ giữ nguyên; trận mới dùng v2. Xem [TEAM_COMBAT](TEAM_COMBAT.md).
 
-Cập nhật2026-11-08. Game **0.38.0**, **Godot4.6.3**, save **v13**.
+Cập nhật2026-11-08. Game **0.39.0**, **Godot4.6.3**, save **v13**.
 Đợt dọn repo không đổi gameplay hoặc schema. Repo triển khai:
 [tai23082004l02-svg/aternal-senia](https://github.com/tai23082004l02-svg/aternal-senia).
 Repo tham khảo: [Tham-kh-o-game](https://github.com/tai23082004l02-svg/Tham-kh-o-game).
@@ -11,6 +11,10 @@ Studio **ZORVYKA Games**, hỗ trợ **zorvykagames@gmail.com**.
 Đọc [AGENTS](../AGENTS.md), [kiến trúc](SYSTEMS.md), [mục lục](INDEX.md).
 Nếu có thay đổi sau mốc này, đọc HEAD/code và yêu cầu mới nhất trước khi tiếp tục.
 Các con số dưới đây lấy từ catalogue/model, không lấy số minh họa trong ảnh.
+
+## UI Celestial0.39 — đã triển khai theo yêu cầu mới
+
+Thay trình bày Home, Gallery/Showcase, Summon/Reveal, menu và HUD chiến đấu; xem [UI_CELESTIAL_0_39](UI_CELESTIAL_0_39.md). Selena xuất hiện dưới ID xem trước `selena_preview`, không nằm trong catalogue chiến đấu hoặc pool triệu hồi. Home mặc định giới thiệu Selena, đổi portrait chỉ trong RAM. Có màn xem trước Reveal ghi rõ không phải kết quả triệu hồi. Save vẫn v13; Bond/Story và banner chưa cấu hình vẫn khóa. Giữ PNG nguồn nguyên byte, không đổi tên Selene trong roster quy hoạch.
 
 ## Quyết định sản phẩm mới nhất — 2026-11-08 (chưa phải runtime)
 
