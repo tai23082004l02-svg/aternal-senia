@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 work=ROOT/'work/supplies-check'
 work.mkdir(parents=True,exist_ok=True)
 tests=['settings','settings_audio','settings_ui','additional_audio','player_profile','utilities_ui','team_matrix','team_campaign','shop_ui','additional_equipment','additional_equipment_ui','supplies','supplies_ui','dungeon_world','mobile_inventory','swipe_scroll','ui_flow','animation_gallery','bag_ui','character_design','music','audio','team_ui','team_flow','regression','mechanics','campaign','team_battle','complete_art','summon_ui','summon_batch','recruitment','bag_inventory','unique_collection','unique_collection_ui','equipment_sets','equipment_ui','hero_management','icon_gallery']
-headless={'settings','player_profile','team_matrix','team_campaign','additional_equipment','regression','mechanics','campaign','team_battle','complete_art','summon_batch','recruitment','supplies','bag_inventory','unique_collection','equipment_sets','hero_management'}
+headless={'settings','team_matrix','team_campaign','additional_equipment','regression','mechanics','campaign','team_battle','complete_art','summon_batch','recruitment','supplies','bag_inventory','unique_collection','equipment_sets','hero_management'}
 results=[]
 for test in tests:
     env=os.environ.copy()
