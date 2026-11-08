@@ -1,10 +1,38 @@
-# AI Arena combat · 0.40.0
+# AI Arena combat · 0.40.1
 
 Owner-requested conversion of Aternal Senia combat to a freely moving 2D AI arena,
 using the combat approach of the owner's `Live-Youtube-American` / Down Arena.
 Implemented in Godot; no JavaScript engine, character art or audio was imported.
 
-## Player behavior
+## Behavioral presets · 0.40.1
+
+Applied at the owner's request as a practical first pass, ahead of future character
+redesign/balance. Upgradeable stats, skill cooldowns, gear and economy stay unchanged.
+New team snapshotv4 freezes each hero's AI preset separately from `stats`.
+
+| Hero | Speed / range (arena units) | Aggression | Pursuit | Combo | Counter | Recklessness | Switch | Reaction |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Eira | 120 / 51 | 80 | 80 | 75 | 65 | 55 | 25 | 70 |
+| Ryn | 110 / 54 | 70 | 70 | 60 | 65 | 60 | 25 | 65 |
+| Lyra | 128 / 51 | 85 | 85 | 75 | 60 | 65 | 30 | 70 |
+| Mira | 110 / 170 | 30 | 35 | 50 | 70 | 25 | 25 | 75 |
+| Caelan | 104 / 56 | 60 | 60 | 55 | 70 | 45 | 25 | 65 |
+
+Percentages govern decisions, not damage or bonus dodge stats. AI reviews targets
+at 0.6-second intervals; manual focus wins. Pursuit creates a brief approach window
+after a landed hit. Combo/counter can reduce idle decision waiting, while respecting
+active actions and existing skill cooldowns. Counter opportunities follow avoided
+or fully absorbed attacks. Low-HP retreat decisions begin below 40% HP. Caelan may
+intercept enemies near a wounded ally without forcing aggro or adding defenses.
+Movement evasion rolls reaction once per warning with a 4.5-second cooldown; it
+never grants invulnerability. Speeds/ranges are scaled for Senia's smaller arena.
+
+Files: `arena_tactics.gd` supplies presets/validation; `tactical_arena_battle.gd`
+runs them. `arena_tactics` tests snapshots, unchanged progression stats/cooldowns,
+combo/counter/focus, and deterministic speed modes. Historical v3 retains the
+original arena rules below. This is not a final balance pass.
+
+## Original v3 player behavior
 
 - Keep up to four owned heroes and one support spirit, existing campaign/dungeon
   encounters, hero kits, equipment stats, summon economy and rewards.
@@ -43,13 +71,14 @@ never advances positions, resolves damage or consumes combat RNG. Original PNGs
 and provenance remain unchanged; `FrameLibrary.draw_actor` adds optional facing
 with the same weapon/grip transform.
 
-`Formation.snapshot()` creates **team snapshot v3**. `main._resume()` selects:
+`Formation.snapshot()` now creates **team snapshot v4**. `main._resume()` selects:
 
 | Pending snapshot | Model |
 | --- | --- |
 | No team (legacy singleton) | BattleModel |
 | Team v1 / v2 | TeamBattle, historical non-spatial behavior |
-| Team v3 | ArenaBattle |
+| Team v3 | ArenaBattle, original arena rules |
+| Team v4 | TacticalArenaBattle, frozen per-hero behavioral presets |
 
 Save schema stays **v13**, at `user://first_light_v2.json`. No migration rewrites
 pending snapshots, stats, seed, options, potion buffs or encounter data. Resume

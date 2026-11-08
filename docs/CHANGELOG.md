@@ -1,5 +1,9 @@
 # Các mốc phát triển
 
+## 0.40.1 · 2026-11-08
+
+Applied owner-requested behavioral presets for five heroes: approach/spacing, pursuit, combo decisions, counter opportunities, low-HP retreat and movement-evasion reactions. Snapshotv4 freezes AI separately from progression stats; v3 arena and older pending rules remain intact. No upgrade/gear stat or skill-cooldown changes. This is an initial pass ahead of character redesign and balance. [Details](ARENA_COMBAT.md).
+
 ## 0.40.0 · 2026-11-08
 
 Owner-requested 2D AI Arena combat: spatial movement/nearest targeting, melee range, ranged retreat and swept magic bolts, committed ground attacks and movement dodges. Four heroes plus one spirit and existing encounters/rewards retained. New team snapshotv3 routes to ArenaBattle; pendingv1/v2/singleton retains historical models. Savev13 unchanged. Dynamic rendering/touch/facing, queued out-of-range Ultimates; original art/audio preserved. See [AI Arena](ARENA_COMBAT.md).

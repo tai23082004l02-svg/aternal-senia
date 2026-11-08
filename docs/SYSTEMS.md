@@ -15,7 +15,8 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 |GameCatalog|Nạp catalog.json, ghép expansion.json và team_encounters.json; normalize số, validate ID/drop/slot/skill, suy ra stats|
 |ProgressStore|Profile, migration v1–v13, backup/read-only, validate/commit, begin_run/settle và giao dịch gear|
 |Formation|Roster/slot/assist/auto options và snapshot team/encounter; bốn slot không khóa nghề; đọc đội v12 ba ô qua bản sao|
-|ArenaBattle|Trận mới4vN/snapshotv3: di chuyển2D, nearest target, tầm đánh, projectiles và vùng cảnh báo; kế thừa TeamBattle|
+|TacticalArenaBattle|Trận mới/snapshotv4: preset AI đóng băng riêng từng hero; quyết định truy kích/combo/counter/cự ly/né, không đổi chỉ số nâng cấp|
+|ArenaBattle|Nền trận4vN/snapshotv3: di chuyển2D, nearest target, tầm đánh, projectiles và vùng cảnh báo; kế thừa TeamBattle|
 |TeamBattle|Trận pendingv1/v2, action/hit marker, HP/năng lượng, target, hiệu ứng/đội, kết quả|
 |BattleModel|Nền model và đường chạy pending singleton cũ; không được xóa chỉ vì UI dùng TeamBattle|
 |EquipmentSystem|4 slot, multiplier, bộ2/4, tham chiếu UID, map ID migration|
@@ -65,7 +66,7 @@ Caelan dùng manifest riêng được FrameLibrary ghép, sword signature chỉ 
 ## Tạo và kết thúc run
 
 1. Kiểm quyền vào ải/pending/cap hàng chờ; clone profile.
-2. Tạo run ID/seed, team snapshot v3 (1–4 hero; v1/v2 tiếp tục dùng TeamBattle cũ), stats đầu team, options và encounter.
+2. Tạo run ID/seed, team snapshot v4 (1–4 hero và preset AI; v3 giữ ArenaBattle, v1/v2 giữ TeamBattle cũ), stats đầu team, options và encounter.
 3. Nếu có thuốc, áp một lần vào candidate snapshot, trừ1 và xóa lựa chọn.
 4. Commit thành công mới khởi động model. Resume đọc snapshot cùng seed;
    không gọi lại prepare hoặc tính stats theo trang bị mới.

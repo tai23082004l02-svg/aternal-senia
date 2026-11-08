@@ -668,7 +668,10 @@ func _begin() -> void:
 func _resume() -> void:
 	_close_modal()
 	if store.profile.pending.has("team"):
-		battle = ArenaBattle.new(catalog) if store.profile.pending.team.version == 3 else TeamBattle.new(catalog)
+		if store.profile.pending.team.version == 4:
+			battle = TacticalArenaBattle.new(catalog)
+		else:
+			battle = ArenaBattle.new(catalog) if store.profile.pending.team.version == 3 else TeamBattle.new(catalog)
 	else:
 		battle = Battle.new(catalog)
 	battle.start(store.profile.pending)

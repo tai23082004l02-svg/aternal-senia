@@ -21,7 +21,7 @@ python3 tests/validate_audio.py --capture work/checks/audio_capture/audio-runtim
 git diff --exit-code
 ```
 
-Runner53 suite:51 suite trước đó cộng arena_battle và arena_ui; caelan_gallery chạy thêm khi xem pose/socket. Mỗi test dùng profile riêng,
+Runner54 suite:53 suite trước đó cộng arena_tactics; caelan_gallery chạy thêm khi xem pose/socket. Mỗi test dùng profile riêng,
 stdout/stderr và timeout75 giây, không bỏ qua assertion/parse error.
 Ảnh/PCM/log/results ở **work/checks/**; thư mục có .gdignore, không commit.
 Giữ import log khi cần, không in API token hoặc toàn bộ save người chơi.
@@ -49,7 +49,7 @@ base64 nặng. Các test gallery chuyên sâu và tương thích save cũ vẫn 
 |Save/economy/migration|regression, mechanics, campaign, bag_inventory, unique_collection, supplies|
 |Gear/bộ mới|equipment_sets, equipment_ui, additional_equipment, additional_equipment_ui|
 |Triệu hồi|recruitment, summon_batch, summon_ui, shop_ui|
-|Đội hình/combat|arena_battle, arena_ui, team_battle, team_matrix, team_campaign, team_flow, team_ui, formation_layout|
+|Đội hình/combat|arena_tactics, arena_battle, arena_ui, team_battle, team_matrix, team_campaign, team_flow, team_ui, formation_layout|
 |Hero/portrait|character_design, character_ui, wardrobe, portrait_touch, ryn_art, ryn_gallery, lyra|
 |Nguồn/manifest/icon|complete_art, icon_gallery, suite art/galleries liên quan; xem ảnh|
 |Cuộn/UI|swipe_scroll, mobile_inventory, ui_flow, animation_gallery và suite màn sửa|

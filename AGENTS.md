@@ -1,7 +1,7 @@
 # Hướng dẫn cho phiên chat phát triển tiếp
 
 Đọc README → docs/GAME_STATE.md → docs/SYSTEMS.md → docs/INDEX.md trước khi sửa.
-Trạng thái hiện hành 2026-11-08: game0.40.0, Godot4.6.3, savev13.
+Trạng thái hiện hành 2026-11-08: game0.40.1, Godot4.6.3, savev13.
 Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD và code trước khi làm.
 
 ## Định hướng sản phẩm và nội dung (2026-11-08)
@@ -24,13 +24,16 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 ## AI Arena0.40 — yêu cầu mới đã triển khai
 
-Đọc [ARENA_COMBAT](docs/ARENA_COMBAT.md). Trận mới dùng `ArenaBattle`/snapshot teamv3:
+Đọc [ARENA_COMBAT](docs/ARENA_COMBAT.md). Trận mới dùng `TacticalArenaBattle`/snapshot teamv4, đóng băng preset AI riêng từng hero.
+HP/ATK/defense/crit/dodge và chỉ số nâng cấp/trang bị, cooldown kỹ năng không đổi.
+Pendingv3 giữ ArenaBattle gốc; v4 thêm truy kích/nối chiêu/phản công/giữ cự ly/né theo xác suất.
+Nền ArenaBattle:
 AI di chuyển tự do, chọn mục tiêu gần, kiểm tầm, phép có đường bay và né vòng cảnh báo.
 Bốn slot là vị trí xuất phát; địch không còn đánh theo thứ tự slot trong v3.
 `main._resume()` giữ `TeamBattle` cho pendingv1/v2 và singleton cũ; không đổi luật
 hoặc tính lại snapshot cũ. Savev13, entry/settle/UID/phần thưởng giữ nguyên.
 UI dùng vị trí model; renderer không gây damage/RNG. Không gọi artwork hiện có là
-animation tám hướng mới. Tests thêm `arena_battle` và `arena_ui`; matrix/campaign
+animation tám hướng mới. Tests thêm `arena_tactics`, `arena_battle` và `arena_ui`; matrix/campaign
 chạy ArenaBattle. Các mô tả đánh theo thứ tự slot bên dưới chỉ áp dụng teamv1/v2.
 
 ## Admin code0.39.1

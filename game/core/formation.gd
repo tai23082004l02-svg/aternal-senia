@@ -67,8 +67,8 @@ static func snapshot(book: GameCatalog, p: Dictionary, stage: Dictionary) -> Dic
 	for slot in range(HERO_LIMIT):
 		var id: String = f.slots[slot]
 		if id.is_empty(): continue
-		units.append({"slot":slot, "stats":book.stats(p, id)})
-	return GameCatalog.normalize({"version":3, "units":units, "assist":p.assist, "auto_ult":f.auto_ult, "auto_next":f.auto_next, "prioritize_heal":p.settings.get("prioritize_heal",true), "encounter":encounter(stage)})
+		units.append({"slot":slot, "stats":book.stats(p, id), "ai":ArenaTactics.profile(id)})
+	return GameCatalog.normalize({"version":4, "units":units, "assist":p.assist, "auto_ult":f.auto_ult, "auto_next":f.auto_next, "prioritize_heal":p.settings.get("prioritize_heal",true), "encounter":encounter(stage)})
 
 static func encounter(stage: Dictionary) -> Dictionary:
 	if stage.has("team_encounter"): return stage.team_encounter.duplicate(true)
@@ -96,12 +96,13 @@ static func kill_cap(encounter_data: Dictionary) -> int:
 
 static func valid_snapshot(store, team: Variant) -> bool:
 	if team is Dictionary and team.has("prioritize_heal") and not team.prioritize_heal is bool: return false
-	if not team is Dictionary or team.get("version") not in [1, 2, 3] or not team.get("units") is Array or team.units.is_empty() or team.units.size() > (3 if team.version == 1 else HERO_LIMIT): return false
+	if not team is Dictionary or team.get("version") not in [1, 2, 3, 4] or not team.get("units") is Array or team.units.is_empty() or team.units.size() > (3 if team.version == 1 else HERO_LIMIT): return false
 	if not team.get("auto_ult") is bool or not team.get("auto_next") is bool or store.catalog.find_row("assists", team.get("assist")).is_empty(): return false
 	var ids := []
 	var slots := []
 	for unit in team.units:
 		if not unit is Dictionary or not store._whole(unit.get("slot"), 0, 2 if team.version == 1 else HERO_LIMIT - 1) or unit.slot in slots or not unit.get("stats") is Dictionary: return false
+		if team.version == 4 and not ArenaTactics.valid(unit.get("ai")): return false
 		var s: Dictionary = unit.stats
 		if store.catalog.find_row("heroes", s.get("hero")).is_empty() or s.hero in ids or s.get("assist") != team.assist: return false
 		for key in ["hp", "atk", "defense", "crit", "skill_bonus", "assist_level"]:

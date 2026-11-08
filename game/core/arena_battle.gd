@@ -152,45 +152,7 @@ func _step() -> void:
 	automatic_step = false
 
 func _move_units() -> void:
-	for ally in allies:
-		ally.moving = false
-		ally.evading = false
-		if ally.hp <= 0: continue
-		ally.evade_cd = maxf(0, ally.evade_cd - STEP)
-		if not ally.action.is_empty(): continue
-		if ally.ultimate_queued and ally.energy >= 100:
-			ultimate(allies.find(ally))
-			if not ally.action.is_empty(): continue
-		if time >= ally.evade_until and ally.evade_cd <= 0:
-			for enemy in enemies:
-				if enemy.hp <= 0 or enemy.action.is_empty() or enemy.action.hit: continue
-				if time - enemy.action.started < .1: continue
-				if ally.pos.distance_to(enemy.action.point) > enemy.action.radius + 8: continue
-				var away: Vector2 = ally.pos - enemy.action.point
-				if away.length_squared() < 1: away = Vector2(-1, -1 if ally.pos.y > 211 else 1)
-				var destination := _clamp(ally.pos + away.normalized() * 90)
-				# Try the opposite escape when pinned at the arena boundary.
-				if destination.distance_to(enemy.action.point) <= enemy.action.radius + 12:
-					destination = _clamp(ally.pos - away.normalized() * 100)
-				ally.evade_direction = (destination - ally.pos).normalized()
-				ally.evade_until = time + .42
-				ally.evade_cd = 3.5
-				break
-		if time < ally.evade_until:
-			_move(ally, ally.evade_direction, HERO_SPEED * 1.65)
-			ally.evading = true
-			continue
-		var target := _ally_target(ally)
-		if target < 0: continue
-		ally.target = target
-		var delta: Vector2 = enemies[target].pos - ally.pos
-		var distance := delta.length()
-		var desired := 165.0 if _ranged(ally) else 49.0
-		if distance > desired + 7:
-			_move(ally, delta.normalized(), HERO_SPEED)
-		elif _ranged(ally) and distance < desired - 25:
-			_move(ally, -delta.normalized(), HERO_SPEED * .8)
-		if absf(delta.x) > 2: ally.face = signf(delta.x)
+	for ally in allies: _move_ally(ally)
 	for enemy in enemies:
 		enemy.moving = false
 		if enemy.hp <= 0 or not enemy.action.is_empty(): continue
@@ -214,6 +176,46 @@ func _move_units() -> void:
 			var push := normal * (44 - distance) * .5
 			units[i].pos = _clamp(units[i].pos - push)
 			units[j].pos = _clamp(units[j].pos + push)
+
+func _move_ally(ally: Dictionary) -> void:
+	ally.moving = false
+	ally.evading = false
+	if ally.hp <= 0: return
+	ally.evade_cd = maxf(0, ally.evade_cd - STEP)
+	if not ally.action.is_empty(): return
+	if ally.ultimate_queued and ally.energy >= 100:
+		ultimate(allies.find(ally))
+		if not ally.action.is_empty(): return
+	if time >= ally.evade_until and ally.evade_cd <= 0:
+		for enemy in enemies:
+			if enemy.hp <= 0 or enemy.action.is_empty() or enemy.action.hit: continue
+			if time - enemy.action.started < .1: continue
+			if ally.pos.distance_to(enemy.action.point) > enemy.action.radius + 8: continue
+			var away: Vector2 = ally.pos - enemy.action.point
+			if away.length_squared() < 1: away = Vector2(-1, -1 if ally.pos.y > 211 else 1)
+			var destination := _clamp(ally.pos + away.normalized() * 90)
+			# Try the opposite escape when pinned at the arena boundary.
+			if destination.distance_to(enemy.action.point) <= enemy.action.radius + 12:
+				destination = _clamp(ally.pos - away.normalized() * 100)
+			ally.evade_direction = (destination - ally.pos).normalized()
+			ally.evade_until = time + .42
+			ally.evade_cd = 3.5
+			break
+	if time < ally.evade_until:
+		_move(ally, ally.evade_direction, HERO_SPEED * 1.65)
+		ally.evading = true
+		return
+	var target := _ally_target(ally)
+	if target < 0: return
+	ally.target = target
+	var delta: Vector2 = enemies[target].pos - ally.pos
+	var distance := delta.length()
+	var desired := 165.0 if _ranged(ally) else 49.0
+	if distance > desired + 7:
+		_move(ally, delta.normalized(), HERO_SPEED)
+	elif _ranged(ally) and distance < desired - 25:
+		_move(ally, -delta.normalized(), HERO_SPEED * .8)
+	if absf(delta.x) > 2: ally.face = signf(delta.x)
 
 func _clamp(point: Vector2) -> Vector2:
 	return point.clamp(BOUNDS.position, BOUNDS.end)
@@ -239,9 +241,12 @@ func _step_projectiles() -> void:
 				hit = i
 				closest = old.distance_squared_to(point)
 		if hit >= 0:
-			super._damage_enemy(hit, shot.amount, allies[shot.source], shot.ability)
+			_projectile_hit(shot, hit)
 			shot.life = 0
 	projectiles = projectiles.filter(func(shot): return shot.life > 0 and shot.wave == wave and state == "battle" and move_clock <= 0)
+
+func _projectile_hit(shot: Dictionary, index: int) -> void:
+	super._damage_enemy(index, shot.amount, allies[shot.source], shot.ability)
 
 func _end(won: bool) -> void:
 	projectiles.clear()

@@ -16,11 +16,15 @@ func run() -> void:
 	p.hero = "eira"
 	p.formation = {"slots":["eira","mira","ryn","lyra"],"auto_ult":true,"auto_next":false}
 	assert(store.commit(p) and store.begin_run(6))
+	var legacy_profile: Dictionary = store.profile.duplicate(true)
+	legacy_profile.pending.team.version = 3
+	assert(store.commit(legacy_profile))
 	pending = store.profile.pending.duplicate(true)
+	pending.team.version = 3
 	assert(pending.team.version == 3 and Formation.valid_snapshot(store, pending.team))
 	assert(ProgressStore.new(book, store.path).profile.pending == pending)
 	var invalid: Dictionary = pending.team.duplicate(true)
-	invalid.version = 4
+	invalid.version = 5
 	assert(not Formation.valid_snapshot(store, invalid))
 	var battle := model()
 	var first := battle.allies[0].pos as Vector2

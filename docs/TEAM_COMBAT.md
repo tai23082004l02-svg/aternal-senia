@@ -1,3 +1,5 @@
+> **0.40.1:** Trận mới dùng TacticalArenaBattle/snapshotv4, preset hành vi riêng từng hero; chỉ số phát triển và cooldown kỹ năng giữ nguyên. Pendingv3 vẫn ArenaBattle gốc. Xem [ARENA_COMBAT](ARENA_COMBAT.md).
+
 > **0.40.0 — quy tắc mới:** Trận mới dùng `ArenaBattle`, team snapshotv3. AI di chuyển tự do trong đấu trường2D; slot chỉ là vị trí xuất phát, địch chọn hero gần nhất. Kiểm tầm, đạn phép và vòng cảnh báo thuộc model. Pendingv1/v2 giữ TeamBattle/luật cũ. Savev13 không đổi. Đọc [ARENA_COMBAT](ARENA_COMBAT.md).
 
 > **Cập nhật 2026-11-08 — runtime 4 hero + 1 tinh linh:** Bốn ô trình bày 2 trước + 2 sau, không khóa nghề. Địch ưu tiên slot còn sống theo thứ tự 0 → 1 → 2 → 3; không tự chia sát thương cho hai ô trước. HUD có bốn thẻ hero và thanh Ultimate tinh linh riêng. Hành trình hiển thị cả bốn hero.

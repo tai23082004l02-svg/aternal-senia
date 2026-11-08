@@ -24,7 +24,7 @@ func run() -> void:
 	assert(game.store.commit(p))
 	game.selected_stage = 6
 	game._begin()
-	assert(game.battle is ArenaBattle and game.battle.run.team.version == 3)
+	assert(game.battle is ArenaBattle and game.battle.run.team.version == 4)
 	game.battle.paused = true
 	await capture("arena-spawn")
 	game.battle.paused = false
@@ -53,14 +53,14 @@ func run() -> void:
 	game.battle.paused = true
 	await capture("arena-after-escape")
 	# Resume routing is selected from the frozen snapshot, never from current rules.
-	for version in [2,1]:
+	for version in [3,2,1]:
 		var legacy: Dictionary = game.store.profile.duplicate(true)
 		legacy.pending.team.version = version
 		if version == 1: legacy.pending.team.units.pop_back()
 		assert(game.store.commit(legacy))
 		var bytes := FileAccess.get_file_as_bytes(game.store.path)
 		game._resume()
-		assert(game.battle is TeamBattle and not game.battle is ArenaBattle)
+		assert(game.battle is ArenaBattle and not game.battle is TacticalArenaBattle if version == 3 else game.battle is TeamBattle and not game.battle is ArenaBattle)
 		assert(game.battle.run == legacy.pending and FileAccess.get_file_as_bytes(game.store.path) == bytes)
 		game.battle.paused = true
 		await capture("legacy-v%d" % version)
@@ -70,5 +70,5 @@ func run() -> void:
 		player.stream = null
 	game.queue_free()
 	await process_frame
-	print("PASS: actual ArenaBattle routing, movement render, telegraph/escape, dynamic touch targeting, render immutability and v1/v2 legacy resume without save writes")
+	print("PASS: actual ArenaBattle routing, movement render, telegraph/escape, dynamic touch targeting, render immutability and v1/v2/v3 legacy resume without save writes")
 	quit()
