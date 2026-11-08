@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Đội hình · 0.25
 
 Áp dụng sơ đồ người dùng vào giao diện xanh đen/viền vàng hiện tại:
@@ -27,4 +29,4 @@ chọn/hoán đổi, tinh linh, checkbox, nhân vật khóa, lỗi ghi và pendi
 team_ui, ui_flow, animation_gallery và regression87/mechanics72/campaign5 đạt.
 Đã xem ảnh Godot Linux; chưa thử điện thoại thật.
 
-![Đội hình mới](previews/team-formation.png)
+![Đội hình mới](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/team-formation.png)

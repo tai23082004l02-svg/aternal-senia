@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 > 0.36: UI có bus FirstLightUI và ui_volume riêng; limiter tương đương SFX, chung pool12. Save cũ fallback SFX. Xem SETTINGS_SCREEN.md cho cửa sổ mới. Không thêm giọng thoại riêng.
 
 > Từ0.32 có [nhạc nền chill và8 hiệu ứng mới](AUDIO_ADDITIONS.md), ba thanh âm lượng riêng và hỗ trợ pause khi app ra nền. Phần0.5 bên dưới ghi lại batch/timeline gốc, tiếp tục áp dụng cho38 SFX cũ.
@@ -61,11 +63,9 @@ ElevenLabs**, không phải tổng hợp SFX thay thế bằng Python. Giữ raw
 mà không gọi API thêm. Vài UI/footstep cần rút ngắn nhiều để hợp nhịp game.
 
 Ambience đổi thành Ogg playback 2 kênh; giữ nguồn MP3 và loop flag trong receipt.
-`tools/build_audio.py` của prototype nay từ chối ghi đè khi bộ runtime có provider
-ElevenLabs. Không có fallback tự tạo âm bằng code, không gọi API khi chơi game.
+`tools/build_audio.py` chỉ còn guard từ chối; mã synth prototype đã bỏ khi dọn repo. Không có fallback tự tạo âm bằng code, không gọi API khi chơi game.
 
-Các file tone `art/hit.wav`, `heal.wav`, `hurt.wav`, `win.wav` còn là lịch sử
-prototype, không được AudioDirector nạp hoặc phát.
+Bốn tone prototype art/hit.wav, heal.wav, hurt.wav, win.wav đã xóa khỏi HEAD khi dọn repo vì không được AudioDirector nạp hoặc phát. Raw và biên nhận ElevenLabs vẫn giữ nguyên.
 
 ## Timeline, quyền sở hữu và chống lặp
 
@@ -115,9 +115,9 @@ preview không ghi file theo từng tick slider. Save lỗi không trừ/đổi 
 - Regression 81 assertions, mechanics và campaign vẫn đạt.
 - `tests/audio_capture.gd` dùng **AudioEffectRecord trên mixer Godot thật**,
   driver Dummy, X11/Mesa; ghi trận, boss, kết quả và reward, chụp menu âm.
-- [Đoạn ghi trong game](audio/combat-preview.wav), downmix mono 22050 Hz để chia sẻ.
-- [Số đo capture](audio/verification.json), [trace marker](audio/capture-trace.json),
-  [ảnh menu](previews/audio-settings.png). Capture thử: xem số đo thực tế trong verification.json; số đo không thay thế đánh giá chất âm bằng người nghe.
+- [Đoạn ghi trong game](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/audio/combat-preview.wav), downmix mono 22050 Hz để chia sẻ.
+- [Số đo capture](verification/audio.json), [trace marker](verification/audio-capture-trace.json),
+  [ảnh menu](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/audio-settings.png). Capture thử: xem số đo thực tế trong verification.json; số đo không thay thế đánh giá chất âm bằng người nghe.
 
 Chưa nghe qua loa vật lý hoặc thử điện thoại; không tuyên bố âm đã được mastering
 cho thiết bị thật. Từ0.32 có nhạc nền riêng; chưa có voice hoặc reverb theo phòng động.

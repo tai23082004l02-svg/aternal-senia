@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Mỹ thuật tiếp nối: Phế tích, Hồ gương & Ash
 
 - `art/painted/ruins.png`: phế tích cột ngà, cờ đỏ, lửa hổ phách và núi xanh.
@@ -25,5 +27,5 @@ animation_gallery. `tests/environment_art.gd` render hai nền/Ash, chụp ảnh
 kiểm thời gian/transform đứng yên khi pause, RNG không đổi; unpause tiếp tục.
 Mọi test dùng profile riêng. Chưa kiểm thiết bị Android/iOS thật hoặc FPS/nhiệt.
 
-![Phế tích và Ash](previews/environment-2.png)
-![Hồ gương và Ash](previews/environment-3.png)
+![Phế tích và Ash](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/environment-2.png)
+![Hồ gương và Ash](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/environment-3.png)

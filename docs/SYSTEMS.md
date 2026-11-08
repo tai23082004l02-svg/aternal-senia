@@ -1,79 +1,78 @@
-# Hệ thống 0.2
+# Kiến trúc hiện hành
 
-## Phân lớp
+Áp dụng cho game0.37/savev12. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
+Công thức singleton0.2 được giữ riêng trong [tài liệu lịch sử](history/SYSTEMS_0_2.md);
+không lấy trần+10, loot đổi shard hoặc đội1 người ở đó áp vào trận mới.
 
-- `GameCatalog`: nạp JSON bất biến, chuẩn hóa số nguyên JSON, kiểm ID/drop/skill.
-- `ProgressStore`: owns profile, derived stats, transaction, migration/backup.
-- `BattleModel`: snapshot run, RNG, HP/SP, combo, skill, assist, enemy/boss, result.
-- `FrameLibrary`: preload texture, chọn frame theo duration; không gây damage.
-- `BattleView`: frame, socket vũ khí, nền, hiệu ứng và số nổi.
-- `main.gd`: màn hình, điều khiển, câu chuyện, âm thanh và nối các module.
+## Luồng chính
 
-Không có tài nguyên network, SDK, tài khoản, quảng cáo hoặc phí runtime.
+`project.godot` → `game/main.tscn` → `game/main.gd`.
+Main khởi tạo catalogue, ProgressStore, FrameLibrary/UIIcons, AudioDirector và
+các screen. Screen gọi giao dịch model; không tự tăng tài nguyên hoặc resolve hit.
 
-## Quy tắc chiến đấu mới
+| Thành phần | Trách nhiệm/nguồn |
+| --- | --- |
+|GameCatalog|Nạp catalog.json, ghép expansion.json và team_encounters.json; normalize số, validate ID/drop/slot/skill, suy ra stats|
+|ProgressStore|Profile, migration v1–v12, backup/read-only, validate/commit, begin_run/settle và giao dịch gear|
+|Formation|Roster/slot/assist/auto options và snapshot team/encounter; ba slot không khóa nghề|
+|TeamBattle|Trận mới3vN, action/hit marker, HP/năng lượng, target, hiệu ứng/đội, kết quả|
+|BattleModel|Nền model và đường chạy pending singleton cũ; không được xóa chỉ vì UI dùng TeamBattle|
+|EquipmentSystem|4 slot, multiplier, bộ2/4, tham chiếu UID, map ID migration|
+|CollectionFragments|Mảnh gear/spirit cũ và kiểm map theo phiên bản; không áp singleton vào gear hiện tại|
+|Recruitment|RNG/pity/history riêng, pool70/25/5, quay vàng hoặc vé, transaction cả batch|
+|Supplies|Ledger8ID, claim/recipe/mua/sử dụng, support snapshot và thưởng101–103|
+|Expansion/SpiritSkills/HeroEvolution/AttributeTraining/Wardrobe|Các đường phát triển riêng, kiểm quyền/chi phí và pending|
+|MissionBoard/PlayerIdentity/GameOptions|Nhiệm vụ UTC/claimed, hồ sơ/VIP EXP, cài đặt và backup tệp|
+|DungeonWorld|Catalogue trình bày riêng15 địa điểm; stage0 không nằm trong catalogue màn chơi|
+|FrameLibrary/UIIcons/EquipmentArt|Texture, atlas/region, socket, frame/duration và registry; không mô phỏng chiến đấu|
+|BattleView/TeamBattleUI/CombatEffects|Đọc model/events và vẽ; renderer không đổi HP/RNG/ví|
+|AudioDirector|Tiêu thụ marker/cursor, bus/pool/limiter và nhạc; presentation variation không dùng RNG trận|
 
-Fixed step 1/60 giây. ×2/×3 chạy nhiều step; pause ngừng clock của trận. Windup
-đặt action ID, hit marker và wave đích. Một marker chỉ resolve một lần. Khi quái
-chết, action cũ bị bỏ; không đánh xuyên sang quái mới. Render/seek frame không
-sửa HP. Khi chuyển đợt có 0,8 giây chạy tới, không nhận command tấn công.
+## Dữ liệu nguồn và builder
 
-- Combo: 1 / 1,12 / 1,24 × ATK; tự đánh mỗi 0,85s; tap sớm nhất 0,38s.
-- Crit: tỷ lệ riêng hero; hệ số 1,6. Assist không crit.
-- Khắc chế: lửa > tự nhiên > nước > lửa, ánh sáng ↔ bóng tối; damage ×1,2.
-- Damage sau khắc chế: trừ stage ID ×1,5, tối thiểu 1; khiên còn ×0,35.
-- Đòn địch: max(1, ATK − thủ), sau đó thủ thế còn ×0,2; chu kỳ 3s.
-- Boss smash: damage ×1,5. Shield: khiên 2,8s đầu mỗi chu kỳ, burst phá khiên
-  đến hết trận boss. Counter: dùng đòn kỹ năng khi charge (sau 2s) bị phản 65% ATK.
-- SP: tối đa 100, hồi 6/s, mỗi combo thêm 4. Skill dùng 20 / 25 / 35 SP.
-- Skill nâng mỗi cấp thêm 12% power. Eira +12% skill; Mira +25% heal; Ryn crit 18%.
-- Vũ khí hiếm: cooldown ×0,92. Các số này cần cân bằng bằng thử người chơi thật.
+- `game/data/catalog.json`:4 hero,44 gear,6 bộ,5 màn chính; builder
+  `tools/build_catalog.py` gọi `build_equipment.py`.
+- `game/data/expansion.json`:10 nhánh,3 challenge, nhánh kỹ năng/traits/achievements/
+  chapters; builder `build_expansion.py`.
+- `game/data/team_encounters.json`: encounter chiến đấu theo stage.
+- `game/data/dungeon_world.json`:15 entry chỉ trình bày; đừng ghép stage0 vào GameCatalog.
+- `art/painted/manifest.json` override `art/clips.json` trong FrameLibrary.
+  SVG nền vẫn được load trước PNG; chúng chưa phải file thừa.
+- `tools/build_complete_art.py` và các builder metadata giữ alias/socket/nguồn;
+  `build_icon_manifest.py` là registry106 icon, atlas có grid khác nhau.
+  Không chạy builder rồi bỏ qua diff. Chỉ chạy cái liên quan thay đổi.
+- Audio import theo thứ tự nền → bổ sung → chill; giữ raw và receipt trong
+  `art/audio/elevenlabs/`. `build_audio.py` là guard từ chối synth.
 
-## Nhân vật và trang bị
+## Tạo và kết thúc run
 
-HP hero tăng 25/cấp, ATK 4/cấp, thủ 1/cấp. Cấp tối đa 100. Vàng để tăng cấp là
-30 × cấp hiện tại, XP 15 × cấp. Kỹ năng tối đa 10, cost 25 × cấp vàng. Assist tối
-đa 20, cost 35 × cấp vàng.
+1. Kiểm quyền vào ải/pending/cap hàng chờ; clone profile.
+2. Tạo run ID/seed, team snapshot, stats đầu team, options và encounter.
+3. Nếu có thuốc, áp một lần vào candidate snapshot, trừ1 và xóa lựa chọn.
+4. Commit thành công mới khởi động model. Resume đọc snapshot cùng seed;
+   không gọi lại prepare hoặc tính stats theo trang bị mới.
+5. Model resolve marker một lần, renderer/audio chỉ đọc events.
+6. Settle kiểm run ID; clone candidate, thưởng/first-clear/story/mission/drop/supply,
+   ghi settled và xóa pending trong một commit. Gear đầy vào hàng chờ128.
+7. Main chỉ chuyển tiếp sau commit; nhận lại cùng run ID không tăng tài nguyên.
 
-Mỗi item có UID, base ID, enhance và rank. Equipment chứa UID theo hero/slot;
-không thể trang bị cùng UID cho hai người. Vũ khí phải đúng lớp. Không phân giải
-đồ đang mặc. Nâng hệ số item = 1 + enhance ×0,18 + (rank−1) ×0,5. Cường hóa cost
-20 × (enhance+1) vàng +1 shard, tối đa +10. Tiến bậc cost 80 ×rank vàng +4 ×rank
-shard, tối đa rank 3. Rèn cost 65 vàng +3 shard. Túi 40 món.
+## Giao dịch và khôi phục
 
-Snapshot stat được chốt lúc tạo run và ghi cùng ID/seed; không đọc lại stat từ
-UI mỗi hit. Thay đổi build khóa trong run; XP/nhiệm vụ không sửa snapshot.
+Deep copy → kiểm điều kiện/cost → validate → ghi file tạm → đọc/kiểm → giữ backup
+→ thay file chính → thay RAM. Lỗi ghi/thiếu ô/thiếu nguyên liệu phải rollback
+cả phí, RNG/history và reward. Không thay đổi ví trước khi commit xong.
 
-## Transaction và khôi phục
+Đường save và config/name giữ nguyên. Backup hợp lệ chỉ phục hồi sau khi giữ
+file hỏng; future schema khóa ghi. UI có read-only/pending guards nhưng model
+vẫn phải tự kiểm. Migrations giữ các snapshot cũ, không “sửa” chúng theo cân bằng mới.
 
-1. Deep copy profile; kiểm điều kiện, tính thay đổi trên bản copy.
-2. Validate candidate; ghi `.tmp`, flush, đọc lại và validate.
-3. Nếu save hiện tại hợp lệ: copy sang `.bak`; lỗi backup thì dừng.
-4. Rename file tạm vào file chính; chỉ sau thành công mới đổi profile RAM.
+## Ranh giới cần giữ
 
-Không đảm bảo chống mất điện ở mức filesystem/fsync directory trên mọi OS;
-đã kiểm lỗi ghi bằng fault injection và backup trong Linux. Save hỏng không tự
-reset. Backup hợp lệ được dùng sau khi giữ file hỏng ở `.corrupt.<ticks>`.
-Future schema khóa ghi. Migration v1 giữ nguyên vàng/cấp và file gốc.
+- Chọn hero đang xem không tự đổi đội hình. Tương tác portrait/filter không ghi save.
+- Asset/nhãn hiển thị không tự cấp vật phẩm hoặc mở chức năng.
+- Nguyên liệu/thuốc/vé cộng dồn riêng; gear là UID; nhiệm vụ không dùng nhầm.
+- Preview/draft của settings đóng là hủy, trừ khi Lưu thành công.
+- Các dịch vụ online chưa cấu hình không được giả lập thành hoạt động thật.
+- Clock offline dựa trên máy; chưa có chống sửa giờ phía server.
 
-Run pending được giữ qua restart. Chơi lại từ đầu run với cùng seed/snapshot.
-Settle ghi ví, XP, item, metrics, first clear, story flag, settled ID và clear
-pending trong cùng candidate. Settle lại ID đã nhận không đổi ví. IDs gần nhất
-được giữ 64 mục; ID cũ không còn pending cũng không thể nhận lại. Loot seed dùng
-RNG riêng với lựa chọn đều trong pool 5 món. Túi đầy đổi drop thành 3 shard.
-
-Nhiệm vụ giữ claimed IDs. Tiếp tế tính floor(clamp(now−last, 0, 7200)/60) ×
-ải cao nhất mở ×2 vàng; claim ghi timestamp cùng vàng. Tích trong lúc chơi lẫn
-khi đóng game. Giờ âm không thưởng; đây không phải cơ chế chống chỉnh đồng hồ.
-
-## Kiểm chứng
-
-Regression 81 assertions; mechanics kiểm thủ, thua, khiên/phá khiên/phản đòn
-và 15 tổ hợp hero/stage với build mạnh; campaign kiểm profile mới vượt 5 ải chỉ
-dùng thưởng thu được, reload giữa ải. UI flow dùng X11/Mesa thực, thao tác signal
-nút, chụp màn hình tab/truyện/trận/boss/result/quest/đổi nhân vật. Kiểm hình trực
-tiếp đã phát hiện và sửa bar overlap và crop pose chết. Chưa thử thiết bị thật.
-
-## Mở rộng 0.7
-
-`Expansion` quản lý các giao dịch học/chọn nhánh, tiến hóa đồng hành, thành tựu và schema mở rộng. `game/data/expansion.json` ghép với catalogue nền; có builder `tools/build_expansion.py`. Save hiện v3 tại đường dẫn cũ, đọc v2 và giữ pending snapshot; chi tiết công thức, mode, phần thưởng và migration ở [EXPANSION.md](EXPANSION.md).
+Test trọng tâm và commands nằm ở [TESTING](TESTING.md), không chạy thử bằng save người chơi.

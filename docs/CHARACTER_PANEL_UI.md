@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Trang Nhân vật liền tranh · 0.31
 
 Theo hai ảnh tham khảo mới và yêu cầu chuẩn bị đa ngôn ngữ: thiết kế cả vùng
@@ -60,6 +62,6 @@ character_ui/equipment_ui kiểm nâng cấp đúng hero, mặc/tháo đúng UID
 tác5★, chưa sở hữu và khóa pending. ui_flow/animation_gallery/ryn_gallery
 render kiểm các màn và battle. Chưa kiểm font/RTL hoặc điện thoại thật.
 
-![Thông tin](previews/character-panel-info.png)
-![Trang bị](previews/character-panel-equipment.png)
-![Chuỗi dịch dài, chỉ dùng trong test](previews/character-panel-long-text.png)
+![Thông tin](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-panel-info.png)
+![Trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-panel-equipment.png)
+![Chuỗi dịch dài, chỉ dùng trong test](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-panel-long-text.png)

@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Pipeline tạo hình 0.3
 
 > **Tài liệu lịch sử0.3.** Mô tả SVG và số pose bên dưới đã cũ. Chuẩn hiện hành: [CHARACTER_BIBLE.md](CHARACTER_BIBLE.md) và [CHARACTER_CREATION_GUIDE.md](CHARACTER_CREATION_GUIDE.md). Ryn dùng `art/ryn/` sau thiết kế lại0.19; không khôi phục raw cũ.

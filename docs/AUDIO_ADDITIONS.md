@@ -1,7 +1,9 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Nhạc nền chill & hiệu ứng giao diện · 0.32
 
 [Nghe nhạc Moonlit Rest](../art/audio/moonlit_rest.ogg) ·
-[Nghe bản thu mixer trong game](audio/music-combat-preview.ogg)
+[Nghe bản thu mixer trong game](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/audio/music-combat-preview.ogg)
 
 ## Nội dung mới
 
@@ -45,7 +47,7 @@ Preview không ghi save; Áp dụng ghi cùng transaction, Hủy khôi phục m�
 không reset/chuyển vị trí save; lời gọi audio_settings ba tham số cũ giữ mức
 nhạc đang lưu. Không có request mạng/API khi chơi.
 
-![Bảng âm thanh](previews/music-settings.png)
+![Bảng âm thanh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/music-settings.png)
 
 ## Nguồn và lượt tạo
 
@@ -75,7 +77,7 @@ DC/fade/headroom, nguồn/receipt, Music stereo và biên nối.
 missions/summon_batch; các UI missions/bag/summon/swipe_scroll/ui_flow và
 animation_gallery. AudioEffectRecord ghi qua mixer Godot4.6.3/Dummy/Xvfb:
 trận/boss/kết quả,5 voice tối đa, peak khoảng−8,99dBFS, không clipping.
-[Số đo vòng nhạc](audio/music-verification.json). Kiểm PCM/mixer không thay thế
+[Số đo vòng nhạc](verification/music.json). Kiểm PCM/mixer không thay thế
 nghe trên loa; chưa kiểm nghe hoặc cảm ứng trực tiếp trên điện thoại thật.
 
 Cập nhật theo cách repo nằm trong bộ nhớ riêng Termux rồi xuất sang Godot:

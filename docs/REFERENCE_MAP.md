@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Đối chiếu nguồn tham khảo
 
 Nguồn: `tai23082004l02-svg/Tham-kh-o-game`, nhánh main đọc ngày 07/11/2026.

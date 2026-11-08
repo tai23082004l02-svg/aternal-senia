@@ -1,6 +1,6 @@
 # Hồ sơ tạo hình nhân vật — nguồn tham chiếu cho các phiên chat
 
-Cập nhật: 2026-11-07. Thiết kế hiện hành sau Ryn0.19; tính năng dự án đã đến0.24.
+Cập nhật: 2026-11-08. Game0.37/savev12; nhận diện Ryn vẫn theo0.19. UI Nhân vật dùng banner0.29 và panel0.31, battle sprite/layer riêng như dưới. Trạng thái tính năng tại [GAME_STATE](GAME_STATE.md).
 Đọc tài liệu này trước khi vẽ, đổi tên, thêm hoặc thiết kế lại nhân vật.
 Quy trình thực hiện nằm ở [CHARACTER_CREATION_GUIDE.md](CHARACTER_CREATION_GUIDE.md).
 

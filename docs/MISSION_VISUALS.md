@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Nhiệm vụ & Phần thưởng · Giao diện0.26
 
 Áp dụng phong cách minh họa người dùng vào UI đang chạy: xanh đen/teal, viền
@@ -25,6 +27,6 @@ quái10/12; ba tab không đổi save, click nhận nhiệm vụ/rương, VIP EX
 missions_ui, missions, ui_flow và animation_gallery đạt. Đã xem ảnh render Godot
 Linux; chưa thử điện thoại thật.
 
-![Giao diện40 điểm](previews/missions-polished.png)
-![Đã nhận thưởng](previews/missions-polished-claimed.png)
-![Nhiệm vụ tuần](previews/missions-polished-weekly.png)
+![Giao diện40 điểm](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/missions-polished.png)
+![Đã nhận thưởng](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/missions-polished-claimed.png)
+![Nhiệm vụ tuần](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/missions-polished-weekly.png)

@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 > Cập nhật0.30: trang bị được sở hữu nhiều bản độc lập; quy tắc mỗi ID một món/chuyển trang bị trùng thành mảnh trong tài liệu cũ đã được thay bằng [Túi đồ hiện hành](BAG_INVENTORY.md). Năm độ hiếm, bốn slot và thưởng bộ vẫn áp dụng.
 
 # Trang bị bốn ô, bộ và khung độ hiếm · 0.27
@@ -99,9 +101,9 @@ tổng registry80 icon. Ba vũ khí mới có icon riêng; sprite cầm tay tron
 dùng lại tài nguyên PNG đúng lớp hiện có, chưa có ba atlas cầm tay riêng.
 Không đổi tranh hero, sound asset hoặc thêm rig/SDK.
 
-![Năm kiểu khung](previews/equipment-five-frames.png)
-![Chi tiết có chỉ số, hiệu ứng và bộ](previews/equipment-legendary-detail.png)
-![Bốn ô trang bị](previews/equipment-four-slots.png)
+![Năm kiểu khung](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/equipment-five-frames.png)
+![Chi tiết có chỉ số, hiệu ứng và bộ](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/equipment-legendary-detail.png)
+![Bốn ô trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/equipment-four-slots.png)
 
 ## Save v9 và nguồn cần sửa
 

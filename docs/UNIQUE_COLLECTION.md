@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 > Cập nhật0.30: trang bị được sở hữu nhiều bản độc lập; quy tắc mỗi ID một món/chuyển trang bị trùng thành mảnh trong tài liệu cũ đã được thay bằng [Túi đồ hiện hành](BAG_INVENTORY.md). Năm độ hiếm, bốn slot và thưởng bộ vẫn áp dụng.
 
 # Sở hữu duy nhất, mảnh đúng loại và năm độ hiếm · 0.23
@@ -115,7 +117,7 @@ nhóm hiện đúng, kho mảnh theo ID, thương dùng chung và bảng trùng 
 Chạy thêm mobile_inventory, character_ui, summon_ui, shop_ui, ui_flow,
 animation_gallery cùng UI liên quan. Xem ảnh render thật; chưa thử điện thoại.
 
-![Nhận trùng thành mảnh](previews/unique-summon-results.png)
-![Kho mảnh trang bị](previews/unique-equipment-fragments.png)
+![Nhận trùng thành mảnh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/unique-summon-results.png)
+![Kho mảnh trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/unique-equipment-fragments.png)
 
 Từ0.24: save v8 đọc v2–v7, trận mới3vN. Quy tắc cùng UID dùng trong nhiều build được giữ khi các hero cùng vào đội, không tạo item mới. Pending team giữ build từng hero. Xem TEAM_COMBAT.md.

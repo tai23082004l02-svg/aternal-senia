@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Giao diện & đồ họa · 0.16
 
 Lịch sử bản0.16. Ryn đã được thay toàn bộ thiết kế và dọn raw cũ ở [0.18](RYN_ART.md); các mô tả giữ ảnh cũ dưới đây chỉ áp dụng tại thời điểm0.16.
@@ -43,12 +45,12 @@ Godot4.6.3 Linux/X11/Mesa:
 
 Chưa thử điện thoại, touch/safe-area thật, FPS/nhiệt hoặc nghe loa. Một số pose/ảnh tạo sinh có sai khác chi tiết, tháp dùng lại silhouette boss; không gọi đây là bộ animation thương mại đã polish tuyệt đối.
 
-[Video có âm thanh](previews/visual-showcase.mp4)
+[Video có âm thanh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/visual-showcase.mp4)
 
-![Hành trình](previews/visual-home.png)
-![Lyra mới](previews/lyra-character.png)
-![Mira vẽ tay](previews/mira-painted.png)
-![Núi sao và chim sấm](previews/visual-mountain.png)
-![Kho trang bị](previews/visual-inventory.png)
+![Hành trình](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/visual-home.png)
+![Lyra mới](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/lyra-character.png)
+![Mira vẽ tay](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mira-painted.png)
+![Núi sao và chim sấm](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/visual-mountain.png)
+![Kho trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/visual-inventory.png)
 
 Hồ sơ/VIP0.15 được giữ nguyên logic; lưới chọn avatar đổi thành hai cột để đủ bốn hero. VIP vẫn chỉ xem giao diện, không tạo cấp/điểm/thưởng/nạp giả. Video được ghi trước khi ghép header hồ sơ0.15; ảnh preview cuối phản ánh header mới.

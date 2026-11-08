@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Ryn · Thiết kế đồng bộ · 0.19
 
 Ryn được vẽ lại theo phong cách Eira/Mira/Lyra: tỷ lệ sprite khoảng 3,4 đầu,
@@ -32,9 +34,9 @@ focus hoặc ẩn, pointer được hủy như trước. Preview trang phục ti
 Tóc/vải được tạo riêng từ chân dung nên có sai khác nhỏ ở mép/lớp; không gọi
 đây là rig hoặc bộ minh họa hoàn toàn nhất quán từng pixel giữa mọi pose.
 
-![Ryn trong màn nhân vật](previews/ryn-character.png)
-![Chân dung phóng lớn](previews/ryn-portrait-large.png)
-![Chạm và kéo](previews/ryn-touch.gif)
+![Ryn trong màn nhân vật](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/ryn-character.png)
+![Chân dung phóng lớn](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/ryn-portrait-large.png)
+![Chạm và kéo](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/ryn-touch.gif)
 
 ## Chiến đấu
 
@@ -49,8 +51,8 @@ Mỗi frame ghi region, anchor, source_size/source_anchor/trim_offset và grip_r
 Một số region thu ngang để không lấy mảnh áo/giày của pose bên cạnh. Có lớp bàn
 tay vẽ đè cán; pose thua không vẽ thương rời.
 
-![Toàn bộ pose và điểm căn chân](previews/ryn-poses.png)
-![Đâm thương trong trận thật](previews/ryn-battle-thrust.png)
+![Toàn bộ pose và điểm căn chân](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/ryn-poses.png)
+![Đâm thương trong trận thật](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/ryn-battle-thrust.png)
 
 ## Dọn ảnh cũ
 

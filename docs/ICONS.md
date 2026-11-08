@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 > Từ0.37, registry chung có106 icon: giữ98 cũ và thêm8 vật phẩm thiết yếu. Nguồn mới art/supplies/icons.png, vùng/hash và công dụng tại [SUPPLIES.md](SUPPLIES.md). Builder không sửa pixel.
 
 # Bộ icon giao diện và đạo cụ · 0.22
@@ -36,8 +38,8 @@ chuẩn bị sẵn; **không có nghĩa game đã thêm potion/vé/nguyên liệ
 Mảnh nhân vật dùng biểu tượng mảnh chung với tên hero rõ ràng, không giả rằng
 đã có bốn tranh mảnh chân dung riêng.
 
-![Tiện ích dùng icon mới](previews/icons-utilities.png)
-![Kho nguyên liệu](previews/icons-materials.png)
+![Tiện ích dùng icon mới](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/icons-utilities.png)
+![Kho nguyên liệu](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/icons-materials.png)
 
 ## Registry chung và builder
 

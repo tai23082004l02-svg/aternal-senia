@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Ký ức & Đồng hành · 0.7
 
 Sáu nhóm tính năng mới dựa trên cấu trúc dữ liệu trong repo tham khảo. Quy tắc dưới đây được thiết kế riêng; không khẳng định phục hồi công thức game gốc.
@@ -86,9 +88,9 @@ BattleModel sở hữu marker, SP, buff, khiên, HP và các đợt. View đọc
 
 Chưa thử điện thoại thật, touch, FPS/nhiệt hoặc nghe qua loa thật. Ryn/Mira/Ash, các vùng ngoài rừng và một số boss vẫn SVG. Đây là bộ nội dung mở rộng hữu hạn, chưa có cây riêng biệt cho từng hero, đồ họa mới cho từng nhánh hoặc phụ bản vô tận.
 
-![Cây kỹ năng](previews/skill-tree.png)
-![Tiến hóa đồng hành](previews/companion-evolution.png)
-![Chương truyện](previews/story-branches.png)
-![Thưởng phụ bản](previews/trial-reward.png)
+![Cây kỹ năng](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/skill-tree.png)
+![Tiến hóa đồng hành](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/companion-evolution.png)
+![Chương truyện](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/story-branches.png)
+![Thưởng phụ bản](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/trial-reward.png)
 
 Nguồn: [schema trong repo tham khảo](https://github.com/tai23082004l02-svg/Tham-kh-o-game/blob/main/research/eternal-senia-2/catalogs/table_schemas.json): skill/passive/skillclass/rune; partner/ability/partner_rankup; realm/godRealm/platinumTrial; weapon; partner_collect/quest/story; chapter/section/map/area.

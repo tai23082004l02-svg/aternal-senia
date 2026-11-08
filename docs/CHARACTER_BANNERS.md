@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Bốn banner nhân vật · 0.29
 
 Từ0.31, Thông tin/Trang bị dùng [tranh dọc liền trang](CHARACTER_PANEL_UI.md); phần tích hợp0.29 dưới đây là lịch sử, nguồn banner vẫn dùng cho xem trang phục.
