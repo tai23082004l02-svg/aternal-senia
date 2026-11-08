@@ -25,6 +25,13 @@ func run() -> void:
 	game._close_modal()
 	game.tabs[1].pressed.emit()
 	assert(screen().faces.size() == game.catalog.data.heroes.size() and screen().section_buttons.size() == 5)
+	var avatar_manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://art/avatars/manifest.json"))
+	var avatar_source: Texture2D = load("res://" + avatar_manifest.source)
+	assert(avatar_source.get_size() == Vector2(avatar_manifest.size[0], avatar_manifest.size[1]))
+	for id in avatar_manifest.regions:
+		var region: Array = avatar_manifest.regions[id]
+		assert(Rect2(Vector2.ZERO, avatar_source.get_size()).encloses(Rect2(region[0],region[1],region[2],region[3])))
+		assert(screen().face_buttons[id].get_child(0).selection_avatar, "Hero rail uses dedicated avatar art")
 	screen().face_buttons.ryn.pressed.emit()
 	assert(game.character_inspected == "ryn" and game.store.profile.hero == "eira")
 	await capture("character-locked")

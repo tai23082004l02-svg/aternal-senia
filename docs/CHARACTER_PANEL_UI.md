@@ -65,3 +65,11 @@ render kiểm các màn và battle. Chưa kiểm font/RTL hoặc điện thoại
 ![Thông tin](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-panel-info.png)
 ![Trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-panel-equipment.png)
 ![Chuỗi dịch dài, chỉ dùng trong test](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-panel-long-text.png)
+
+### Avatar thanh chọn
+
+Thanh hero dùng bộ portrait cận mặt riêng tại `art/avatars/selection.png`, các
+pose/góc nhìn khác nhau thay ảnh cắt từ sprite chiến đấu. Ảnh60×60 trong thẻ66×96;
+tên/LV là Label riêng. Giữ nhấn để xem hero, trạng thái chưa sở hữu được làm tối
+và viền chọn theo hero đang xem; không tự đổi đội hình hay ghi save khi duyệt.
+Metadata/provenance tái tạo bằng `python3 tools/build_avatar_manifest.py`.

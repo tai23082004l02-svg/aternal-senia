@@ -35,15 +35,16 @@ func _ready() -> void:
 		face.frames = game.frames
 		face.hero = row.id
 		face.dimmed = not owned
-		face.position = Vector2(6, 3)
-		face.size = Vector2(54, 54)
+		face.selection_avatar = true
+		face.position = Vector2(3, 2)
+		face.size = Vector2(60, 60)
 		face.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		face_button.add_child(face)
-		var name_label: Label = game._label(face_button, row.name, Vector2(0, 59), 12, Color("e8d7ac"))
+		var name_label: Label = game._label(face_button, row.name, Vector2(0, 64), 12, Color("e8d7ac"))
 		name_label.size.x = 66
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var level: Label = game._label(face_button, "LV%d" % game.store.profile.heroes[row.id].level if owned else "None yet", Vector2(0, 77), 11)
+		var level: Label = game._label(face_button, "LV%d" % game.store.profile.heroes[row.id].level if owned else "None yet", Vector2(0, 80), 11)
 		level.size.x = 66
 		level.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		level.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -381,10 +382,22 @@ func outfits() -> void:
 	if hero == "ryn": button("View Ryn portrait →",game._show_ryn_portrait)
 
 class Face extends Control:
+	static var avatar_regions: Dictionary = {}
+	static var avatar_texture: Texture2D
+	var selection_avatar := false
 	var frames: FrameLibrary
 	var hero := "eira"
 	var dimmed := false
 	func _draw() -> void:
+		if selection_avatar:
+			if avatar_texture == null:
+				var spec: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://art/avatars/manifest.json"))
+				avatar_regions = spec.regions
+				avatar_texture = load("res://" + spec.source)
+			if avatar_regions.has(hero):
+				var region: Array = avatar_regions[hero]
+				draw_texture_rect_region(avatar_texture, Rect2(Vector2.ZERO,size), Rect2(region[0],region[1],region[2],region[3]), Color(.45,.45,.45,1) if dimmed else Color.WHITE)
+				return
 		if frames.painted.get("portraits", {}).has(hero):
 			var rect: Array = frames.painted.portraits[hero].face
 			draw_texture_rect_region(frames.textures["portrait_" + hero], Rect2(Vector2.ZERO, size), Rect2(rect[0], rect[1], rect[2], rect[3]), Color(.5, .5, .5, 1) if dimmed else Color.WHITE)

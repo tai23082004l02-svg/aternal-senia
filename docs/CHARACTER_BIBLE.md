@@ -167,3 +167,14 @@ Art/summon/gateway.png dùng Ryn hiện hành làm mẫu, tóc ngang vai/bím nh
 ## Concept đối thủ phó bản · 0.34
 
 Đọc [DUNGEON_WORLD.md](DUNGEON_WORLD.md) trước khi dùng art/dungeons/enemies.png. Có12 portrait concept, người hình humanoid là người trưởng thành; ba vệ giả là concept dự trữ, chưa thay actor của Tam Vệ. Không đưa những tranh này vào roster hero, không đổi Ryn/Lyra/Ash/Lumi hoặc lore/tuổi đã chốt. Các cảnh/portrait mới hiện chỉ phục vụ trang giới thiệu; gameplay và kỹ năng sẽ làm sau theo yêu cầu.
+
+## Avatar thanh chọn nhân vật · 2026-11-08
+
+`art/avatars/selection.png` là nguồn image generation riêng cho thanh chọn hero:
+Eira nhìn trái, Mira gần chính diện, Ryn ngoái nhìn, Lyra cười nghiêng đầu với
+đuôi ngựa cao. Tham chiếu bốn banner hiện hành; không thay nhận diện, tuổi,
+trang phục chuẩn, portrait lớn hoặc sprite chiến đấu. PNG giữ nguyên byte;
+`tools/build_avatar_manifest.py` chỉ ghi vùng atlas2×2 và provenance/SHA256.
+`CharacterScreen.Face.selection_avatar` dùng nguồn này cho thanh chọn; nơi dùng
+Face khác giữ renderer hiện có. Danh sách hero vẫn lấy từ catalogue; hero chưa
+có vùng avatar dùng fallback hiện hành, không bị loại khỏi danh sách.

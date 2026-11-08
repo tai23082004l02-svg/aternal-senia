@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-08",
+  "method": "Original image generation and image-generation pose refinement, referenced current character banners. Eira faces left, Mira frontal, Ryn over-shoulder, Lyra smiling with a tilted head. Source retained byte-for-byte; no pixel edits. Labels and selection frames are runtime controls.",
+  "file": "art/avatars/selection.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "sha256": "07e66a8955c07714c7ac5ac72d92c350c101f1b581ef1aa1a8efe9054bfd9e2b",
+  "references": [
+    "art/banners/eira.png",
+    "art/banners/mira.png",
+    "art/banners/ryn.png",
+    "art/banners/lyra.png"
+  ]
+}
