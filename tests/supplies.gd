@@ -66,6 +66,11 @@ func run() -> void:
 	assert(is_equal_approx(store.profile.pending.stats.atk,base_stats.atk*1.1))
 	var run: Dictionary = store.profile.pending.duplicate(true)
 	var loaded := ProgressStore.new(book,store.path)
+	print("RELOAD_STATE:readonly=",loaded.read_only," error=",loaded.error)
+	print("RELOAD_ATK:ram=",var_to_str(run.stats.atk)," disk=",var_to_str(loaded.profile.pending.get("stats",{}).get("atk",-1)))
+	if loaded.profile.pending!=run:
+		for key in run:
+			if loaded.profile.pending.get(key)!=run[key]: print("RELOAD_DIFF:",key,":ram=",var_to_str(run[key]),":disk=",var_to_str(loaded.profile.pending.get(key)))
 	assert(loaded.profile.pending==run)
 	var battle := TeamBattle.new(book)
 	battle.start(loaded.profile.pending)
