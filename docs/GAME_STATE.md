@@ -10,7 +10,7 @@ Studio **ZORVYKA Games**, hỗ trợ **zorvykagames@gmail.com**.
 Nếu có thay đổi sau mốc này, đọc HEAD/code và yêu cầu mới nhất trước khi tiếp tục.
 Các con số dưới đây lấy từ catalogue/model, không lấy số minh họa trong ảnh.
 
-## Ưu tiên chiến lược mới (kế hoạch, chưa phải runtime)
+## Quyết định sản phẩm mới nhất — 2026-11-08 (chưa phải runtime)\n\n**ĐÃ DUYỆT:** [GAME_DESIGN_V1.md](GAME_DESIGN_V1.md) chốt **24 hero, 12 nam/12 nữ, tất cả gốc 5★**, Gallery và Summon Reveal ưu tiên cao, Bond System, truyện ngắn theo nhân vật, tiếp tục repo này. Đây là ưu tiên cao hơn các dải mục tiêu 24–30 và ghi chú \"chưa duyệt 24 hero\" bên dưới. **Các số còn lại trong Launch Content Matrix vẫn là đề xuất.** Codex: WP01 audit chỉ đọc trước khi triển khai; không tự sửa gameplay/economy/save.\n\n## Ưu tiên chiến lược trước đó (bối cảnh, chưa phải runtime)
 
 Ngày 2026-11-08, chủ dự án xác nhận mục tiêu **Full Content Launch**: không đưa một game ít hero ra thị trường để thử retention rồi mới làm thêm nội dung. **Dự kiến phát hành Aternal Senia khi đã có roster nam/nữ phong phú, nhiều tinh linh, bộ trang bị, Boss, phó bản, hành trình và hệ kiếm tiền hoạt động thực**. Xem [Game Business & Monetization Plan V0.2](BUSINESS_MONETIZATION_PLAN.md) cho dải mục tiêu đề xuất và lộ trình sản xuất.
 
