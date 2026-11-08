@@ -19,6 +19,14 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 |[ARCHIVED_MEDIA](ARCHIVED_MEDIA.md)|Ảnh/video/PCM cũ qua link cố định, không tải cùng repo|
 |[verification](verification/)|Biên bản JSON nhỏ đã phát hành|
 
+## Chiến lược sản phẩm và kiếm tiền
+
+| Tài liệu | Phạm vi |
+| --- | --- |
+|[BUSINESS_MONETIZATION_PLAN](BUSINESS_MONETIZATION_PLAN.md)|**Business Design V0.1, chưa triển khai**: thị trường Mỹ/Android, Idle RPG, vòng lặp chơi, rewarded ads, IAP, kinh tế, KPI, unit economics và cổng soft-launch; đọc trước mọi đề xuất kiếm tiền|
+
+**Ưu tiên:** Kiểm chứng retention và gameplay trước khi mở SDK quảng cáo, thanh toán hoặc mở rộng nội dung hàng loạt. Không tự coi giá, mức thưởng, KPI trong kế hoạch là đã chốt.
+
 ## Gameplay và dữ liệu
 
 | Tài liệu | Phạm vi |
