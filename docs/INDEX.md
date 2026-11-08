@@ -95,4 +95,4 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 Giữ các tài liệu này cho nguồn gốc/migration/thiết kế, không coi số liệu cũ là
 hợp đồng hiện hành. Ảnh đi kèm đã liên kết đến commit trước dọn repo.
 
-- [Selena — bộ mẫu mỹ thuật nhân vật](SELENA_ART_BIBLE.md): chín ảnh nguồn, biểu cảm, chibi, trượng, icon và VFX; thiết kế để xem, chưa runtime.
+- [Selena — bộ mẫu mỹ thuật nhân vật](SELENA_ART_BIBLE.md): bảy ảnh nguồn, biểu cảm, chibi, trượng và icon; thiết kế để xem, chưa runtime.

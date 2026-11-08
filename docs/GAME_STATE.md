@@ -172,4 +172,4 @@ không đưa output trở lại repo. Xem [TESTING](TESTING.md) và
 
 ## Selena — bộ ảnh mẫu
 
-Đã tạo chín ảnh nguồn theo mẫu Selena được chủ dự án thích, kèm [hướng dẫn mỹ thuật](SELENA_ART_BIBLE.md). Chưa đổi roster, UI, save hoặc kit; pose/VFX là keyframe thiết kế, chưa animation runtime.
+Đã tạo bảy ảnh nguồn theo mẫu Selena được chủ dự án thích, kèm [hướng dẫn mỹ thuật](SELENA_ART_BIBLE.md). Chưa đổi roster, UI, save hoặc kit; chibi là key pose thiết kế, chưa animation runtime.

@@ -5,56 +5,44 @@
   "jobs": [
     "cutout",
     "expressions",
-    "battle_atlas",
     "staff",
-    "skill_icons",
-    "vfx_atlas"
+    "skill_icons"
   ],
   "sources": [
     {
       "key": "key_art",
-      "name": "key-art",
+      "name": "selena_splash_art",
       "path": "/workspace/generated_images/exec-9d38a4a7-5195-4c30-b01b-38accf1ec1af.png"
     },
     {
       "key": "turnaround",
-      "name": "turnaround",
+      "name": "selena_turnaround_reference",
       "path": "/workspace/generated_images/exec-cba95773-049e-4765-a83f-c34c0d835968.png"
     },
     {
       "key": "cutout",
-      "name": "cutout",
+      "name": "selena_fullbody_transparent",
       "path": "/workspace/generated_images/exec-4d338045-a2de-4fe4-b24b-81aaa67a2fd4.png"
     },
     {
       "key": "expressions",
-      "name": "expressions",
+      "name": "selena_expression_sheet_6",
       "path": "/workspace/generated_images/exec-0a95fb7a-5b99-4f47-a828-3fba5d369a75.png"
     },
     {
-      "key": "battle_atlas",
-      "name": "action-poses",
-      "path": "/workspace/generated_images/exec-5a8c5525-661d-4928-a9d1-e97fb41171ab.png"
-    },
-    {
       "key": "battle_chibi",
-      "name": "battle-chibi",
+      "name": "selena_battle_chibi_keyposes_8",
       "path": "/workspace/generated_images/exec-3cc0b34d-7e69-4a26-878d-b89c8ce87c4f.png"
     },
     {
       "key": "staff",
-      "name": "staff",
+      "name": "selena_weapon_staff",
       "path": "/workspace/generated_images/exec-a404db2e-331c-42f7-954c-38dd8e3e93df.png"
     },
     {
       "key": "skill_icons",
-      "name": "skill-icons",
+      "name": "selena_skill_icon_sheet_6",
       "path": "/workspace/generated_images/exec-fb073f8e-4b8e-425f-8a0b-a9c3b6995923.png"
-    },
-    {
-      "key": "vfx_atlas",
-      "name": "vfx-atlas",
-      "path": "/workspace/generated_images/exec-aad839f5-6196-4b35-8bcd-a78078e40c86.png"
     }
   ]
 }

@@ -21,4 +21,4 @@ và pose riêng trước khi đồng bộ các hero cũ.
 
 ## Bộ thiết kế mở rộng
 
-Theo yêu cầu tiếp theo, đã tạo chín ảnh nguồn và hướng dẫn mỹ thuật: [SELENA_ART_BIBLE](SELENA_ART_BIBLE.md). Đây là bộ để xem, chưa tích hợp gameplay.
+Theo yêu cầu tiếp theo, đã tạo bảy ảnh nguồn và hướng dẫn mỹ thuật: [SELENA_ART_BIBLE](SELENA_ART_BIBLE.md). Đây là bộ để xem, chưa tích hợp gameplay.

@@ -6,15 +6,13 @@ Ngày tạo: 2026-11-08. Bộ ảnh để chủ dự án xem, làm chuẩn chấ
 
 | Hạng mục | Nguồn PNG |
 | --- | --- |
-| Tranh chủ đạo toàn thân | [key-art](../art/selena/key-art.png) |
-| Bốn góc và chi tiết chất liệu | [turnaround](../art/selena/turnaround.png) |
-| Nhân vật riêng | [cutout](../art/selena/cutout.png) |
-| Sáu biểu cảm | [expressions](../art/selena/expressions.png) |
-| 24 tư thế minh họa chuyển động | [action-poses](../art/selena/action-poses.png) |
-| Tám tư thế chibi chiến đấu | [battle-chibi](../art/selena/battle-chibi.png) |
-| Trượng riêng | [staff](../art/selena/staff.png) |
-| Sáu icon kỹ năng | [skill-icons](../art/selena/skill-icons.png) |
-| Sáu họ hiệu ứng, bốn giai đoạn/họ | [vfx-atlas](../art/selena/vfx-atlas.png) |
+| Tranh chủ đạo toàn thân | [key-art](../art/selena/selena_splash_art.png) |
+| Bốn góc và chi tiết chất liệu | [turnaround](../art/selena/selena_turnaround_reference.png) |
+| Nhân vật riêng | [cutout](../art/selena/selena_fullbody_transparent.png) |
+| Sáu biểu cảm | [expressions](../art/selena/selena_expression_sheet_6.png) |
+| Tám tư thế chibi chiến đấu | [battle-chibi](../art/selena/selena_battle_chibi_keyposes_8.png) |
+| Trượng riêng | [staff](../art/selena/selena_weapon_staff.png) |
+| Sáu icon kỹ năng | [skill-icons](../art/selena/selena_skill_icon_sheet_6.png) |
 
 [Concept được chọn trước đó](../art/concepts/selena/design-board.png). Nguồn mới giữ nguyên byte công cụ; kích thước, alpha, hash và tham chiếu ghi tại [provenance](../art/selena/provenance.json). Không có receipt riêng nếu công cụ không cung cấp.
 
@@ -30,14 +28,19 @@ Bảng màu định hướng: ngà #F4EBED, lilac #B59CDB, tím tóc #D5C5E8, t�
 
 Biểu cảm: dịu dàng, quyết tâm, vui nhắm mắt, bất ngờ, lo lắng, buồn. Chân dung đại diện có thể lấy region từ ảnh riêng/biểu cảm khi tích hợp; không bake tên, sao hay chỉ số vào artwork.
 
-Tư thế 24 ô là nghiên cứu chuyển động, đọc từ trái qua phải, trên xuống dưới: idle 2, run 4, basic 4, skill 4, ultimate 4, guard 2, hurt 2, defeat 2. Tỷ lệ bộ này thiên về minh họa người lớn; không nhập thẳng làm sprite chibi. Bộ chibi riêng có idle/run/basic/skill/ultimate/guard/hurt/defeat, là tám key pose để chốt tạo hình nhỏ.
+Bộ chibi riêng có idle/run/basic/skill/ultimate/guard/hurt/defeat, là tám key pose để chốt tạo hình nhỏ.
 
-Icon đề xuất đọc theo hàng: đạn trăng–sao, lily hồi phục, khiên sao, trăng–sen tối thượng, sao dẫn đường, cộng hưởng trăng. VFX có sáu hàng: vòng hồi phục, khiên sao, thương ánh sao, sen trăng tối thượng, đạn trăng, va chạm sao; mỗi hàng bốn giai đoạn tụ/sáng/đỉnh/tan. Đây là ngôn ngữ hình ảnh, chưa phải kit combat hay thông số đã duyệt.
+Icon đề xuất đọc theo hàng: đạn trăng–sao, lily hồi phục, khiên sao, trăng–sen tối thượng, sao dẫn đường, cộng hưởng trăng. Đây là ngôn ngữ hình ảnh, chưa phải kit combat hay thông số đã duyệt.
 
 ## Bàn giao sản xuất
 
-Đây là **bộ thiết kế và keyframe nguồn**, chưa phải animation đã căn socket/pivot, cắt region, cân timing hoặc kiểm trong game. Các PNG yêu cầu nền trong suốt cần đối chiếu alpha thực tế trong provenance trước khi dùng; không suy ra đã sẵn sàng runtime từ vẻ ngoài của contact sheet. Hai sheet action-poses và vfx-atlas không có pixel alpha=0, còn haze toàn nền; cần xuất lại nền sạch bằng image generation trước khi làm atlas runtime. Giữ nguyên nguồn, dùng image generation khi cần sửa, không xóa nền/vẽ lại pixel bằng code.
+Đây là **bộ thiết kế và keyframe nguồn**, chưa phải animation đã căn socket/pivot, cắt region, cân timing hoặc kiểm trong game. Các PNG yêu cầu nền trong suốt cần đối chiếu alpha thực tế trong provenance trước khi dùng; không suy ra đã sẵn sàng runtime từ vẻ ngoài của contact sheet. Giữ nguyên nguồn, dùng image generation khi cần sửa, không xóa nền/vẽ lại pixel bằng code.
 
-Khi tích hợp: chọn region chân dung/avatar; cắt pose sau kiểm ranh ô thực tế; cân baseline, hand/socket và góc trượng từng pose; bổ sung in-between nếu cần; căn icon và VFX theo vùng thực tế. Không tự dùng kích thước grid danh nghĩa làm region đã kiểm. Không thêm hero, mảnh, quyền sở hữu hoặc skill chỉ vì có ảnh.
+Khi tích hợp: chọn region chân dung/avatar; cắt pose sau kiểm ranh ô thực tế; cân baseline, hand/socket và góc trượng từng pose; bổ sung in-between nếu cần; căn icon theo vùng thực tế. Không tự dùng kích thước grid danh nghĩa làm region đã kiểm. Không thêm hero, mảnh, quyền sở hữu hoặc skill chỉ vì có ảnh.
 
 Chuẩn cho hero sau là độ hoàn thiện và tính nhất quán giữa các loại asset, không phải sao chép tóc tím, hoa lily hay trượng trăng của Selena. Mỗi hero cần silhouette, màu nhấn, vũ khí và mô-típ riêng.
+
+
+## Dọn nguồn lỗi theo yêu cầu
+
+Đã xóa sheet 24 tư thế người lớn và sheet VFX vì nền alpha còn haze; bộ tư thế còn lệch phong cách chibi và lặp dáng. Giữ bảy PNG có công dụng rõ, đổi tên có tiền tố selena. Turnaround là tài liệu tham chiếu trang phục, không phải sprite. Nguồn chibi là tám key pose, chưa phải animation hoàn chỉnh. Chưa có VFX Selena đạt chuẩn để nhập game.

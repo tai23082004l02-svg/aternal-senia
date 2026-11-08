@@ -12,14 +12,14 @@
       "sha256": "35f688766bc08b6d1caa2a93093e0ff0a33326584248b5e0859a786f14d75581"
     },
     {
-      "path": "art/selena/key-art.png",
+      "path": "art/selena/selena_splash_art.png",
       "sha256": "50440ae05b26e71009e45dfce9eb5e7a34d3bc3b48ad88b3c5be1c3b1ca88d5c"
     }
   ],
   "reference_usage": "Key art and turnaround reference approved board; remaining sources reference board and new key art.",
   "assets": [
     {
-      "file": "key-art.png",
+      "file": "selena_splash_art.png",
       "original_output": "exec-9d38a4a7-5195-4c30-b01b-38accf1ec1af.png",
       "sha256": "50440ae05b26e71009e45dfce9eb5e7a34d3bc3b48ad88b3c5be1c3b1ca88d5c",
       "size": [
@@ -33,7 +33,7 @@
       "status": "design_source_not_runtime_validated"
     },
     {
-      "file": "turnaround.png",
+      "file": "selena_turnaround_reference.png",
       "original_output": "exec-cba95773-049e-4765-a83f-c34c0d835968.png",
       "sha256": "476238d793c655804107b9107c4ded954a9341d311608b0a2f27f3f55a4594f2",
       "size": [
@@ -47,7 +47,7 @@
       "status": "design_source_not_runtime_validated"
     },
     {
-      "file": "cutout.png",
+      "file": "selena_fullbody_transparent.png",
       "original_output": "exec-4d338045-a2de-4fe4-b24b-81aaa67a2fd4.png",
       "sha256": "60e0800d67746448e8769811632798df3bac1e9c5ddf18006ef3408881d1daaf",
       "size": [
@@ -64,7 +64,7 @@
       "status": "design_source_not_runtime_validated"
     },
     {
-      "file": "expressions.png",
+      "file": "selena_expression_sheet_6.png",
       "original_output": "exec-0a95fb7a-5b99-4f47-a828-3fba5d369a75.png",
       "sha256": "f627524dca0be6bcd319db4292e156be5d0918838d6aaac7a3de79d465a5bcf5",
       "size": [
@@ -81,24 +81,7 @@
       "status": "design_source_not_runtime_validated"
     },
     {
-      "file": "action-poses.png",
-      "original_output": "exec-5a8c5525-661d-4928-a9d1-e97fb41171ab.png",
-      "sha256": "b1e2501af96eef7d833428a6377cdcfc076d599cdbacd50f8182e1afe41a0a8f",
-      "size": [
-        1536,
-        1024
-      ],
-      "mode": "RGBA",
-      "transparent_background_requested": true,
-      "alpha_range": [
-        4,
-        252
-      ],
-      "alpha_zero_pixels": 0,
-      "status": "design_source_not_runtime_validated"
-    },
-    {
-      "file": "battle-chibi.png",
+      "file": "selena_battle_chibi_keyposes_8.png",
       "original_output": "exec-3cc0b34d-7e69-4a26-878d-b89c8ce87c4f.png",
       "sha256": "e9288a56cdb65c2c17c1665ece1a6e0f2d9a9435542159a0b028dbbf49775d5f",
       "size": [
@@ -115,7 +98,7 @@
       "status": "design_source_not_runtime_validated"
     },
     {
-      "file": "staff.png",
+      "file": "selena_weapon_staff.png",
       "original_output": "exec-a404db2e-331c-42f7-954c-38dd8e3e93df.png",
       "sha256": "e28c361de8a0b484167cd822c710cf8e0f863427ba915d560e35eb1ae14c3f10",
       "size": [
@@ -132,7 +115,7 @@
       "status": "design_source_not_runtime_validated"
     },
     {
-      "file": "skill-icons.png",
+      "file": "selena_skill_icon_sheet_6.png",
       "original_output": "exec-fb073f8e-4b8e-425f-8a0b-a9c3b6995923.png",
       "sha256": "37fed4db1c399083defeaf23aeccc14a99ed0557419f0af1083ad60283fa4296",
       "size": [
@@ -147,23 +130,16 @@
       ],
       "alpha_zero_pixels": 246672,
       "status": "design_source_not_runtime_validated"
+    }
+  ],
+  "removed_sources": [
+    {
+      "file": "action-poses.png",
+      "reason": "Rejected: repetitive adult poses incompatible with chosen chibi battle style; opaque haze in alpha."
     },
     {
       "file": "vfx-atlas.png",
-      "original_output": "exec-aad839f5-6196-4b35-8bcd-a78078e40c86.png",
-      "sha256": "780f84f167a804af7ad88a64a5b8cc748f98b3acfa98a83a33479a0dd591d7ee",
-      "size": [
-        1024,
-        1536
-      ],
-      "mode": "RGBA",
-      "transparent_background_requested": true,
-      "alpha_range": [
-        9,
-        253
-      ],
-      "alpha_zero_pixels": 0,
-      "status": "design_source_not_runtime_validated"
+      "reason": "Rejected: opaque haze across effect sheet; unsuitable for transparent runtime effects."
     }
   ]
 }
