@@ -15,7 +15,7 @@ for test in tests:
     command=['godot','--audio-driver','Dummy','--path',str(ROOT),'--script','tests/'+test+'.gd']
     if test in headless:command.insert(1,'--headless')
     try:
-        run=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True,timeout=75)
+        run=subprocess.run(command,cwd=ROOT,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=35)
         text=run.stdout+run.stderr
         ok=run.returncode==0 and 'PASS' in text and 'SCRIPT ERROR' not in text and 'Parse Error' not in text
     except subprocess.TimeoutExpired as error:

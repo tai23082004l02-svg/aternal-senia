@@ -885,9 +885,9 @@
       "atlas": "supplies/icons.png",
       "region": [
         4,
-        4,
+        64,
         376,
-        504
+        400
       ],
       "sheet": "supplies",
       "cell": 0
@@ -896,9 +896,9 @@
       "atlas": "supplies/icons.png",
       "region": [
         388,
-        4,
+        64,
         376,
-        504
+        400
       ],
       "sheet": "supplies",
       "cell": 1
@@ -907,9 +907,9 @@
       "atlas": "supplies/icons.png",
       "region": [
         772,
-        4,
+        64,
         376,
-        504
+        400
       ],
       "sheet": "supplies",
       "cell": 2
@@ -918,9 +918,9 @@
       "atlas": "supplies/icons.png",
       "region": [
         1156,
-        4,
+        64,
         376,
-        504
+        400
       ],
       "sheet": "supplies",
       "cell": 3
@@ -929,9 +929,9 @@
       "atlas": "supplies/icons.png",
       "region": [
         4,
-        516,
+        540,
         376,
-        504
+        420
       ],
       "sheet": "supplies",
       "cell": 4
@@ -940,9 +940,9 @@
       "atlas": "supplies/icons.png",
       "region": [
         388,
-        516,
+        540,
         376,
-        504
+        420
       ],
       "sheet": "supplies",
       "cell": 5
@@ -951,9 +951,9 @@
       "atlas": "supplies/icons.png",
       "region": [
         772,
-        516,
+        540,
         376,
-        504
+        420
       ],
       "sheet": "supplies",
       "cell": 6
@@ -962,9 +962,9 @@
       "atlas": "supplies/icons.png",
       "region": [
         1156,
-        516,
+        540,
         376,
-        504
+        420
       ],
       "sheet": "supplies",
       "cell": 7

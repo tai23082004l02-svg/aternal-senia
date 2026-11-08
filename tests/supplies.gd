@@ -13,6 +13,7 @@ func run() -> void:
 	p.cleared = [1,2,3]
 	for id in Supplies.ORDER: p.supplies.counts[id] = 20
 	assert(store.commit(p))
+	print("SUPPLIES_CASE: setup")
 	var before := store.profile.duplicate(true)
 	store.fail_writes = true
 	assert(not Supplies.buy(store,"rage_potion") and store.profile==before)
@@ -39,6 +40,7 @@ func run() -> void:
 	assert(store.profile.gold==before.gold-20 and store.profile.shards==before.shards and store.profile.supplies.counts.forge_stone==before.supplies.counts.forge_stone-1)
 	before = store.profile.duplicate(true)
 	assert(not store.enhance(uid,true,true) and store.profile==before)
+	print("SUPPLIES_CASE: stone")
 	assert(Supplies.train(store,"mira",0))
 	assert(store.profile.heroes.mira.skills[0]==2 and store.profile.heroes.eira.skills[0]==1)
 	assert(store.profile.gold==before.gold)
@@ -52,6 +54,7 @@ func run() -> void:
 	assert(store.profile.gold==before.gold+store.offline_amount(7200) and store.profile.last_offline==before.last_offline)
 	assert(store.offline_preview(int(store.profile.last_offline)+600)==idle)
 	assert(not Supplies.buy(store,"afk_hourglass"))
+	print("SUPPLIES_CASE: material/AFK")
 	assert(Supplies.select_support(store,"rage_potion"))
 	before = store.profile.duplicate(true)
 	store.fail_writes = true
@@ -85,6 +88,7 @@ func run() -> void:
 	assert(loaded.profile.supplies.counts.ancient_seed==seeds+1)
 	before = loaded.profile.duplicate(true)
 	assert(loaded.settle(run.id,true,3) and loaded.profile==before)
+	print("SUPPLIES_CASE: support/reload")
 	# Full physical bag never limits a material chest, and a ticket batch rolls back.
 	p = loaded.profile.duplicate(true)
 	while p.items.size()<40: assert(loaded._add_item(p,"armor_1"))
@@ -110,6 +114,7 @@ func run() -> void:
 	invalid = loaded.profile.duplicate(true)
 	invalid.supplies.counts.normal_ticket = -1
 	assert(not loaded.valid(invalid))
+	print("SUPPLIES_CASE: ticket")
 	# Real v10 preserves duplicate gear, fragments, balances and frozen pending team.
 	var legacy := store.fresh()
 	legacy.gold = 987

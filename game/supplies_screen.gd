@@ -57,16 +57,16 @@ func listing() -> void:
 		art.texture = Supplies.icon(id)
 		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		art.position = Vector2(62,5)
-		art.size = Vector2(100,100)
+		art.position = Vector2(56,0)
+		art.size = Vector2(112,112)
 		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(art)
-		var title: Label = game._label(card,Supplies.NAMES[id],Vector2(8,108),14,GOLD)
-		title.size = Vector2(208,44)
+		var title: Label = game._label(card,Supplies.NAMES[id],Vector2(8,116),14,GOLD)
+		title.size = Vector2(208,40)
 		title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		title.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var count: Label = game._label(card,"×%d" % Supplies.count(game.store.profile,id),Vector2(8,155),18)
+		var count: Label = game._label(card,"×%d" % Supplies.count(game.store.profile,id),Vector2(8,160),18)
 		count.size.x = 208
 		count.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		count.mouse_filter = Control.MOUSE_FILTER_IGNORE
