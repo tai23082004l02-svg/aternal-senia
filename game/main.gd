@@ -1350,7 +1350,18 @@ func _supply_execute(kind: String, id: String = "", value: int = 0) -> void:
 				return
 		_: return
 	var cue := "forge" if kind=="stone" else ("upgrade" if kind in ["train","seed"] else "reward")
-	_outcome(ok,"Đã xử lý vật phẩm. Dữ liệu đã được lưu.",cue)
+	var result_text := "Đã xử lý vật phẩm."
+	if ok:
+		match kind:
+			"buy": result_text = "Đã mua1 "+Supplies.NAMES[id]+"."
+			"claim": result_text = "Đã nhận "+Supplies.NAMES[Supplies.MILESTONES[id].item]+"."
+			"chest": result_text = "Đã nhận%d × %s." % [Supplies.CHEST[id],Supplies.NAMES[id]]
+			"stone": result_text = "Đã cường hóa đúng bản trang bị đã chọn."
+			"train": result_text = "Đã nâng1 cấp kỹ năng của "+catalog.find_row("heroes",id).name+"."
+			"seed": result_text = "Đã nhận1 Lõi tinh linh."
+			"hourglass": result_text = "Đã nhận%d vàng từ đồng hồAFK." % store.offline_amount(7200)
+			"select": result_text = "Đã bỏ vật phẩm chuẩn bị." if id=="" else "Đã chuẩn bị "+Supplies.NAMES[id]+". Chưa trừ thuốc."
+	_outcome(ok,result_text,cue)
 
 func _items_panel() -> void:
 	var screen := BagScreen.new()

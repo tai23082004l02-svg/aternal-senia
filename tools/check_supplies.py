@@ -16,7 +16,7 @@ for test in tests:
     if test in headless:command.insert(1,'--headless')
     try:
         run=subprocess.run(command,cwd=ROOT,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=35)
-        text=run.stdout+run.stderr
+        text=(run.stdout or '')+(run.stderr or '')
         ok=run.returncode==0 and 'PASS' in text and 'SCRIPT ERROR' not in text and 'Parse Error' not in text
     except subprocess.TimeoutExpired as error:
         text=(error.stdout or b'').decode(errors='replace') if isinstance(error.stdout,bytes) else (error.stdout or '')

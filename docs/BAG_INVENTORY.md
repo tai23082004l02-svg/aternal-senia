@@ -1,3 +1,5 @@
+> Từ0.35 có tab Vật phẩm với ledger cộng dồn riêng; savev11 giữ nhiều bản gear và40 ô như cũ. Xem [SUPPLIES.md](SUPPLIES.md).
+
 # Túi đồ & Lò rèn · 0.30
 
 Theo ảnh tham khảo và yêu cầu mới nhất: **trang bị có thể sở hữu nhiều bản cùng

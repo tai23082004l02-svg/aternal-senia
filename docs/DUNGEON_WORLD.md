@@ -1,3 +1,5 @@
+> Từ0.35, ba phó bản chơi được có thêm một nguyên liệu riêng khi thắng:101 hạt,102 mảnh ký ức,103 đá rèn. Xem [SUPPLIES.md](SUPPLIES.md).12 phó bản xem trước vẫn chưa phát thưởng hoặc mở gameplay.
+
 # Thế giới Phó bản · 0.34
 
 Theo yêu cầu: **cài giao diện và đồ họa trước, từng màn chơi thêm sau**.
