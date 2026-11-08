@@ -29,11 +29,19 @@ static func color(kind: String, id: String, book: GameCatalog, profile: Dictiona
 	if kind == "hero": return Color({1: "a4aab5", 2: "69b875", 3: "608dff", 4: "aa70ff", 5: "efa52c"}[tier])
 	return Color(RARITIES[tier].color)
 
-static func fresh() -> Dictionary:
-	return {"seed": 17, "count": 0, "pity": 0, "heroes": [], "spirits": [], "fragments": {"eira": 0, "ryn": 0, "mira": 0, "lyra": 0}, "awakening": {"eira": 1, "ryn": 1, "mira": 1, "lyra": 1}, "history": []}
+static func fresh(book: GameCatalog = null) -> Dictionary:
+	var result := {"seed": 17, "count": 0, "pity": 0, "heroes": [], "spirits": [], "fragments": {}, "awakening": {}, "history": []}
+
+	result.fragments = {}
+	result.awakening = {}
+	var rows: Array = book.data.heroes if book != null else GameCatalog.new().data.heroes
+	for hero in rows:
+		result.fragments[hero.id] = 0
+		result.awakening[hero.id] = 1
+	return result
 
 static func state(p: Dictionary) -> Dictionary:
-	return p.get("recruitment", fresh())
+	return p.recruitment if p.has("recruitment") else fresh()
 
 # Dedicated future banner counters; legacy normal pity stays separate.
 static func banner_pity(p: Dictionary, banner: String) -> int:
@@ -41,14 +49,14 @@ static func banner_pity(p: Dictionary, banner: String) -> int:
 
 static func ensure(store: ProgressStore, p: Dictionary) -> void:
 	if not p.has("recruitment"):
-		p.recruitment = fresh()
+		p.recruitment = fresh(store.catalog)
 		p.recruitment.seed = absi(store.path.hash()) % 2147483647
 
 static func valid(store: ProgressStore, p: Dictionary) -> bool:
 	if not p.has("recruitment"): return true
 	var r = p.recruitment
 	if not r is Dictionary: return false
-	for key in fresh():
+	for key in fresh(store.catalog):
 		if not r.has(key): return false
 	for key in ["seed", "count", "pity"]:
 		if not store._whole(r[key], 0, 19 if key == "pity" else 2147483647): return false
@@ -64,6 +72,10 @@ static func valid(store: ProgressStore, p: Dictionary) -> bool:
 	for hero in store.catalog.data.heroes:
 		if not store._whole(r.fragments.get(hero.id), 0, 1e12) or not store._whole(r.awakening.get(hero.id), 1, 5): return false
 	if not r.history is Array or r.history.size() > HISTORY_LIMIT: return false
+	if r.has("last_batch"):
+		var batch = r.last_batch
+		if not batch is Dictionary or batch.get("end_count") != r.count or not batch.get("entries") is Array or batch.entries.size() not in [1,10]: return false
+		if batch.entries != r.history.slice(0,batch.entries.size()): return false
 	for entry in r.history:
 		if not entry is Dictionary or entry.get("kind") not in ["hero", "spirit", "item"] or not entry.get("duplicate") is bool: return false
 		if entry.has("fragment_amount") and (not entry["duplicate"] or entry.fragment_amount != CollectionFragments.DUPLICATE_AMOUNT): return false
@@ -76,7 +88,7 @@ static func pool(book: GameCatalog, tier: int) -> Array:
 	for pair in [["hero", "heroes"], ["spirit", "assists"], ["item", "items"]]:
 		for row in book.data[pair[1]]:
 			var rank := rarity(pair[0], row.id, book)
-			var grade := 2 if row.id in ["eira", "lumi"] else 3
+			var grade := int(row.summon_group) if pair[0] == "hero" else (2 if row.id == "lumi" else 3)
 			if pair[0] == "item": grade = int(row.summon_group)
 			if grade != tier: continue
 			var weight: int = {4: 12, 5: 6, 6: 3, 7: 1}.get(rank, 12) if grade == 3 else 1
@@ -93,6 +105,7 @@ static func summon(store: ProgressStore, count: int = 1, use_ticket: bool = fals
 		if not _draw(store, p,not use_ticket):
 			store.error = "Your equipment bag is full. Dismantle or fuse items and try again; no Gold or tickets spent."
 			return false
+	p.recruitment["last_batch"] = {"end_count":p.recruitment.count, "entries":p.recruitment.history.slice(0,count).duplicate(true)}
 	MissionBoard.record(p, "summon", count)
 	return store.commit(p)
 

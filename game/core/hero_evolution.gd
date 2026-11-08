@@ -1,11 +1,14 @@
 class_name HeroEvolution
 extends RefCounted
 
-static func fresh() -> Dictionary:
-	return {"eira": 1, "ryn": 1, "mira": 1, "lyra": 1}
+static func fresh(book: GameCatalog = null) -> Dictionary:
+	var result := {}
+	var rows: Array = book.data.heroes if book != null else GameCatalog.new().data.heroes
+	for hero in rows: result[hero.id] = 1
+	return result
 
 static func rank(p: Dictionary, hero: String) -> int:
-	return int(p.get("evolution", fresh())[hero])
+	return int(p.get("evolution", {}).get(hero, 1))
 
 static func valid(store: ProgressStore, p: Dictionary) -> bool:
 	if not p.has("evolution"): return true
@@ -25,7 +28,7 @@ static func evolve(store: ProgressStore, hero: String) -> bool:
 	if not eligible(store, hero): return false
 	var p := store.profile.duplicate(true)
 	var tier := rank(p, hero)
-	if not p.has("evolution"): p.evolution = fresh()
+	if not p.has("evolution"): p.evolution = fresh(store.catalog)
 	p.gold -= tier * 250
 	p.shards -= tier * 10
 	p.expansion.cores -= tier * 3

@@ -42,6 +42,7 @@ func run() -> void:
 	assert(not model.prioritize_heal)
 	var mira: Dictionary = model.allies[0].duplicate(true)
 	mira.id = "mira"
+	mira.stats.combat = catalog.find_row("heroes", "mira").combat.duplicate(true)
 	model.allies[0].hp = 1
 	model._basic(mira)
 	assert(mira.action.kind == "basic")

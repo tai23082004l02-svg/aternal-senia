@@ -7,11 +7,14 @@ const LOOKS := {
 	"moon": {"name": "Moonlight Palette", "tint": Color(.82, .9, 1, 1)}
 }
 
-static func fresh() -> Dictionary:
-	return {"eira": "original", "ryn": "original", "mira": "original", "lyra": "original"}
+static func fresh(book: GameCatalog = null) -> Dictionary:
+	var result := {}
+	var rows: Array = book.data.heroes if book != null else GameCatalog.new().data.heroes
+	for hero in rows: result[hero.id] = "original"
+	return result
 
 static func selected(p: Dictionary, hero: String) -> String:
-	return p.get("outfits", fresh())[hero]
+	return str(p.get("outfits", {}).get(hero, "original"))
 
 static func tint(p: Dictionary, hero: String) -> Color:
 	return LOOKS[selected(p, hero)].tint
@@ -26,6 +29,6 @@ static func valid(store: ProgressStore, p: Dictionary) -> bool:
 static func apply(store: ProgressStore, hero: String, look: String) -> bool:
 	if look not in LOOKS or store.read_only or not store.profile.pending.is_empty() or not store.available_hero(hero): return false
 	var p := store.profile.duplicate(true)
-	if not p.has("outfits"): p.outfits = fresh()
+	if not p.has("outfits"): p.outfits = fresh(store.catalog)
 	p.outfits[hero] = look
 	return store.commit(p)

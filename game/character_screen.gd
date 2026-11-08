@@ -19,14 +19,16 @@ var development_buttons: Array[Button] = []
 
 func _ready() -> void:
 	custom_minimum_size = Vector2(492, 732)
+	var gallery_button: Button = game._button(self, "Gallery →", Vector2(0, 78), Vector2(66, 34), game._select_tab.bind(23))
+	gallery_button.name = "OpenGallery"
+	gallery_button.add_theme_font_size_override("font_size", 11)
 	var roster := VBoxContainer.new()
-	roster.position = Vector2(0, 78)
-	roster.size = Vector2(66, 640)
+	roster.position = Vector2(0, 120)
+	roster.size = Vector2(66, 600)
 	roster.add_theme_constant_override("separation", 10)
 	add_child(roster)
 	var roster_rows: Array = game.catalog.data.heroes.duplicate()
-	var order := ["eira","mira","ryn","lyra"]
-	roster_rows.sort_custom(func(a,b): return (order.find(a.id) if a.id in order else 99) < (order.find(b.id) if b.id in order else 99))
+	roster_rows.sort_custom(func(a,b): return a.gallery_order < b.gallery_order)
 	for row in roster_rows:
 		var face_button: Button = game._button(roster, "", Vector2.ZERO, Vector2(66, 96), game._inspect_character.bind(row.id))
 		var owned: bool = game.store.available_hero(row.id)
@@ -104,7 +106,7 @@ func _ready() -> void:
 	game._button(heading, "?", Vector2.ZERO, Vector2(30, 30), game._character_help).add_theme_font_size_override("font_size", 13)
 	text("★".repeat(Recruitment.rarity("hero", hero, game.catalog)), 18, Color("efbf67"))
 	if not game.store.available_hero(hero):
-		text("Not owned · Clear chapter %d or summon to unlock." % (row.unlock - 1), 12)
+		text("Not owned · " + row.acquisition, 12)
 		button("Go to Shop →", game._select_tab.bind(20))
 	if section in [2,3,4]:
 		var development := HBoxContainer.new()
@@ -297,7 +299,7 @@ func skills() -> void:
 		return
 	var p: Dictionary = game.store.profile
 	var unit: Dictionary = p.heroes[hero]
-	for entry in [["Basic Attack","Automatically attack the priority target and build Energy on hits.","slash","Basic Attack"],["Basic Skill", "Attack magic; switches to healing when an ally falls below 85% HP." if hero == "mira" else "Automatically use damage skills when ready.","heal_spell" if hero == "mira" else "slash_spell","Skills"],["Ultimate", "Heal and shield surviving allies. Requires 100 Energy." if hero == "mira" else "Deal damage to multiple targets and heal yourself; Ryn also gains a shield. Requires 100 Energy.","burst","Ultimate"],["Traits", game.catalog.find_row("heroes",hero).passive,"water" if hero == "mira" else "talents","Passive"]]:
+	for entry in [["Basic Attack","Automatically attack the priority target and build Energy on hits.","slash","Basic Attack"],["Basic Skill", game.catalog.find_row("heroes",hero).skill_descriptions.basic,"heal_spell" if hero == "mira" else "slash_spell","Skills"],["Ultimate", game.catalog.find_row("heroes",hero).skill_descriptions.ultimate,"burst","Ultimate"],["Traits", game.catalog.find_row("heroes",hero).passive,"water" if hero == "mira" else "talents","Passive"]]:
 		var panel := PanelContainer.new()
 		panel.add_theme_stylebox_override("panel", gold_style())
 		body.add_child(panel)

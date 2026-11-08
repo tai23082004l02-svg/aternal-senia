@@ -30,6 +30,7 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 
 ## Dữ liệu nguồn và builder
 
+- `game/data/hero_contracts.json`: cấu hình vũ khí/vai trò/skill hiện hành, Gallery và summon group; được HeroContract kiểm tra. Không import registry launch.
 - `game/data/catalog.json`:4 hero,44 gear,6 bộ,5 màn chính; builder
   `tools/build_catalog.py` gọi `build_equipment.py`.
 - `game/data/expansion.json`:10 nhánh,3 challenge, nhánh kỹ năng/traits/achievements/

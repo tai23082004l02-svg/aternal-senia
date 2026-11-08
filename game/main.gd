@@ -382,7 +382,7 @@ func _refresh_panel() -> void:
 	for i in range(tabs.size()):
 		tabs[i].visible = true
 		tabs[i].position.y = 876
-		var section: int = 20 if tab in [20, 11] else (2 if tab in [2, 17, 18, 19] else (1 if tab in [1, 6, 7, 9, 12, 13, 22] else (21 if tab in [5, 21] else 0)))
+		var section: int = 20 if tab in [20, 11] else (2 if tab in [2, 17, 18, 19] else (1 if tab in [1, 6, 7, 9, 12, 13, 22, 23] else (21 if tab in [5, 21] else 0)))
 		tabs[i].modulate = Color("e3c998") if NAV_PAGES[i] == section else Color.WHITE
 	view.preview = catalog.stats(store.profile)
 	view.selected_stage = catalog.find_row("stages", selected_stage)
@@ -404,6 +404,7 @@ func _refresh_panel() -> void:
 		20: _shop_panel()
 		21: _dungeons_panel()
 		22: _formation_panel()
+		23: _gallery_panel()
 		_: _expansion_panel(tab)
 
 func _style_journey_shell(enabled: bool, active_index: int = 2) -> void:
@@ -473,6 +474,16 @@ func _choose_stage(id: int) -> void:
 	battle = null
 	view.battle = null
 	_refresh_panel()
+
+func _gallery_panel() -> void:
+	var gallery := HeroGallery.new()
+	gallery.game = self
+	panel.add_child(gallery)
+
+func _open_gallery_hero(id: String) -> void:
+	character_inspected = id
+	character_page = 0
+	_select_tab(1)
 
 func _heroes_panel() -> void:
 	if character_inspected == "" or catalog.find_row("heroes", character_inspected).is_empty():
@@ -1036,7 +1047,7 @@ func _summon_execute(count: int) -> void:
 	_refresh_panel()
 	_refresh_hud()
 	_summon_sound(Recruitment.state(store.profile).history.slice(0, 10))
-	SummonScreen.show_results(self, "SUMMON RESULTS ×10", Recruitment.state(store.profile).history.slice(0, 10))
+	SummonReveal.show_batch(self, Recruitment.state(store.profile).history.slice(0, 10))
 
 func _summon_sound(results: Array) -> void:
 	var rare := false
@@ -1045,6 +1056,10 @@ func _summon_sound(results: Array) -> void:
 		if rarity >= (2 if result.kind == "spirit" else 5): rare = true
 	# One reveal for the complete committed batch; viewing history is silent.
 	audio.play("rarity_reveal" if rare else "summon_reveal")
+
+func _replay_summon() -> void:
+	var batch: Dictionary = Recruitment.state(store.profile).get("last_batch", {})
+	if not batch.is_empty(): SummonReveal.show_batch(self, batch.entries)
 
 func _summon_history() -> void:
 	SummonScreen.show_results(self, "SUMMON HISTORY", Recruitment.state(store.profile).history)
@@ -1067,20 +1082,7 @@ func _summon() -> void:
 	_refresh_panel()
 	var result: Dictionary = store.profile.recruitment.history[0]
 	_summon_sound([result])
-	var detail := "Equipment added to your bag." if result.kind == "item" else "Unlocked for selection in Heroes."
-	if result["duplicate"]: detail = "Duplicates" + CollectionFragments.reward_suffix(result) + " · " + _entity_name(result.kind, result.id)
-	var column := _dialog(Recruitment.label(result.kind, result.id, catalog) + " · " + _entity_name(result.kind, result.id), detail, [{"text": "Close", "call": _close_modal}])
-	column.get_child(0).modulate = Recruitment.color(result.kind, result.id, catalog)
-	var image := TextureRect.new()
-	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	image.texture = frames.textures["companion_" + result.id] if result.kind == "spirit" else icons.textures["hero" if result.kind == "hero" else "equipment"]
-	image.custom_minimum_size = Vector2(0, 150)
-	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	column.add_child(image)
-	column.move_child(image, 1)
-	image.modulate.a = 0
-	image.create_tween().tween_property(image, "modulate:a", 1.0, .25)
+	SummonReveal.show_batch(self, [result])
 
 func _batch_level() -> void:
 	_outcome(Recruitment.level_batch(store), "Hero leveled up.", "upgrade")
@@ -1332,7 +1334,7 @@ func _supply_execute(kind: String, id: String = "", value: int = 0) -> void:
 				_refresh_panel()
 				_refresh_hud()
 				_summon_sound(Recruitment.state(store.profile).history.slice(0,value))
-				SummonScreen.show_results(self,"TICKET RESULTS",Recruitment.state(store.profile).history.slice(0,value))
+				SummonReveal.show_batch(self,Recruitment.state(store.profile).history.slice(0,value))
 				return
 		_: return
 	var cue := "forge" if kind=="stone" else ("upgrade" if kind in ["train","seed"] else "reward")

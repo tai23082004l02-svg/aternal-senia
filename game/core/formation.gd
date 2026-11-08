@@ -100,6 +100,7 @@ static func valid_snapshot(store, team: Variant) -> bool:
 		if store.catalog.find_row("heroes", s.get("hero")).is_empty() or s.hero in ids or s.get("assist") != team.assist: return false
 		for key in ["hp", "atk", "defense", "crit", "skill_bonus", "assist_level"]:
 			if not store._number(s.get(key), 0, 1e8): return false
+		if s.has("combat") and not HeroContract.valid_combat(s.combat): return false
 		if s.hp <= 0 or s.atk <= 0 or not s.get("skills") is Array or s.skills.size() != 3: return false
 		for level in s.skills:
 			if not store._whole(level, 1, 10): return false

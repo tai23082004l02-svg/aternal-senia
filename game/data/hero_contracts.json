@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "heroes": {
+    "eira": {
+      "weapon_category": "sword",
+      "role": "Duelist",
+      "gallery_order": 0,
+      "combat": {
+        "basic": "damage",
+        "ultimate": "damage",
+        "damage_taken": 1.0,
+        "ultimate_shield": false
+      },
+      "summon_group": 2,
+      "acquisition": "Available at the start; also in Standard Summon.",
+      "art": {
+        "banner": "res://art/banners/eira.png"
+      },
+      "skill_descriptions": {
+        "basic": "Automatically use damage skills when ready.",
+        "ultimate": "Deal damage to multiple targets and heal yourself. Requires 100 Energy."
+      }
+    },
+    "mira": {
+      "weapon_category": "staff",
+      "role": "Healer",
+      "gallery_order": 1,
+      "combat": {
+        "basic": "adaptive_heal",
+        "ultimate": "team_heal",
+        "damage_taken": 1.0,
+        "ultimate_shield": false
+      },
+      "summon_group": 3,
+      "acquisition": "Clear campaign stage 2 or obtain from Standard Summon.",
+      "art": {
+        "banner": "res://art/banners/mira.png"
+      },
+      "skill_descriptions": {
+        "basic": "Attack magic; switches to healing when an ally falls below 85% HP.",
+        "ultimate": "Heal and shield surviving allies. Requires 100 Energy."
+      }
+    },
+    "ryn": {
+      "weapon_category": "spear",
+      "role": "Bruiser",
+      "gallery_order": 2,
+      "combat": {
+        "basic": "damage",
+        "ultimate": "damage",
+        "damage_taken": 0.9,
+        "ultimate_shield": true
+      },
+      "summon_group": 3,
+      "acquisition": "Clear campaign stage 1 or obtain from Standard Summon.",
+      "art": {
+        "banner": "res://art/banners/ryn.png"
+      },
+      "skill_descriptions": {
+        "basic": "Automatically use damage skills when ready.",
+        "ultimate": "Deal damage to multiple targets and heal yourself; also gain a shield. Requires 100 Energy."
+      }
+    },
+    "lyra": {
+      "weapon_category": "spear",
+      "role": "Striker",
+      "gallery_order": 3,
+      "combat": {
+        "basic": "damage",
+        "ultimate": "damage",
+        "damage_taken": 1.0,
+        "ultimate_shield": false
+      },
+      "summon_group": 3,
+      "acquisition": "Clear campaign stage 3 or obtain from Standard Summon.",
+      "art": {
+        "banner": "res://art/banners/lyra.png"
+      },
+      "skill_descriptions": {
+        "basic": "Automatically use damage skills when ready.",
+        "ultimate": "Deal damage to multiple targets and heal yourself. Requires 100 Energy."
+      }
+    }
+  }
+}

@@ -31,6 +31,8 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 
 ## Gameplay và dữ liệu
 
+[HERO_COLLECTION](HERO_COLLECTION.md): nền contract hero, Gallery, Summon Reveal, tương thích v12 và kế hoạch migration roster.
+
 | Tài liệu | Phạm vi |
 | --- | --- |
 |[TEAM_COMBAT](TEAM_COMBAT.md)|Trận đội3vN, snapshot, model/events, tương thích singleton|

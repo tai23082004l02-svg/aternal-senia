@@ -193,9 +193,14 @@ func _lowest() -> int:
 			selected = i
 	return selected
 
+func _hero_combat(ally: Dictionary) -> Dictionary:
+	if ally.stats.has("combat"): return ally.stats.combat
+	# Frozen compatibility defaults for pre-contract pending snapshots.
+	return {"basic": "adaptive_heal" if ally.id == "mira" else "damage", "ultimate": "team_heal" if ally.id == "mira" else "damage", "damage_taken": .9 if ally.id == "ryn" else 1.0, "ultimate_shield": ally.id == "ryn"}
+
 func _basic(ally: Dictionary) -> void:
 	ally.basic_cd = 5.5 * ally.stats.get("cooldown_scale", 1.0)
-	var heal: bool = prioritize_heal and ally.id == "mira" and _lowest() >= 0 and allies[_lowest()].hp < allies[_lowest()].stats.hp * .85
+	var heal: bool = prioritize_heal and _hero_combat(ally).basic == "adaptive_heal" and _lowest() >= 0 and allies[_lowest()].hp < allies[_lowest()].stats.hp * .85
 	var power: float = (1.7 + (ally.stats.skills[0] - 1) * .12) * ally.stats.skill_bonus
 	if "focus" in ally.stats.get("variants", []): power *= 1.25
 	_schedule_ally(ally, "heal" if heal else "basic", .15 + ally.stats.skills[1] * .025 if heal else power, .5, .95)
@@ -240,7 +245,7 @@ func _advance_ally(ally: Dictionary) -> void:
 					allies[target].barrier = maxf(allies[target].barrier, allies[target].stats.hp * .15)
 					allies[target].barrier_until = time + 5
 				_heal(target, allies[target].stats.hp * power, allies.find(ally))
-		elif action.kind == "ultimate" and ally.id == "mira":
+		elif action.kind == "ultimate" and _hero_combat(ally).ultimate == "team_heal":
 			for i in range(allies.size()):
 				if allies[i].hp > 0:
 					_heal(i, allies[i].stats.hp * (.22 + ally.stats.skills[1] * .02), allies.find(ally))
@@ -249,7 +254,7 @@ func _advance_ally(ally: Dictionary) -> void:
 		elif action.kind == "ultimate":
 			for i in range(enemies.size()):
 				if enemies[i].hp > 0: _damage_enemy(i, ally.stats.atk * action.power, ally, true)
-			if ally.id == "ryn":
+			if _hero_combat(ally).ultimate_shield:
 				ally.barrier = maxf(ally.barrier, ally.stats.hp * (.16 + ally.stats.skills[1] * .02))
 				ally.barrier_until = time + 5
 			if state == "battle" and ally.hp > 0:
@@ -317,7 +322,7 @@ func _damage_ally(index: int, amount: float, source: int) -> void:
 		_team_emit("guard", index, index, "Evasion", "guard_hit", true)
 		return
 	amount = maxf(1, amount - ally.stats.defense) * (1-ally.stats.get("damage_reduction",0))
-	if ally.id == "ryn": amount *= .9
+	amount *= float(_hero_combat(ally).damage_taken)
 	var absorbed := minf(ally.barrier, amount)
 	ally.barrier -= absorbed
 	amount -= absorbed

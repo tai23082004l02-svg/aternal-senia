@@ -37,6 +37,14 @@ Toàn bộ chữ hiển thị, tên ải/Boss/vật phẩm, hội thoại và th
 làm ngôn ngữ chính. Toàn bộ giao diện dùng font đóng gói Playfair Display Bold; xem [ENGLISH_UI](ENGLISH_UI.md). Giữ tên người chơi Unicode, savev12,
 ID và toàn bộ chỉ số/giao dịch.
 
+## Gallery và nền dữ liệu hero — cập nhật triển khai
+
+Đã thêm contract dữ liệu/vũ khí/kỹ năng cho bốn hero hiện có, Gallery lọc theo
+hệ/vai trò/sở hữu và showcase, Summon Reveal cho vàng/vé x1/x10 có skip,
+tổng kết và xem lại lô đã commit sau khi tải save. Giữ savev12, chỉ số, unlock,
+pool/pity/giá và art cũ; chưa thêm 20 hero, Bond hoặc combat launch mới.
+Chi tiết tương thích snapshot và kế hoạch migration roster: [HERO_COLLECTION](HERO_COLLECTION.md).
+
 ## Đã hoạt động
 
 | Phần | Trạng thái thực |
@@ -122,7 +130,7 @@ Bước tiếp theo hợp lý: kiểm thử bản0.37 trên điện thoại củ
 
 Bản0.37 đã qua39 suite trên Godot4.6.3/Linux/Xvfb:
 [biên bản](verification/supplies-0.37.json).
-Sau dọn repo, dùng workflow Project verification, runner40 suite và kiểm tra
+Sau dọn repo, dùng workflow Project verification, runner43 suite và kiểm tra
 tham chiếu/audio. Ảnh/log/PCM mới ở work/checks hoặc artifact của lượt chạy,
 không đưa output trở lại repo. Xem [TESTING](TESTING.md) và
 [REPOSITORY_CLEANUP](REPOSITORY_CLEANUP.md) cho kết quả cụ thể.

@@ -10,6 +10,18 @@ func _init() -> void:
 		errors.append("Unable to read the catalog")
 		return
 	data = normalize(parsed)
+	var contracts = JSON.parse_string(FileAccess.get_file_as_string("res://game/data/hero_contracts.json"))
+	if not contracts is Dictionary or contracts.get("version") != 1 or not contracts.get("heroes") is Dictionary:
+		errors.append("Invalid hero contracts")
+		return
+	for hero in data.heroes:
+		var contract = contracts.heroes.get(hero.id)
+		if not contract is Dictionary:
+			errors.append("Missing hero contract: " + hero.id)
+			continue
+		for field in HeroContract.FIELDS:
+			if contract.has(field): hero[field] = normalize(contract[field])
+		if not HeroContract.valid(hero): errors.append("Invalid hero contract: " + hero.id)
 	var expansion: Dictionary = normalize(JSON.parse_string(FileAccess.get_file_as_string("res://game/data/expansion.json")))
 	data.stages.append_array(expansion.stages)
 	if FileAccess.file_exists("res://game/data/team_encounters.json"):
@@ -65,7 +77,7 @@ func find_row(group: String, id: Variant) -> Dictionary:
 	return {}
 
 func category(hero_id: String) -> String:
-	return {"eira": "sword", "ryn": "spear", "lyra": "spear", "mira": "staff"}.get(hero_id, "sword")
+	return str(find_row("heroes", hero_id).get("weapon_category", ""))
 
 func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 	if hero_id.is_empty():
@@ -86,6 +98,7 @@ func stats(profile: Dictionary, hero_id: String = "") -> Dictionary:
 				result.weapon = item.base
 				result.element = def.element
 				result.cooldown_scale = def.cooldown_scale
+	result["combat"] = base.combat.duplicate(true)
 	Expansion.stats(self, profile, hero_id, result)
 	AttributeTraining.apply(profile, hero_id, result)
 	var awakening: int = Recruitment.state(profile).awakening[hero_id] - 1

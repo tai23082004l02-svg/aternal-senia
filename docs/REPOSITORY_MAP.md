@@ -7,7 +7,7 @@
 |README.md|Cách chạy, trạng thái và lối vào tài liệu|
 |game/main.tscn, game/main.gd|Khởi động, điều hướng/callback, nối model/view/audio|
 |game/core/|Model, catalogue, lưu/giao dịch, chiến đấu, đội hình, phát triển, cài đặt|
-|game/data/|JSON nguồn runtime;18 stage thực ghép từ catalog+expansion,15 preview riêng|
+|game/data/|JSON nguồn runtime;18 stage thực ghép từ catalog+expansion,15 preview riêng; hero_contracts.json cho cấu hình hero hiện hành|
 |game/*screen.gd|Các màn Godot, chữ/control thật, SwipeScroll cho vùng dài|
 |game/core/frame_library.gd|Load manifest/fallback rồi PNG override; không xóa SVG theo suy đoán|
 |art/painted, art/combat, art/complete, art/ryn|Battle sprite, chân dung/layer, nền/quái/vũ khí, manifest/socket|
@@ -28,7 +28,7 @@
 
 ## Công cụ
 
-- `check_project.py`:40 suite mặc định; có chọn tên test, timeout, emits review khi cần.
+- `check_project.py`:43 suite mặc định; có chọn tên test, timeout, emits review khi cần.
 - `verify_repo.py`:kiểm tham chiếu literal, link nội bộ, file sinh ra, inventory JSON.
 - `export_android.sh`:xuất HEAD chỉ gồm project/game/art sang thư mục mới.
 - `pose_lab.tscn`/`pose_lab.gd`:xem frame/socket, không đổi model hoặc phát âm.

@@ -158,6 +158,8 @@ func _ready() -> void:
 	rates.disabled = not active
 	button(actions,tr("Summon History"),game._summon_history,Vector2(140,36))
 	button(actions,tr("View Rewards"),preview_rewards,Vector2(140,36))
+	var replay := button(body,tr("Replay latest results"),game._replay_summon,Vector2(440,36))
+	replay.disabled = Recruitment.state(game.store.profile).get("last_batch", {}).is_empty()
 	var note := PanelContainer.new()
 	note.add_theme_stylebox_override("panel",style())
 	body.add_child(note)

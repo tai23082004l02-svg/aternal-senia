@@ -5,6 +5,7 @@ Game vẫn0.37.0 sau dọn repo vì không đổi gameplay/schema.
 
 | Mốc | Thay đổi |
 | --- | --- |
+|Gallery2026-11-08|Contract hero/vũ khí/kỹ năng giữ hành vi cũ; Gallery4 hero; Summon Reveal vàng/vé, tổng kết và replay lô đã commit; giữ savev12|
 |Dọn repo2026-11-08|Bỏ output minh họa khỏi checkout, tài liệu bàn giao hiện hành, CI40 suite/artifact, xuất Android gọn|
 |0.37|8 vật phẩm dùng thật,106 icon, ledger supplies, savev12|
 |0.36|Cài đặt fantasy, tùy chọn đồ họa/tự chiến/UI audio/backup và thông tin ZORVYKA Games|
