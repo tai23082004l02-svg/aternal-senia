@@ -1,4 +1,10 @@
-# Aternal Senia — First Light · 0.32
+# Aternal Senia — First Light · 0.33
+
+## Cổng triệu hồi fantasy · 0.33
+
+Banner Ryn mới chừa vùng chữ, ba loại quay nằm ngang, phần thưởng bấm xem,
+nút x1/x10 lớn và các nút tỷ lệ/lịch sử/pool. Giá và bảo hiểm dùng cấu hình
+thật, chữ tách khỏi ảnh. [Xem giao diện và giới hạn](docs/SUMMON_VISUALS.md).
 
 ## Nhạc nền chill &8 SFX mới · 0.32
 

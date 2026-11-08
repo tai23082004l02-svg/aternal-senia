@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-08",
+  "method": "Original image generation referenced current Ryn banner identity. Empty left title area and lower overlay region; gilded forest sunrise gateway. No text, prices, countdowns, rate-up or guarantee claims baked in; source PNG copied byte-for-byte.",
+  "sources": [
+    {
+      "file": "art/summon/gateway.png",
+      "size": [
+        1774,
+        887
+      ],
+      "sha256": "2464e46d0be6c61cf14c23f7d1f3ced87d84d366fd3f299eb1994c238e705cbb",
+      "reference": "art/banners/ryn.png"
+    }
+  ]
+}
