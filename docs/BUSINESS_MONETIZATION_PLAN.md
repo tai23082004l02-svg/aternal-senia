@@ -1,30 +1,64 @@
 # Aternal Senia — Game Business & Monetization Plan
 
-> **BUSINESS DESIGN V0.1 · 2026-11-08 · ĐỀ XUẤT / CHƯA TRIỂN KHAI**
+> **BUSINESS DESIGN V0.2 · 2026-11-08 · FULL CONTENT LAUNCH FIRST · KẾ HOẠCH, CHƯA CODE**
 >
-> **Mục tiêu:** Xây dựng một game di động có khả năng giữ chân và tạo doanh thu bền vững từ **rewarded ads tự nguyện** và **in-app purchases (IAP)**. Cốt truyện, nhân vật, tinh linh và trang bị được thiết kế để phục vụ **vòng lặp chơi, sưu tầm và phát triển đội hình**, không phải mục đích tự thân.
+> **Quyết định chủ dự án:** **KHÔNG phát hành bản nhỏ/soft launch với vài hero để thăm dò người chơi.** Chỉ công bố sản phẩm khi đã hoàn thiện dàn nhân vật phong phú, đa dạng nam nữ, nhiều tinh linh, trang bị, Boss, hành trình, nội dung chơi lại, hình ảnh và hệ thống kiếm tiền thực. Không trì hoãn sản xuất roster chỉ vì chưa có dữ liệu D1/D7/D30.
 >
-> **Trọng tâm đầu tiên:** Android, thị trường Hoa Kỳ, người chơi trưởng thành yêu thích anime/fantasy và game auto/idle. Mở rộng iOS, quốc gia và phân khúc khác **chỉ sau kiểm chứng**. Không khẳng định kế hoạch này bảo đảm lợi nhuận.
+> **Phân biệt:** **Sản xuất và QA nội bộ theo từng giai đoạn** là bắt buộc để chất lượng tốt; đó **không phải** phát hành game thử công khai. Có thể dùng build nội bộ để phát hiện crash, lỗi save, lỗi billing, lỗi ad reward. **Một lần ra mắt chính thức với nội dung đầy đủ.**
 >
-> **QUAN TRỌNG CHO CODEX:** File này là **kế hoạch sản phẩm/kinh doanh**, không phải lệnh tự triển khai SDK, quảng cáo, thanh toán, gói nạp hoặc sửa cân bằng. Mọi giá bán, phần thưởng, giới hạn quảng cáo, KPI và mốc thời gian đều là **giả thuyết thử nghiệm**, phải được duyệt qua task riêng, có test và đo thực tế. Không tự cấp tiền/vật phẩm hoặc tạo màn mua hàng giả.
+> **Trọng tâm:** Android, thị trường Mỹ, người chơi yêu thích fantasy anime / sưu tầm hero / auto-battle idle. Rewarded ads chủ động + IAP xác minh thật ngay khi phát hành (nếu đạt chuẩn kỹ thuật/pháp lý). Cốt truyện dùng để tạo nhân vật, tinh linh, vũ khí, thế giới, sự kiện — không đầu tư đại truyện dài chỉ để kể chuyện.
 >
-> **Không dùng lại** các Story Bible về *The World That Forgot Tomorrow* đã bị hủy. **Không ép câu chuyện mới theo các bản thảo đó.** Thông tin tình trạng game phải đối chiếu [GAME_STATE](GAME_STATE.md), [SYSTEMS](SYSTEMS.md) và code HEAD.
+> **Hướng dẫn Codex:** Đây là kế hoạch sản phẩm **không tự cấp quyền sửa code, mở SDK, tự xóa hero/item, tăng tỉ lệ quay hoặc reset save**. Các số lượng nội dung bên dưới là **mục tiêu quy hoạch đề xuất** để lập ngân sách và lịch sản xuất, chưa phải đã có trong runtime hoặc là số cuối cùng được duyệt. Cần task được giao và test mỗi phần.
+>
+> Đã hủy Story Bible cũ *The World That Forgot Tomorrow*; không dùng làm canon hoặc ràng buộc hệ thống mới. Trạng thái thật phải xem [GAME_STATE](GAME_STATE.md) và HEAD của repository.
 
----
+# 1. Quyết định chiến lược — Full Content Launch
 
-# 1. Quyết định chiến lược (Executive decision)
+**Thể loại:** **Hero Collection Idle Fantasy RPG** — build đội hình tự đánh 3 hero + 1 tinh linh, triệu hồi, phân vai, trang bị theo set, PvE campaign, Boss, dungeon, AFK, nhiệm vụ và sưu tầm.
 
-**Thể loại sản phẩm đề xuất:** **Hybrid Idle Fantasy RPG / Hero Collection Auto Battler** — game F2P thu thập hero, xây đội hình, nâng cấp trang bị/tinh linh, vượt ải, săn Boss, nhận AFK.
+**Phương pháp sản xuất:** **Content-first, quality-first, monetization-ready**. Tạo hình hero đẹp và nhận diện độc lập là giá trị cốt lõi của sản phẩm; cần đủ nhân vật để người chơi thấy bộ sưu tập có chiều sâu ngay ngày đầu. Nội dung được sản xuất theo đợt nội bộ để quản lý chất lượng, **không public từng đợt nhỏ để chờ phản ứng**.
 
-**Hai nguồn thu ưu tiên:**
-1. **Rewarded ads**: giúp người chơi miễn phí tiến nhanh hơn chút ít, ở đúng ngữ cảnh nhận thưởng, không gián đoạn trận.
-2. **IAP trực tiếp, minh bạch**: gói tân thủ có món **xác định**, skin/trang phục, gói tiện ích không áp đặt; các sản phẩm ngẫu nhiên/gacha trả tiền là dự án về sau, không phải MVP.
+**Nguồn thu ngày phát hành (nếu đã tích hợp và xác thực):**
+- **Rewarded ads tự nguyện**, phần thưởng nhỏ và cố định/có trần, không đè lên trận chiến.
+- **IAP**: gói tân thủ, trang phục, vật phẩm nâng cấp xác định, gói tài nguyên và gói sưu tầm; bán quyền triệu hồi random chỉ khi có đủ disclosures, kiểm toán pool và purchase backend.
+- **Không thiết kế bức tường paywall**: người chơi miễn phí vẫn có đội hình mạnh, nội dung chính và nguồn nguyên liệu hợp lý.
 
-**Không làm ngay:** MMO, PvP real-time, guild/server xã hội, subscription phức tạp, VIP pay-to-win, premium gacha banner, 50 hero, 100 dungeon, 500 tầng tháp, Battle Pass khi chưa chứng minh giữ chân được người chơi.
+## 1.1. Mục tiêu quy mô của **bản phát hành hoàn chỉnh**
 
-**Quan điểm thiết kế:** Trải nghiệm miễn phí phải vui và có thể hoàn thành nội dung cốt lõi; mua hàng giúp hỗ trợ nhà phát triển, tăng tiện nghi, đa dạng hóa ngoại hình và có thể tăng tốc hợp lý — **không biến thành yêu cầu bắt buộc**.
+| Mảng | Mục tiêu thiết kế đề xuất | Điều kiện chất lượng |
+| --- | --- | --- |
+| **Hero** | **24–30** hero có thể sở hữu lúc ra mắt, **nam/nữ cân đối** (ví dụ đích 12 nam + 12 nữ cho 24 đầu) | Mỗi hero có silhouette, portrait, battle animation, vũ khí, kit, vai trò và nguồn sở hữu riêng; không chỉ recolor |
+| **Tinh linh** | **10–12** | Bộ dáng, hiệu ứng, vai trò chiến thuật và cách sở hữu rõ; đủ lựa chọn 1 slot hỗ trợ |
+| **Bộ trang bị** | **10–12 set** có nhận diện; gear phổ thông và unique bên ngoài set được định nghĩa riêng | Có 2/4-piece effects, nguồn rơi, hướng build, art icon, cân bằng |
+| **Vùng/chương** | **6–8 vùng fantasy** khác biệt | Background, quái, Boss, chủ đề gear/hero riêng; lore ngắn phục vụ thiết kế |
+| **Hành trình** | **60–100 stage/encounter PvE** có nhịp độ | Không nhân bản stage vô nghĩa; có milestone, cơ chế và thưởng hợp lý |
+| **Boss** | **8–12 Boss** khác chiến thuật | Telegraph, kỹ năng, counterplay, đồ rơi và trình diễn |
+| **Phó bản thật** | **6–10 hoạt động** có gameplay và rewards thật | Farm nguyên liệu, gear, spirit, boss; không stage0 preview giả |
+| **Trang phục/sưu tầm** | Một gallery/collection và các ngoại hình có thể nhận hoặc mua | Đẹp, rõ giá trị, không dùng skin pay-to-win |
+| **Store & ads** | 2–4 ad placements tự nguyện, **6–8 SKU IAP thực** là mục tiêu ban đầu | SDK, backend entitlement/receipt, giá từ storefront, refund, lỗi offline, privacy đầy đủ |
 
-**North Star kinh doanh:** **Giá trị người chơi tạo ra trong vòng đời (contribution LTV, sau phí liên quan) > chi phí thu hút người chơi (CAC) + chi phí phục vụ/phát triển**, trên **cùng cohort**; đồng thời không làm xấu retention, trải nghiệm và đánh giá. Giai đoạn đầu chỉ đo và học, **không mua lưu lượng lớn khi LTV chưa được đo**.
+**Các con số là mục tiêu sáng tác/ước lượng khối lượng để phê duyệt ngân sách. Không phải yêu cầu cứng hoặc thành tựu đã hoàn thành.** Khi sản xuất, hãy quyết định roster chính thức bằng một **Launch Content Matrix** và art pipeline. Không tự rút về 4 hero vì thấy ít tốn công hơn.
+
+## 1.2. Những gì phải hoàn thiện trước khi gọi là “đã sẵn sàng phát hành”
+
+- Tất cả hero/tinh linh/set/stage/Boss trong **Launch Content Matrix đã duyệt** đều có **asset thật, gameplay thật, UI thật, source/reward thật**; không icon trống hay nút “coming soon” đặt như tính năng đã hoạt động.
+- Có **onboarding cho roster lớn**: người chơi nhìn thấy nhiều hero và con đường sở hữu, chứ không phải chỉ thấy bốn người.
+- Vòng lặp farm/AFK/upgrade, summon, collections, daily/weekly hoàn chỉnh; không có content chỉ đẹp trên ảnh.
+- Rewarded ads/IAP **không được giả lập**; nếu một phương thức tiền thật chưa đạt điều kiện store/security, không được tự tuyên bố live.
+- Bảo toàn UID, pending runs, transaction, save/migration; cần phương án chuyển đổi cho content cũ.
+- Android thực đã QA trên nhóm thiết bị mục tiêu; kiểm tra crash, startup, FPS, mạng yếu, offline/resume, dữ liệu lớn, asset RAM và đúng kích thước màn hình.
+- Có khả năng cập nhật và sửa lỗi sau phát hành; “hoàn chỉnh” không có nghĩa ngừng cải tiến.
+
+## 1.3. Những việc không lựa chọn
+
+- Không ra mắt công khai bằng **4 hero và 2 tinh linh** rồi chờ retention mới sản xuất roster đầy đủ.
+- Không vận hành **soft launch/closed beta công khai nhằm quyết định có làm thêm hero hay không**.
+- Không coi 10–15 phút gameplay thiếu nội dung là “bản thương mại thử”.
+- Không lấy D1/D7 làm **điều kiện cấp phép sáng tác art hoặc tăng số hero**.
+- Không phát hành sớm chỉ để kiếm tiền nếu game thiếu nội dung hoặc payment/ad reward thiếu xác thực.
+- Không đánh đổi chất lượng hình ảnh/hoạt ảnh của dàn nhân vật để khoe số lượng.
+
+**QA nội bộ, unit tests, review art, test giao dịch và device tests vẫn bắt buộc.** Chúng là quy trình làm game hoàn chỉnh, không phải phương án phát hành thử.
 
 # 2. Cơ sở tham khảo bên ngoài (tính đến 2026-11-08)
 
@@ -58,15 +92,13 @@ Bốn cảm giác phải có: **sở hữu → tiến bộ → lựa chọn chi�
 
 Trong 30–60 giây đầu, người chơi phải thấy: nhân vật có cá tính, trận đánh dễ hiểu, phần thưởng thật và một lựa chọn nâng cấp có tác dụng nhìn thấy được.
 
-## 3.3. Ưu thế cạnh tranh cần kiểm chứng
+## 3.3. Định vị cạnh tranh của bản đầy đủ
 
-- 2D fantasy anime chất lượng hình ảnh nhất quán; portrait 540×960.
-- Đội hình gọn **3 hero + 1 tinh linh**, không ép học đội hình 5–7 người ngay.
-- Gear có slot/set/hiệu ứng; chiến thuật rõ hơn chỉ số lực chiến.
-- Chơi cốt lõi được **offline**; tính năng quảng cáo, IAP và đồng bộ giao dịch cần mạng.
-- Vòng chơi ngắn, thưởng thật, không giới thiệu bằng 20 phút truyện.
+**Điểm bán hàng khi ra mắt:** **một dàn nhân vật anime đẹp ngay từ ngày đầu**, cả nam lẫn nữ, đủ chiều sâu build đội; phép thuật và chuyển động 2D sắc nét; hệ thống tinh linh, trang bị nhiều set, Boss đẹp và một hành trình có độ dài thực.
 
-**Rủi ro cạnh tranh:** gacha/idle RPG là thể loại đông đối thủ và tốn art/nội dung; chúng ta không thắng bằng số lượng hero ngay. Phải thắng ở **trải nghiệm đầu game dễ hiểu, chất lượng UI, cảm giác nâng cấp và độ ổn định**.
+Không nhấn mạnh “chúng tôi mới có vài nhân vật nhưng sẽ thêm dần” trong store listing. Truyền thông phải cho thấy **nội dung có sẵn thật ở bản ra mắt**, không trailer dựng có hero chưa thể sở hữu.
+
+**Rủi ro cần quản trị:** khối lượng 24–30 hero sẽ lớn. Giải bằng art bible, shared production pipeline, asset reuse hợp lý ở kỹ thuật (không recolor thành nhân vật giả), animation kit, lịch nội bộ và quality gate — không giải bằng việc phát hành sớm ít hero.
 
 # 4. Hiện trạng thật của project vs những thứ chưa có
 
@@ -111,17 +143,19 @@ Nguồn đối chiếu: docs/GAME_STATE.md (0.37.0; Godot 4.6.3; save v12) ở t
 
 Giai đoạn đầu **không tạo “daily chores” dài**: người chơi vẫn hoàn thành phần thưởng cơ bản trong 5–10 phút; chơi lâu hơn là lựa chọn.
 
-## 5.3. 15 phút đầu tiên phải có gì?
+## 5.3. 15 phút đầu của game đầy đủ
 
-| Thời điểm thiết kế | Trải nghiệm bắt buộc | Không làm |
+Một game có nhiều hero **vẫn phải dễ hiểu**. Trong 15 phút đầu nên có:
+
+| Thời điểm thiết kế | Người chơi thấy gì | Quy tắc |
 | --- | --- | --- |
-| 0–1 phút | Vào trận đầu, đánh/nhìn được skill, hoàn thành nhanh | Bắt đọc lore dài, màn hình IAP |
-| 1–3 phút | Nhận vật phẩm thật, nâng cấp và cảm thấy hiệu quả | Đổ 8 hệ thống cùng lúc |
-| 3–5 phút | Thử ghép đội/đổi gear (nếu đã có đủ) | Buộc quay gacha để thắng |
-| 5–10 phút | Mở một đồng đội/khả năng mới có **nguồn chắc chắn** (cần thiết kế và tài khoản mới test) | Cảm giác roster nghèo kéo dài |
-| 10–15 phút | Thử thách mini-Boss, nhận quà và được chỉ rõ mục tiêu lần quay lại | Chặn bằng quảng cáo bắt buộc |
+| 0–1 phút | Một trận đánh ngắn với 3 hero được giới thiệu hấp dẫn | Không khóa vào 10 màn thoại |
+| 1–3 phút | Nhận và nâng cấp item, thấy hiệu quả trực quan | Thưởng thật, không fake preview |
+| 3–5 phút | Mở Collection với **toàn bộ roster launch**, xem art/skill/nguồn sở hữu | Cho thấy chiều sâu sưu tầm ngay |
+| 5–10 phút | Một lựa chọn chiến thuật: đổi hero/gear/spirit, miễn phí có đủ lựa chọn | Không phụ thuộc may mắn hay tiền nạp |
+| 10–15 phút | Boss nhỏ, một món gear có ý nghĩa, mục tiêu dài hạn và hoạt động hằng ngày | Không ép xem ad/mua gói |
 
-**Giả thuyết sản phẩm:** Người chơi hiểu và thắng trận đầu trong < 90 giây; hoàn thành hướng dẫn chính trong < 5 phút; không thấy lời mời trả tiền trước khi nhận thấy gameplay vui. Phải kiểm bằng test người chơi thật.
+**Đây là yêu cầu UX của game đầy đủ, không phải nội dung phát hành thử.** Người chơi không nhất thiết sở hữu tất cả hero ngay, nhưng phải thấy chúng thực sự tồn tại trong game và có đường mở khóa rõ. Sau ngày phát hành có thể dùng telemetry để tối ưu onboarding, không trì hoãn sản xuất hero.
 
 # 6. Monetization A — Rewarded ads
 
@@ -135,18 +169,18 @@ Giai đoạn đầu **không tạo “daily chores” dài**: người chơi v�
 - Không cho xem quảng cáo vô hạn để bơm kinh tế.
 - Test dùng **test ad unit**; không cho team tự xem/click quảng cáo thật để “tăng doanh thu”.
 
-## 6.2. Placements thử nghiệm đầu tiên — rất ít, có định lượng
+## 6.2. Các vị trí rewarded ads ở **bản phát hành chính thức**
 
-| Placement ID đề xuất | Khi nào mời | Reward đề xuất ban đầu | Cap thử nghiệm | Vì sao |
-| --- | --- | --- | --- | --- |
-| **RV_AFK_BONUS** | Sau khi đã nhận/thấy quà AFK cơ bản | **+50% vàng** trên lượng AFK đủ điều kiện, sau khi được duyệt cụ thể | 1 lần / 24h | Dễ hiểu, không cho premium currency |
-| **RV_DUNGEON_EXTRA** | Sau khi một phó bản có thưởng thật được settle | **+1 nguyên liệu xác định** của đúng phó bản; không nhân rare drop | 2 lần / ngày | Có giá trị nhưng kiểm được nguồn/sink |
+| Placement đề xuất | Offer | Reward nguyên tắc | Cap thiết kế ban đầu |
+| --- | --- | --- | --- |
+| **RV_AFK_BONUS** | Khi nhận/tổng kết AFK | Thưởng thêm vàng trên eligible base, không thêm rare drop | 1/ngày |
+| **RV_DUNGEON_EXTRA** | Sau khi hoàn tất phó bản thật | Thêm lượng nhỏ nguyên liệu đúng phó bản, cố định và được lưu ledger | 2/ngày |
+| **RV_BOSS_CHEST** | Sau Boss đủ điều kiện | Một rương thưởng **có bảng phần thưởng công khai**, không bắt buộc, tránh premium gacha trá hình | 1/ngày |
+| **RV_DAILY_BOOST** | Từ trang nhiệm vụ | Một buff/tiện ích có hạn, không vượt sức mạnh paywall | 1/ngày |
 
-**Max khởi đầu: 3 rewarded ad opportunities/người/ngày.** Không mặc định họ sẽ xem cả 3. Daily reset/thời gian/cap cần định nghĩa rõ khi thực hiện.
+**Mục tiêu thương mại:** 2–4 vị trí khi ra mắt nếu được triển khai và cân bằng đầy đủ, trần tổng **3–5 cơ hội/người/ngày** để không quảng cáo quá nhiều. **Không tự bật cả bốn** khi chưa có thiết kế transaction, UX và privacy. Giá trị thưởng, cap chính xác, time reset, chống đồng hồ giả phải được ghi trong spec trước code.
 
-**Không bật ngay**: free summon by ad, revive trận khó, x2 rare gear loot, unlock VIP, watch-to-retry liên tục. Có thể A/B test placement thứ ba sau khi dữ liệu xác nhận.
-
-**Lưu ý kinh tế:** Ad thưởng tính từ *reward được thiết kế*, không phải nhân trực tiếp toàn bộ mốc AFK cũ có thể bị gian lận chỉnh đồng hồ. Định nghĩa một mức đủ điều kiện, cap và cách lưu idempotent trước khi code.
+Trọng tâm vẫn là **tự nguyện và không làm mất phần thưởng cơ bản**. Revenue không được tối ưu bằng buộc xem quảng cáo.
 
 ## 6.3. Giao dịch thưởng phải an toàn
 
@@ -165,30 +199,35 @@ SSV: https://developers.google.com/admob/android/ssv
 
 # 7. Monetization B — IAP có giá trị thật, không mở rộng sớm
 
-## 7.1. Một lộ trình SKU nhỏ
+## 7.1. Bộ sản phẩm IAP mục tiêu cho **ngày phát hành**
 
-**Giá dưới đây là GIẢ THUYẾT tại US storefront, chưa thiết lập sản phẩm, chưa xử lý thuế/chiết khấu, chưa xác nhận tỷ lệ chuyển đổi.**
+**Giá chỉ là khung làm việc ở US để thảo luận với cửa hàng; không phải giá chốt hay sản phẩm đã cấu hình.** Khi phát hành, giá hiển thị từ chính Play storefront và giao dịch phải được xác minh.
 
-| Giai đoạn | SKU/nhãn đề xuất | Giá thử | Người mua nhận được gì | Lý do / guardrail |
-| --- | --- | --- | --- | --- |
-| **P2, sau billing** | **Starter Pack (once)** | **$1.99** | Một số **nguyên liệu xác định** + skin/icon nhỏ, không có random | Kiểm thử lần mua đầu; chỉ claim đúng 1 lần sau xác minh |
-| **P2, sau billing** | **Founder Cosmetic Pack** | **$4.99** | Trang phục/portrait/frame mỹ thuật xác định, không cộng sức mạnh độc quyền | Doanh thu sưu tầm; quyền lợi khôi phục được |
-| **P3, khi retention có dữ liệu** | **Convenience Bundle** | **$4.99–$9.99** | Nguyên liệu xác định, giới hạn giá trị không phá balance | Kiểm soát chênh lệch free/paid |
-| **P3 trở đi** | **Rewarded Skip / No Forced Ads** | **TBD** | Chỉ xem xét cơ chế nhận thưởng quảng cáo hợp lý không phải xem; giới hạn như free | Phải mô hình hóa cannibalization ads, an toàn entitlement và refund |
-| **P4** | **Monthly/Season Pass** | **TBD** | Phần thưởng xác định theo thời gian nếu có enough content | Chưa làm nếu chưa có D30 và khả năng live-ops |
+| Loại SKU đề xuất | Giá US thử trong tài liệu | Nội dung xác định | Mục tiêu |
+| --- | --- | --- | --- |
+| **Starter Bundle** | $1.99 | 1 gói nguyên liệu/hero-shard **xác định**, không random | Tạo lần mua đầu dễ hiểu |
+| **Hero Growth Pack** | $4.99 | Nguyên liệu tăng cấp, thức tỉnh có định lượng rõ | Tăng tốc hợp lý |
+| **Spirit Growth Pack** | $4.99 | Nguyên liệu tinh linh rõ nguồn/số lượng | Người yêu spirit |
+| **Cosmetic Outfit** | $4.99–$9.99 | Skin/portrait/frame xác định, không pay-to-win | Doanh thu từ nhân vật đẹp |
+| **Gear Development Pack** | $4.99 | Nguyên liệu gear xác định, không bảo đảm set hiếm | Tiện ích |
+| **Welcome Collection Bundle** | $9.99 | Bộ vật phẩm xác định hoặc quyền **chọn** một hero trong danh sách cụ thể | Thúc đẩy sưu tầm nhưng không khóa hero |
+| **Monthly Value Pass** | Chỉ khi sản phẩm/ngày thưởng đã làm hoàn chỉnh | Mốc quyền lợi rõ, xử lý thời gian/restore/refund | Doanh thu định kỳ |
+| **Premium Summon Offer** | Chỉ khi pool, odds và billing đã hợp lệ | Quyền mua lượt random với odds/pity/giới hạn công bố | Có thể tăng doanh thu gacha, **không bắt buộc** để đủ 6–8 SKU |
 
-**MVP IAP khuyến nghị:** chỉ 2 SKU đầu; không bắt đầu bằng 5 mức giá tiền tệ và gacha premium.
+**Chọn 6–8 SKU THỰC trong Launch Content Matrix** và chỉ hiện các món đã có store product + entitlement + test. Nếu chưa đủ chuẩn, **chưa được tuyên bố game có store hoạt động** và nên hoàn thiện trước khi công bố release date. Không coi bảng giá là yêu cầu implement ngay.
 
-## 7.2. Các SKU không phù hợp để làm ngay
+**Revenue mix:** Ad + IAP có thể đều xuất hiện từ ngày phát hành; không cần đợi một soft-launch để “mở dần mới đáng làm”. Chính sách store, backend và các kiểm thử thanh toán vẫn bắt buộc.
 
-- Hero siêu mạnh chỉ có thể mua, làm cốt truyện chính không thể thắng miễn phí.
-- Gói “cơ hội nhận hero cực hiếm” trong khi pool/rate không được công khai.
-- Quay hiếm có premium currency được bán nhưng chưa tích hợp receipt/khóa giao dịch.
-- Quà claim trùng khi restore, reinstall hoặc chuyển máy.
-- Sự kiện đếm ngược giả, “90% OFF” không có giá cơ sở thực, popup mua lặp lại khi thua.
-- VIP battle stats vô hạn không có trần tạo chênh lệch quá mức.
+## 7.2. Những điều không được dùng để tăng doanh thu
 
-**Quy tắc paid random items:** Nếu sau này bán trực tiếp hoặc gián tiếp khả năng nhận vật phẩm ngẫu nhiên, phải công bố tỉ lệ rõ trước/gần điểm giao dịch; đối chiếu **Google Play Payments** và Apple App Review khi mở iOS. RNG phải được kiểm tra, không suy diễn rates từ screenshot.
+- Hero mạnh bắt buộc mua để qua ải chính hoặc chơi event thường.
+- Paid random không công bố tỉ lệ/pity/nguồn rơi.
+- Gói tiền thật giả lập bằng cách cộng trực tiếp local save.
+- VIP cấp cao auto-buff PvE vô hạn làm người không nạp gần như không có tiến độ.
+- Countdown sale giả, gói “giảm 95%” không có giá cơ sở thật, popup ép nạp sau mỗi lần thua.
+- Nhầm business plan “full launch” với quyền bỏ quy trình xác minh purchase, refund, consent và dữ liệu người dùng.
+
+**Paid gacha là một công cụ kinh doanh tùy chọn** trong game sưu tầm hero, không phải trục cốt lõi bắt buộc; nếu làm phải có thiết kế xác suất/phân phối, disclosure và kiểm toán để tránh gian lận và trải nghiệm tồi.
 
 ## 7.3. Công nghệ mua hàng và lỗi “offline-only”
 
@@ -279,25 +318,37 @@ Nếu CPI quảng cáo thử nghiệm là **$1,50/install**, cần **net LTV c�
 
 **Không được** mua 5.000–10.000 installs chỉ vì AdMob hiện một ngày doanh thu tốt. Đợi đủ dữ liệu retention, LTV, xác suất gian lận và ổn định kỹ thuật.
 
-# 10. KPI và cổng quyết định theo giai đoạn (Go/No-Go)
+# 10. Tiêu chuẩn chất lượng bản hoàn chỉnh và KPI sau phát hành
 
-GameAnalytics 2026 dữ liệu toàn ngành làm đường tham chiếu, **không phải tiêu chuẩn bắt buộc** cho một game RPG Android Mỹ.
+## 10.1. Cổng phát hành = sản phẩm đầy đủ, không phải retention của bản ít nội dung
 
-| Chỉ số | Cổng nội bộ muốn thử nghiệm | Nếu thấp |
+| Gate | Điều kiện bắt buộc khi ra mắt |
+| --- | --- |
+| **CONTENT_COMPLETE** | 100% các hero/tinh linh/gear/stage/Boss/dungeon trong **Launch Content Matrix đã duyệt** có mặt và chơi được |
+| **ART_COMPLETE** | Portrait/skill/battle visual/âm thanh/UI đúng chuẩn, không ảnh placeholder, art nhất quán |
+| **PROGRESSION_COMPLETE** | F2P có đường mở khóa rõ, không bẫy paywall; economy source/sink, loot/drop và nhiệm vụ có test |
+| **MONETIZATION_COMPLETE** | Các placements/SKU đã công bố đều hoạt động thật; verification, idempotency, refund/restore, privacy |
+| **QUALITY_COMPLETE** | Không có lỗi blocker/crash nghiêm trọng trên thiết bị Android mục tiêu; không mất save/đồ; FPS/RAM ổn |
+| **STORE_READY** | Store listing phản ánh đúng nội dung live, chính sách/phân loại tuổi/privacy hợp lệ |
+
+Không có điều kiện **“phải đạt D1/D7 trong soft launch rồi mới được thêm hero”**. Người làm art có thể xây roster trước khi có người dùng công khai.
+
+## 10.2. Chỉ số doanh thu và giữ chân **đo sau ngày ra mắt**
+
+| Chỉ số | Mục tiêu tham vọng để tối ưu sau khi release | Diễn giải |
 | --- | --- | --- |
-| **First battle finished** | ≥ 85% người bắt đầu tutorial | Sửa onboarding/touch/độ khó |
-| **Tutorial complete** | ≥ 70% installs có sự kiện khởi tạo hợp lệ | Rút hướng dẫn, sửa UI |
-| **D1** | **≥ 28–30%** (mục tiêu tham vọng) | Chưa thêm IAP; sửa phút đầu và tiến trình |
-| **D7** | **≥ 8–10%** (mục tiêu thử nghiệm) | Chưa scale UA; sửa hoạt động ngày/tuần |
-| **D30** | **≥ 3%** (stretch, cohort đủ chín) | Đừng mở pass/subscription phức tạp |
-| **Crash-free users** | ≥ 99% | Ưu tiên ổn định |
-| **Reward integrity** | 0 lỗi phát thưởng trùng hoặc thiếu sau callback đủ điều kiện (trong kiểm thử) | Block launch ads |
-| **IAP integrity** | 0 cấp quyền lợi từ cancelled/pending/duplicate/replayed token (trong kiểm thử) | Block live IAP |
-| **Review / complaint** | Không tăng mạnh báo cáo spam, ad fatigue, mất progress | Rollback monetization placement |
+| D1 | 28–30%+ | Mục tiêu nội bộ, không bảo đảm; so với benchmark cùng cohort và kênh |
+| D7 | 8–10%+ | Đánh giá vòng lặp ngày/tuần, không là điều kiện tạo hero |
+| D30 | 3%+ | Chỉ tính sau khi cohort đủ 30 ngày |
+| Crash-free users | ≥99% | Tiếp tục theo dõi sau QA |
+| Reward integrity | 0 lỗi duplicate/missing trong kiểm thử | Điều kiện phát hành ads |
+| IAP integrity | 0 lỗi grant từ pending/cancel/replay trong kiểm thử | Điều kiện nhận tiền thật |
+| IAP payer conversion | Quan sát thực | Không giả định trước |
+| Ad ARPDAU / net LTV / CPI | Quan sát thực theo cohort | Quyết định **chi marketing**, không quyết định có làm art hay không |
 
-**Mốc retention này là quyết định thiết kế nội bộ**, không phải mức trung bình của ngành. Cần phân tổ theo **Android / US / nguồn cài / version / new vs existing**, tránh trộn traffic giá rẻ quốc gia khác để kết luận game phù hợp với Mỹ.
+Retention benchmarks tại GameAnalytics là tham chiếu toàn ngành, không là lời bảo đảm thành công.
 
-**Kích thước mẫu:** Đừng xem 30–50 bạn bè là kiểm chứng thị trường. Giai đoạn đầu phỏng vấn ~15–30 người cho chất lượng; để kết luận retention cần **hàng trăm đến hàng nghìn installs** cùng phân khúc và chờ cohort đủ D7/D30. Cần báo confidence interval và nguồn cài; quy mô cụ thể do ngân sách quyết định.
+**Không mua traffic lớn khi LTV chưa rõ**, nhưng không vì vậy cắt giảm game để đem ra bán sớm. Marketing paid có thể bắt đầu có kiểm soát ngay sau phát hành đầy đủ; tăng ngân sách sau khi có dữ liệu.
 
 # 11. Analytics event plan — đủ để ra quyết định
 
@@ -318,77 +369,82 @@ GameAnalytics 2026 dữ liệu toàn ngành làm đường tham chiếu, **khôn
 
 **Khởi đầu tiết kiệm:** Nếu chưa sẵn sàng tích hợp analytics SDK, có thể xuất các event test từ profile giả lập và công cụ QA để kiểm logic, nhưng **không được nhận đó là D1/D7 thật**. Cần một nguồn telemetry hợp lệ (privacy-aware) khi soft launch.
 
-# 12. Quy trình soft launch và tối ưu
+# 12. Lộ trình **sản xuất nội bộ → Full Launch → vận hành**
 
-## Phase 0 — Product sanity (ưu tiên tuyệt đối)
+Không có **public soft launch**, không có “game ít hero để test thị trường”. Các **milestone dưới đây chỉ là các đợt làm việc nội bộ**, không phải các sản phẩm được phát hành sớm.
 
-- Chơi kiểm tra Android thật, 30 phút đầu và 7 ngày tài khoản test.
-- Test người chưa biết game: họ có hiểu đội hình, nâng cấp và AFK?
-- Sửa đoạn nào khiến người chơi không biết bấm tiếp.
-- Có ít nhất một mini-Boss, một đồng đội miễn phí chắc chắn, một build khác chiến thuật.
-- Chưa cần quảng cáo thật, chưa cần bán gì.
+## Phase A — Chốt sản phẩm và Launch Content Matrix
 
-**Gate:** đủ rõ ràng và ổn định để có thể giữ chân; nếu không, sửa core loop.
+- Chốt **số lượng hero/tinh linh/set/region/stage/dungeon/Boss**, vai trò, nguồn sở hữu, độ hiếm, sức mạnh, cảm giác gameplay.
+- Chốt chuẩn mỹ thuật: nhân vật nam/nữ đa dạng, một art style thống nhất, bộ portrait, battle sprite, skill FX, pose, visual skin; mức độ hoàn thiện của mỗi hero.
+- Chốt lịch làm asset cho cả roster, pipeline art/import và ngân sách thật (ngày công/art/sprites/audio/tests). Không bắt đầu 30 hero mà chưa có quy trình kiểm tra.
+- Chốt Ad/IAP UX, sản phẩm có sẵn ngày ra mắt và yêu cầu backend/store.
 
-## Phase 1 — Limited closed beta + đo retention
+**Output:** bộ kế hoạch chi tiết để sản xuất **đủ nội dung một lần release**.
 
-- Android closed test với người thật, hướng Mỹ; store listing English US, ảnh/video và mô tả đúng chức năng.
-- Thu cohort có nguồn rõ, báo D1/D7; D30 chỉ báo sau khi đủ 30 ngày.
-- Kiểm cân bằng free progression, nguồn/sink tài nguyên, bug/crash.
-- Không diễn giải tỷ lệ của một nhóm quá nhỏ là thành công.
-- Có privacy/data handling phù hợp trước khi thu analytics.
+## Phase B — Sản xuất dàn hero và mỹ thuật theo lô NỘI BỘ
 
-**Gate:** activation/retention đạt mục tiêu nội bộ hoặc có dấu hiệu cải thiện đáng tin.
+- Làm hero theo lô nhỏ trong repo/branch nội bộ để kiểm soát chất lượng và độ nhất quán, nhưng **đích là toàn bộ roster đã duyệt trước launch**.
+- Mỗi hero: character brief, concept turnaround, portrait, trận chiến, idle/attack/hit/ultimate, 2 kỹ năng/kit (tùy hệ thống), cân bằng, test, asset provenance.
+- Mỗi tinh linh: concept, animation, hỗ trợ, cấp/phát triển, giao ước/nội dung mô tả ngắn, test.
+- Mỗi set gear: 4 slot, icon/ảnh, hiệu ứng cụ thể, nơi rơi, tương tác với hero/tinh linh.
+- QA art/animation giúp tránh phải vẽ lại hàng loạt; **không đưa build thiếu nhân vật cho người chơi cuối để quyết định có làm tiếp hay không**.
 
-## Phase 2 — Rewarded Ads MVP
+## Phase C — Sản xuất campaign, Boss và dungeon
 
-- Chỉ RV_AFK_BONUS và RV_DUNGEON_EXTRA.
-- So sánh nhóm đã nhìn thấy offer với nhóm không nhìn thấy (random assignment phù hợp, không chọn người trả tiền riêng làm nhóm).
-- Đo adoption, fill, ad ARPDAU, retention, khiếu nại, lỗi reward.
-- Nếu người chơi thấy quảng cáo phiền, giảm/tắt placement. Không thêm interstitial ép xem chỉ để kéo doanh thu ngắn hạn.
+- Sản xuất số vùng/ải/Boss trong Launch Content Matrix, có phân cấp độ khó, cơ chế quái và đồ rơi đủ đa dạng.
+- Viết **lore ngắn** theo vùng/nhân vật/gear như công cụ sản xuất, không tốn nguồn lực vào saga dài nếu không giúp gameplay.
+- Có mục tiêu ngắn mỗi trận, mục tiêu tháng/tuần, thu thập, gallery, nhật ký đơn giản.
+- Kiểm thực logic reward, encounter, không phát từ preview và không giả chức năng.
 
-**Gate:** có thu nhập incremental mà không phá trải nghiệm, reward không trùng/thất lạc.
+## Phase D — Hoàn tất kinh tế và hệ thống kiếm tiền
 
-## Phase 3 — Secure IAP mini-store
+- Balance cho roster lớn, có nguồn nhận free toàn bộ vai trò căn bản.
+- Hoàn thiện rewarded ads, rewarded transaction ledger, caps, fail path, policy, test ad units.
+- Hoàn thiện Play Billing, backend verify, entitlement/restore, pending/refund, store configs; định giá và sản phẩm IAP thật.
+- Hoàn thiện onboarding, F2P progression, nhiệm vụ và UX tránh người mới bị ngợp bởi roster.
 
-- Chỉ 2 SKU xác định sau khi thiết lập thật trên Google Play và purchase verification.
-- Test pending, cancel, duplicate, refund, restore, reinstall, chuyển máy, full bag, mất mạng.
-- Theo dõi conversion và **mua lại** trên cùng cohort; không suy luận gói giá cao luôn tốt hơn.
-- Người không mua vẫn tiến triển được.
+## Phase E — QA kỹ thuật **nội bộ** và release candidate đầy đủ
 
-**Gate:** không có lỗi giao tiền/quyền lợi, có nhu cầu thật và không làm giảm retention.
+- Chạy test Godot, tests riêng combat/campaign/gear/summon/supplies/ads/billing, Android devices, stress data lớn, offline/online.
+- Kiểm tra nội bộ từng màn và 7–30 ngày tiến trình **bằng tài khoản kiểm thử**; đây **không phải triển khai thử công khai** và không là gate giữ chân người chơi thật.
+- Kiểm thử purchases bằng sandbox/test license trong cửa hàng; không chạy thanh toán thật hoặc tự xem ads để kiếm doanh thu.
+- Dọn blocker, QA tất cả nội dung, đối chiếu đầy đủ Launch Content Matrix.
 
-## Phase 4 — Paid acquisition có kiểm soát
+## Phase F — Một lần ra mắt chính thức
 
-- ASO và video gameplay 10–30 giây (đúng footage/trải nghiệm thật), trailer hero/boss, creator content.
-- Thử vài thông điệp: **collect heroes / auto battler / idle progress / fantasy boss**. Không quảng cáo một tính năng chưa có.
-- So sánh CPI, retention và cohort net LTV; chỉ tăng ngân sách khi có bằng chứng.
-- Không spam review, cày quảng cáo, quảng bá bằng click gian lận hoặc mua traffic kém chất lượng.
+- Đăng sản phẩm **đầy đủ** trên Google Play theo thị trường đã chọn, hiển thị toàn bộ dàn hero/spirits/gear và hoạt động đã làm.
+- Store images/trailer có nội dung thật; có privacy policy, support, feedback và crash monitoring.
+- Có thể dùng quảng bá organic trước ra mắt, nhưng không đưa game thiếu nội dung ra thị trường như bản thương mại.
 
-## Phase 5 — Live ops và nội dung theo số liệu
+## Phase G — Vận hành và tối ưu hậu phát hành
 
-- Thêm hero/skin/boss/mini-world **khi** dữ liệu chứng minh có người chơi quay lại.
-- Test monthly pass, cosmetic drops, collection goals, limited events **không tạo FOMO giả**.
-- Đánh giá các phó bản preview/gear dựa theo hiệu quả và chi phí nội dung thật.
-- iOS chỉ khi có bằng chứng khả năng hoàn vốn với chi phí port/bảo trì.
+- Đo retention, ad ARPDAU, IAP conversion, net LTV, review; sửa bug và cân bằng.
+- Bổ sung hero mới, skin mới, Boss/season mới **để làm game phong phú hơn**, không dùng dữ liệu giữ chân làm điều kiện cho roster gốc.
+- Tăng paid marketing chỉ khi hiệu quả thực cho phép, không hứa lợi nhuận.
 
-# 13. Lộ trình triển khai ưu tiên cho Codex (không phải lệnh code ngay)
+**Một bản phát hành nội dung đầy đủ đòi hỏi chi phí/thời gian sản xuất cao hơn.** Hãy lập ngân sách và production pipeline khả thi, không giả định 24–30 hero đẹp là công việc nhỏ.
 
-| Ưu tiên | Ticket kế hoạch | Bàn giao tối thiểu |
+# 13. Roadmap giao Codex — Full Content Production (không tự thực thi)
+
+| Ưu tiên | Ticket nên có | Điều kiện bàn giao |
 | --- | --- | --- |
-| **P0** | Onboarding & first-10-minute audit | Báo cáo luồng người mới, cảnh thiếu thông tin, kế hoạch sửa, không giả reward |
-| **P0** | Instrumentation schema & privacy design | Event taxonomy, cohort definitions, consent/data safety checklist |
-| **P0** | Economy balance audit | Sources/sinks, thời gian nâng cấp, AFK cap sensitivity, free progression |
-| **P1** | Mobile playtest & UX fixes | Thử Android thật, fix combat/UI/save, crash report |
-| **P1** | Starter content | Tối ưu 1 mini-Boss + 1 unlock chắc chắn + 1 chiến thuật build |
-| **P2** | Rewarded ads architecture | Plugin integration feasibility, callback/SSV/cap, reward transaction tests |
-| **P2** | Ad placements controlled experiment | Hai placement, on/off flags, dashboards |
-| **P3** | Billing feasibility & secure entitlement | Play Console setup checklist, backend purchase verify, restore/refund |
-| **P3** | Two fixed SKUs | Paywall UX, US price from store, receipt and inventory atomic grant |
-| **P4** | Cohort revenue dashboard & ASO testing | D1/D7/D30, ARPDAU, LTV vs CPI, build release report |
-| **P5** | Roster/art expansion | Chỉ thêm nhân vật/tinh linh/trang bị có gameplay/business case |
+| **P0** | **Launch Content Matrix** | Roster mục tiêu, tỉ lệ nam/nữ, 10–12 tinh linh, 10–12 set, stage/Boss/region/dungeon với ID dự kiến, art/gameplay/status |
+| **P0** | **Character Art & Battle Production Standard** | Nét vẽ chuẩn, đầu vào asset, số pose/animation, hướng dẫn không recolor, checklist kiểm định |
+| **P0** | **Economic balance sheet cho roster đầy đủ** | Sources/sinks, free unlock, pity, gear drop, AFK, thời gian phát triển, cả trường hợp IAP |
+| **P1** | Full hero roster implementation | Từng hero có nguồn sở hữu thật, kĩ năng, animation, portrait, progression, test |
+| **P1** | Spirit roster và gear sets | Nguồn nhận, vai trò, tính năng, art, tests |
+| **P1** | Campaign 60–100 encounters, dungeon và Boss | Gameplay thật, reward thật, progression, tests |
+| **P1** | UI/UX Collection/Shop/Summon/Formation | Dễ điều hướng roster lớn trên 540×960, không lag, không giá/offer giả |
+| **P2** | Rewarded Ads production architecture | SDK/consent, 2–4 placement thật, transaction idempotent, test |
+| **P2** | Billing + backend verify + entitlement | SKU thật, refund/restore, security, compliance |
+| **P2** | Android QA + performance | Memory/FPS/device coverage, save migration, inventory scale |
+| **P3** | Store listing & release readiness | Localization English US, review checklist, marketing creative có thật |
+| **P4** | Post-launch business analytics | KPI, LTV/CPI, revenue split; tối ưu sau phát hành |
 
-Trước mỗi ticket: đọc AGENTS, GAME_STATE, TESTING, các tài liệu subsystem; viết test, chạy suite liên quan, bảo toàn save. Không triển khai tất cả trong một PR.
+**Không có ticket “thử game 4 hero trước rồi mới được sản xuất hero tiếp”**. QA và đo chất lượng ở mỗi chặng nội bộ vẫn cần thiết để bảo đảm bản phát hành cuối thật sự hoàn chỉnh.
+
+**Thứ tự thực tế có thể chạy song song**: art roster, cân bằng combat, world art, ad/billing kỹ thuật. Tất cả phải tích hợp và kiểm định trước khi ra mắt.
 
 # 14. Rủi ro cần giải quyết trước khi nhận tiền thật
 
@@ -417,30 +473,33 @@ Trước mỗi ticket: đọc AGENTS, GAME_STATE, TESTING, các tài liệu subs
 - **Platform fees/tax:** dùng mức phí hiện áp dụng cho tài khoản/store/program và báo cáo tài chính thật; **không mặc định 15% hoặc 30% cho tất cả giao dịch**.
 - **Không khuyến khích trẻ vị thành niên nạp/gacha:** đối tượng thiết kế dự kiến trưởng thành; nội dung và cài đặt age targeting phải khai báo đúng thực tế, không gắn nhãn “18+” giả.
 
-# 16. Danh sách quyết định mở
+# 16. Những quyết định quản trị bản Full Launch
 
-| ID | Câu hỏi | Khuyến nghị mặc định | Trạng thái |
-| --- | --- | --- | --- |
-| **BM-01** | Chỉ Android US khi thử hay thêm thị trường khác? | Android US trước | PROPOSED |
-| **BM-02** | Ưu tiên ads hay IAP? | Hybrid, rewarded ads trước, IAP có verification sau | PROPOSED |
-| **BM-03** | Số rewarded ads/ngày | Thử cap 3/ngày, 2 vị trí | PROPOSED |
-| **BM-04** | Thời điểm bật monetization | Sau khi core loop/retention có dấu hiệu tích cực | PROPOSED |
-| **BM-05** | Giá starter/cosmetic | $1.99 / $4.99 làm test, không phải giá đã bán | PROPOSED |
-| **BM-06** | Nâng cap AFK lên 4–8h? | Đo trước, không cố tình gây bất tiện | PROPOSED |
-| **BM-07** | Có premium currency/gacha trả tiền ngay? | Không ở MVP | PROPOSED |
-| **BM-08** | Backend minimal purchase verification | Nên có trước live IAP; cần quyết định chi phí/hạ tầng | PROPOSED |
-| **BM-09** | D1/D7/D30 gate | 28–30% / 8–10% / 3% là mục tiêu nội bộ | PROPOSED |
-| **BM-10** | Mở rộng roster/trang bị khi nào? | Sau khi core loop và retention được xác minh | PROPOSED |
+| ID | Đề xuất cho lần chốt sau | Trạng thái |
+| --- | --- | --- |
+| **FL-01** | **Chỉ phát hành game đầy đủ, không public soft launch/roster nhỏ** | **ĐÃ ĐƯỢC CHỦ DỰ ÁN CHỈ ĐỊNH** |
+| **FL-02** | Target launch: 24–30 hero, nam/nữ cân đối | Đề xuất để lập roster và ngân sách |
+| **FL-03** | Target launch: 10–12 tinh linh, 10–12 bộ gear | Đề xuất |
+| **FL-04** | Target launch: 6–8 vùng, 60–100 encounter, 8–12 Boss | Đề xuất |
+| **FL-05** | 6–8 SKU và 2–4 ad placement thực, đều live ngày phát hành | Đề xuất, cần bảo mật/compliance |
+| **FL-06** | Lore ngắn, hướng dẫn tạo nhân vật/gear/world thay vì saga dài | Hướng sản phẩm đã chỉ định |
+| **FL-07** | QA/test nội bộ đầy đủ nhưng không phát hành bản ít nội dung ra người dùng | Đã chỉ định về phạm vi public launch; QA là yêu cầu kỹ thuật |
+| **FL-08** | Giá, SKU, banner premium, tỷ lệ quay và ad cap cụ thể | Cần duyệt riêng |
+| **FL-09** | Ngân sách/nhân lực/lịch tạo đủ assets và QA | Cần lập |
+| **FL-10** | Bảo toàn save và lộ trình nâng cấp nội dung cũ | Cần duyệt kỹ thuật |
 
-# 17. Hành động đầu tiên có tỷ suất học hỏi cao nhất
+**Quyết định mới thay thế mọi câu trong V0.1 từng yêu cầu "đạt retention rồi mới làm đủ hero" hoặc "chỉ mở 2 SKU sau soft launch".**
 
-**Không thêm lore hoặc hero ngay.** Tạo **Product Validation Sprint**:
+# 17. Hành động kế tiếp có giá trị nhất
 
-1. Chơi một tài khoản từ đầu trong 15 phút và một chu kỳ 7 ngày; ghi điểm dừng, nguồn/sink và khi nào có cảm giác “mình mạnh hơn”.
-2. Thiết kế onboarding có **đồng đội hoặc lựa chọn chiến thuật mở chắc chắn**, không yêu cầu quay may rủi.
-3. Viết event taxonomy và kế hoạch privacy/analytics trước soft launch.
-4. Test người chơi thực, đo D1/D7, sửa hệ thống cốt lõi.
-5. Chỉ sau đó đặc tả hai rewarded placements và gói IAP đầu tiên theo số liệu.
+**Không mở một đợt thử nghiệm công khai ít nhân vật. Bắt đầu bằng sản xuất có kế hoạch cho bản phát hành hoàn chỉnh:**
 
-**Nguyên tắc chốt:** *Make a game people want to return to. Then offer fair ways to support it.*  
-*Tạo một trò chơi khiến người ta muốn quay lại; sau đó cung cấp những cách kiếm tiền công bằng.*
+1. Viết **LAUNCH_CONTENT_MATRIX.md**: tên/giới tính/role/nguyên tố/vũ khí cho 24–30 hero, tinh linh, gear, vùng, Boss, phó bản; trạng thái artwork/logic/test; số lượng/quality gate được chủ dự án duyệt.
+2. Viết **CHARACTER_PRODUCTION_PIPELINE.md**: tiêu chuẩn mỹ thuật của từng hero, portrait/battle sprite, animation, biến thể skin, chất lượng hình ảnh, ngân sách asset và quy tắc kiểm định.
+3. Viết **LAUNCH_GAME_DESIGN.md**: vòng lặp, hệ build, độ khó, triệu hồi, tiến trình, UI Collection, AFK và phần thưởng; tính toán đầy đủ cho lượng nội dung dự kiến.
+4. Viết **MONETIZATION_IMPLEMENTATION_SPEC.md**: SKU thật, quảng cáo thưởng thật, Play Billing, SDK, entitlement backend, privacy, đơn giá, kiểm thử.
+5. Sản xuất và tích hợp nội dung **theo lô NỘI BỘ**; chạy suite/test; chỉ công bố chính thức khi nội dung đã duyệt hoàn chỉnh.
+
+**Nguyên tắc cuối:** *Launch with a world worth collecting. Monetize a polished game without compromising trust.*  
+*Ra mắt một thế giới đáng để sưu tầm và kiếm tiền từ một trò chơi hoàn thiện, không đánh đổi lòng tin.*
+
