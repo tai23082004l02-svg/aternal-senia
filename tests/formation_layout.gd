@@ -40,6 +40,43 @@ func run() -> void:
 	assert(screen().slot_buttons[0].global_position.x > screen().slot_buttons[1].global_position.x)
 	assert(screen().slot_buttons[1].global_position.y == screen().slot_buttons[2].global_position.y)
 	assert(screen().get_rect().size.y <= game.scroll.size.y)
+	assert(screen().roster_scroll.size.y == FormationScreen.ROSTER_HEIGHT)
+	for button in screen().find_children("*", "Button", true, false):
+		if screen().roster_canvas.is_ancestor_of(button): continue
+		assert(button.get_global_rect().end.y <= 864, "Fixed formation actions stay above navigation")
+		assert(button.get_global_rect().end.x <= 516, "Formation actions fit portrait width: %s %s" % [button.text, button.get_global_rect()])
+	var original_catalogue: Array = game.catalog.data.heroes.duplicate(true)
+	var before_roster: Dictionary = game.store.profile.duplicate(true)
+	var fixed_height: float = screen().size.y
+	var options_y: float = screen().get_node("auto_ult").global_position.y
+	for i in range(1000):
+		var hero: Dictionary = original_catalogue[0].duplicate(true)
+		hero.id = "formation_fixture_%d" % i
+		hero.name = "Hero catalogue %d" % i
+		hero.unlock = 99999
+		game.catalog.data.heroes.append(hero)
+	game._refresh_panel()
+	await capture("formation-large-roster")
+	assert(is_equal_approx(screen().size.y, fixed_height))
+	assert(is_equal_approx(screen().get_node("auto_ult").global_position.y, options_y))
+	assert(screen().card_pool.size() <= 12, "1004 heroes must not create 1004 card controls")
+	var pooled_ids := []
+	for card in screen().card_pool: pooled_ids.append(card.get_instance_id())
+	screen().roster_scroll.scroll_vertical = 1000000
+	await capture("formation-large-roster-end")
+	assert(screen().roster_buttons.has("formation_fixture_999"), "Final catalogue hero is reachable")
+	for card in screen().card_pool: assert(card.get_instance_id() in pooled_ids, "Scrolling reuses card controls")
+	assert(game.store.profile == before_roster, "Browsing never writes the profile")
+	var saved_offset: int = screen().roster_scroll.scroll_vertical
+	game._refresh_panel()
+	await capture("formation-large-roster-restored")
+	assert(screen().roster_scroll.scroll_vertical == saved_offset, "Refresh preserves roster position")
+	assert(screen().roster_buttons.has("formation_fixture_999"))
+	game.catalog.data.heroes = original_catalogue
+	game.formation_roster_offset = 0
+	game._refresh_panel()
+	await process_frame
+	await process_frame
 	screen().slot_buttons[0].pressed.emit()
 	screen().roster_buttons.ryn.pressed.emit()
 	assert(game.store.profile.formation.slots == ["ryn","eira","mira"])

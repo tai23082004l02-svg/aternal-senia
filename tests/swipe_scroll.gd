@@ -85,6 +85,17 @@ func run() -> void:
 	start = inner.get_global_rect().position+Vector2(80,170)
 	await swipe(start,Vector2(0,-130),true)
 	assert(inner.scroll_vertical > 40 and game.scroll.scroll_vertical == outer_before and game.tab == 2 and game.store.profile == original)
+	# Formation cards use their bounded inner scroller, including touch drags.
+	for touch in [false, true]:
+		game.formation_roster_offset = 0
+		game._select_tab(22)
+		await settle()
+		var formation: FormationScreen = game.panel.get_child(0)
+		outer_before = game.scroll.scroll_vertical
+		start = formation.roster_scroll.global_position + Vector2(70, 125)
+		await swipe(start, Vector2(0,-90), touch)
+		assert(formation.roster_scroll.scroll_vertical > 30, "Formation roster accepts native mouse/touch swipes over cards")
+		assert(game.scroll.scroll_vertical == outer_before and game.store.profile == original, "Roster swipes neither move fixed controls nor assign heroes")
 	game._select_tab(20)
 	await settle()
 	var shop: ShopScreen = game.panel.get_child(0)

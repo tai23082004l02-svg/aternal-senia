@@ -10,6 +10,7 @@ var catalog: GameCatalog
 var store: ProgressStore
 var team_ui: TeamBattleUI
 var formation_slot := 0
+var formation_roster_offset := 0
 var next_team_options: Dictionary = {}
 var battle: BattleModel
 var frames: FrameLibrary
@@ -358,7 +359,7 @@ func _refresh_panel() -> void:
 		child.queue_free()
 	var campaign := tab == 0
 	var fighting := battle != null
-	_style_journey_shell(campaign and not fighting)
+	_style_journey_shell((campaign and not fighting) or tab == 22, 1 if tab == 22 else 2)
 	team_ui.visible = campaign and battle is TeamBattle
 	view.visible = campaign and fighting and not battle is TeamBattle
 	for control in [hp_label, enemy_label, warning_label, hp_bar, enemy_bar, sp_bar, guard_button, attack_button, pause_button, auto_button, speed_button, stage_label, tap_target]:
@@ -399,14 +400,14 @@ func _refresh_panel() -> void:
 		22: _formation_panel()
 		_: _expansion_panel(tab)
 
-func _style_journey_shell(enabled: bool) -> void:
+func _style_journey_shell(enabled: bool, active_index: int = 2) -> void:
 	for capsule in journey_wallet_frames: capsule.visible = enabled
 	for i in range(tabs.size()):
 		var button: Button = tabs[i]
 		for state in ["normal", "hover", "pressed"]:
 			button.remove_theme_stylebox_override(state)
 		if enabled:
-			button.add_theme_stylebox_override("normal", _style(Color("19555b") if i == 2 else Color("0a2935"), Color("f6d27a") if i == 2 else Color("8d805b"), 17))
+			button.add_theme_stylebox_override("normal", _style(Color("19555b") if i == active_index else Color("0a2935"), Color("f6d27a") if i == active_index else Color("8d805b"), 17))
 			button.add_theme_stylebox_override("hover", _style(Color("24646a"), Color("f6d27a"), 17))
 			button.add_theme_stylebox_override("pressed", _style(Color("1e6f73"), Color("f8f3e3"), 17))
 

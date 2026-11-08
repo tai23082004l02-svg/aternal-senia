@@ -2,17 +2,24 @@
 
 # Đội hình · 0.25
 
-Áp dụng sơ đồ người dùng vào giao diện xanh đen/viền vàng hiện tại:
+Giao diện navy/teal, điểm nhấn vàng theo ảnh tham khảo. Sân đội hình dùng lại
+background và sprite/weapon/trang phục thật: một vị trí trước ở giữa, hai vị trí
+sau ở hai bên; vòng xanh, vị trí đang chọn viền vàng. Thanh tinh linh riêng mở
+bộ chọn hiện có; giữ hai tùy chọn tự chiến, Bỏ khỏi ô, Nâng cấp và Hành trình.
 
-- Tiêu đề và số hero đang xếp / tinh linh.
-- Một thẻ hàng trước nằm giữa; hai thẻ hàng sau cùng hàng phía dưới.
-- Thanh tinh linh riêng, chạm để mở danh sách chọn Lumi/Ash.
-- Lưới chân dung nhân vật, LV, trạng thái khóa và số đã sở hữu.
-- Tự dùng Ultimate, Tự vượt ải và hai lối sang Nâng cấp/Hành trình.
+Danh sách lấy từ `catalog.data.heroes`, trạng thái sở hữu qua `available_hero`,
+cấp độ từ profile, dấu ✓/nhãn Đang ra trận từ `Formation.state().slots`. Không
+có danh sách ID hero cố định. Portrait ưu tiên metadata đã có, sau đó banner
+theo ID (hoặc trường catalogue `formation_portrait`), rồi sprite/placeholder
+nếu art chưa được khai báo. Không tạo hoặc thay artwork nhân vật.
 
-Tất cả phần điều khiển nằm trong vùng dọc hiện có trên viewport540×960 với
-roster4 người hiện tại; lưới tự xuống hàng nếu thêm hero. Thẻ dùng face từ bộ art
-đang chạy, không tạo ảnh/đổi tạo hình hoặc gán nghề từ biểu tượng trong sơ đồ.
+Lưới3 cột nằm trong `SwipeScroll` riêng cao178px. Canvas giữ chiều cao logic
+theo số hàng; tối đa12 Button cho hàng nhìn thấy và vùng đệm, tái sử dụng khi
+cuộn. Chỉ bind lại khi đổi hàng; texture cache dùng chung. Nút lấy ID từ binding
+hiện tại nên không giữ callback của hero cũ. Vị trí cuộn được giữ khi chọn ô,
+hoán đổi hoặc bật/tắt tùy chọn. Các nút thao tác và thanh điều hướng nằm ngoài
+vùng cuộn; số hero không làm tăng chiều cao màn. Dùng gesture/inertia có sẵn,
+không thêm bộ kéo song song.
 
 Chọn ô rồi chọn tướng: có sẵn ở ô khác thì hoán đổi, không nhân bản hero. Có
 Bỏ khỏi ô, nhưng không bỏ hero cuối cùng. Hai ô dưới chỉ đổi cách trình bày,
@@ -30,3 +37,9 @@ team_ui, ui_flow, animation_gallery và regression87/mechanics72/campaign5 đạ
 Đã xem ảnh Godot Linux; chưa thử điện thoại thật.
 
 ![Đội hình mới](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/team-formation.png)
+
+Kiểm tra mở rộng: catalogue fixture1004 hero, chiều cao màn/vị trí tùy chọn
+không đổi, tối đa12 thẻ, cuộn tới hero cuối, kiểm instance thẻ được tái sử dụng
+và profile không thay đổi. `swipe_scroll` kiểm mouse/touch trên vùng roster: chỉ
+cuộn vùng con, không đổi đội hình hoặc dịch chuyển vùng ngoài. Đây là mô phỏng
+trên Linux/X11; chưa xác nhận FPS/độ mượt trên điện thoại Android thật.
