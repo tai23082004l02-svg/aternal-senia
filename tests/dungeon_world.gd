@@ -15,7 +15,10 @@ func screen() -> DungeonScreen:
 func capture(name: String) -> void:
 	await settle()
 	await RenderingServer.frame_post_draw
-	assert(root.get_texture().get_image().save_png(output.path_join(name+".png")) == OK)
+	var captured := root.get_texture().get_image()
+	assert(captured.save_png(output.path_join(name+".png")) == OK)
+	if name in ["dungeons-all","dungeon-crystal_mine","dungeon-dawn_wardens","dungeon-endless_spire"]:
+		print("DUNGEON_REVIEW:"+name+":"+Marshalls.raw_to_base64(captured.save_jpg_to_buffer(.7)))
 
 func mouse(position: Vector2, down: bool) -> void:
 	var event := InputEventMouseButton.new()

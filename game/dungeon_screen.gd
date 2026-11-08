@@ -292,7 +292,7 @@ class Frame extends PanelContainer:
 		for corner in [Vector2(6,6),Vector2(size.x-6,6),Vector2(6,size.y-6),Vector2(size.x-6,size.y-6)]:
 			var direction := Vector2(1 if corner.x<size.x/2 else -1,1 if corner.y<size.y/2 else -1)
 			draw_polyline(PackedVector2Array([corner+Vector2(0,15*direction.y),corner,corner+Vector2(15*direction.x,0)]),tint,1,true)
-			var point := corner+direction*5
+			var point: Vector2 = corner+direction*5
 			draw_polyline(PackedVector2Array([corner,point+Vector2(6*direction.x,0),point,point+Vector2(0,6*direction.y),corner]),Color(tint,.65),1,true)
 
 class Border extends Control:

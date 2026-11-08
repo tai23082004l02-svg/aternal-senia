@@ -24,6 +24,9 @@ for test in tests:
     (work/(test+'.log')).write_text(text)
     results.append(dict(test=test,passed=ok))
     print(test+': '+('PASS' if ok else 'FAIL'),flush=True)
+    if test=='dungeon_world':
+        for line in text.splitlines():
+            if line.startswith('DUNGEON_REVIEW:'):print(line,flush=True)
     if not ok:print(text[-6000:],flush=True)
 (work/'results.json').write_text(json.dumps(dict(engine=subprocess.check_output(['godot','--version'],text=True).strip(),display='Xvfb/X11',tests=results),indent=2)+'\n')
 if not all(row['passed'] for row in results):sys.exit(1)
