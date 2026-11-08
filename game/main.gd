@@ -89,6 +89,7 @@ var character_outfit_preview := ""
 var summon_kind := 0
 var shop_page := 0
 var currency_labels: Dictionary = {}
+var journey_wallet_frames: Array[Panel] = []
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
@@ -154,6 +155,13 @@ func _build_ui() -> void:
 	wallet = _label(ui, "", Vector2(24, 88), 14, Color("e1c38d"))
 	wallet.visible = false
 	for i in range(3):
+		var capsule := Panel.new()
+		capsule.position = Vector2(20 + i * 168, 83)
+		capsule.size = Vector2(160, 34)
+		capsule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		capsule.add_theme_stylebox_override("panel", _style(Color("0d303b"), Color("bca266"), 17))
+		ui.add_child(capsule)
+		journey_wallet_frames.append(capsule)
 		var key: String = ["gold", "shards", "xp"][i]
 		var icon := TextureRect.new()
 		icon.texture = frames.textures["icon_" + key]
@@ -350,6 +358,7 @@ func _refresh_panel() -> void:
 		child.queue_free()
 	var campaign := tab == 0
 	var fighting := battle != null
+	_style_journey_shell(campaign and not fighting)
 	team_ui.visible = campaign and battle is TeamBattle
 	view.visible = campaign and fighting and not battle is TeamBattle
 	for control in [hp_label, enemy_label, warning_label, hp_bar, enemy_bar, sp_bar, guard_button, attack_button, pause_button, auto_button, speed_button, stage_label, tap_target]:
@@ -389,6 +398,17 @@ func _refresh_panel() -> void:
 		21: _dungeons_panel()
 		22: _formation_panel()
 		_: _expansion_panel(tab)
+
+func _style_journey_shell(enabled: bool) -> void:
+	for capsule in journey_wallet_frames: capsule.visible = enabled
+	for i in range(tabs.size()):
+		var button: Button = tabs[i]
+		for state in ["normal", "hover", "pressed"]:
+			button.remove_theme_stylebox_override(state)
+		if enabled:
+			button.add_theme_stylebox_override("normal", _style(Color("19555b") if i == 2 else Color("0a2935"), Color("f6d27a") if i == 2 else Color("8d805b"), 17))
+			button.add_theme_stylebox_override("hover", _style(Color("24646a"), Color("f6d27a"), 17))
+			button.add_theme_stylebox_override("pressed", _style(Color("1e6f73"), Color("f8f3e3"), 17))
 
 func _text(text: String, font_size: int = 15, color: Color = Color("c0d0cb")) -> void:
 	var label := _label(panel, text, Vector2.ZERO, font_size, color)

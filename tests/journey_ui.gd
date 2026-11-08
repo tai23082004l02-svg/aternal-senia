@@ -22,6 +22,11 @@ func run() -> void:
 	assert(not screen().auto_play.disabled and not screen().challenge.disabled)
 	var original: Dictionary = game.store.profile.duplicate(true)
 	await capture("journey-top")
+	assert(screen().challenge.get_global_rect().end.y <= 864, "Primary action fits above navigation")
+	assert(screen().auto_play.get_global_rect().end.y <= 864, "Auto settings fit above navigation")
+	for control in screen().find_children("*", "Button", true, false):
+		assert(control.get_global_rect().end.x <= 516, "Journey actions fit portrait width")
+		assert(control.get_global_rect().end.y <= 864, "Default journey actions are visible without scrolling")
 	game.scroll.scroll_vertical = 500
 	await capture("journey-actions")
 	game._journey_afk()

@@ -2,6 +2,21 @@
 
 # Hành trình · 0.21
 
+## Giao diện hiện hành · thiết kế lại theo ảnh tham khảo
+
+Thẻ ải nền navy/teal, viền vàng, cảnh đội hình lớn phía trên; nhãn mã/trạng thái,
+tên ải serif, đội đồng hành, hai ô lực chiến/gợi ý và thưởng lấy từ dữ liệu thật.
+Giữ tên chương, tiến độ và thanh tiến độ trong thẻ. Nút Thách đấu vàng là hành
+động chính; nút Tự chiến & Ultimate màu teal; Bản đồ, Đội hình và AFK nằm cùng
+một hàng. Ví có khung riêng và tab Hành trình sáng hơn khi đang ở màn trại.
+Các trang khác và HUD chiến đấu giữ giao diện hiện có.
+
+Dùng lại background/renderer hero, tinh linh, trang phục hiện có; không bake
+nhân vật, chữ hoặc số liệu vào tranh. Giữ SwipeScroll, các callback, điều kiện
+khóa, công thức, thưởng, AFK, pending và save. Nội dung dài vẫn cuộn được.
+
+## Thiết kế và hành vi nền
+
 Theo wireframe: tiêu đề chuyến đi, tên chương và tiến độ; cảnh đội hình trong
 vùng hiện tại; mã ải/tên ải; lực chiến ước tính; thưởng lần đầu; Thách đấu; Tự
 chiến; Kho tiếp tế AFK; Bản đồ/Đội hình. Tông xanh/vàng giữ nguyên. Nội dung cuộn
