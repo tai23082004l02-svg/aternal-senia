@@ -10,6 +10,10 @@ Studio **ZORVYKA Games**, hỗ trợ **zorvykagames@gmail.com**.
 Nếu có thay đổi sau mốc này, đọc HEAD/code và yêu cầu mới nhất trước khi tiếp tục.
 Các con số dưới đây lấy từ catalogue/model, không lấy số minh họa trong ảnh.
 
+## Ưu tiên chiến lược mới (kế hoạch, chưa phải runtime)
+
+Ngày 2026-11-08, chủ dự án chuyển ưu tiên sang **khả năng kiếm tiền và giữ chân người chơi** của Aternal Senia thay vì phát triển đại cốt truyện dài. Đọc [Game Business & Monetization Plan V0.1](BUSINESS_MONETIZATION_PLAN.md) trước khi đề xuất các tính năng thương mại: **Hybrid Idle Fantasy RPG**, Android/Mỹ là hướng thử nghiệm, rewarded ads tự nguyện và IAP chỉ sau xác minh/policy/privacy. **Không có ads, thanh toán hay gói nạp hoạt động thực** chỉ vì tài liệu này. Những nhiệm vụ gameplay được liệt kê dưới đây là trạng thái/backlog lịch sử ở 0.37, không thay thế việc xác định ưu tiên bằng retention/UX thực tế.
+
 ## Hướng sản phẩm và phong cách
 
 Game mới fantasy anime2D, offline, auto battle, giao diện dọc540×960.
