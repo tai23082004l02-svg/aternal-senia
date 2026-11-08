@@ -1,7 +1,7 @@
 # Aternal Senia — Launch Content Matrix
 ## Full Content Launch · Art / Characters / Spirits / Gear / Regions / Bosses / Dungeons
 
-> **CONTENT DESIGN DRAFT V0.1 · 2026-11-08 · PROPOSED — CHƯA ĐƯỢC DUYỆT VÀ CHƯA TRIỂN KHAI**
+> **CONTENT MATRIX V0.1 · PARTIALLY APPROVED · NOT IMPLEMENTED**\n> **Priority:** [GAME_DESIGN_V1.md](GAME_DESIGN_V1.md) is the approved product direction. **Approved:** 24 heroes (12 male/12 female), all base 5★. **Still draft:** 12 spirits, 12 gear sets, 7 regions/84 stages, 12 bosses, 8 dungeons, cosmetics, acquisition milestones, abilities, economy and all runtime changes.
 >
 > **Đây là bộ nội dung hướng tới một lần phát hành chính thức hoàn chỉnh**, không phải bản soft launch có vài hero. **Chủ dự án sẽ xem bản này trước khi cho Codex triển khai**; đến lúc đó Codex chỉ nên đọc và đánh giá, **không tự sửa code, asset, shop, summon, data, save hoặc mở quảng cáo/IAP**.
 >
@@ -27,13 +27,13 @@
 - 12 concept trang phục premium (phải là thiết kế trang phục mới, không chỉ recolor) và 12 palette variant có thể kiếm miễn phí.
 - Ra mắt với reward ads và IAP đã kiểm chứng **nếu tất cả hạng mục thương mại đều đạt chuẩn store, an toàn giao dịch và quyền riêng tư**.
 
-**Số lượng trên là đề xuất để owner duyệt thành phạm vi launch chính thức.** Mục đích không phải cắt bớt roster vì thiếu số liệu retention; điều chỉnh hợp lý chỉ dựa trên quyết định sản xuất/chất lượng/ngân sách của owner, không tự phát hành game nửa vời.
+**Chỉ tiêu 24 hero (12 nam/12 nữ) đã được duyệt; các số lượng và đặc tả còn lại là đề xuất chờ duyệt.** Mục đích không phải cắt bớt roster vì thiếu số liệu retention; điều chỉnh hợp lý chỉ dựa trên quyết định sản xuất/chất lượng/ngân sách của owner, không tự phát hành game nửa vời.
 
 ## B. Luật thiết kế gameplay và nội dung
 
 - **Team:** tối đa 3 hero + 1 spirit; không khóa bắt buộc class hoặc role.
 - **Affinity dự kiến:** Light, Fire, Water, Nature, Storm, Shadow. Đây là sáu định hướng nhân vật/biểu tượng, **không khẳng định sáu hệ đã được Godot hỗ trợ**. Trước code phải định nghĩa tương khắc/bonus/validation/UI và mapping từ các element hiện hữu.
-- **Hero rarity:** cân nhắc giữ **5★ cơ bản cho toàn bộ hero** (theo cơ chế hiện tại), tách rarity/tiến hóa sao của spirit và năm bậc gear; quyết định thật trong Launch Game Design. Không đánh đồng sức mạnh với “nữ đẹp hơn/nam đẹp hơn” hoặc biến một giới tính thành vai trò cố định.
+- **Hero rarity: ĐÃ DUYỆT 5★ gốc cho toàn bộ 24 hero**; thức tỉnh/tiến hóa, độ hiếm spirit, năm bậc gear và nhóm xác suất summon là các hệ độc lập. Không tự thêm R/SR/SSR/UR cho hero. Không đánh đồng sức mạnh với “nữ đẹp hơn/nam đẹp hơn” hoặc biến một giới tính thành vai trò cố định.
 - **Vũ khí:** mỗi hero có visual weapon riêng; gear slot vẫn là weapon/armor/boots/accessory. Nếu thêm bow, dagger, chakram, firearm, gauntlet…, phải thiết kế weapon eligibility/animation/renderer rõ; không tự dùng một ID sword cũ với biểu tượng súng rồi coi là xong.
 - **Kỹ năng bản thảo:** mỗi hero có 1 Active, 1 Ultimate và 1 Passive concept, kết hợp auto attack. **Không có scaling, cooldown, target selection, status stacking cuối cùng ở đây.** Codex phải chờ combat/ability spec.
 - **Đội hình người mới:** hero được mở khóa chắc chắn bằng tiến độ, không cần vận may để có đủ đội. Hero chưa sở hữu phải có cách nhận rõ ràng; người chơi có thể ngắm dàn 24 hero trong Gallery ngay từ ngày đầu.
