@@ -138,8 +138,8 @@ func run() -> void:
 	check(store.claim_offline(now), "Claim offline")
 	check(not store.claim_offline(now), "Offline cannot double claim same timestamp")
 	p = store.profile.duplicate(true)
-	for row in book.data.items: store._add_item(p, row.id)
-	check(store.commit(p), "Own all catalog equipment")
+	for base_id in book.data.stages[0].drops: store._add_item(p, base_id)
+	check(store.commit(p), "Own all equipment in this stage's drop pool with room for another copy")
 	check(store.begin_run(1), "Replay run")
 	var shards_before: float = store.profile.shards
 	var item_count_before: int = store.profile.items.size()

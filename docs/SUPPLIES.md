@@ -1,4 +1,4 @@
-# Vật phẩm thiết yếu · 0.35
+# Vật phẩm thiết yếu · 0.36
 
 Theo yêu cầu mới nhất: **làm những món cần thiết trước**, không triển khai cả30
 vật phẩm/5 trang bị cùng lúc. Bản này có8 món dùng được thật, không thêm vào pool
@@ -58,10 +58,10 @@ Dùng đồng hồ không sửa last_offline; phần AFK đang tích lũy vẫn 
 
 ## Save và transaction
 
-Save **v11 đọc v2–v10**, thêm supplies={counts:8 ID,selected,claimed}. Số lượng
+Save **v12 đọc v2–v11**, thêm supplies={counts:8 ID,selected,claimed}. Số lượng
 là số nguyên0..1e12, không chiếm equipment.items/UID. Không gộp trang bị trùng;
 giữ quy tắc nhiều bản, enhance/rank riêng,40 ô từ0.30. Giữ ví, mảnh, roster,
-trang phục, nhiệm vụ, RNG/pity/history, bag_rewards và pending cũ. V10 chỉ thêm
+trang phục, nhiệm vụ, RNG/pity/history, bag_rewards và pending cũ. V10 thêm18 ID mảnh bằng0 theo migration0.35; v11 chỉ thêm
 ledger rỗng; không đổi stats/trận đang lưu. Giữ backup raw theo cơ chế cũ.
 
 Mọi thao tác clone candidate/validate/commit rồi mới đổi RAM. Lưu lỗi, thiếu
@@ -75,7 +75,7 @@ NormalTicket chỉ mở pool Thường; Cao cấp/Sự kiện tiếp tục khóa
 Nguồn art/supplies/icons.png tạo mới theo4 ảnh tham khảo,8 hình, nền có alpha,
 không chứa nhãn/số. Giữ nguyên byte; không cắt/chỉnh pixel nguồn bằng code.
 Tất cả vùng đi qua registry art/icons/manifest.json; build_icon_manifest.py giữ
-80 icon cũ và thêm8 vùng mới (tổng88). Crops từng hàng đã xem, runtime dùng
+98 icon hiện có và thêm8 vùng mới (tổng106). Crops từng hàng đã xem, runtime dùng
 AtlasTexture. validate_supply_art.py ghi kích thước/hash/provenance, không vẽ ảnh.
 
 Supplies là model duy nhất quản lý ledger/nguồn/recipe; UI không tự tăng số.

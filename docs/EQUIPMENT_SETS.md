@@ -2,6 +2,8 @@
 
 # Trang bị bốn ô, bộ và khung độ hiếm · 0.27
 
+Từ0.35 có sáu bộ/44 item/98 icon và savev11: [ADDITIONAL_EQUIPMENT](ADDITIONAL_EQUIPMENT.md). Các giới hạn và công thức dưới đây tiếp tục dùng; số lượng0.27 là lịch sử.
+
 Tham khảo bố cục người dùng gửi: ảnh món ở trái, độ hiếm/tên/lớp/nhân vật đang
 mặc ở phải; chỉ số thành từng dòng, mô tả hiệu ứng, chi phí và nút nâng cấp.
 Áp dụng vào tông xanh đêm–vàng hiện có. Số220 ATK và giá2.000 trong ảnh là

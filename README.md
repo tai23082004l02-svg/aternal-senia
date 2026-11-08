@@ -1,11 +1,19 @@
-# Aternal Senia — First Light · 0.35
+# Aternal Senia — First Light · 0.36
 
-## Vật phẩm thiết yếu · 0.35
+## Vật phẩm thiết yếu · 0.36
 
 Tám món dùng thật: nguyên liệu cho cường hóa/kỹ năng/tinh linh, vé Thường,
 rương chọn, hai thuốc chuẩn bị1 lượt và đồng hồAFK. Kho cộng dồn riêng,
-chi phí/nguồn rõ ràng, xác nhận rồi mới trừ; savev11 giữ bản cũ.
+chi phí/nguồn rõ ràng, xác nhận rồi mới trừ; savev12 giữ bản cũ.
 [Xem hình, công dụng và cách dùng](docs/SUPPLIES.md).
+
+
+## Ba bộ trang bị mới · 0.35
+
+18 món với icon riêng: Lâm Vệ chống chịu, Lôi Ảnh tốc đánh/chí mạng, Nguyệt Tinh
+hồi năng lượng/sát thương kỹ năng. Mỗi bộ đủ ba loại vũ khí và ba phòng cụ,
+có thưởng2/4 món. Rèn Lâm Vệ hoặc tìm trong triệu hồi Thường; savev11 giữ đồ
+và trận cũ. [Xem bộ, cách nhận và quy tắc](docs/ADDITIONAL_EQUIPMENT.md).
 
 ## Thế giới Phó bản · 0.34
 

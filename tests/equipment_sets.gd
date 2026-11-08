@@ -34,7 +34,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(directory)
 	var store := ProgressStore.new(book, directory.path_join("save.json"))
 	assert(book.errors.is_empty() and store.valid(store.profile))
-	assert(book.data.items.size() == 26 and book.data.sets.size() == 3)
+	assert(book.data.items.size() == 44 and book.data.sets.size() == 6)
 	var p := store.profile.duplicate(true)
 	p.gold = 100000
 	p.shards = 1000

@@ -43,3 +43,32 @@ def extend(data):
             atk=18,hp=0,defense=0,secondary=dict(crit=.05),set_id=set_id,effect=effect,effect_description=description,
             passive=description,color=colors[5],summon_group=3,summon_only=True,cooldown_scale=.92,
             element={'sword':'light','spear':'fire','staff':'water'}[category]))
+
+    # Three additional sidegrades: six class-compatible pieces per set.
+    additions = [
+        ('grove','Lâm Vệ',3,9,55,3,[
+            dict(pieces=2,description='+8% HP tối đa',stats=dict(hp_pct=.08)),
+            dict(pieces=4,description='+6% giảm sát thương',stats=dict(damage_reduction=.06))]),
+        ('storm','Lôi Ảnh',4,15,90,4,[
+            dict(pieces=2,description='+6% tốc độ đánh',stats=dict(haste=.06)),
+            dict(pieces=4,description='+5% chí mạng',stats=dict(crit=.05))]),
+        ('moon','Nguyệt Tinh',5,17,110,6,[
+            dict(pieces=2,description='+0,5 năng lượng mỗi giây',stats=dict(sp_regen=.5)),
+            dict(pieces=4,description='+10% sát thương kỹ năng',stats=dict(skill_pct=.10))])]
+    for set_id,name,tier,atk,hp,defense,bonuses in additions:
+        data['sets'].append(dict(id=set_id,name=name,icon='accessory_'+set_id,bonuses=bonuses))
+        for kind,label,slot,category in [('sword','Kiếm','weapon','sword'),('spear','Thương','weapon','spear'),('staff','Trượng','weapon','staff'),('armor','Giáp','armor','all'),('boots','Giày','boots','all'),('accessory','Ấn','accessory','all')]:
+            secondary = {}
+            if kind in ['sword','spear','staff'] and set_id=='storm': secondary=dict(crit=.02)
+            if kind in ['sword','spear','staff','accessory'] and set_id=='moon': secondary=dict(sp_regen=.25)
+            if kind=='armor' and set_id=='moon': secondary=dict(damage_reduction=.02)
+            if kind=='accessory' and set_id=='storm': secondary=dict(crit=.02)
+            item=dict(id=kind+'_'+set_id,name=label+' '+name,slot=slot,category=category,rarity=tier,
+                atk=atk if slot=='weapon' else 0,hp=hp if kind=='armor' else (50 if set_id=='grove' else (70 if set_id=='storm' else 90)) if kind=='accessory' else (10 if tier==3 else 15 if tier==4 else 20) if kind=='boots' else 0,
+                defense=defense if kind=='armor' else (1 if tier<5 else 2) if kind=='boots' else 0,
+                secondary=secondary,set_id=set_id,effect='',effect_description='',passive='Không có nội tại phụ',
+                color=colors[tier],summon_group=2 if tier==3 else 3,summon_only=tier>=4,
+                cooldown_scale=.98 if slot=='weapon' and tier==3 else .96 if slot=='weapon' and tier==4 else .94 if slot=='weapon' else 1.0,
+                element='nature' if set_id=='grove' else 'light' if set_id=='storm' else 'water')
+            if kind=='boots': item['haste']=.02 if tier==3 else .04 if tier==4 else .03
+            data['items'].append(item)

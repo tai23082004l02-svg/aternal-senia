@@ -111,5 +111,6 @@ func run() -> void:
 	await create_timer(.2).timeout
 	game.queue_free()
 	await process_frame
+	await create_timer(.3).timeout
 	print("PASS: five bounded top tabs, three development pages, four real talent nodes, read-only browsing and inspected-hero gear picker")
 	quit()

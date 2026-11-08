@@ -125,15 +125,37 @@ func run() -> void:
 	legacy = store.profile.duplicate(true)
 	legacy.version = 10
 	legacy.erase("supplies")
+	for id in legacy.collection_fragments.items.keys():
+		if not EquipmentSystem.previous_item(book,id): legacy.collection_fragments.items.erase(id)
 	var path := folder.path_join("v10.json")
 	var file := FileAccess.open(path,FileAccess.WRITE)
 	file.store_string(JSON.stringify(legacy,"",true,true))
 	file.close()
 	var bytes := FileAccess.get_file_as_bytes(path)
 	var migrated := ProgressStore.new(book,path)
-	assert(not migrated.read_only and migrated.profile.version==11)
-	assert(migrated.profile.items==legacy.items and migrated.profile.collection_fragments==legacy.collection_fragments and migrated.profile.pending==legacy.pending)
+	assert(not migrated.read_only and migrated.profile.version==ProgressStore.VERSION)
+	assert(migrated.profile.items==legacy.items and migrated.profile.pending==legacy.pending)
 	assert(migrated.profile.supplies==Supplies.fresh())
+	for id in legacy.collection_fragments.items: assert(migrated.profile.collection_fragments.items[id]==legacy.collection_fragments.items[id])
+	for id in migrated.profile.collection_fragments.items:
+		if not EquipmentSystem.previous_item(book,id): assert(migrated.profile.collection_fragments.items[id]==0)
 	assert(migrated.setting("sound",false) and FileAccess.get_file_as_bytes(path+".bak")==bytes)
+	# Released v11 already has all44 gear IDs; only add an empty ledger.
+	var released := migrated.profile.duplicate(true)
+	released.version = 11
+	released.erase("supplies")
+	released.collection_fragments.items.sword_grove = 9
+	released.bag_rewards = ["armor_moon"]
+	assert(migrated._add_item(released,"armor_storm"))
+	var path11 := folder.path_join("v11.json")
+	file = FileAccess.open(path11,FileAccess.WRITE)
+	file.store_string(JSON.stringify(released,"",true,true))
+	file.close()
+	var raw11 := FileAccess.get_file_as_bytes(path11)
+	var from11 := ProgressStore.new(book,path11)
+	assert(not from11.read_only and from11.profile.version==ProgressStore.VERSION)
+	for key in ["items","collection_fragments","bag_rewards","pending","gold","heroes"]: assert(from11.profile[key]==released[key])
+	assert(from11.profile.supplies==Supplies.fresh())
+	assert(from11.setting("sound",false) and FileAccess.get_file_as_bytes(path11+".bak")==raw11)
 	print("PASS: stackable ledger, one-time claims, choice chest, per-UID stone upgrade, skill/seed/AFK, snapshot-only support and reload, ticket atomicity/full bag, v10 migration/backup and validation")
 	quit()
