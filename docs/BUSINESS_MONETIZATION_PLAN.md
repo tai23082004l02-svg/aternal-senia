@@ -12,6 +12,8 @@
 >
 > Đã hủy Story Bible cũ *The World That Forgot Tomorrow*; không dùng làm canon hoặc ràng buộc hệ thống mới. Trạng thái thật phải xem [GAME_STATE](GAME_STATE.md) và HEAD của repository.
 
+**Bộ nội dung ra mắt đã được thiết kế ở dạng đề xuất:** [LAUNCH_CONTENT_MATRIX V0.1](LAUNCH_CONTENT_MATRIX.md), kèm [CONTENT_REGISTRY_DRAFT.json](launch/CONTENT_REGISTRY_DRAFT.json) cho Codex tra cứu. Đây là **mục tiêu sản xuất** chứ chưa phải game đã có, và **chưa được chủ dự án duyệt để triển khai runtime**. Phạm vi đề xuất chọn 24 hero (12 nam/12 nữ), 12 tinh linh, 12 set, 7 vùng/84 stage, 12 Boss, 8 dungeon; chi tiết nguồn nhận/cosmetics/acceptance gates ở matrix.
+
 # 1. Quyết định chiến lược — Full Content Launch
 
 **Thể loại:** **Hero Collection Idle Fantasy RPG** — build đội hình tự đánh 3 hero + 1 tinh linh, triệu hồi, phân vai, trang bị theo set, PvE campaign, Boss, dungeon, AFK, nhiệm vụ và sưu tầm.
