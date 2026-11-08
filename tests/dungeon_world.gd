@@ -54,8 +54,9 @@ func run() -> void:
 	for i in range(12):
 		var art := DungeonWorld.artwork(i,true)
 		assert(art.filter_clip and art.region.has_area() and art.region.end.y <= art.atlas.get_height())
-	assert(screen().cards.size()==15 and game.tabs[3].visible)
-	await capture("dungeons-all")
+	assert(screen().cards.size()==5 and game.tabs[3].visible)
+	assert(screen().find_child("DungeonFilter_all",true,false)==null)
+	await capture("dungeons-resource-default")
 	# Native drag starts on a card's action, scrolls, and does not open a dungeon.
 	var open := screen().find_child("DungeonOpen_grove",true,false) as Button
 	var point := open.get_global_rect().get_center()
@@ -77,7 +78,7 @@ func run() -> void:
 		assert(screen().cards.size()=={"all":15,"resource":5,"tactic":5,"boss":4,"endless":1,"seasonal":0}[key])
 		assert(game.store.profile==original)
 		if key in ["resource","tactic","seasonal"]: await capture("dungeons-"+key)
-	game._dungeon_filter("all")
+	game._dungeon_filter("resource")
 	for row in world.entries:
 		game._dungeon_show(row.id)
 		await settle()

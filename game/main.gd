@@ -17,7 +17,7 @@ var frames: FrameLibrary
 var view: BattleView
 var ui: Control
 var mission_tab := 0
-var dungeon_group := "all"
+var dungeon_group := "resource"
 var dungeon_selected := ""
 var dungeon_difficulty := 1
 var dungeon_list_offset := 0

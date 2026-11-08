@@ -102,7 +102,7 @@ func listing() -> void:
 	add_child(filters)
 	for i in range(DungeonWorld.GROUPS.size()):
 		var key: String = DungeonWorld.GROUPS[i]
-		var button := action(filters,DungeonWorld.LABELS[i],78,game._dungeon_filter.bind(key),game.dungeon_group == key)
+		var button := action(filters,DungeonWorld.LABELS[i],95,game._dungeon_filter.bind(key),game.dungeon_group == key)
 		button.name = "DungeonFilter_"+key
 		button.add_theme_font_size_override("font_size",12)
 	var overview := HBoxContainer.new()
@@ -305,4 +305,8 @@ class Border extends Control:
 		var c := size/2
 		for x in [7.0,size.x-7]:
 			var center := Vector2(x,c.y)
-			draw_polyline(PackedVector2Array([center+Vector2(0,-8),center+Vector2(4,0),center+Vector2(0,8),center+Vector2(-4,0),center+Vector2(0,-8)]),Color("f6d98a"),1.2,true)
+			var points := PackedVector2Array()
+			for i in range(10):
+				var angle := -PI / 2 + i * TAU / 10
+				points.append(center + Vector2.from_angle(angle) * (5.0 if i % 2 == 0 else 2.2))
+			draw_colored_polygon(points, Color("f6d98a"))
