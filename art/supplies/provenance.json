@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-08",
+  "method": "Original image generation inspired by user item sheets, reduced to8 functional MVP items. Source PNG preserved byte-for-byte; no pixel edits.4 columns x2 rows,reviewed per-row crops and4px horizontal inset; text is rendered separately.",
+  "sources": [
+    {
+      "file": "art/supplies/icons.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "dba71dc479a47b162be48bb95c66dca88a257e798ed5a2af8873aab99055a093"
+    }
+  ],
+  "order": [
+    "forge_stone",
+    "memory_shard",
+    "ancient_seed",
+    "normal_ticket",
+    "material_chest",
+    "rage_potion",
+    "ward_potion",
+    "afk_hourglass"
+  ]
+}
