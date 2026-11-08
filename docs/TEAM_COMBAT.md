@@ -1,3 +1,5 @@
+> **0.40.0 — quy tắc mới:** Trận mới dùng `ArenaBattle`, team snapshotv3. AI di chuyển tự do trong đấu trường2D; slot chỉ là vị trí xuất phát, địch chọn hero gần nhất. Kiểm tầm, đạn phép và vòng cảnh báo thuộc model. Pendingv1/v2 giữ TeamBattle/luật cũ. Savev13 không đổi. Đọc [ARENA_COMBAT](ARENA_COMBAT.md).
+
 > **Cập nhật 2026-11-08 — runtime 4 hero + 1 tinh linh:** Bốn ô trình bày 2 trước + 2 sau, không khóa nghề. Địch ưu tiên slot còn sống theo thứ tự 0 → 1 → 2 → 3; không tự chia sát thương cho hai ô trước. HUD có bốn thẻ hero và thanh Ultimate tinh linh riêng. Hành trình hiển thị cả bốn hero.
 >
 > **Tương thích:** Giữ save v12 và đường dẫn cũ, nhận formation 3 hoặc 4 ô. `Formation.state()` mở rộng bản sao thành 4 ô với ô cuối trống; xem UI không ghi save. Chỉnh đội mới ghi bốn ô qua transaction hiện có. Profile chưa có formation lấy hero sở hữu tối đa4; không cấp hero khóa. Snapshot mới v2 nhận 1–4 hero; snapshot v1 tối đa3 hero và pending singleton vẫn đọc nguyên trạng, không tính lại stats/seed/thuốc/phần thưởng. Renderer v1 giữ vị trí cũ. Quy tắc heal/khiên/energy và chỉ số encounter giữ nguyên; cần cân bằng sâu và kiểm tra điện thoại thật riêng.

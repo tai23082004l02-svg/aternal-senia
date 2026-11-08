@@ -1,8 +1,10 @@
 # Trạng thái dự án — bắt đầu ở đây
 
-> **Đã triển khai 2026-11-08:** Đội hình tối đa **4 hero + 1 tinh linh**, bố cục 2 trước + 2 sau, không khóa nghề. Save v12 đọc đội 3/4 ô; xem đội cũ chỉ thêm ô trống trên bản sao, ghi 4 ô khi người chơi chỉnh đội. Snapshot v1 và singleton cũ giữ nguyên; trận mới dùng v2. Xem [TEAM_COMBAT](TEAM_COMBAT.md).
+> **0.40.0 — AI Arena:** Theo yêu cầu mới, trận mới dùng đấu trường2D di chuyển tự do: cận chiến áp sát, staff giữ cự ly/đạn phép, chọn mục tiêu gần, né vòng cảnh báo. Đội4+1 và các ải/phần thưởng hiện có giữ nguyên. Team snapshot mới **v3**; pendingv1/v2/singleton tiếp tục luật cũ. Savev13 không đổi. Đọc [ARENA_COMBAT](ARENA_COMBAT.md). Mô tả địch đánh theo slot bên dưới chỉ áp dụng combat cũ.
 
-Cập nhật2026-11-08. Game **0.39.1**, **Godot4.6.3**, save **v13**.
+> **Mốc0.38 — đội hình4+1 (combat đã thay ở0.40):** Đội hình tối đa **4 hero + 1 tinh linh**, bố cục 2 trước + 2 sau, không khóa nghề. Save v12 đọc đội 3/4 ô; xem đội cũ chỉ thêm ô trống trên bản sao, ghi 4 ô khi người chơi chỉnh đội. Snapshot v1 và singleton cũ giữ nguyên; trận mới dùng v2. Xem [TEAM_COMBAT](TEAM_COMBAT.md).
+
+Cập nhật2026-11-08. Game **0.40.0**, **Godot4.6.3**, save **v13**.
 Đợt dọn repo không đổi gameplay hoặc schema. Repo triển khai:
 [tai23082004l02-svg/aternal-senia](https://github.com/tai23082004l02-svg/aternal-senia).
 Repo tham khảo: [Tham-kh-o-game](https://github.com/tai23082004l02-svg/Tham-kh-o-game).
@@ -94,8 +96,8 @@ hero giả cho đủ24. Xem [HERO_COLLECTION](HERO_COLLECTION.md).
 | --- | --- |
 | Hero | Eira/light, Ryn/fire, Mira/water, Lyra/fire, Caelan/light;5 hero gốc5★, bốn hero đầu qua tiến trình/triệu hồi, Caelan qua tuyển miễn phí sau stage1; không sở hữu mặc định tất cả |
 | Tinh linh | Lumi/SR, Ash/SSR; hỗ trợ đội, nâng cấp/nhánh/tiến hóa; UR mới là bậc dự trữ |
-| Trận mới | Tối đa4 hero sở hữu +1 tinh linh, auto battle, điều khiển Ultimate/target/tốc độ, tối đa4 địch cùng lúc |
-| Đội hình | Hai ô trước, hai ô sau; không khóa nghề; snapshot lúc vào trận |
+| Trận mới | Tối đa4 hero sở hữu +1 tinh linh, AI Arena di chuyển tự do, điều khiển Ultimate/target/tốc độ, tối đa4 địch cùng lúc |
+| Đội hình | Hai ô trước, hai ô sau làm vị trí xuất phát; không khóa nghề; snapshot lúc vào trận |
 | Hành trình | 5 màn chính ID1–5 và10 màn nhánh ID6–15 |
 | Phó bản chơi thật |101 Săn cổ thụ (UI Sân Cổ Thụ);102 Tháp sáu đợt;103 Tam vệ bình minh |
 | Thế giới Phó bản |15 entry, lọc tài nguyên5/chiến thuật5/Boss4/chinh phục1, trang chi tiết, nguồn thưởng/đối thủ;12 entry stage0 chỉ preview |

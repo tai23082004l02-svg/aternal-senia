@@ -2,7 +2,7 @@
 
 Phiên mới: [AGENTS](../AGENTS.md) → [GAME_STATE](GAME_STATE.md) →
 [SYSTEMS](SYSTEMS.md) → chuyên đề cần sửa → [TESTING](TESTING.md).
-Trạng thái chuẩn là0.39/savev13. Phần mang số phiên bản cũ trong chuyên đề mô tả
+Trạng thái chuẩn là0.40/savev13. Phần mang số phiên bản cũ trong chuyên đề mô tả
 thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc savev4/v7.
 
 [UI Celestial0.39 — Selena](UI_CELESTIAL_0_39.md): bàn giao UI mới, preview và giới hạn runtime.
@@ -37,6 +37,8 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 **Ưu tiên:** Hoàn thiện dàn nội dung lớn và hệ kiếm tiền thật trước khi phát hành; QA nội bộ kỹ lưỡng, không public bản thiếu nội dung. Retention/KPI dùng sau phát hành để cải thiện sản phẩm. Giá, mức thưởng và số lượng nội dung trong kế hoạch chưa được chốt.
 
 ## Gameplay và dữ liệu
+
+[AI Arena0.40](ARENA_COMBAT.md): combat di chuyển tự do, tầm đánh/đạn phép/vùng cảnh báo, snapshotv3 và tương thích trận cũ.
 
 [HERO_COLLECTION](HERO_COLLECTION.md): nền contract hero, Gallery lưới chân dung4 cột/lọc/chế độ chi tiết, Summon Reveal, tương thích v12 và kế hoạch migration roster.
 

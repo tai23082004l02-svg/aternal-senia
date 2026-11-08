@@ -1,7 +1,7 @@
 # Hướng dẫn cho phiên chat phát triển tiếp
 
 Đọc README → docs/GAME_STATE.md → docs/SYSTEMS.md → docs/INDEX.md trước khi sửa.
-Trạng thái hiện hành sau cập nhật UI 2026-11-08: game0.39.1, Godot4.6.3, savev13.
+Trạng thái hiện hành 2026-11-08: game0.40.0, Godot4.6.3, savev13.
 Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD và code trước khi làm.
 
 ## Định hướng sản phẩm và nội dung (2026-11-08)
@@ -20,7 +20,18 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 **ĐỌC BẮT BUỘC:** [docs/GAME_DESIGN_V1.md](docs/GAME_DESIGN_V1.md) trước khi lập kế hoạch hoặc triển khai hero, Gallery, Summon Reveal, Bond, cốt truyện nhân vật. Chủ dự án đã duyệt **24 hero (12 nam/12 nữ), tất cả gốc 5★, ưu tiên Gallery/Summon Reveal, bổ sung Bond, truyện ngắn xoay quanh nhân vật, tiếp tục repo hiện tại**. Đây là quyết định mới hơn các câu ghi "24 hero chưa chốt" ở tài liệu cũ; **chỉ phạm vi sáu quyết định này được duyệt**, các con số khác trong Launch Content Matrix và thông số chi tiết vẫn là draft. Không coi tài liệu thiết kế là code đã chạy. **Bước Codex tiếp theo: WP01 audit chỉ đọc, không sửa/commit/push**, trừ khi chủ dự án giao task mới rõ ràng.
 
 
-**QUYẾT ĐỊNH MỚI (2026-11-08):** Mục tiêu đội hình V1.0 là **4 hero + 1 tinh linh**, thay cho 3 hero + 1 tinh linh. Đã triển khai theo yêu cầu tiếp theo của chủ dự án: 2 trước + 2 sau, không khóa nghề; save v12 nhận đội cũ 3 ô và đội mới 4 ô, snapshot v1 giữ nguyên, trận mới dùng snapshot v2. Địch vẫn ưu tiên slot còn sống nhỏ nhất. Xem docs/TEAM_COMBAT.md.
+**QUYẾT ĐỊNH MỚI (2026-11-08):** Mục tiêu đội hình V1.0 là **4 hero + 1 tinh linh**, thay cho 3 hero + 1 tinh linh. Đã triển khai theo yêu cầu tiếp theo của chủ dự án: 2 trước + 2 sau, không khóa nghề; save v12 nhận đội cũ 3 ô và đội mới 4 ô, snapshot v1 giữ nguyên. Bản0.38 dùng snapshotv2/địch ưu tiên slot; bản0.40 chuyển trận mới sang ArenaBattle/snapshotv3 như bên dưới. Xem docs/TEAM_COMBAT.md.
+
+## AI Arena0.40 — yêu cầu mới đã triển khai
+
+Đọc [ARENA_COMBAT](docs/ARENA_COMBAT.md). Trận mới dùng `ArenaBattle`/snapshot teamv3:
+AI di chuyển tự do, chọn mục tiêu gần, kiểm tầm, phép có đường bay và né vòng cảnh báo.
+Bốn slot là vị trí xuất phát; địch không còn đánh theo thứ tự slot trong v3.
+`main._resume()` giữ `TeamBattle` cho pendingv1/v2 và singleton cũ; không đổi luật
+hoặc tính lại snapshot cũ. Savev13, entry/settle/UID/phần thưởng giữ nguyên.
+UI dùng vị trí model; renderer không gây damage/RNG. Không gọi artwork hiện có là
+animation tám hướng mới. Tests thêm `arena_battle` và `arena_ui`; matrix/campaign
+chạy ArenaBattle. Các mô tả đánh theo thứ tự slot bên dưới chỉ áp dụng teamv1/v2.
 
 ## Admin code0.39.1
 

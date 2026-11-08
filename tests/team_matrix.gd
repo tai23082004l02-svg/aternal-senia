@@ -18,7 +18,7 @@ func run() -> void:
 		for stage in book.data.stages:
 			var team := Formation.snapshot(book, p, stage)
 			assert(Formation.valid_snapshot(store, team))
-			var model := TeamBattle.new(book)
+			var model := ArenaBattle.new(book)
 			model.start({"id":"matrix", "stage":stage.id,"seed":17,"stats":book.stats(p),"team":team})
 			for i in range(12000):
 				model.advance(1.0 / 60)

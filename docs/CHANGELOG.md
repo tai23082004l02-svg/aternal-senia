@@ -1,5 +1,9 @@
 # Các mốc phát triển
 
+## 0.40.0 · 2026-11-08
+
+Owner-requested 2D AI Arena combat: spatial movement/nearest targeting, melee range, ranged retreat and swept magic bolts, committed ground attacks and movement dodges. Four heroes plus one spirit and existing encounters/rewards retained. New team snapshotv3 routes to ArenaBattle; pendingv1/v2/singleton retains historical models. Savev13 unchanged. Dynamic rendering/touch/facing, queued out-of-range Ultimates; original art/audio preserved. See [AI Arena](ARENA_COMBAT.md).
+
 ## 0.39.1 · 2026-11-08
 
 Owner-requested local `admin` code in More → Redeem Gift Code. One atomic grant per save unlocks runtime content and maximizes progression with bounded gear overflow, preserving UID/formation/history. Confirm/cancel and pending/read-only/write-failure guards; schema remainsv13. See [Admin code](ADMIN_CODE.md).

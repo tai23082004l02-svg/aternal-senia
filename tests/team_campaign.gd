@@ -22,7 +22,7 @@ func run() -> void:
 		for quest in book.data.quests:
 			if quest.id not in store.profile.claimed and store.profile.metrics[quest.metric] >= quest.target: assert(store.claim_quest(quest.id))
 		assert(store.begin_run(stage_id))
-		var model := TeamBattle.new(book)
+		var model := ArenaBattle.new(book)
 		model.start(store.profile.pending)
 		for i in range(12000):
 			model.advance(1.0 / 60)

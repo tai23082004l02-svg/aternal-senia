@@ -1,6 +1,6 @@
 # Kiến trúc hiện hành
 
-Áp dụng cho game0.38/savev13. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
+Áp dụng cho game0.40/savev13. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
 Công thức singleton0.2 được giữ riêng trong [tài liệu lịch sử](history/SYSTEMS_0_2.md);
 không lấy trần+10, loot đổi shard hoặc đội1 người ở đó áp vào trận mới.
 
@@ -15,7 +15,8 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 |GameCatalog|Nạp catalog.json, ghép expansion.json và team_encounters.json; normalize số, validate ID/drop/slot/skill, suy ra stats|
 |ProgressStore|Profile, migration v1–v13, backup/read-only, validate/commit, begin_run/settle và giao dịch gear|
 |Formation|Roster/slot/assist/auto options và snapshot team/encounter; bốn slot không khóa nghề; đọc đội v12 ba ô qua bản sao|
-|TeamBattle|Trận mới4vN, action/hit marker, HP/năng lượng, target, hiệu ứng/đội, kết quả|
+|ArenaBattle|Trận mới4vN/snapshotv3: di chuyển2D, nearest target, tầm đánh, projectiles và vùng cảnh báo; kế thừa TeamBattle|
+|TeamBattle|Trận pendingv1/v2, action/hit marker, HP/năng lượng, target, hiệu ứng/đội, kết quả|
 |BattleModel|Nền model và đường chạy pending singleton cũ; không được xóa chỉ vì UI dùng TeamBattle|
 |EquipmentSystem|4 slot, multiplier, bộ2/4, tham chiếu UID, map ID migration|
 |CollectionFragments|Mảnh gear/spirit cũ và kiểm map theo phiên bản; không áp singleton vào gear hiện tại|
@@ -64,7 +65,7 @@ Caelan dùng manifest riêng được FrameLibrary ghép, sword signature chỉ 
 ## Tạo và kết thúc run
 
 1. Kiểm quyền vào ải/pending/cap hàng chờ; clone profile.
-2. Tạo run ID/seed, team snapshot v2 (1–4 hero; tiếp tục nhận v1 tối đa3 hero), stats đầu team, options và encounter.
+2. Tạo run ID/seed, team snapshot v3 (1–4 hero; v1/v2 tiếp tục dùng TeamBattle cũ), stats đầu team, options và encounter.
 3. Nếu có thuốc, áp một lần vào candidate snapshot, trừ1 và xóa lựa chọn.
 4. Commit thành công mới khởi động model. Resume đọc snapshot cùng seed;
    không gọi lại prepare hoặc tính stats theo trang bị mới.

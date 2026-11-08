@@ -116,6 +116,7 @@ func _process(_delta: float) -> void:
 			health[i].value = ally.hp / ally.stats.hp * 100
 			energy[i].value = ally.energy
 			ultimates[i].text = "Defeated" if ally.hp <= 0 else "Energy %d%%" % ally.energy
+			if ally.get("ultimate_queued", false) and ally.hp > 0: ultimates[i].text = "Queued"
 			ultimates[i].disabled = not can_play or ally.hp <= 0 or ally.energy < 100 or not ally.action.is_empty()
 		else:
 			names[i].text = game.catalog.find_row("assists", model.stats.assist).name
@@ -157,6 +158,10 @@ class TeamField extends Control:
 	const LEGACY_ALLY_FEET := [Vector2(213, 273), Vector2(102, 200), Vector2(92, 310)]
 	func ally_feet() -> Array:
 		return LEGACY_ALLY_FEET if model.run.team.version == 1 else ALLY_FEET
+	func ally_point(index: int) -> Vector2:
+		return model.allies[index].pos if model is ArenaBattle else ally_feet()[model.allies[index].slot]
+	func enemy_point(index: int) -> Vector2:
+		return model.enemies[index].pos if model is ArenaBattle else ENEMY_FEET[index]
 	const ENEMY_FEET := [Vector2(348, 272), Vector2(439, 200), Vector2(456, 312), Vector2(346, 134)]
 	func _ready() -> void:
 		clip_contents = true
@@ -168,7 +173,7 @@ class TeamField extends Control:
 			var distance := 65.0
 			for i in range(model.enemies.size()):
 				if model.enemies[i].hp <= 0: continue
-				var d: float = event.position.distance_to(ENEMY_FEET[i] - Vector2(0, 40))
+				var d: float = event.position.distance_to(enemy_point(i) - Vector2(0, 32))
 				if d < distance:
 					distance = d
 					selected = i
@@ -183,9 +188,10 @@ class TeamField extends Control:
 		var font := UIFonts.font("medium")
 		draw_string(font, Vector2(20, 22), "OUR TEAM", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
 		draw_string(font, Vector2(407, 22), "ENEMIES", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
+		if model is ArenaBattle: _arena_ground()
 		var order := []
-		for i in range(model.allies.size()): order.append({"enemy":false,"index":i,"y":ally_feet()[model.allies[i].slot].y})
-		for i in range(model.enemies.size()): order.append({"enemy":true,"index":i,"y":ENEMY_FEET[i].y})
+		for i in range(model.allies.size()): order.append({"enemy":false,"index":i,"y":ally_point(i).y})
+		for i in range(model.enemies.size()): order.append({"enemy":true,"index":i,"y":enemy_point(i).y})
 		order.sort_custom(func(a,b): return a.y < b.y)
 		for row in order:
 			if row.enemy: _enemy(row.index, library)
@@ -201,7 +207,7 @@ class TeamField extends Control:
 			var ally_target: bool = event.kind in ["hurt","heal","guard"]
 			if ally_target and event.target >= model.allies.size() or not ally_target and event.target >= model.enemies.size(): continue
 			if not ally_target and event.get("target_uid", -1) != model.enemies[event.target].id: continue
-			var point: Vector2 = ally_feet()[model.allies[event.target].slot] if ally_target else ENEMY_FEET[event.target]
+			var point: Vector2 = event.get("arena_point", ally_point(event.target) if ally_target else enemy_point(event.target))
 			var color := Color("87e6b5") if event.kind == "heal" else (Color("ffcb78") if event.kind == "critical" else Color("f5ddd2"))
 			color.a = 1 - age / .7
 			if options.damage_numbers: draw_string(font, point + Vector2(-10, -82 - age * 25), event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, color)
@@ -210,7 +216,7 @@ class TeamField extends Control:
 				if options.quality == "high": draw_arc(point - Vector2(0, 35), 12 + age * 80, 0, TAU, 16, color, 2, true)
 	func _ally(index: int, library: FrameLibrary) -> void:
 		var ally: Dictionary = model.allies[index]
-		var foot: Vector2 = ally_feet()[ally.slot]
+		var foot: Vector2 = ally_point(index)
 		var state := "idle"
 		var elapsed: float = model.time
 		var marker := -1.0
@@ -228,22 +234,27 @@ class TeamField extends Control:
 			state = "attack" if last.kind == "attack" else "skill"
 			marker = last.marker
 			duration = last.duration
-			if last.kind != "heal":
+			if last.kind != "heal" and not model is ArenaBattle:
 				var kit: Dictionary = ally.stats.get("combat",{})
 				var force := .55 if last.kind == "ultimate" and kit.get("ultimate") == "execute" else (.08 if kit.get("basic") == "shield_ally" else .25)
 				foot.x += CombatPresentation.lunge(elapsed,marker,duration)*force
 		elif model.time - ally.hurt < .25:
 			state = "hurt"
 			elapsed = model.time - ally.hurt
+		if model is ArenaBattle and ally.hp > 0 and ally.get("moving", false) and ally.action.is_empty() and model.state == "battle" and model.move_clock <= 0:
+			state = "run"
+			elapsed = model.time
 		var frame := library.motion_frame(ally.id, state, elapsed, marker, duration)
 		var look: Array = ally.stats.get("look_tint", [1,1,1,1])
 		var tint := Color(look[0],look[1],look[2], .45 if ally.hp <= 0 else 1)
-		library.draw_actor(self, frame, foot, ally.stats.weapon, tint, state != "death", .43)
+		draw_ellipse_shadow(foot, Color(0, 0, 0, .24))
+		library.draw_actor(self, frame, foot, ally.stats.weapon, tint, state != "death", .23 if model is ArenaBattle else .43, ally.get("face", 1.0))
 		_bar(foot + Vector2(-27, 5), ally.hp / ally.stats.hp, Color("8cdac2"))
+		if model is ArenaBattle: _bar(foot + Vector2(-27, 11), ally.energy / 100, Color("d4b56d"))
 		if ally.barrier > 0: draw_arc(foot - Vector2(0, 45), 42, PI, TAU, 24, Color(.6,.85,1,.7), 2, true)
 	func _enemy(index: int, library: FrameLibrary) -> void:
 		var enemy: Dictionary = model.enemies[index]
-		var foot: Vector2 = ENEMY_FEET[index]
+		var foot: Vector2 = enemy_point(index)
 		var alpha := 1.0 if enemy.hp > 0 else .15
 		var texture: Texture2D = library.textures["enemy_" + enemy.type]
 		var spec: Dictionary = library.enemy_specs[enemy.type]
@@ -258,13 +269,42 @@ class TeamField extends Control:
 		elif library.painted.get("enemy_clips", {}).has(enemy.type):
 			spec = library.enemy_frame(enemy.type, pose, elapsed)
 			texture = library.textures[spec.file]
-		var factor := (135.0 if enemy.boss else 90.0) / texture.get_height()
+		var factor := ((106.0 if enemy.boss else 74.0) if model is ArenaBattle else (135.0 if enemy.boss else 90.0)) / texture.get_height()
 		var anchor := Vector2(spec.anchor[0], spec.anchor[1])
-		draw_texture_rect(texture, Rect2(foot - anchor * factor, texture.get_size() * factor), false, Color(1, .83 if enemy.elite else 1.0, .75 if enemy.elite else 1.0, alpha))
+		var origin := foot - anchor * factor
+		var dimensions := texture.get_size() * factor
+		if model is ArenaBattle and enemy.face > 0:
+			origin.x = foot.x + anchor.x * factor
+			dimensions.x = -dimensions.x
+		draw_ellipse_shadow(foot, Color(0, 0, 0, .24 * alpha))
+		draw_texture_rect(texture, Rect2(origin, dimensions), false, Color(1, .83 if enemy.elite else 1.0, .75 if enemy.elite else 1.0, alpha))
 		_bar(foot + Vector2(-27, 5), enemy.hp / enemy.max_hp, Color("dd918c"))
 		draw_string(UIFonts.font("display") if enemy.boss else UIFonts.font("medium"), foot + Vector2(-30, 18), "BOSS" if enemy.boss else UIFonts.enemy_name(enemy.name), HORIZONTAL_ALIGNMENT_LEFT, 96, 10, Color("e5cd9e"))
 		if model.focus == index and enemy.hp > 0: draw_arc(foot - Vector2(0, 25), 28, 0, TAU, 24, Color("e5c278"), 2, true)
 		if enemy.boss and enemy.mechanic == "shield" and not enemy.shield_broken: draw_arc(foot - Vector2(0, 60), 45, PI, TAU, 24, Color(.6,.8,1,.8), 3, true)
+	func draw_ellipse_shadow(point: Vector2, color: Color) -> void:
+		if not model is ArenaBattle: return
+		draw_set_transform(point, 0, Vector2(1, .28))
+		draw_circle(Vector2.ZERO, 22, color)
+		draw_set_transform(Vector2.ZERO)
+	func _arena_ground() -> void:
+		var options: Dictionary = game.presentation_options
+		# The entire arena, danger zones and bolts read simulation state only.
+		draw_rect(Rect2(22, 105, 496, 218), Color(.04, .10, .14, .22))
+		for enemy in model.enemies:
+			if enemy.hp <= 0 or enemy.action.is_empty() or enemy.action.hit: continue
+			var point: Vector2 = enemy.action.point
+			var radius: float = enemy.action.radius
+			var charge := clampf((model.time - enemy.action.started) / enemy.action.marker, 0, 1)
+			draw_circle(point, radius, Color(.9, .25, .15, .14))
+			draw_arc(point, radius, 0, TAU, 40, Color(1, .57, .32, .85), 2, true)
+			draw_arc(point, radius * .85, -PI / 2, -PI / 2 + TAU * charge, 32, Color(1, .78, .5, .8), 2, true)
+		for shot in model.projectiles:
+			var point: Vector2 = shot.pos - Vector2(0, 30)
+			var tail: Vector2 = point - shot.velocity.normalized() * 20
+			draw_line(tail, point, Color(.4, .85, 1, .8), 3, true)
+			draw_circle(point, 4, Color(.8, 1, 1))
+			if options.lighting and not options.reduced_effects: draw_circle(point, 8, Color(.3, .8, 1, .18))
 	func _bar(point: Vector2, value: float, color: Color) -> void:
 		draw_rect(Rect2(point, Vector2(54, 4)), Color("1c3036"))
 		draw_rect(Rect2(point, Vector2(54 * clampf(value,0,1), 4)), color)

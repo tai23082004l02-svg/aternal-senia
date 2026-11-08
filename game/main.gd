@@ -652,7 +652,7 @@ func _enter_stage(id: int) -> void:
 		return
 	selected_stage = id
 	var stage := catalog.find_row("stages", id)
-	_dialog(stage.name, stage.before + "\n\nBring up to 4 heroes and 1 spirit. Living slots take hits in order, front then back; Auto Ultimate is optional. Defeat occurs when the team falls or 180 seconds elapse."+Supplies.hint(store.profile), [{"text": "Enter Battle", "call": _begin}, {"text":"Formation", "call":_open_formation}, {"text": "Keep Preparing", "call": _close_modal}])
+	_dialog(stage.name, stage.before + "\n\nBring up to 4 heroes and 1 spirit. AI moves freely in the arena: melee heroes approach, ranged heroes keep distance, and enemies attack nearby heroes. Auto Ultimate is optional. Defeat occurs when the team falls or 180 seconds elapse."+Supplies.hint(store.profile), [{"text": "Enter Battle", "call": _begin}, {"text":"Formation", "call":_open_formation}, {"text": "Keep Preparing", "call": _close_modal}])
 
 func _begin() -> void:
 	_close_modal()
@@ -667,7 +667,10 @@ func _begin() -> void:
 
 func _resume() -> void:
 	_close_modal()
-	battle = TeamBattle.new(catalog) if store.profile.pending.has("team") else Battle.new(catalog)
+	if store.profile.pending.has("team"):
+		battle = ArenaBattle.new(catalog) if store.profile.pending.team.version == 3 else TeamBattle.new(catalog)
+	else:
+		battle = Battle.new(catalog)
 	battle.start(store.profile.pending)
 	battle.speed = mini(2, store.profile.settings.speed) if battle is TeamBattle else store.profile.settings.speed
 	selected_stage = int(battle.run.stage)

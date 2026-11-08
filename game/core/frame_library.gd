@@ -132,7 +132,7 @@ func guardian_frame(state: String, elapsed: float) -> Dictionary:
 
 # Shared by runtime, portrait and review tools so sockets use one transform.
 # No simulation commands or damage are called by this renderer.
-func draw_actor(canvas: CanvasItem, frame: Dictionary, foot: Vector2, weapon: String, tint: Color = Color.WHITE, show_weapon: bool = true, scale_override: float = -1) -> void:
+func draw_actor(canvas: CanvasItem, frame: Dictionary, foot: Vector2, weapon: String, tint: Color = Color.WHITE, show_weapon: bool = true, scale_override: float = -1, facing: float = 1.0) -> void:
 	var size_data: Array = frame.get("size", [192, 240])
 	var anchor_data: Array = frame.get("anchor", [96, 216])
 	var dimensions := Vector2(size_data[0], size_data[1])
@@ -143,21 +143,26 @@ func draw_actor(canvas: CanvasItem, frame: Dictionary, foot: Vector2, weapon: St
 		var source: Array = frame.source_anchor
 		var offset: Array = frame.trim_offset
 		origin = foot + (Vector2(offset[0], offset[1]) - Vector2(source[0], source[1])) * factor
-	canvas.draw_texture_rect(textures[frame.file], Rect2(origin, dimensions * factor), false, tint)
+	var draw_size := dimensions * factor
+	if facing < 0:
+		origin.x = foot.x * 2 - origin.x
+		draw_size.x = -draw_size.x
+	canvas.draw_texture_rect(textures[frame.file], Rect2(origin, draw_size), false, tint)
 	if not show_weapon or frame.get("embedded_weapon", false):
 		return
 	weapon = str(frame.get("signature_weapon",weapon))
 	var hand := foot + (Vector2(frame.hand[0], frame.hand[1]) - anchor) * factor
+	if facing < 0: hand.x = foot.x * 2 - hand.x
 	var spec: Dictionary = weapon_specs.get(weapon, {"anchor": [32, 128], "scale": 1, "tint": [1, 1, 1, 1]})
 	var weapon_factor: float = factor * spec.scale
 	var color: Array = spec.tint
-	canvas.draw_set_transform(hand, deg_to_rad(frame.angle), Vector2.ONE * weapon_factor)
+	canvas.draw_set_transform(hand, deg_to_rad(frame.angle) * facing, Vector2(weapon_factor * facing, weapon_factor))
 	canvas.draw_texture(textures[weapon + ".svg"], -Vector2(spec.anchor[0], spec.anchor[1]), Color(color[0], color[1], color[2], color[3]) * tint)
 	canvas.draw_set_transform(Vector2.ZERO)
 	if frame.has("grip_rect"):
 		var grip: Array = frame.grip_rect
 		var region := Rect2(grip[0], grip[1], grip[2], grip[3])
-		canvas.draw_texture_rect_region(textures[frame.file], Rect2(origin + region.position * factor, region.size * factor), region, tint)
+		canvas.draw_texture_rect_region(textures[frame.file], Rect2(origin + region.position * Vector2(factor * facing, factor), region.size * Vector2(factor * facing, factor)), region, tint)
 
 func enemy_frame(type: String, state: String, elapsed: float) -> Dictionary:
 	return sample_clip(painted.enemy_clips[type].get(state, painted.enemy_clips[type].idle), elapsed)

@@ -50,7 +50,7 @@ func run() -> void:
 	game.battle.paused = false
 	game.battle.allies[3].energy = 100
 	game.team_ui._ultimate(3)
-	assert(not game.battle.allies[3].action.is_empty())
+	assert(not game.battle.allies[3].action.is_empty() or game.battle.allies[3].get("ultimate_queued", false))
 	game.battle.spirit_energy = 100
 	game.team_ui._ultimate(4)
 	assert(not game.battle.spirit_action.is_empty())

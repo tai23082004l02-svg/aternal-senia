@@ -36,7 +36,7 @@ func run() -> void:
 	assert(not Formation.assign(four, 4, "eira"))
 	assert(four.begin_run(1))
 	var four_run: Dictionary = four.profile.pending.duplicate(true)
-	assert(four_run.team.version == 2 and four_run.team.units.size() == 4)
+	assert(four_run.team.version == 3 and four_run.team.units.size() == 4)
 	assert(not Formation.assign(four, 3, ""))
 	var reloaded := ProgressStore.new(book, four.path)
 	assert(not reloaded.read_only and reloaded.profile.pending == four_run)

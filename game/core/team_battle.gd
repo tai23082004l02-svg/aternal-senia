@@ -146,22 +146,39 @@ func _step() -> void:
 			enemy.clock += STEP
 			if enemy.clock >= (3.2 if enemy.boss else 2.8):
 				enemy.clock = 0
-				var target := _front()
-				if target >= 0:
+				var target := _enemy_target(enemy)
+				if target >= 0 and _enemy_in_range(enemy, target):
 					enemy.target = target
 					enemy.action = {"id":next_action, "started":time, "marker":.6 if enemy.boss else .35, "duration":.9 if enemy.boss else .6, "target":target, "hit":false}
 					next_action += 1
+					_prepare_enemy_action(enemy)
 					enemy.last = enemy.action.duplicate(true)
 					_team_emit("charge", enemies.find(enemy), target, "", "boss_charge" if enemy.boss else "enemy_charge", true)
 		else:
 			var action: Dictionary = enemy.action
 			if not action.hit and time >= action.started + action.marker:
 				action.hit = true
-				var target: int = action.target if allies[action.target].hp > 0 else _front()
-				if target >= 0: _damage_ally(target, enemy.atk * (1.5 if enemy.boss and enemy.mechanic == "smash" else 1.0), enemies.find(enemy))
+				_resolve_enemy_action(enemy)
 			if time >= action.started + action.duration: enemy.action = {}
 		if state != "battle": return
 	_sync_totals()
+
+# Hooks keep snapshot v1/v2 combat intact while ArenaBattle supplies spatial rules.
+func _ally_target(_ally: Dictionary) -> int:
+	return _target()
+
+func _enemy_target(_enemy: Dictionary) -> int:
+	return _front()
+
+func _enemy_in_range(_enemy: Dictionary, _target_index: int) -> bool:
+	return true
+
+func _prepare_enemy_action(_enemy: Dictionary) -> void:
+	pass
+
+func _resolve_enemy_action(enemy: Dictionary) -> void:
+	var target: int = enemy.action.target if allies[enemy.action.target].hp > 0 else _front()
+	if target >= 0: _damage_ally(target, enemy.atk * (1.5 if enemy.boss and enemy.mechanic == "smash" else 1.0), enemies.find(enemy))
 
 func _front() -> int:
 	var selected := -1
@@ -207,7 +224,7 @@ func _basic(ally: Dictionary) -> void:
 
 func _schedule_ally(ally: Dictionary, kind: String, power: float, marker: float, duration: float) -> void:
 	ally.clock = 0
-	ally.target = _lowest() if kind == "heal" else _target()
+	ally.target = _lowest() if kind == "heal" else _ally_target(ally)
 	if kind == "ultimate" and _hero_combat(ally).ultimate == "execute":
 		var ratio := 2.0
 		for i in range(enemies.size()):
@@ -255,7 +272,7 @@ func _advance_ally(ally: Dictionary) -> void:
 			for i in range(allies.size()):
 				_grant_barrier(i,allies[i].stats.hp*.22,6,allies.find(ally))
 		elif action.kind == "ultimate" and _hero_combat(ally).ultimate == "execute":
-			var target: int = action.target if action.target >= 0 and action.target < enemies.size() and enemies[action.target].hp > 0 else _target()
+			var target: int = action.target if action.target >= 0 and action.target < enemies.size() and enemies[action.target].hp > 0 else _ally_target(ally)
 			if target >= 0: _damage_enemy(target,ally.stats.atk*action.power,ally,true)
 		elif action.kind == "ultimate" and _hero_combat(ally).ultimate == "team_heal":
 			for i in range(allies.size()):
@@ -275,7 +292,7 @@ func _advance_ally(ally: Dictionary) -> void:
 					ally.barrier = maxf(ally.barrier, ally.stats.hp * .15)
 					ally.barrier_until = time + 5
 		else:
-			var target: int = action.target if action.target >= 0 and action.target < enemies.size() and enemies[action.target].hp > 0 else _target()
+			var target: int = action.target if action.target >= 0 and action.target < enemies.size() and enemies[action.target].hp > 0 else _ally_target(ally)
 			if target >= 0:
 				var power: float = action.power
 				if action.kind == "basic" and _hero_combat(ally).basic == "shield_ally": power *= 1.25/1.7
