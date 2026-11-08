@@ -83,19 +83,20 @@ static func pool(book: GameCatalog, tier: int) -> Array:
 			result.append({"kind": pair[0], "id": row.id, "rarity": rank, "grade": grade, "weight": weight})
 	return result
 
-static func summon(store: ProgressStore, count: int = 1) -> bool:
-	if count not in [1, 10] or store.read_only or not store.profile.pending.is_empty() or store.profile.gold < PRICE * count: return false
+static func summon(store: ProgressStore, count: int = 1, use_ticket: bool = false) -> bool:
+	if count not in [1, 10] or store.read_only or not store.profile.pending.is_empty() or (Supplies.count(store.profile,"normal_ticket")<count if use_ticket else store.profile.gold < PRICE * count): return false
 	var p := store.profile.duplicate(true)
 	ensure(store, p)
+	if use_ticket: p.supplies.counts.normal_ticket -= count
 	if p.recruitment.count > 2147483647 - count: return false
 	for i in range(count):
-		if not _draw(store, p):
-			store.error = "Túi trang bị đầy. Hãy phân giải hoặc hợp thành rồi thử lại; chưa trừ vàng."
+		if not _draw(store, p,not use_ticket):
+			store.error = "Túi trang bị đầy. Hãy phân giải hoặc hợp thành rồi thử lại; chưa trừ vàng hoặc vé."
 			return false
 	MissionBoard.record(p, "summon", count)
 	return store.commit(p)
 
-static func _draw(store: ProgressStore, p: Dictionary) -> bool:
+static func _draw(store: ProgressStore, p: Dictionary, pay_gold: bool = true) -> bool:
 	var r: Dictionary = p.recruitment
 	var rng := RandomNumberGenerator.new()
 	rng.seed = int(r.seed) + int(r.count) * 7919
@@ -113,7 +114,7 @@ static func _draw(store: ProgressStore, p: Dictionary) -> bool:
 			break
 	reward.erase("weight")
 	reward["duplicate"] = false
-	p.gold -= PRICE
+	if pay_gold: p.gold -= PRICE
 	match reward.kind:
 		"item":
 			if not store._add_item(p, reward.id): return false

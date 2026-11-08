@@ -30,9 +30,19 @@ def build():
             assert name not in regions
             regions[name] = {'atlas': 'icons/' + sheet + '.png', 'region': [xs[x], ys[y], xs[x+1]-xs[x], ys[y+1]-ys[y]], 'sheet': sheet, 'cell': i}
         sources.append({'file': 'art/icons/' + sheet + '.png', 'size': [width, height], 'sha256': hashlib.sha256(raw).hexdigest()})
+    supply_path = ROOT / 'art/supplies/icons.png'
+    if supply_path.exists():
+        names = ['forge_stone','memory_shard','ancient_seed','normal_ticket','material_chest','rage_potion','ward_potion','afk_hourglass']
+        raw = supply_path.read_bytes()
+        width,height = struct.unpack('>II',raw[16:24])
+        assert (width,height)==(1536,1024)
+        for i,name in enumerate(names):
+            assert name not in regions
+            regions[name]={'atlas':'supplies/icons.png','region':[(i%4)*384+4,(i//4)*512+4,376,504],'sheet':'supplies','cell':i}
+        sources.append({'file':'art/supplies/icons.png','size':[width,height],'sha256':hashlib.sha256(raw).hexdigest()})
     manifest = {'version': 1, 'regions': regions, 'aliases': ALIASES}
     (ROOT / 'art/icons/manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
-    provenance = {'date': '2026-11-07', 'method': 'Original image generation referenced art/ui/icons.png. Five reviewed transparent 4x4 source atlases, retained byte-for-byte. No pixel edits or extracted reference-game assets.', 'sources': sources}
+    provenance = {'date': '2026-11-08', 'method': 'Original image generation referenced art/ui/icons.png. Five reviewed transparent4x4 atlases and one eight-item4x2 supply atlas, retained byte-for-byte. No pixel edits or extracted reference-game assets.', 'sources': sources}
     (ROOT / 'art/icons/provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
     return manifest
 

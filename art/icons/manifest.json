@@ -880,6 +880,94 @@
       ],
       "sheet": "resources",
       "cell": 15
+    },
+    "forge_stone": {
+      "atlas": "supplies/icons.png",
+      "region": [
+        4,
+        4,
+        376,
+        504
+      ],
+      "sheet": "supplies",
+      "cell": 0
+    },
+    "memory_shard": {
+      "atlas": "supplies/icons.png",
+      "region": [
+        388,
+        4,
+        376,
+        504
+      ],
+      "sheet": "supplies",
+      "cell": 1
+    },
+    "ancient_seed": {
+      "atlas": "supplies/icons.png",
+      "region": [
+        772,
+        4,
+        376,
+        504
+      ],
+      "sheet": "supplies",
+      "cell": 2
+    },
+    "normal_ticket": {
+      "atlas": "supplies/icons.png",
+      "region": [
+        1156,
+        4,
+        376,
+        504
+      ],
+      "sheet": "supplies",
+      "cell": 3
+    },
+    "material_chest": {
+      "atlas": "supplies/icons.png",
+      "region": [
+        4,
+        516,
+        376,
+        504
+      ],
+      "sheet": "supplies",
+      "cell": 4
+    },
+    "rage_potion": {
+      "atlas": "supplies/icons.png",
+      "region": [
+        388,
+        516,
+        376,
+        504
+      ],
+      "sheet": "supplies",
+      "cell": 5
+    },
+    "ward_potion": {
+      "atlas": "supplies/icons.png",
+      "region": [
+        772,
+        516,
+        376,
+        504
+      ],
+      "sheet": "supplies",
+      "cell": 6
+    },
+    "afk_hourglass": {
+      "atlas": "supplies/icons.png",
+      "region": [
+        1156,
+        516,
+        376,
+        504
+      ],
+      "sheet": "supplies",
+      "cell": 7
     }
   },
   "aliases": {

@@ -47,9 +47,9 @@ func _ready() -> void:
 	var tabs := HBoxContainer.new()
 	tabs.add_theme_constant_override("separation",6)
 	add_child(tabs)
-	for pair in [["equipment","Trang bị"],["spirits","Tinh linh"],["materials","Nguyên liệu"]]:
-		var button: Button = game._button(tabs,pair[1],Vector2.ZERO,Vector2(160,44),game._bag_open.bind(pair[0]))
-		button.add_theme_font_size_override("font_size",16)
+	for pair in [["equipment","Trang bị"],["spirits","Tinh linh"],["materials","Nguyên liệu"],["supplies","Vật phẩm"]]:
+		var button: Button = game._button(tabs,pair[1],Vector2.ZERO,Vector2(118,44),game._bag_open.bind(pair[0]))
+		button.add_theme_font_size_override("font_size",14)
 		if game.bag_section == pair[0]: button.add_theme_stylebox_override("normal",game._style(Color("493f24"),Color("f3cd76"),12))
 	var scroll := SwipeScroll.new()
 	scroll.name = "BagContentScroll"
@@ -69,9 +69,13 @@ func _ready() -> void:
 			game.panel = previous
 		"spirits": spirits()
 		"materials": materials()
+		"supplies":
+			var screen := SuppliesScreen.new()
+			screen.game = game
+			body.add_child(screen)
 	var footer := HBoxContainer.new()
 	add_child(footer)
-	words(footer,"Số lượng: %d / 40" % game.store.profile.items.size(),16,Color("e8d8ae"))
+	words(footer,("Trang bị: %d / 40" if game.bag_section == "supplies" else "Số lượng: %d / 40") % game.store.profile.items.size(),16,Color("e8d8ae"))
 	if game.bag_section == "equipment":
 		if game.bag_selecting:
 			game._button(footer,"Hủy",Vector2.ZERO,Vector2(70,44),game._bag_select_mode)
@@ -118,6 +122,7 @@ func home() -> void:
 		caption.size.x = 224
 		caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	game._button(self,"Vật phẩm · Thuốc, vé và nguyên liệu →",Vector2.ZERO,Vector2(492,44),game._supply_open.bind(""))
 	picture(self,scene_texture(0),Vector2(492,164))
 	if not game.store.profile.bag_rewards.is_empty():
 		game._button(self,"Nhận chiến lợi phẩm đang chờ (%d)" % game.store.profile.bag_rewards.size(),Vector2.ZERO,Vector2(492,40),game._bag_claim_loot).disabled = game._locked() or game.store.profile.items.size() >= 40
