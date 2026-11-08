@@ -162,7 +162,7 @@ Một game có nhiều hero **vẫn phải dễ hiểu**. Trong 15 phút đầu 
 ## 6.1. Nguyên tắc
 
 - **Only opt-in**: nút “Watch an ad to get X”, thấy rõ X, không có popup ép.
-- **Không** có forced interstitial/banner đè lên combat tại MVP.
+- **Không** có forced interstitial/banner đè lên combat trong bản phát hành chính thức.
 - Không khóa truyện, chiến đấu, khả năng thắng hoặc việc dùng hero cốt lõi sau quảng cáo.
 - Không gợi ý rằng bỏ qua quảng cáo sẽ mất thưởng cơ bản; người chơi vẫn được nhận thưởng gốc.
 - Quảng cáo không tải được / offline → không mất tiến trình hoặc phần thưởng thường.
@@ -280,7 +280,7 @@ Phân loại các quyền lợi:
 - **Free/offline:** có thể lưu local, chấp nhận một mức hack trong game single-player.
 - **Rewarded ad:** cần SDK callback hợp lệ, cap/transaction và có thể bổ sung SSV.
 - **Real-money entitlement:** cần giao dịch từ store và xác minh đáng tin, không dùng lệnh UI tự quyết.
-- **Online competitive (nếu sau này):** cần hạ tầng server authority mới, ngoài MVP.
+- **Online competitive (nếu sau này):** cần hạ tầng server authority mới, ngoài phạm vi phát hành đầu tiên.
 
 # 9. Unit Economics — Đừng nhầm lượt xem với lợi nhuận
 
@@ -367,7 +367,7 @@ Retention benchmarks tại GameAnalytics là tham chiếu toàn ngành, không l
 
 **Quy tắc quyền riêng tư:** chỉ thu tối thiểu để đo sản phẩm; không gửi tên người chơi, nội dung save, dữ liệu thanh toán hoặc ID bí mật vào analytics. Đưa privacy policy và Data Safety disclosure phù hợp. Có lựa chọn privacy khi luật/khu vực yêu cầu.
 
-**Khởi đầu tiết kiệm:** Nếu chưa sẵn sàng tích hợp analytics SDK, có thể xuất các event test từ profile giả lập và công cụ QA để kiểm logic, nhưng **không được nhận đó là D1/D7 thật**. Cần một nguồn telemetry hợp lệ (privacy-aware) khi soft launch.
+**Khởi đầu tiết kiệm:** Nếu chưa sẵn sàng tích hợp analytics SDK, có thể xuất các event test từ profile giả lập và công cụ QA để kiểm logic, nhưng **không được nhận đó là D1/D7 thật**. Cần một nguồn telemetry hợp lệ (privacy-aware) khi game được phát hành chính thức.
 
 # 12. Lộ trình **sản xuất nội bộ → Full Launch → vận hành**
 
