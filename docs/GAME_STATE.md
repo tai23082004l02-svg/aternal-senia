@@ -16,6 +16,8 @@ Ngày 2026-11-08, chủ dự án xác nhận mục tiêu **Full Content Launch**
 
 Các dải 24–30 hero, 10–12 tinh linh, 10–12 gear set là **đề xuất quy hoạch, chưa được chốt/triển khai**. QA và kiểm thử nội bộ vẫn bắt buộc, nhưng **không có public soft launch với 4 hero làm tiền đề**. Retention/LTV đo **sau phát hành chính thức** để cải thiện game và quyết định marketing. Monetization: rewarded ads tự nguyện + IAP có xác minh, cần triển khai thật riêng, hiện **chưa có**. Các hệ thống trong phần dưới phản ánh trạng thái 0.37 đang hoạt động, không phải mức hoàn thiện để phát hành.
 
+**Danh mục phát hành dự kiến đã được biên soạn (chưa duyệt/chưa triển khai):** [LAUNCH_CONTENT_MATRIX V0.1](LAUNCH_CONTENT_MATRIX.md) và [registry JSON](launch/CONTENT_REGISTRY_DRAFT.json) định nghĩa chi tiết 24 hero nam/nữ cân đối, 12 tinh linh, 12 gear set, 7 vùng/84 stage, 12 Boss và 8 dungeon. Dùng để thống nhất nội dung trước khi giao Codex triển khai; **không lẫn với số lượng hiện đã hoạt động trong bảng dưới**.
+
 ## Hướng sản phẩm và phong cách
 
 Game mới fantasy anime2D, offline, auto battle, giao diện dọc540×960.
