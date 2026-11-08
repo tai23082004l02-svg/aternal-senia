@@ -128,6 +128,7 @@ func valid(p: Variant, legacy_version: int = 0) -> bool:
 	for key in ["sfx_volume", "ambience_volume", "music_volume"]:
 		if p.settings.has(key) and not _number(p.settings[key], 0, 1):
 			return false
+	if not GameOptions.valid(p.settings): return false
 	if not Expansion.valid(self, p.get("expansion")): return false
 	if not AttributeTraining.valid(self, p): return false
 	if not SpiritSkills.valid(self, p) or not Recruitment.valid(self, p): return false

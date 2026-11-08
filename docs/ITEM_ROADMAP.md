@@ -1,6 +1,6 @@
 # Lộ trình vật phẩm theo yêu cầu người dùng
 
-Phạm vi hiện hành: [8 món thiết yếu0.36](SUPPLIES.md). Không tạo30 vật phẩm chỉ
+Phạm vi hiện hành: [8 món thiết yếu0.37](SUPPLIES.md). Không tạo30 vật phẩm chỉ
 để đầy kho. Mỗi món cần công dụng, lượng tiêu thụ, nguồn kiếm và test thật.
 
 Bảy nhóm đích: tiêu hao; nguyên liệu cường hóa; gear/bộ gear; vật phẩm tinh linh;
@@ -31,7 +31,7 @@ Mặt Dây Nguyệt Thần (Thần thánh, lần đầu HP<30% tạo khiên12% H
 
 Giày Thiên Dực đã có tên trong catalogue ở bậc Thần thánh; không tạo ID trùng
 hoặc tự hạ bậc vì đề xuất. Trượng Thủy Triều và hiệu ứng khiên/Thủy Triều cũ
-cần đối chiếu để tránh trùng vai trò. Không thêm5 món này ở0.36.
+cần đối chiếu để tránh trùng vai trò. Không thêm5 món này ở0.37.
 
 Ghi chú singleton trong bản đề xuất là lịch sử trước0.30. Hiện gear nhiều bản
 cùng base, mỗi UID nâng cấp riêng; nguyên liệu/thuốc/vé cộng dồn riêng. Không

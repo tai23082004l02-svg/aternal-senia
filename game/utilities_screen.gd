@@ -65,7 +65,7 @@ func entry(id: String, title: String, subtitle: String, icon: String, action: Ca
 	secondary.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var arrow: Label = game._label(button, "›", Vector2(465, 15), 23, Color("a6b6b2"))
 	arrow.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if count > 0:
+	if count > 0 and game.store.profile.settings.get("notify_rewards",true):
 		var badge := Label.new()
 		badge.text = str(count)
 		badge.position = Vector2(423, 19)

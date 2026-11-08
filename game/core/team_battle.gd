@@ -5,6 +5,7 @@ var allies: Array = []
 var enemies: Array = []
 var encounter_data: Dictionary
 var auto_ultimate := true
+var prioritize_heal := true
 var auto_next := false
 var spirit_energy := 0.0
 var spirit_action: Dictionary = {}
@@ -19,6 +20,7 @@ func start(pending: Dictionary) -> void:
 	encounter_data = run.team.encounter.duplicate(true)
 	stats = run.team.units[0].stats.duplicate(true)
 	auto_ultimate = run.team.auto_ult
+	prioritize_heal = run.team.get("prioritize_heal",true)
 	auto_next = run.team.auto_next
 	rng.seed = int(run.seed)
 	state = "battle"
@@ -193,7 +195,7 @@ func _lowest() -> int:
 
 func _basic(ally: Dictionary) -> void:
 	ally.basic_cd = 5.5 * ally.stats.get("cooldown_scale", 1.0)
-	var heal: bool = ally.id == "mira" and _lowest() >= 0 and allies[_lowest()].hp < allies[_lowest()].stats.hp * .85
+	var heal: bool = prioritize_heal and ally.id == "mira" and _lowest() >= 0 and allies[_lowest()].hp < allies[_lowest()].stats.hp * .85
 	var power: float = (1.7 + (ally.stats.skills[0] - 1) * .12) * ally.stats.skill_bonus
 	if "focus" in ally.stats.get("variants", []): power *= 1.25
 	_schedule_ally(ally, "heal" if heal else "basic", .15 + ally.stats.skills[1] * .025 if heal else power, .5, .95)

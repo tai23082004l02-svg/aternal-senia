@@ -1,4 +1,4 @@
-> Từ0.35, registry chung có106 icon: giữ80 cũ và thêm8 vật phẩm thiết yếu. Nguồn mới art/supplies/icons.png, vùng/hash và công dụng tại [SUPPLIES.md](SUPPLIES.md). Builder không sửa pixel.
+> Từ0.37, registry chung có106 icon: giữ98 cũ và thêm8 vật phẩm thiết yếu. Nguồn mới art/supplies/icons.png, vùng/hash và công dụng tại [SUPPLIES.md](SUPPLIES.md). Builder không sửa pixel.
 
 # Bộ icon giao diện và đạo cụ · 0.22
 

@@ -1,4 +1,4 @@
-# Vật phẩm thiết yếu · 0.36
+# Vật phẩm thiết yếu · 0.37
 
 Theo yêu cầu mới nhất: **làm những món cần thiết trước**, không triển khai cả30
 vật phẩm/5 trang bị cùng lúc. Bản này có8 món dùng được thật, không thêm vào pool
@@ -83,4 +83,4 @@ tests/supplies kiểm migration/backup/UID, rollback/claims/rương/cap/ticket �
 snapshot thuốc/mở lại/loss/replay, skill/seed/AFK. supplies_ui kiểm confirm/hủy,
 đúng hero/UID, bounds, source navigation, pending khóa và alpha thật.
 Workflow supplies.yml chạy thêm các suite save/combat/inventory/gacha/audio/UI
-cũ trước khi xuất ảnh (33 suite, gồm team_matrix/team_campaign/shop_ui và hai suite ba bộ mới). Chưa thử cảm ứng/FPS hoặc nghe qua loa điện thoại thật.
+cũ trước khi xuất ảnh (39 suite, gồm team_matrix/team_campaign/shop_ui hai suite ba bộ mới cùng các suite cài đặt/âm thanh/tiện ích). Chưa thử cảm ứng/FPS hoặc nghe qua loa điện thoại thật.
