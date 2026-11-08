@@ -23,7 +23,7 @@ func run() -> void:
 	root.add_child(game)
 	await process_frame
 	game._close_modal()
-	game.tabs[1].pressed.emit()
+	game._select_tab(1)
 	assert(screen().faces.size() == game.catalog.data.heroes.size() and screen().section_buttons.size() == 5)
 	var avatar_manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://art/avatars/manifest.json"))
 	var avatar_source: Texture2D = load("res://" + avatar_manifest.source)
@@ -83,7 +83,7 @@ func run() -> void:
 	game._select_tab(0)
 	game._enter_stage(1)
 	game._begin()
-	game.tabs[1].pressed.emit()
+	game._select_tab(1)
 	assert(game.battle.paused)
 	game._character_section(2)
 	for control in screen().body.get_children():
@@ -91,7 +91,7 @@ func run() -> void:
 	var frozen: Dictionary = game.store.profile.duplicate(true)
 	game._character_level("ryn", 1)
 	assert(game.store.profile == frozen)
-	game.tabs[2].pressed.emit()
+	game._select_tab(0)
 	assert(game.tab == 0)
 	assert(not game.battle.paused)
 	assert(game.store.settle(game.store.profile.pending.id, false, 0))
@@ -100,7 +100,7 @@ func run() -> void:
 	p.heroes.ryn.level = 40
 	p.recruitment.awakening.ryn = 1
 	assert(game.store.commit(p))
-	game.tabs[1].pressed.emit()
+	game._select_tab(1)
 	game._inspect_character("ryn")
 	game._character_section(0)
 	var definition: Dictionary = game.catalog.find_row("heroes", "ryn")

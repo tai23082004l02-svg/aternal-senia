@@ -26,7 +26,7 @@ func run() -> void:
 	var p: Dictionary = game.store.profile.duplicate(true)
 	p.gold = 1000
 	assert(game.store.commit(p))
-	game.tabs[0].pressed.emit()
+	game.tabs[3].pressed.emit()
 	assert(game.tab == 20 and screen().tabs.size() == 6)
 	var original: Dictionary = game.store.profile.duplicate(true)
 	for i in range(6):

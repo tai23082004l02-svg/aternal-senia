@@ -18,6 +18,13 @@ func run() -> void:
 	game.set_physics_process(false)
 	game._close_modal()
 	var before: Dictionary = game.store.profile.duplicate(true)
+	for index in range(5):
+		assert(game.tabs[index].tooltip_text == ["Formation","Equipment","Bag","Shop","More"][index])
+		game.tabs[index].pressed.emit()
+		assert(game.tab == [22,1,2,20,4][index])
+		if index == 1: assert(game.character_page == 1)
+		assert(game.store.profile == before)
+	game._select_tab(24)
 	var home: HomeScreen = game.panel.get_child(0)
 	assert(home.hero_id == "selena_preview")
 	assert(game.catalog.find_row("heroes","selena_preview").is_empty())
@@ -52,6 +59,18 @@ func run() -> void:
 	gallery = game.panel.get_child(0)
 	gallery.card_buttons.selena_preview.pressed.emit()
 	assert(game.modal != null and game.store.profile == before)
+	game._close_modal()
+	game.store.read_only = false
+	game._select_tab(0)
+	game.selected_stage = 1
+	game._begin()
+	assert(game.battle != null and not game.battle.paused)
+	var pending: Dictionary = game.store.profile.duplicate(true)
+	for index in range(5):
+		game.tabs[index].pressed.emit()
+		assert(game.battle.paused and game.store.profile == pending)
+		game._select_tab(0)
+		assert(not game.battle.paused and game.store.profile == pending)
 	game.audio.shutdown()
 	game.queue_free()
 	await process_frame

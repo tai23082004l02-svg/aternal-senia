@@ -8,7 +8,7 @@ var quest_badge: Label
 func _ready() -> void:
 	custom_minimum_size = Vector2(492, 0)
 	add_theme_constant_override("separation", 7)
-	label("UTILITIES", 24, Color("e5cd9e"))
+	label("MORE", 24, Color("e5cd9e"))
 	group("ACTIVITY")
 	var ready := MissionBoard.ready_count(game.store.profile)
 	for quest in game.catalog.data.quests:
@@ -17,6 +17,9 @@ func _ready() -> void:
 	entry("mail", "Mailbox", "System gifts, notices, compensation", "mail", game._utility_mail)
 	entry("giftcode", "Redeem Gift Code", "Event gift codes", "gift", game._utility_giftcode)
 	group("EXPLORE")
+	entry("characters","Characters","Gallery, hero details and collection","hero",game._select_tab.bind(23))
+	entry("adventure","Adventure","Campaign and ongoing battle","journey",game._select_tab.bind(0))
+	entry("dungeons","Dungeons","Resources, tactics and Boss encounters","boss",game._select_tab.bind(21))
 	entry("story", "Story Journal", "Replay unlocked story scenes", "journal", game._select_tab.bind(16))
 	entry("boss", "Boss Guide", "Skills, weaknesses, loot", "boss", game._select_tab.bind(10))
 	entry("collection", "Collection & Achievements", "Collection, achievements, rewards", "achievement", game._select_tab.bind(8))

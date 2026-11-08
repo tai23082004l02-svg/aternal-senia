@@ -52,7 +52,7 @@ func run() -> void:
 		for b in screen().section_buttons:
 			assert(b.get_global_rect().end.x <= 540 and b.get_global_rect().end.y < screen().face_buttons.mira.global_position.y)
 		assert(screen().detail_scroll.get_global_rect().end.y <= game.tabs[0].global_position.y)
-		game.tabs[2].pressed.emit()
+		game._select_tab(0)
 		assert(game.tab == 0)
 		for nav in game.tabs: assert(nav.visible)
 		game._select_tab(1)

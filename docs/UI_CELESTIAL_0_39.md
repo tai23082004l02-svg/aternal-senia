@@ -12,7 +12,7 @@ provided in chat. This document supersedes the visual/layout portions of
   The default Selena feature is explicitly a **design preview**. Cycling selects
   owned hero illustrations in session memory only; no favorite/profile/save write.
 - Shared shell: navy panels, warm gold borders, bevel highlights, corner ornaments,
-  real currency capsules and a continuous framed bottom navigation without separate button boxes. New vector menu
+  real currency capsules and a continuous framed bottom navigation without separate button boxes. Its five live destinations are **Formation · Equipment · Bag · Shop · More**, in that order; Equipment opens the selected hero’s equipment section. More includes Characters, Adventure and Dungeons as well as the existing utility destinations. New vector menu
   glyphs replace the previous textured navigation icons; inventory/combat item
   icons retain their validated atlases. Typography remains packaged English
   Playfair Display Bold.
@@ -68,3 +68,5 @@ relevant suites pass again: selena_ui, ui_design_v2, ui_flow, mobile_inventory,
 summon_ui, team_ui and character_previews. Home, Selena Showcase/art reveal,
 Gallery, Summon and Battle captures were visually inspected. No Android APK or
 real-phone performance claim is included.
+
+Bottom-navigation completion: Formation/Equipment/Bag/Shop/More replace the old five destinations, with distinct squad/swords/bag/shop/grid glyphs. Eleven relevant suites pass for this follow-up; Selena UI checks all five destinations, equipment section routing, profile preservation and battle pause/resume through every bottom-menu action.

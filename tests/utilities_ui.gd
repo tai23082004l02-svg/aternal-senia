@@ -19,15 +19,15 @@ func run() -> void:
 	await process_frame
 	game._close_modal()
 	game._select_tab(4)
-	assert(screen().entries.size() == 8)
+	assert(screen().entries.size() == 11)
 	assert(screen().quest_badge == null)
 	var original: Dictionary = game.store.profile.duplicate(true)
 	await capture("utilities-menu")
-	for id in ["quests", "story", "boss", "collection", "mail", "giftcode", "settings", "help"]:
+	for id in ["quests", "characters", "adventure", "dungeons", "story", "boss", "collection", "mail", "giftcode", "settings", "help"]:
 		game._select_tab(4)
 		screen().entries[id].pressed.emit()
-		if id in ["quests", "story", "boss", "collection"]:
-			assert(game.tab == {"quests": 3, "story": 16, "boss": 10, "collection": 8}[id])
+		if id in ["quests", "characters", "adventure", "dungeons", "story", "boss", "collection"]:
+			assert(game.tab == {"characters":23,"adventure":0,"dungeons":21,"quests": 3, "story": 16, "boss": 10, "collection": 8}[id])
 		else:
 			assert(game.modal != null)
 			await capture("utilities-" + id)
@@ -47,5 +47,5 @@ func run() -> void:
 	assert(screen().quest_badge == null)
 	game.queue_free()
 	await process_frame
-	print("PASS: three utility groups, eight destinations, no fake rewards, real unclaimed quest badge")
+	print("PASS: three utility groups, eleven destinations, no fake rewards, real unclaimed quest badge")
 	quit()

@@ -23,7 +23,7 @@ func run() -> void:
 	var p: Dictionary = game.store.profile.duplicate(true)
 	p.cleared = [1, 2]
 	assert(game.store.commit(p))
-	game.tabs[1].pressed.emit()
+	game._select_tab(1)
 	game._inspect_character("ryn")
 	await capture("ryn-character")
 	game._show_ryn_portrait()

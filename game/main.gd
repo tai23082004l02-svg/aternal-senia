@@ -5,7 +5,8 @@ const Store = preload("res://game/core/progress.gd")
 const Battle = preload("res://game/core/battle.gd")
 const Frames = preload("res://game/core/frame_library.gd")
 const View = preload("res://game/battle_view.gd")
-const NAV_PAGES := [20, 1, 0, 21, 2]
+const NAV_PAGES := [22, 1, 2, 20, 4]
+const NAV_LABELS := ["Formation", "Equipment", "Bag", "Shop", "More"]
 var catalog: GameCatalog
 var store: ProgressStore
 var team_ui: TeamBattleUI
@@ -213,8 +214,8 @@ func _build_ui() -> void:
 	pause_button = _button(ui, "Stop", Vector2(336, 651), Vector2(90, 36), _toggle_pause)
 	speed_button = _button(ui, "×1", Vector2(432, 651), Vector2(84, 36), _speed)
 	for i in range(5):
-		tabs.append(_button(ui, ["Shop", "Heroes", "Journey", "Dungeons", "Bag"][i], Vector2(24 + i * 99, 876), Vector2(93, 56), _select_tab.bind(NAV_PAGES[i])))
-		icons.tab(tabs[i], ["gold", "hero", "journey", "boss", "equipment"][i])
+		tabs.append(_button(ui, NAV_LABELS[i], Vector2(24 + i * 99, 876), Vector2(93, 56), _bottom_navigation.bind(i)))
+		icons.tab(tabs[i], ["formation", "equipment", "bag", "shop", "more"][i])
 	for control in [attack_button, guard_button, auto_button, pause_button, speed_button]:
 		control.custom_minimum_size.y = 44
 		control.size.y = 44
@@ -341,6 +342,13 @@ func _refresh_hud() -> void:
 	speed_button.text = "×%d" % (battle.speed if active else p.settings.speed)
 	mute_button.text = "Sound: On" if p.settings.sound else "Sound: Off"
 
+func _bottom_navigation(index: int) -> void:
+	if index < 0 or index >= NAV_PAGES.size() or result_transition: return
+	if index == 1:
+		character_page = 1
+		character_outfit_preview = ""
+	_select_tab(NAV_PAGES[index])
+
 func _select_tab(index: int) -> void:
 	if index == 6:
 		character_page = 5
@@ -394,8 +402,13 @@ func _refresh_panel() -> void:
 	for i in range(tabs.size()):
 		tabs[i].visible = true
 		tabs[i].position.y = 876
-		var section: int = 20 if tab in [20, 11] else (2 if tab in [2, 17, 18, 19] else (1 if tab in [1, 6, 7, 9, 12, 13, 22, 23] else (21 if tab in [5, 21] else 0)))
-		tabs[i].modulate = Color("e3c998") if NAV_PAGES[i] == section else Color.WHITE
+		var section := -1
+		if tab == 22: section = 22
+		elif tab == 1 and character_page == 1: section = 1
+		elif tab in [2,17,18,19]: section = 2
+		elif tab in [20,11]: section = 20
+		elif tab in [3,4,5,8,10,13,15,16,21]: section = 4
+		tabs[i].modulate = Color("ffe3a1") if NAV_PAGES[i] == section else Color("b8c2d8")
 	if tab in [23, 24]:
 		for capsule in journey_wallet_frames:
 			capsule.show()

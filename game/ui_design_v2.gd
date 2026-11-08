@@ -178,6 +178,22 @@ class MenuGlyph extends Control:
 				stroke([[9,32],[11,25],[17,22],[20,25],[23,22],[29,25],[31,32],[9,32]])
 				stroke([[5,18],[5,8],[13,4]],Color("fbe5b9aa"),1)
 				stroke([[35,18],[35,8],[27,4]],Color("fbe5b9aa"),1)
+			"formation":
+				for offset in [-9.0,0.0,9.0]:
+					var head := Vector2(20+offset,12 if offset == 0 else 16)*size/40
+					draw_arc(head,size.x*.075,0,TAU,20,GOLD,1.5,true)
+					var base_y := 23 if offset == 0 else 27
+					stroke([[15+offset,base_y+7],[16+offset,base_y],[24+offset,base_y],[25+offset,base_y+7]],GOLD,1.5)
+			"bag":
+				stroke([[8,14],[32,14],[34,34],[6,34],[8,14]])
+				stroke([[14,14],[14,8],[26,8],[26,14]])
+				stroke([[8,20],[17,23],[23,23],[32,20]],IVORY,1.4)
+				stroke([[18,22],[18,27],[22,27],[22,22]],GOLD,1.4)
+			"more":
+				for x in [7.0,23.0]:
+					for y in [7.0,23.0]:
+						stroke([[x,y],[x+10,y],[x+10,y+10],[x,y+10],[x,y]])
+
 			"summon":
 				stroke([[20,2],[24,15],[37,20],[24,24],[20,38],[16,24],[3,20],[16,15],[20,2]])
 				stroke([[20,10],[23,20],[20,30],[17,20],[20,10]],IVORY,1)

@@ -31,7 +31,7 @@ func run() -> void:
 	p.heroes.eira.level = 4
 	p.cleared = [1, 2, 3, 4, 5]
 	assert(game.store.commit(p))
-	game.tabs[1].pressed.emit()
+	game._select_tab(1)
 	button("Attribute Points").pressed.emit()
 	assert(game.tab == 9)
 	button("+1 point · +10").pressed.emit()

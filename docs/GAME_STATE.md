@@ -14,7 +14,7 @@ Các con số dưới đây lấy từ catalogue/model, không lấy số minh h
 
 ## UI Celestial0.39 — đã triển khai theo yêu cầu mới
 
-Thay trình bày Home, Gallery/Showcase, Summon/Reveal, menu và HUD chiến đấu; xem [UI_CELESTIAL_0_39](UI_CELESTIAL_0_39.md). Selena xuất hiện dưới ID xem trước `selena_preview`, không nằm trong catalogue chiến đấu hoặc pool triệu hồi. Home mặc định giới thiệu Selena, đổi portrait chỉ trong RAM. Có màn xem trước Reveal ghi rõ không phải kết quả triệu hồi. Save vẫn v13; Bond/Story và banner chưa cấu hình vẫn khóa. Giữ PNG nguồn nguyên byte, không đổi tên Selene trong roster quy hoạch.
+Thay trình bày Home, Gallery/Showcase, Summon/Reveal, menu và HUD chiến đấu; xem [UI_CELESTIAL_0_39](UI_CELESTIAL_0_39.md). Selena xuất hiện dưới ID xem trước `selena_preview`, không nằm trong catalogue chiến đấu hoặc pool triệu hồi. Home mặc định giới thiệu Selena, đổi portrait chỉ trong RAM. Có màn xem trước Reveal ghi rõ không phải kết quả triệu hồi. Thanh đáy theo mẫu: Formation / Equipment / Bag / Shop / More; Equipment mở đúng trang bị nhân vật, More giữ lối vào Characters/Adventure/Dungeons. Save vẫn v13; Bond/Story và banner chưa cấu hình vẫn khóa. Giữ PNG nguồn nguyên byte, không đổi tên Selene trong roster quy hoạch.
 
 ## Quyết định sản phẩm mới nhất — 2026-11-08 (chưa phải runtime)
 

@@ -24,7 +24,7 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 ## UI Celestial0.39
 
-Theo yêu cầu mới, dùng bộ Selena để thay UI: đọc [UI_CELESTIAL_0_39](docs/UI_CELESTIAL_0_39.md). Home mặc định là Selena **design preview**; `selena_preview` chỉ ở CharacterPreviews, không phải hero được sở hữu hoặc nằm trong pool. Màn art-reveal preview tách khỏi kết quả triệu hồi thật. Giữ nguyên PNG nguồn và planning Selene. Bond/Story vẫn khóa, savev13 không đổi.
+Theo yêu cầu mới, dùng bộ Selena để thay UI: đọc [UI_CELESTIAL_0_39](docs/UI_CELESTIAL_0_39.md). Home mặc định là Selena **design preview**; `selena_preview` chỉ ở CharacterPreviews, không phải hero được sở hữu hoặc nằm trong pool. Màn art-reveal preview tách khỏi kết quả triệu hồi thật. Giữ nguyên PNG nguồn và planning Selene. Thanh đáy: Formation / Equipment / Bag / Shop / More. Equipment mở character_page1; More giữ Characters/Adventure/Dungeons. Bond/Story vẫn khóa, savev13 không đổi.
 
 ## Phân công UI / nhân vật — 2026-11-08
 
