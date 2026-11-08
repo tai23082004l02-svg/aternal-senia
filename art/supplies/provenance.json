@@ -1,6 +1,6 @@
 {
   "date": "2026-11-08",
-  "method": "Original image generation inspired by user item sheets, reduced to8 functional MVP items. Source PNG preserved byte-for-byte; no pixel edits.4 columns x2 rows,reviewed per-row crops and4px horizontal inset; text is rendered separately.",
+  "method": "Original image generation: hand-painted gouache fantasy supplies, matte rough stone, cloudy lavender crystal, woody seed, parchment ticket, oak chest, corked red/blue potions and walnut hourglass. Replaces glossy gold-heavy atlas at user request. Source PNG preserved byte-for-byte with generated alpha; no pixel edits.4 columns x2 rows, reviewed per-row crops and4px horizontal inset; text is rendered separately.",
   "sources": [
     {
       "file": "art/supplies/icons.png",
@@ -8,7 +8,7 @@
         1536,
         1024
       ],
-      "sha256": "dba71dc479a47b162be48bb95c66dca88a257e798ed5a2af8873aab99055a093"
+      "sha256": "77ed2b860e9db2ae659d114cc1bf412a360570c8475bdabc2c047d940af9edb3"
     }
   ],
   "order": [

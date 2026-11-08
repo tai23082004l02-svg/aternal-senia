@@ -6,7 +6,8 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 ## Cộng tác và phạm vi
 
-- Người dùng đã cho phép đẩy code lên GitHub. Kiểm main/working tree trước khi sửa
+- Người dùng yêu cầu luôn đẩy kết quả lên GitHub sau khi hoàn thành nhiệm vụ,
+  không hỏi lại. Kiểm main/working tree trước khi sửa
   và trước khi push; giữ thay đổi của người khác. Không force push hoặc viết lại lịch sử.
 - Không tự mở SDK/quảng cáo/thanh toán/cloud/server hoặc phát thưởng giả từ giao diện.
   Các dịch vụ chưa có cấu hình phải giữ khóa và giải thích.

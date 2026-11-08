@@ -74,8 +74,11 @@ NormalTicket chỉ mở pool Thường; Cao cấp/Sự kiện tiếp tục khóa
 
 ## Đồ họa và kiểm tra
 
-Nguồn art/supplies/icons.png tạo mới theo4 ảnh tham khảo,8 hình, nền có alpha,
-không chứa nhãn/số. Giữ nguyên byte; không cắt/chỉnh pixel nguồn bằng code.
+Nguồn art/supplies/icons.png được thiết kế lại bằng image generation theo hướng
+vẽ tay gouache: đá thô, tinh thể tím đục, hạt vỏ gỗ, vé giấy, rương sồi, bình thuốc
+nút bần và đồng hồ cát khung gỗ. Giảm viền vàng bóng và quầng sáng theo phản hồi
+người dùng.8 hình, nền có alpha, không chứa nhãn/số. Giữ nguyên byte;
+không cắt/chỉnh pixel nguồn bằng code. ID, công dụng và save không đổi.
 Tất cả vùng đi qua registry art/icons/manifest.json; build_icon_manifest.py giữ
 98 icon hiện có và thêm8 vùng mới (tổng106). Crops từng hàng đã xem, runtime dùng
 AtlasTexture. validate_supply_art.py ghi kích thước/hash/provenance, không vẽ ảnh.

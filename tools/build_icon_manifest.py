@@ -40,7 +40,7 @@ def build():
         assert (width,height)==(1536,1024)
         for i,name in enumerate(names):
             assert name not in regions
-            regions[name]={'atlas':'supplies/icons.png','region':[(i%4)*384+4,64 if i<4 else 540,376,400 if i<4 else 420],'sheet':'supplies','cell':i}
+            regions[name]={'atlas':'supplies/icons.png','region':[(i%4)*384+4,48 if i<4 else 536,376,424 if i<4 else 448],'sheet':'supplies','cell':i}
         sources.append({'file':'art/supplies/icons.png','size':[width,height],'sha256':hashlib.sha256(raw).hexdigest()})
     manifest = {'version': 1, 'regions': regions, 'aliases': ALIASES}
     (ROOT / 'art/icons/manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
