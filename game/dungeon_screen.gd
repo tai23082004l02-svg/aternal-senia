@@ -214,6 +214,11 @@ func rewards(row: Dictionary) -> void:
 		var stage: Dictionary = game.catalog.find_row("stages",row.stage)
 		for reward in [["gold","Vàng",str(stage.gold)],["cores","Lõi",str(stage.cores)],["xp","XP",str(stage.xp)],["shards","Tinh thạch","2"],["equipment","Trang bị","Ngẫu nhiên"]]:
 			reward_tile(grid,reward[0],reward[1],reward[2])
+		for id in Supplies.DROPS.get(int(row.stage),{}):
+			var line := HBoxContainer.new()
+			column.add_child(line)
+			picture(line,Supplies.icon(id),Vector2(34,34),false)
+			words(line,"+%d %s" % [Supplies.DROPS[int(row.stage)][id],Supplies.NAMES[id]],14,GOLD)
 	else:
 		for key in row.rewards: reward_tile(grid,key,{"shards":"Tinh thạch","gold":"Vàng","xp":"XP","cores":"Lõi tinh linh","spirit":"Mảnh tinh linh","training_item":"Vật liệu nâng cấp","forge":"Vật liệu rèn","chest":"Kho báu","achievement":"Thưởng mốc"}[key],"—")
 

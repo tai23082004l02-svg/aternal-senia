@@ -69,6 +69,9 @@ var details_paused := false
 var icons := UIIcons.new()
 var skill_group_labels: Array[Label] = []
 var bag_section := ""
+var supply_selected := ""
+var supply_group := "all"
+var supply_hero := ""
 var bag_sort := 0
 var bag_selecting := false
 var bag_selected: Array[String] = []
@@ -578,7 +581,7 @@ func _enter_stage(id: int) -> void:
 		return
 	selected_stage = id
 	var stage := catalog.find_row("stages", id)
-	_dialog(stage.name, stage.before + "\n\nĐội tối đa 3 tướng + 1 tinh linh. Hàng trước chịu đòn trước; có thể chọn tự dùng Ultimate. Thua khi toàn đội bị hạ hoặc hết 180 giây.", [{"text": "Tiến vào", "call": _begin}, {"text":"Xếp đội hình", "call":_open_formation}, {"text": "Chuẩn bị thêm", "call": _close_modal}])
+	_dialog(stage.name, stage.before + "\n\nĐội tối đa 3 tướng + 1 tinh linh. Hàng trước chịu đòn trước; có thể chọn tự dùng Ultimate. Thua khi toàn đội bị hạ hoặc hết 180 giây."+Supplies.hint(store.profile), [{"text": "Tiến vào", "call": _begin}, {"text":"Xếp đội hình", "call":_open_formation}, {"text": "Chuẩn bị thêm", "call": _close_modal}])
 
 func _begin() -> void:
 	_close_modal()
@@ -612,6 +615,7 @@ func _finish() -> void:
 	var shards_before: int = store.profile.shards
 	var queued_before: int = store.profile.bag_rewards.size()
 	var fragments_before: Dictionary = store.profile.collection_fragments.items.duplicate()
+	var supply_before: Dictionary = store.profile.supplies.counts.duplicate(true)
 	var old_uids: Array = []
 	for item in store.profile.items:
 		old_uids.append(item.uid)
@@ -627,6 +631,9 @@ func _finish() -> void:
 		for item in store.profile.items:
 			if item.uid not in old_uids:
 				loot = "Nhận trang bị: " + catalog.find_row("items", item.base).name
+		for id in Supplies.ORDER:
+			var gained: int = store.profile.supplies.counts[id]-supply_before[id]
+			if gained>0: loot += "\n+%d × %s" % [gained,Supplies.NAMES[id]]
 		_queue_result("CHIẾN THẮNG", "%s\n\n+%d vàng · +%d XP · +%d tinh thạch\n%s" % [(stage.after + ("\n+%d lõi tinh linh · Điểm tốt nhất %d" % [stage.cores, store.profile.expansion.records[str(stage.id)].score] if stage.get("kind") == "challenge" else "")), store.profile.gold - gold_before, stage.xp, store.profile.shards - shards_before, loot], [{"text": "Về hành trình", "call": _return_to_camp}, {"text": "Đánh lại", "call": _replay}])
 	else:
 		_queue_result("ÁNH SÁNG CHƯA TẮT", (battle.defeat_reason + "\nHãy đổi vị trí, nâng nhân vật/trang bị hoặc điều chỉnh Ultimate." if battle is TeamBattle else "Chưa nhận thưởng. Hãy nâng vũ khí, đổi trợ chiến hoặc dùng Thủ thế đúng nhịp."), [{"text": "Chuẩn bị lại", "call": _return_to_camp}, {"text": "Thử lại", "call": _replay}])
@@ -780,7 +787,7 @@ func _close_modal() -> void:
 
 func _on_button(action: Callable) -> void:
 	var method := action.get_method()
-	if method in ["_select_tab", "_bag_open", "_mission_tab", "_forge_tab", "_character_section", "_shop_section", "_select_summon_kind", "_dungeon_filter", "_dungeon_show", "_dungeon_difficulty"]:
+	if method in ["_select_tab", "_bag_open", "_mission_tab", "_forge_tab", "_character_section", "_shop_section", "_select_summon_kind", "_dungeon_filter", "_dungeon_show", "_dungeon_difficulty", "_supply_open", "_supply_filter", "_supply_hero"]:
 		audio.play("menu_open")
 	elif method in ["_close_modal", "_cancel_audio_settings", "_dungeon_back"]:
 		audio.play("menu_back")
@@ -1215,6 +1222,105 @@ func _forge_fuse_confirm(uid: String) -> void:
 func _forge_fuse_execute(uid: String, donors: Array) -> void:
 	_close_modal()
 	_outcome(store.fuse(uid,donors),"Đã hợp thành, giữ nguyên cường hóa của bản chính.","equipment_fuse")
+
+
+func _supply_open(id: String = "") -> void:
+	if id!="" and id not in Supplies.ORDER: return
+	supply_selected = id
+	_bag_open("supplies")
+
+func _supply_filter(group: String) -> void:
+	if group not in ["all","consumable","upgrade","spirit","ticket"]: return
+	supply_group = group
+	supply_selected = ""
+	_refresh_panel()
+
+func _supply_hero(id: String) -> void:
+	if not store.available_hero(id): return
+	supply_hero = id
+	_refresh_panel()
+
+func _supply_source(id: String) -> void:
+	_select_tab(21)
+	_dungeon_show(id)
+
+func _supply_milestones() -> void:
+	var column := _dialog("QUÀ TIẾN TRÌNH","Mỗi mốc nhận một lần. Giữ quyền nhận cho người đã vượt từ phiên bản trước.",[{"text":"Đóng","call":_close_modal}])
+	var names := {"story_1":"Rương chọn nguyên liệu ×1","story_2":"Vé Thường ×1","story_3":"Đồng Hồ Cát AFK ×1"}
+	for id in Supplies.MILESTONES:
+		var row: Dictionary = Supplies.MILESTONES[id]
+		var claimed: bool = id in store.profile.supplies.claimed
+		var action := _button(column,("Đã nhận · " if claimed else "Qua ải%d · " % row.stage)+names[id],Vector2.ZERO,Vector2(400,44),_supply_confirm.bind("claim",id,0))
+		action.add_theme_font_size_override("font_size",14)
+		action.disabled = Supplies.busy(store) or claimed or row.stage not in store.profile.cleared
+		column.move_child(action,column.get_child_count()-2)
+
+func _supply_confirm(kind: String, id: String = "", value: int = 0) -> void:
+	if Supplies.busy(store): return
+	var text := ""
+	match kind:
+		"buy":
+			if id not in Supplies.SHOP: return
+			text = "Mua1 "+Supplies.NAMES[id]+" với%d vàng." % Supplies.SHOP[id]
+		"claim":
+			if id not in Supplies.MILESTONES: return
+			text = "Nhận1 "+Supplies.NAMES[Supplies.MILESTONES[id].item]+". Mốc này chỉ nhận một lần."
+		"chest":
+			if id not in Supplies.CHEST: return
+			text = "Tiêu1 rương để nhận%d × %s. Đây là phần thưởng bạn chọn, không ngẫu nhiên." % [Supplies.CHEST[id],Supplies.NAMES[id]]
+		"stone":
+			var item := EquipmentSystem.item_for(store.profile,id)
+			if item.is_empty(): return
+			text = "%s +%d → +%d\nCần%d vàng +1 Đá Rèn Sáng, không trừ tinh thạch.\nGiữ bản: %s." % [catalog.find_row("items",item.base).name,item.enhance,item.enhance+1,(item.enhance+1)*20,id]
+		"train":
+			if value not in [0,1] or not store.available_hero(id): return
+			var level: int = store.profile.heroes[id].skills[value]
+			text = "%s · Kỹ năng%d\nLV%d → LV%d, cần%d Mảnh Ký Ức. Không trừ vàng." % [catalog.find_row("heroes",id).name,value+1,level,level+1,level]
+		"seed": text = "Tiêu3 Hạt Giống Cổ Thụ để nhận1 Lõi tinh linh."
+		"hourglass": text = "Tiêu1 Đồng Hồ Cát AFK để nhận%d vàng (2 giờ). Giữ nguyên thời gian AFK đang tích lũy." % store.offline_amount(7200)
+		"ticket":
+			if value not in [1,10]: return
+			text = "Tiêu%d Vé Triệu Hồi Thường cho%d lượt theo pool hiện có, không trừ vàng. Thiếu ô hoặc lưu lỗi không mất vé." % [value,value]
+		"select":
+			if id not in [""]+Supplies.SUPPORT: return
+			text = "Bỏ vật phẩm chuẩn bị, không mất thuốc." if id=="" else "Chuẩn bị1 "+Supplies.NAMES[id]+". Chưa trừ lúc chọn; tiêu khi bắt đầu1 lượt, kể cả thua. Không tự dùng cho lượt tiếp theo."
+		_: return
+	_dialog("XÁC NHẬN VẬT PHẨM",text,[{"text":"Xác nhận","call":_supply_execute.bind(kind,id,value)},{"text":"Hủy","call":_close_modal}])
+
+func _supply_execute(kind: String, id: String = "", value: int = 0) -> void:
+	_close_modal()
+	var ok := false
+	match kind:
+		"buy": ok = Supplies.buy(store,id)
+		"claim": ok = Supplies.claim(store,id)
+		"chest": ok = Supplies.open_chest(store,id)
+		"stone": ok = store.enhance(id,false,true)
+		"train": ok = Supplies.train(store,id,value)
+		"seed": ok = Supplies.refine_seed(store)
+		"hourglass": ok = Supplies.hourglass(store)
+		"select": ok = Supplies.select_support(store,id)
+		"ticket":
+			ok = Recruitment.summon(store,value,true)
+			if ok:
+				_refresh_panel()
+				_refresh_hud()
+				_summon_sound(Recruitment.state(store.profile).history.slice(0,value))
+				SummonScreen.show_results(self,"KẾT QUẢ · DÙNG VÉ",Recruitment.state(store.profile).history.slice(0,value))
+				return
+		_: return
+	var cue := "forge" if kind=="stone" else ("upgrade" if kind in ["train","seed"] else "reward")
+	var result_text := "Đã xử lý vật phẩm."
+	if ok:
+		match kind:
+			"buy": result_text = "Đã mua1 "+Supplies.NAMES[id]+"."
+			"claim": result_text = "Đã nhận "+Supplies.NAMES[Supplies.MILESTONES[id].item]+"."
+			"chest": result_text = "Đã nhận%d × %s." % [Supplies.CHEST[id],Supplies.NAMES[id]]
+			"stone": result_text = "Đã cường hóa đúng bản trang bị đã chọn."
+			"train": result_text = "Đã nâng1 cấp kỹ năng của "+catalog.find_row("heroes",id).name+"."
+			"seed": result_text = "Đã nhận1 Lõi tinh linh."
+			"hourglass": result_text = "Đã nhận%d vàng từ đồng hồAFK." % store.offline_amount(7200)
+			"select": result_text = "Đã bỏ vật phẩm chuẩn bị." if id=="" else "Đã chuẩn bị "+Supplies.NAMES[id]+". Chưa trừ thuốc."
+	_outcome(ok,result_text,cue)
 
 func _items_panel() -> void:
 	var screen := BagScreen.new()

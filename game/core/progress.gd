@@ -1,7 +1,7 @@
 class_name ProgressStore
 extends RefCounted
 
-const VERSION = 11
+const VERSION = 12
 const BAG_CAP = 40
 var catalog: GameCatalog
 var profile: Dictionary
@@ -32,7 +32,7 @@ func fresh() -> Dictionary:
 			starters[base] = "starter_" + hero.id
 			bag.append({"uid": starters[base], "base": base, "enhance": 0, "rank": 1})
 		units[hero.id].equipment.weapon = starters[base]
-	return {"bag_rewards": [], "collection_fragments": CollectionFragments.fresh(catalog), "expansion": Expansion.fresh(catalog), "version": VERSION, "gold": 0, "shards": 0, "xp": 0, "hero": "eira", "assist": "lumi", "heroes": units, "assists": {"lumi": 1, "ash": 1}, "items": bag, "next_uid": 1, "cleared": [], "claimed": [], "metrics": {"wins": 0, "kills": 0, "enhances": 0, "clears": 0}, "seen_story": [], "last_offline": int(Time.get_unix_time_from_system()), "pending": {}, "settled": [], "settings": {"speed": 1, "sound": true}}
+	return {"supplies": Supplies.fresh(), "bag_rewards": [], "collection_fragments": CollectionFragments.fresh(catalog), "expansion": Expansion.fresh(catalog), "version": VERSION, "gold": 0, "shards": 0, "xp": 0, "hero": "eira", "assist": "lumi", "heroes": units, "assists": {"lumi": 1, "ash": 1}, "items": bag, "next_uid": 1, "cleared": [], "claimed": [], "metrics": {"wins": 0, "kills": 0, "enhances": 0, "clears": 0}, "seen_story": [], "last_offline": int(Time.get_unix_time_from_system()), "pending": {}, "settled": [], "settings": {"speed": 1, "sound": true}}
 
 func valid(p: Variant, legacy_version: int = 0) -> bool:
 	if not p is Dictionary or p.get("version") != (legacy_version if legacy_version > 0 else VERSION):
@@ -40,6 +40,7 @@ func valid(p: Variant, legacy_version: int = 0) -> bool:
 	for key in fresh():
 		if legacy_version == 6 and key == "collection_fragments": continue
 		if legacy_version in [6,7,8,9] and key == "bag_rewards": continue
+		if legacy_version > 0 and key == "supplies": continue
 		if not p.has(key):
 			return false
 	for key in ["gold", "shards", "xp", "next_uid", "last_offline"]:
@@ -50,7 +51,8 @@ func valid(p: Variant, legacy_version: int = 0) -> bool:
 	if not p.heroes is Dictionary or not p.assists is Dictionary or not p.items is Array or p.items.size() > BAG_CAP:
 		return false
 	if legacy_version != 6 and not CollectionFragments.valid(self, p.collection_fragments, legacy_version in [7, 8],legacy_version in [9,10]): return false
-	if legacy_version in [0,10]:
+	if legacy_version == 0 and not Supplies.valid(self,p.supplies): return false
+	if legacy_version in [0,10,11]:
 		if not p.bag_rewards is Array or p.bag_rewards.size() > 128: return false
 		for base in p.bag_rewards:
 			if not base is String or catalog.find_row("items", base).is_empty(): return false
@@ -113,6 +115,7 @@ func valid(p: Variant, legacy_version: int = 0) -> bool:
 			if not _number(snapshot.get(key), 0, 1e8):
 				return false
 		if not Expansion.valid_snapshot(self, snapshot): return false
+		if legacy_version == 0 and not Supplies.valid_run(self,p.pending): return false
 		if snapshot.hp <= 0 or snapshot.atk <= 0 or not snapshot.get("skills") is Array or snapshot.skills.size() != 3:
 			return false
 		if catalog.find_row("heroes", snapshot.get("hero")).is_empty() or catalog.find_row("assists", snapshot.get("assist")).is_empty():
@@ -300,8 +303,8 @@ func unequip(uid: String, hero_id: String = "") -> bool:
 			return commit(p)
 	return false
 
-func enhance(uid: String, rank_up: bool = false) -> bool:
-	if not profile.pending.is_empty():
+func enhance(uid: String, rank_up: bool = false, use_stone: bool = false) -> bool:
+	if read_only or (rank_up and use_stone) or not profile.pending.is_empty():
 		return false
 	var p := profile.duplicate(true)
 	for item in p.items:
@@ -309,10 +312,11 @@ func enhance(uid: String, rank_up: bool = false) -> bool:
 			continue
 		var cost := (int(item.rank) * 80) if rank_up else (int(item.enhance) + 1) * 20
 		var shards := int(item.rank) * 4 if rank_up else 1
-		if p.gold < cost or p.shards < shards or (rank_up and item.rank >= 3) or (not rank_up and item.enhance >= EquipmentSystem.MAX_ENHANCE):
+		if p.gold < cost or (Supplies.count(p,"forge_stone")<1 if use_stone else p.shards < shards) or (rank_up and item.rank >= 3) or (not rank_up and item.enhance >= EquipmentSystem.MAX_ENHANCE):
 			return false
 		p.gold -= cost
-		p.shards -= shards
+		if use_stone: p.supplies.counts.forge_stone -= 1
+		else: p.shards -= shards
 		if rank_up:
 			item.rank += 1
 		else:
@@ -418,6 +422,7 @@ func begin_run(stage_id: int, team_options: Dictionary = {}) -> bool:
 		if team_options.has(key):
 			if not team_options[key] is bool: return false
 			p.pending.team[key] = team_options[key]
+	if not Supplies.prepare(p): return false
 	return commit(p)
 
 func settle(run_id: String, won: bool, kills: int, elapsed: float = 0) -> bool:
@@ -436,6 +441,7 @@ func settle(run_id: String, won: bool, kills: int, elapsed: float = 0) -> bool:
 		p.gold += stage.gold
 		p.xp += stage.xp
 		p.shards += 2
+		Supplies.award(p,int(run.stage))
 		if run.stage not in p.cleared:
 			p.gold += stage.first_gold
 			p.cleared.append(run.stage)
@@ -474,8 +480,10 @@ func claim_quest(id: String) -> bool:
 	return commit(p)
 
 func offline_preview(now: int) -> int:
-	var seconds := clampi(now - int(profile.last_offline), 0, 7200)
-	return int(seconds / 60.0) * unlocked_stage() * 2
+	return offline_amount(now-int(profile.last_offline))
+
+func offline_amount(seconds: int) -> int:
+	return int(clampi(seconds,0,7200) / 60.0) * unlocked_stage() * 2
 
 func claim_offline(now: int) -> bool:
 	var amount := offline_preview(now)
@@ -549,17 +557,24 @@ func _decode(file_path: String) -> Variant:
 			raw.collection_fragments = CollectionFragments.fresh(catalog)
 			EquipmentSystem.migrate(raw, catalog)
 			raw.bag_rewards = []
+			raw.supplies = Supplies.fresh()
 			raw.version = VERSION
 	if old_version in [7, 8] and valid(raw, old_version):
 		EquipmentSystem.migrate(raw, catalog)
 		raw.bag_rewards = []
+		raw.supplies = Supplies.fresh()
 		raw.version = VERSION
 	if old_version == 9 and valid(raw, 9):
 		EquipmentSystem.migrate(raw,catalog)
 		raw.bag_rewards = []
+		raw.supplies = Supplies.fresh()
 		raw.version = VERSION
 	if old_version == 10 and valid(raw,10):
 		EquipmentSystem.migrate(raw,catalog)
+		raw.supplies = Supplies.fresh()
+		raw.version = VERSION
+	if old_version == 11 and valid(raw,11):
+		raw.supplies = Supplies.fresh()
 		raw.version = VERSION
 	return raw
 

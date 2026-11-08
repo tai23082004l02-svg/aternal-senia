@@ -78,6 +78,11 @@ func _ready() -> void:
 	game._button(content, "Tiến bậc · %d vàng + %d tinh thạch" % [item.rank * 80, item.rank * 4], Vector2.ZERO, Vector2(460, 42), game._enhance.bind(item.uid, true)).disabled = locked or item.rank >= 3 or game.store.profile.gold < item.rank * 80 or game.store.profile.shards < item.rank * 4
 	game._button(content, "Phân giải · +%d tinh thạch" % (1 + item.rank), Vector2.ZERO, Vector2(460, 42), game._dismantle_confirm.bind(item.uid)).disabled = locked or not owners.is_empty()
 	var cost := (int(item.enhance) + 1) * 20
+	var stone: Button = game._button(content,"Dùng1 Đá Rèn Sáng +%d vàng · Còn%d" % [cost,Supplies.count(game.store.profile,"forge_stone")],Vector2.ZERO,Vector2(460,44),game._supply_confirm.bind("stone",item.uid,0))
+	stone.disabled = locked or item.enhance>=15 or game.store.profile.gold<cost or Supplies.count(game.store.profile,"forge_stone")<1
+	stone.icon = Supplies.icon("forge_stone")
+	stone.expand_icon = true
+	stone.add_theme_constant_override("icon_max_width",30)
 	label(self, "Đã đạt cường hóa tối đa" if item.enhance >= 15 else "Nâng tiếp: %d vàng  ·  1 tinh thạch" % cost, 14, Color("e2c58f"))
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", 8)

@@ -1,6 +1,6 @@
 {
   "date": "2026-11-08",
-  "method": "Original image generation referenced art/ui/icons.png. Five reviewed 4x4 and three 3x2 source atlases, retained byte-for-byte. No pixel edits or extracted reference-game assets.",
+  "method": "Original image generation referenced art/ui/icons.png. Five reviewed 4x4, three 3x2 gear atlases and one eight-item4x2 supply atlas, retained byte-for-byte. No pixel edits or extracted reference-game assets.",
   "sources": [
     {
       "file": "art/icons/grove.png",
@@ -65,6 +65,14 @@
         1254
       ],
       "sha256": "4383385b2ba4fcb8a20b480ea6b9c717e5507f99e29d4607934a8fa59cf63dd8"
+    },
+    {
+      "file": "art/supplies/icons.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "dba71dc479a47b162be48bb95c66dca88a257e798ed5a2af8873aab99055a093"
     }
   ]
 }

@@ -83,7 +83,7 @@ func run() -> void:
 	write(path,legacy)
 	var raw := FileAccess.get_file_as_bytes(path)
 	var migrated := ProgressStore.new(book,path)
-	assert(not migrated.read_only and migrated.profile.version == 11)
+	assert(not migrated.read_only and migrated.profile.version == ProgressStore.VERSION)
 	for key in ["items","gold","next_uid","heroes","bag_rewards","pending"]: assert(migrated.profile[key] == legacy[key])
 	for id in legacy.collection_fragments.items: assert(migrated.profile.collection_fragments.items[id] == legacy.collection_fragments.items[id])
 	for id in migrated.profile.collection_fragments.items:

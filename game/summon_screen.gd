@@ -148,6 +148,9 @@ func _ready() -> void:
 		game.icons.apply(draw,"gold",26)
 	draw_one.disabled = not active or game._locked() or game.store.profile.gold < Recruitment.PRICE
 	draw_ten.disabled = not active or game._locked() or game.store.profile.gold < Recruitment.PRICE*10
+	if active:
+		var tickets := button(body,tr("Vé Thường: %d · Chọn dùng vé →") % Supplies.count(game.store.profile,"normal_ticket"),game._supply_open.bind("normal_ticket"),Vector2(440,44))
+		game.icons.apply(tickets,"normal_ticket",26)
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation",7)
 	body.add_child(actions)

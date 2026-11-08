@@ -1,3 +1,5 @@
+> Từ0.35 thêm Vé Triệu Hồi Thường dùng qua kho vật phẩm, có lối vào từ Cổng Thường. Giá quay bằng vàng/pool/pity cũ giữ nguyên; chưa mở Cao cấp/Sự kiện. Xem [SUPPLIES.md](SUPPLIES.md).
+
 # Cổng triệu hồi fantasy · 0.33
 
 Theo ảnh mới: ba loại Thường/Cao cấp/Sự kiện nằm ngang, tiêu đề vàng, banner

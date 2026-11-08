@@ -1,4 +1,13 @@
-# Aternal Senia — First Light · 0.36
+# Aternal Senia — First Light · 0.37
+
+## Vật phẩm thiết yếu · 0.37
+
+Tám món dùng thật: nguyên liệu cho cường hóa/kỹ năng/tinh linh, vé Thường,
+rương chọn, hai thuốc chuẩn bị1 lượt và đồng hồAFK. Kho cộng dồn riêng,
+chi phí/nguồn rõ ràng, xác nhận rồi mới trừ; savev12 giữ bản cũ.
+[Xem hình, công dụng và cách dùng](docs/SUPPLIES.md).
+
+
 
 ## Cài đặt & thông tin studio · 0.36
 

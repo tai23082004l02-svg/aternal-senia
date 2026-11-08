@@ -52,6 +52,11 @@ func _ready() -> void:
 					game._text(offer.name, 19, Color("e5cd9e"))
 					game._text("+%d XP" % offer.xp if offer.xp > 0 else "+%d tinh thạch" % offer.shards)
 					game._row("Mua · %d vàng" % offer.gold, game._shop_buy_confirm.bind(id), game._locked() or game.store.profile.gold < offer.gold)
+				for id in Supplies.SHOP:
+					var offer: Button = game._row(Supplies.NAMES[id]+" · %d vàng" % Supplies.SHOP[id],game._supply_confirm.bind("buy",id,0),game._locked() or game.store.profile.gold<Supplies.SHOP[id])
+					offer.icon = Supplies.icon(id)
+					offer.expand_icon = true
+					offer.add_theme_constant_override("icon_max_width",32)
 				game._row("Đến lò rèn →", game._select_tab.bind(19))
 			1:
 				game._text("Mặt hàng kim cương sẽ xuất hiện tại đây khi cửa hàng được mở.")

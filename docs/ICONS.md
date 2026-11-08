@@ -1,3 +1,5 @@
+> Từ0.37, registry chung có106 icon: giữ98 cũ và thêm8 vật phẩm thiết yếu. Nguồn mới art/supplies/icons.png, vùng/hash và công dụng tại [SUPPLIES.md](SUPPLIES.md). Builder không sửa pixel.
+
 # Bộ icon giao diện và đạo cụ · 0.22
 
 Từ0.35 có98 icon, thêm ba sheet3x2 grove/storm/moon cho18 món mới; xem [ADDITIONAL_EQUIPMENT](ADDITIONAL_EQUIPMENT.md). Builder chia grid theo từng sheet, không giả định toàn bộ atlas4x4.

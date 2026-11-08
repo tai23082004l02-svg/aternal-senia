@@ -1,0 +1,177 @@
+{
+  "date": "2026-11-08",
+  "release": "0.37.0",
+  "source_commit": "074628c6d55fb11c47b26888ca205d887ccc722c",
+  "evidence_commit": "6a8e86a3dbf5799e569c5bfb48b4f4a319bc9776",
+  "source_tree": "ceb34079fbfb2fb2c9ccdf4a8b499e11ff5fe2c9",
+  "workflow": "https://github.com/tai23082004l02-svg/aternal-senia/actions/runs/42454548106",
+  "engine": "Godot 4.6.3 stable",
+  "platform": "Ubuntu 24.04, Xvfb/X11 software renderer",
+  "tests": [
+    {
+      "test": "settings",
+      "passed": true
+    },
+    {
+      "test": "settings_audio",
+      "passed": true
+    },
+    {
+      "test": "settings_ui",
+      "passed": true
+    },
+    {
+      "test": "additional_audio",
+      "passed": true
+    },
+    {
+      "test": "player_profile",
+      "passed": true
+    },
+    {
+      "test": "utilities_ui",
+      "passed": true
+    },
+    {
+      "test": "team_matrix",
+      "passed": true
+    },
+    {
+      "test": "team_campaign",
+      "passed": true
+    },
+    {
+      "test": "shop_ui",
+      "passed": true
+    },
+    {
+      "test": "additional_equipment",
+      "passed": true
+    },
+    {
+      "test": "additional_equipment_ui",
+      "passed": true
+    },
+    {
+      "test": "supplies",
+      "passed": true
+    },
+    {
+      "test": "supplies_ui",
+      "passed": true
+    },
+    {
+      "test": "dungeon_world",
+      "passed": true
+    },
+    {
+      "test": "mobile_inventory",
+      "passed": true
+    },
+    {
+      "test": "swipe_scroll",
+      "passed": true
+    },
+    {
+      "test": "ui_flow",
+      "passed": true
+    },
+    {
+      "test": "animation_gallery",
+      "passed": true
+    },
+    {
+      "test": "bag_ui",
+      "passed": true
+    },
+    {
+      "test": "character_design",
+      "passed": true
+    },
+    {
+      "test": "music",
+      "passed": true
+    },
+    {
+      "test": "audio",
+      "passed": true
+    },
+    {
+      "test": "team_ui",
+      "passed": true
+    },
+    {
+      "test": "team_flow",
+      "passed": true
+    },
+    {
+      "test": "regression",
+      "passed": true
+    },
+    {
+      "test": "mechanics",
+      "passed": true
+    },
+    {
+      "test": "campaign",
+      "passed": true
+    },
+    {
+      "test": "team_battle",
+      "passed": true
+    },
+    {
+      "test": "complete_art",
+      "passed": true
+    },
+    {
+      "test": "summon_ui",
+      "passed": true
+    },
+    {
+      "test": "summon_batch",
+      "passed": true
+    },
+    {
+      "test": "recruitment",
+      "passed": true
+    },
+    {
+      "test": "bag_inventory",
+      "passed": true
+    },
+    {
+      "test": "unique_collection",
+      "passed": true
+    },
+    {
+      "test": "unique_collection_ui",
+      "passed": true
+    },
+    {
+      "test": "equipment_sets",
+      "passed": true
+    },
+    {
+      "test": "equipment_ui",
+      "passed": true
+    },
+    {
+      "test": "hero_management",
+      "passed": true
+    },
+    {
+      "test": "icon_gallery",
+      "passed": true
+    }
+  ],
+  "art": "Eight original alpha icons, source PNG retained byte-for-byte; dimensions, source hash, alpha and region bounds checked.",
+  "visual_review": [
+    "supplies-list",
+    "supplies-list-bottom",
+    "supplies-stone",
+    "supplies-chest",
+    "supplies-support"
+  ],
+  "limits": "No physical Android touch, FPS or speaker verification. Twenty-two proposed items and five special equipment pieces remain deferred."
+}
