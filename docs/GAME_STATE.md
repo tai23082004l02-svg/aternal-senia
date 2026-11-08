@@ -2,7 +2,7 @@
 
 > **Đã triển khai 2026-11-08:** Đội hình tối đa **4 hero + 1 tinh linh**, bố cục 2 trước + 2 sau, không khóa nghề. Save v12 đọc đội 3/4 ô; xem đội cũ chỉ thêm ô trống trên bản sao, ghi 4 ô khi người chơi chỉnh đội. Snapshot v1 và singleton cũ giữ nguyên; trận mới dùng v2. Xem [TEAM_COMBAT](TEAM_COMBAT.md).
 
-Cập nhật2026-11-08. Game **0.37.0**, **Godot4.6.3**, save **v12**.
+Cập nhật2026-11-08. Game **0.38.0**, **Godot4.6.3**, save **v12**.
 Đợt dọn repo không đổi gameplay hoặc schema. Repo triển khai:
 [tai23082004l02-svg/aternal-senia](https://github.com/tai23082004l02-svg/aternal-senia).
 Repo tham khảo: [Tham-kh-o-game](https://github.com/tai23082004l02-svg/Tham-kh-o-game).
@@ -12,7 +12,11 @@ Studio **ZORVYKA Games**, hỗ trợ **zorvykagames@gmail.com**.
 Nếu có thay đổi sau mốc này, đọc HEAD/code và yêu cầu mới nhất trước khi tiếp tục.
 Các con số dưới đây lấy từ catalogue/model, không lấy số minh họa trong ảnh.
 
-## Quyết định sản phẩm mới nhất — 2026-11-08 (chưa phải runtime)\n\n**ĐÃ DUYỆT:** [GAME_DESIGN_V1.md](GAME_DESIGN_V1.md) chốt **24 hero, 12 nam/12 nữ, tất cả gốc 5★**, Gallery và Summon Reveal ưu tiên cao, Bond System, truyện ngắn theo nhân vật, tiếp tục repo này. Đây là ưu tiên cao hơn các dải mục tiêu 24–30 và ghi chú \"chưa duyệt 24 hero\" bên dưới. **Các số còn lại trong Launch Content Matrix vẫn là đề xuất.** Codex: WP01 audit chỉ đọc trước khi triển khai; không tự sửa gameplay/economy/save.\n\n## Ưu tiên chiến lược trước đó (bối cảnh, chưa phải runtime)
+## Quyết định sản phẩm mới nhất — 2026-11-08 (chưa phải runtime)
+
+**ĐÃ DUYỆT:** [GAME_DESIGN_V1.md](GAME_DESIGN_V1.md) chốt **24 hero, 12 nam/12 nữ, tất cả gốc 5★**, Gallery và Summon Reveal ưu tiên cao, Bond System, truyện ngắn theo nhân vật, tiếp tục repo này. Đây là ưu tiên cao hơn các dải mục tiêu 24–30 và ghi chú "chưa duyệt 24 hero" bên dưới. **Các số còn lại trong Launch Content Matrix vẫn là đề xuất.** Codex: WP01 audit chỉ đọc trước khi triển khai; không tự sửa gameplay/economy/save.
+
+## Ưu tiên chiến lược trước đó (bối cảnh, chưa phải runtime)
 
 Ngày 2026-11-08, chủ dự án xác nhận mục tiêu **Full Content Launch**: không đưa một game ít hero ra thị trường để thử retention rồi mới làm thêm nội dung. **Dự kiến phát hành Aternal Senia khi đã có roster nam/nữ phong phú, nhiều tinh linh, bộ trang bị, Boss, phó bản, hành trình và hệ kiếm tiền hoạt động thực**. Xem [Game Business & Monetization Plan V0.2](BUSINESS_MONETIZATION_PLAN.md) cho dải mục tiêu đề xuất và lộ trình sản xuất.
 
@@ -47,11 +51,20 @@ tổng kết và xem lại lô đã commit sau khi tải save. Giữ savev12, ch
 pool/pity/giá và art cũ; chưa thêm 20 hero, Bond hoặc combat launch mới.
 Chi tiết tương thích snapshot và kế hoạch migration roster: [HERO_COLLECTION](HERO_COLLECTION.md).
 
+## Cập nhật0.38 — dọn UI và hiển thị Caelan
+
+Caelan đã hiện trên Home/Gallery/Showcase qua registry preview riêng, dùng đúng
+art mới; ghi rõ **Design preview · Not playable**. Không tự cấp hero, mảnh hoặc
+nhập kit đang đề xuất vào combat. Vẫn4 hero gameplay; thêm1 thiết kế xem trước.
+Đã bỏ UI kỹ năng/tinh linh trùng, helper không dùng và recorder cũ; giữ model và
+renderer singleton để resume save cũ. Home hiện version0.38.0; export Android in
+version/commit để tránh mở nhầm thư mục cũ. [Chi tiết dọn](CLEANUP_0_38.md).
+
 ## UI Design V2 — Showcase, Reveal, Home
 
 Đã có Home riêng khi khởi động (page24), nút Home trên header; Journey giữ page0.
 Showcase xem art/identity/skill copy thật, chọn portrait, mở Equipment/Wardrobe qua
-UI cũ; Bond/Story khóa. Reveal mới trình bày snapshot kết quả đã commit, có summary,
+trang quản lý hiện hành; Bond/Story khóa. Reveal mới trình bày snapshot kết quả đã commit, có summary,
 skip/replay và reduced motion; không gọi summon/RNG. Chọn portrait Home chỉ trong
 RAM, không ghi save/formation/avatar. Module và handoff riêng ở
 [UI_DESIGN_V2](UI_DESIGN_V2.md); artwork, pose, kỹ năng và nhân vật không đổi.

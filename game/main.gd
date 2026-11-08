@@ -118,7 +118,7 @@ func _ready() -> void:
 	elif not store.profile.pending.is_empty():
 		_dialog("Unfinished Battle", "Resume restarts this battle with the same saved heroes, equipment, and random seed.", [{"text": "Continue", "call": _resume}, {"text": "Abandon · No rewards", "call": _abandon}])
 	else:
-		_notify("Enter a stage to battle. Manage your items in Bag.")
+		_notify("Explore Gallery, or open Journey to prepare your team.")
 
 func _build_ui() -> void:
 	add_child(MenuBackdrop.new())
@@ -320,7 +320,7 @@ func _refresh_hud() -> void:
 	enemy_bar.value = battle.enemy_hp / battle.enemy_max * 100 if active else 100
 	sp_bar.value = battle.sp if active else 100
 	stage_label.text = "%s%s" % [catalog.find_row("stages", selected_stage).name, (" · %d/%d" % [battle.wave + 1, battle.wave_count()]) if active else ""]
-	warning_label.text = battle.warning() if active else "One swordswoman. One spirit. A new dawn."
+	warning_label.text = battle.warning() if active else "Four heroes. One spirit. A new dawn."
 	var can_play := active and battle.state == "battle" and modal == null and not battle.paused
 	skill_group_labels[0].text = "HERO · " + catalog.find_row("heroes", battle.stats.hero if active else p.hero).name
 	skill_group_labels[1].text = "SPIRIT · " + catalog.find_row("assists", battle.stats.assist if active else p.assist).name
@@ -339,6 +339,12 @@ func _refresh_hud() -> void:
 	mute_button.text = "Sound: On" if p.settings.sound else "Sound: Off"
 
 func _select_tab(index: int) -> void:
+	if index == 6:
+		character_page = 5
+		index = 1
+	if index == 7:
+		selected_spirit = store.profile.assist
+		index = 18
 	if index == 11:
 		shop_page = 2
 		index = 20
@@ -404,7 +410,6 @@ func _refresh_panel() -> void:
 		4: _more_panel()
 		9: _training_panel()
 		10: _boss_guide_panel()
-		11: _summon_panel()
 		13: _spirit_tree_panel()
 		15: _map_panel()
 		16: _journal_panel()
@@ -444,20 +449,6 @@ func _row(text: String, callback: Callable, disabled: bool = false) -> Button:
 	icons.action(b, callback)
 	b.disabled = disabled
 	return b
-
-func _material_text(text: String, key: String, color: Color) -> void:
-	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 10)
-	panel.add_child(row)
-	var picture := TextureRect.new()
-	picture.texture = icons.textures[key]
-	picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	picture.custom_minimum_size = Vector2(32, 32)
-	row.add_child(picture)
-	var label := _label(row, text, Vector2.ZERO, 18, color)
-	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 func _locked() -> bool:
 	return not store.profile.pending.is_empty() or store.read_only or result_transition
@@ -870,9 +861,6 @@ func _audio_settings() -> void:
 	if modal != null or result_transition: return
 	SettingsScreen.open(self,"audio",false)
 
-func _preview_audio_levels(_value: Variant) -> void:
-	if modal is SettingsScreen: modal.preview_audio()
-
 func _audition() -> void:
 	audio.audition()
 
@@ -880,9 +868,6 @@ func _apply_audio_settings() -> void:
 	if modal is SettingsScreen: modal.save()
 
 func _cancel_audio_settings() -> void:
-	_close_modal()
-
-func _close_audio_settings() -> void:
 	_close_modal()
 
 func _exit_tree() -> void:
@@ -922,30 +907,6 @@ func _expansion_panel(page: int) -> void:
 				_text("%d · %s" % [chapter.id, chapter.name], 18, Color("e5cd9e"))
 				_stage_entry(catalog.find_row("stages", chapter.id))
 				for id in [6 + (chapter.id - 1) * 2, 7 + (chapter.id - 1) * 2]: _stage_entry(catalog.find_row("stages", id))
-		6:
-			_text("SKILL TREE · " + catalog.find_row("heroes", p.hero).name, 21, Color("e5cd9e"))
-			_text("HERO → BASE SKILL → BRANCH. Each of the hero's two skills offers two branches. Learn once and switch for free outside battle. Spirits have a separate skill tree.")
-			_row("Spirit Skill Tree →", _select_tab.bind(13))
-			var build: Dictionary = p.expansion.builds[p.hero]
-			for i in range(2):
-				_text(catalog.data.skills[i].name.to_upper(), 18, Color("e5cd9e"))
-				for row in catalog.data.talents:
-					if row.slot != i: continue
-					_text(row.name + " · " + row.description)
-					var learned: bool = row.id in build.learned
-					var selected: bool = build.selected[i] == row.id
-					_row(("✓ Deselect · " if selected else ("Select · " if learned else "Learn · ")) + row.name + ("" if learned else " · Level %d / %d Gold + %d Crystals" % [row.level, row.gold, row.shards]), _talent.bind(row.id), _locked() or p.heroes[p.hero].level < row.level or (not learned and (p.gold < row.gold or p.shards < row.shards)))
-		7:
-			_text("COMPANION EVOLUTION", 21, Color("e5cd9e"))
-			_text("Spirit Cores: %d · Earned from side stages or achievements." % p.expansion.cores)
-			for assist in catalog.data.assists:
-				var rank: int = p.expansion.ranks[assist.id]
-				_text("%s · Level %d · Rank %d/3" % [assist.name, p.assists[assist.id], rank], 18, Color("e5cd9e"))
-				_text("Rank 2: each heal grants an 8% HP shield for 5 seconds. Rank 3: healing +25%." if assist.id == "lumi" else "Rank 2: assist attacks deal 70% damage through shields. Rank 3: applies a mark; the next weapon attack deals +20% damage.")
-				_row("✓ Accompanying" if p.assist == assist.id else "Accompany with " + assist.name, _assist.bind(assist.id), _locked() or not store.available_assist(assist.id) or p.assist == assist.id)
-				if p.assist == assist.id:
-					_row("Upgrade · %d Gold" % (p.assists[p.assist] * 35), _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
-					_row("Maximum rank reached" if rank == 3 else "Evolve · Requires level %d / %d Gold + %d Cores" % [rank * 3, rank * 80, 2 if rank == 1 else 5], _rank_assist, _locked() or rank == 3 or p.assists[p.assist] < rank * 3 or p.gold < rank * 80 or p.expansion.cores < (2 if rank == 1 else 5))
 		8:
 			_text("COLLECTION & ACHIEVEMENTS", 21, Color("e5cd9e"))
 			_text("Discovered weapons and armor remain recorded after dismantling. Achievements can be claimed once and are saved with your resources.")
@@ -1037,8 +998,7 @@ func _rarity(kind: String, id: String) -> String:
 func _entity_name(kind: String, id: String) -> String:
 	return catalog.find_row({"hero": "heroes", "spirit": "assists", "item": "items"}[kind], id).name
 
-func _summon_panel(embedded: bool = false) -> void:
-	if not embedded: _row("← Back to Journey", _select_tab.bind(0))
+func _summon_panel() -> void:
 	var screen := SummonScreen.new()
 	screen.game = self
 	panel.add_child(screen)
@@ -1164,11 +1124,8 @@ func _utility_giftcode() -> void:
 func _utility_settings() -> void:
 	SettingsScreen.open(self,"home",true)
 
-func _utility_graphics() -> void:
-	SettingsScreen.open(self,"graphics",true)
-
 func _utility_help() -> void:
-	SummonScreen.show_text(self, "HELP & SUPPORT", "HOW TO PLAY\nChoose heroes and equipment before entering a stage. Use spirits to break shields and Guard before heavy boss attacks.\n\nUpgrade heroes in Heroes; manage equipment and materials in Bag. Check summon rates before summoning.\n\nREPORT A BUG\nInclude your game version, device, steps to reproduce, and a screenshot or video. Back up your save before reinstalling.\n\nVersion: " + str(ProjectSettings.get_setting("application/config/version", "")) + "\n\nStudio: ZORVYKA Games\nSupport: zorvykagames@gmail.com\nYou choose whether to send an email; the game never sends your data automatically.")
+	SummonScreen.show_text(self, "HELP & SUPPORT", "HOW TO PLAY\nChoose heroes and equipment before entering a stage. Heroes attack automatically. Use hero and spirit Ultimates, choose a target, and adjust battle speed.\n\nUpgrade heroes in Heroes; manage equipment and materials in Bag. Check summon rates before summoning.\n\nREPORT A BUG\nInclude your game version, device, steps to reproduce, and a screenshot or video. Back up your save before reinstalling.\n\nVersion: " + str(ProjectSettings.get_setting("application/config/version", "")) + "\n\nStudio: ZORVYKA Games\nSupport: zorvykagames@gmail.com\nYou choose whether to send an email; the game never sends your data automatically.")
 
 func _bag_open(section: String) -> void:
 	bag_section = section
@@ -1372,36 +1329,6 @@ func _items_panel() -> void:
 	screen.game = self
 	panel.add_child(screen)
 
-func _inventory_card(parent: Node, key: String, title: String, subtitle: String, color: Color, action: Callable, width: int = 112) -> Button:
-	var card := _button(parent, "", Vector2.ZERO, Vector2(width, 118), action)
-	card.tooltip_text = title + " · " + subtitle
-	card.add_theme_stylebox_override("normal", _style(Color("172733"), color.darkened(.45), 12))
-	var image := TextureRect.new()
-	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	image.texture = icons.textures[key]
-	if action.get_method() == "_item_detail":
-		for item in store.profile.items:
-			if item.uid == action.get_bound_arguments()[0]: image.texture = frames.textures["icon_" + _item_art_key(item.base)]
-	elif action.get_method() == "_open_spirit": image.texture = frames.textures["companion_" + str(action.get_bound_arguments()[0])]
-	image.position = Vector2((width - 40) / 2.0, 10)
-	image.size = Vector2(48, 48)
-	image.position.x -= 4
-	image.position.y -= 4
-	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	card.add_child(image)
-	var name_label := _label(card, title, Vector2(4, 55), 13, color)
-	name_label.size = Vector2(width - 8, 36)
-	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var detail := _label(card, subtitle, Vector2(4, 97), 10, Color("c0d0cb"))
-	detail.size = Vector2(width - 8, 16)
-	detail.clip_text = true
-	detail.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	detail.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	return card
-
 func _equipment_inventory() -> void:
 	var p: Dictionary = store.profile
 	_text("%d types · %d equipment items" % [_bag_type_count(),p.items.size()], 16, Color("b4c8bf"))
@@ -1469,10 +1396,6 @@ func _bag_filter(index: int, is_rarity: bool) -> void:
 func _open_spirit(id: String) -> void:
 	selected_spirit = id
 	_select_tab(18)
-
-func _spirit_rarity_filter(index: int) -> void:
-	bag_spirit_rarity = index
-	_refresh_panel()
 
 func _spirit_inventory_detail() -> void:
 	_row("← Spirit Collection", _bag_open.bind("spirits"))
@@ -1665,15 +1588,6 @@ func _art_card(title: String, description: String, key: String, action: Callable
 func _item_art_key(id: String) -> String:
 	if frames.textures.has("icon_" + id): return id
 	return "armor_3"
-
-func _item_illustration(id: String) -> void:
-	var image := TextureRect.new()
-	image.texture = frames.textures["icon_" + _item_art_key(id)]
-	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	image.custom_minimum_size = Vector2(120, 120)
-	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.add_child(image)
 
 func _show_player_profile() -> void:
 	if battle != null:

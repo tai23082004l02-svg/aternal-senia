@@ -41,7 +41,7 @@ func _ready() -> void:
 	var previous: VBoxContainer = game.panel
 	game.panel = body
 	if selected == 2:
-		game._summon_panel(true)
+		game._summon_panel()
 	else:
 		game._text(SECTIONS[selected].to_upper(), 23, Color("e5cd9e"))
 		match selected:

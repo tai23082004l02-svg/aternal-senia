@@ -1,6 +1,6 @@
 # Kiến trúc hiện hành
 
-Áp dụng cho game0.37/savev12. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
+Áp dụng cho game0.38/savev12. Trạng thái/phạm vi ở [GAME_STATE](GAME_STATE.md).
 Công thức singleton0.2 được giữ riêng trong [tài liệu lịch sử](history/SYSTEMS_0_2.md);
 không lấy trần+10, loot đổi shard hoặc đội1 người ở đó áp vào trận mới.
 
@@ -27,6 +27,13 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 |FrameLibrary/UIIcons/EquipmentArt|Texture, atlas/region, socket, frame/duration và registry; không mô phỏng chiến đấu|
 |BattleView/TeamBattleUI/CombatEffects|Đọc model/events và vẽ; renderer không đổi HP/RNG/ví|
 |AudioDirector|Tiêu thụ marker/cursor, bus/pool/limiter và nhạc; presentation variation không dùng RNG trận|
+
+## Character delivery previews
+
+`CharacterPreviews` reads `game/data/character_previews.json` for explicit
+presentation-only entries. It does not append to GameCatalog or mutate saves,
+recruitment, ownership or Formation. This registers Caelan's delivered art in
+Gallery/Home/Showcase without pretending his proposed kit is implemented.
 
 ## Presentation V2
 

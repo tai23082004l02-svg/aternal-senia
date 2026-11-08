@@ -89,14 +89,17 @@ static func art(parent: Node, texture: Texture2D, pos: Vector2, dimensions: Vect
 class Artwork extends Control:
 	var texture: Texture2D
 	var cover := true
+	var focus := Vector2(.54, .12)
+	var region := Rect2()
 	func _draw() -> void:
 		if texture == null: return
-		var source := texture.get_size()
+		var source_rect := region if region.has_area() else Rect2(Vector2.ZERO, texture.get_size())
+		var source := source_rect.size
 		if cover:
 			var crop := source
 			if source.x / source.y > size.x / size.y: crop.x = source.y * size.x / size.y
 			else: crop.y = source.x * size.y / size.x
-			draw_texture_rect_region(texture, Rect2(Vector2.ZERO, size), Rect2((source - crop) * Vector2(.54, .12), crop))
+			draw_texture_rect_region(texture, Rect2(Vector2.ZERO, size), Rect2(source_rect.position + (source - crop) * focus, crop))
 		else:
 			var dimensions := source * minf(size.x / source.x, size.y / source.y)
 			draw_texture_rect(texture, Rect2((size - dimensions) / 2, dimensions), false)

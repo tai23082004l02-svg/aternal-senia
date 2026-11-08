@@ -3,10 +3,14 @@ extends RefCounted
 ## Read-only presentation; management actions route to the existing guarded UI.
 static func show(game, id: String, section: String = "Information") -> void:
 	var row: Dictionary = game.catalog.find_row("heroes", id)
+	if row.is_empty(): row = CharacterPreviews.find(id)
 	if row.is_empty(): return
+	var preview: bool = row.get("preview", false)
+	if preview: section = "Information"
 	var surface := UIDesignV2.overlay(game, "HeroShowcase")
 	surface.set_meta("hero_id", id)
-	UIDesignV2.art(surface, load(row.art.banner), Vector2(8, 8), Vector2(476, 480))
+	var illustration := UIDesignV2.art(surface, load(row.art.banner), Vector2(8, 112) if preview else Vector2(8, 8), Vector2(476, 376) if preview else Vector2(476, 480))
+	if preview: illustration.focus.y = 0
 	var veil := ColorRect.new()
 	veil.position = Vector2(8, 8)
 	veil.size = Vector2(476, 100)
@@ -25,7 +29,7 @@ static func show(game, id: String, section: String = "Information") -> void:
 		var button := UIDesignV2.button(game, surface, name_text, Vector2(354, 120 + i * 51), Vector2(122, 44), action, section == name_text)
 		button.name = "ShowcaseTab%d" % i
 		button.add_theme_font_size_override("font_size", 12)
-		if i >= 4:
+		if i >= 4 or preview and i >= 1:
 			button.disabled = true
 			button.tooltip_text = game.tr("Not available yet")
 	var detail := Panel.new()
@@ -42,7 +46,7 @@ static func show(game, id: String, section: String = "Information") -> void:
 	body.custom_minimum_size.x = 430
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroller.add_child(body)
-	var owned: bool = game.store.available_hero(id)
+	var owned: bool = not preview and game.store.available_hero(id)
 	var heading := Label.new()
 	heading.text = game.tr("Skills") if section == "Skills" else row.title
 	heading.add_theme_font_size_override("font_size", 20)
@@ -52,6 +56,7 @@ static func show(game, id: String, section: String = "Information") -> void:
 	copy.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	copy.add_theme_font_size_override("font_size", 14)
 	copy.text = (game.tr("Basic skill") + "\n" + row.skill_descriptions.basic + "\n\n" + game.tr("Ultimate") + "\n" + row.skill_descriptions.ultimate) if section == "Skills" else ((game.tr("Owned") if owned else game.tr("Not owned")) + " · 5★\n" + row.acquisition)
+	if preview: copy.text = game.tr("Design preview · Not playable") + "\n" + row.acquisition + "\n\n“" + row.quote + "”"
 	if owned and section == "Information":
 		var stats: Dictionary = game.catalog.stats(game.store.profile, id)
 		copy.text += "\n\nLV%d · HP %.0f · ATK %.0f · DEF %.2f" % [game.store.profile.heroes[id].level, stats.hp, stats.atk, stats.defense]
@@ -65,15 +70,20 @@ static func show(game, id: String, section: String = "Information") -> void:
 	portraits.add_theme_constant_override("separation", 8)
 	strip.add_child(portraits)
 	var heroes: Array = game.catalog.data.heroes.duplicate()
+	heroes.append_array(CharacterPreviews.rows())
 	heroes.sort_custom(func(a,b): return a.gallery_order < b.gallery_order)
 	for hero in heroes:
 		var button := UIDesignV2.button(game, portraits, "", Vector2.ZERO, Vector2(96, 86), show.bind(game, hero.id), hero.id == id)
 		button.tooltip_text = hero.name
 		button.name = "ShowcaseHero_" + hero.id
-		UIDesignV2.art(button, load(hero.art.banner), Vector2(3, 3), Vector2(90, 55))
+		var portrait := UIDesignV2.art(button, load(hero.art.banner), Vector2(3, 3), Vector2(90, 55))
+		if hero.art.has("face"):
+			var face: Array = hero.art.face
+			portrait.region = Rect2(face[0], face[1], face[2], face[3])
 		UIDesignV2.text(button, hero.name, Vector2(4, 59), Vector2(88, 20), 12).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 static func manage(game, id: String, page: int) -> void:
+	if game.catalog.find_row("heroes", id).is_empty(): return
 	game._close_modal()
 	game._open_gallery_hero(id)
 	game._character_section(page)

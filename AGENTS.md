@@ -1,7 +1,7 @@
 # Hướng dẫn cho phiên chat phát triển tiếp
 
 Đọc README → docs/GAME_STATE.md → docs/SYSTEMS.md → docs/INDEX.md trước khi sửa.
-Trạng thái tại lần dọn repo 2026-11-08: game0.37.0, Godot4.6.3, savev12.
+Trạng thái hiện hành sau dọn UI 2026-11-08: game0.38.0, Godot4.6.3, savev12.
 Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD và code trước khi làm.
 
 ## Định hướng sản phẩm và nội dung (2026-11-08)
@@ -27,6 +27,12 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 - Người dùng giao UI, bố cục, điều hướng và cảnh nền cho nhánh công việc UI. Người khác phụ trách tạo hình, trang phục, vũ khí, pose, bản sắc và thiết kế kỹ năng nhân vật. Không trộn hoặc tự sửa đầu vào nhân vật trong task UI.
 - Handoff UI riêng: [docs/UI_DESIGN_V2.md](docs/UI_DESIGN_V2.md). Tokens ở `game/ui_design_v2.gd`; Gallery/Showcase/Reveal/Home là các module trình bày riêng, đọc art/contract hiện có. Giữ ID, provenance và source artwork; không di chuyển chúng chỉ để tổ chức UI.
 - Home mới là page24 khi khởi động; Journey vẫn page0. Header Home và More trên Home giữ điều hướng. Chọn portrait Home chỉ trong RAM, không ghi favorite/avatar/formation. Bond/Story vẫn khóa.
+
+## Dọn UI0.38 / Caelan hiển thị
+
+- [docs/CLEANUP_0_38.md](docs/CLEANUP_0_38.md): đã bỏ helper UI không được gọi, màn skill/spirit trùng và ba recorder cũ. Không phục hồi chúng để làm UI mới. Page6/7 chuyển về màn hiện hành; vẫn giữ model/renderer cho pending singleton.
+- `CharacterPreviews` + `game/data/character_previews.json` đăng ký Caelan ở Gallery/Home/Showcase với nhãn Design preview. Không gộp preview vào GameCatalog, save, summon hoặc Formation khi kit/migration/nguồn sở hữu chưa được triển khai riêng.
+- Home hiện v0.38.0. Android export in version/commit, dùng thư mục mới; việc thêm PNG không tự tạo hero hoặc cập nhật project cũ đã xuất.
 
 ## Cộng tác và phạm vi
 

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "characters": [
+    {
+      "id": "caelan",
+      "name": "Caelan",
+      "title": "Vanguard · Design preview",
+      "element": "light",
+      "role": "Vanguard",
+      "gallery_order": 10000,
+      "rarity": 5,
+      "acquisition": "Character design delivered. Gameplay and acquisition are not implemented.",
+      "quote": "Stand behind me. We all go home.",
+      "art": {
+        "banner": "res://art/caelan/illustration.png",
+        "face": [390, 60, 260, 260]
+      }
+    }
+  ]
+}

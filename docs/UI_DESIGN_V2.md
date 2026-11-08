@@ -62,7 +62,8 @@ suppress the new reveal animation. Static illustration remains visible.
 Home cycles only owned portraits in session memory (`home_hero`); this is not a
 saved favorite and does not change avatar, formation or build. It reuses existing
 canonical landscape banners as composite illustrations; the close crop is a
-presentation choice, not a new full-body pose. There are no fake Mail/Pass/Event
+presentation choice, not a new full-body pose. Home also links to Caelan's explicitly labeled design preview via the separate
+CharacterPreviews registry. It is not a playable/owned hero entry. There are no fake Mail/Pass/Event
 reward claims or new payment/banner services.
 
 ## Earlier UI pieces included in the handoff

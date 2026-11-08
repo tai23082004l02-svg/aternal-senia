@@ -1,7 +1,7 @@
 # Aternal Senia — First Light
 
 Game fantasy anime 2D, offline, xây bằng **Godot 4.6.3**, giao diện dọc **540 × 960**.
-Bản chơi hiện tại **0.37.0**, save schema **v12**.
+Bản chơi hiện tại **0.38.0**, save schema **v12**.
 Giao diện chính **tiếng Anh**, dùng font đóng gói Playfair Display Bold;
 xem [English UI](docs/ENGLISH_UI.md).
 Studio **ZORVYKA Games** · **zorvykagames@gmail.com**.
@@ -13,6 +13,7 @@ Khởi động ở **Home**; mở **Journey** để chuẩn bị đội hình v�
 UI và handoff riêng: [UI Design V2](docs/UI_DESIGN_V2.md).
 Không cần API key, tài khoản hoặc dịch vụ trả phí để chơi.
 
+- Caelan đã có trong Gallery/Showcase dưới dạng **Design preview**, chưa chơi được.
 - Bốn hero Eira, Ryn, Mira, Lyra; đội tối đa bốn hero đã sở hữu và một tinh linh.
 - 5 màn chính, 10 màn nhánh và 3 phó bản chơi được.
 - 44 trang bị, 6 bộ, 4 vị trí/hero; nhiều bản cùng tên có UID riêng, túi 40 món.

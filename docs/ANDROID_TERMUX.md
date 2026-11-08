@@ -22,7 +22,7 @@ Cho phép quyền bộ nhớ khi Android hỏi. Nếu đã có thư mục repo, 
 không clone chồng lên. --depth1 chỉ tải lịch sử nông; nguồn trên main vẫn đầy đủ.
 
 Script in đường dẫn dạng:
-`/storage/emulated/0/Download/GodotProjects/AternalSenia-0.37.0-NGAY-GIO/project.godot`.
+`/storage/emulated/0/Download/GodotProjects/AternalSenia-0.38.0-COMMIT-NGAY-GIO/project.godot`.
 Trong Godot4.6.x chọn Import/Mở dự án, tìm đúng file đó, chờ import rồi chạy.
 Bản xuất chỉ gồm project.godot, game/, art/; không có .git, tests, docs hay output CI.
 
@@ -52,3 +52,11 @@ Nếu thiếu quyền storage, kiểm lại quyền Termux; không khắc phục
 Repo full-history cũ vẫn chứa các blob lịch sử; git pull không làm .git nhỏ lại.
 Khi cần bản tải mới nhẹ hơn dùng clone --depth1 vào thư mục mới, giữ bản cũ nếu có
 thay đổi của bạn. Không dùng reset --hard hoặc xóa dữ liệu để cập nhật.
+
+## Nếu Godot vẫn hiện UI/nhân vật cũ
+
+Home bản mới phải hiện **v0.38.0**. Script in version, commit và đường dẫn cụ thể;
+đóng project cũ và import đúng `project.godot` trong thư mục mới đó. Chỉ `git pull`
+trong Termux không cập nhật bản xuất ở Download đã mở trước đó. Caelan hiện là
+**Design preview** trong Gallery/Showcase, chưa phải hero có thể xếp đội.
+Không xóa save hoặc source PNG để buộc Godot cập nhật.
