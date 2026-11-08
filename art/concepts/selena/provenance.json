@@ -1,0 +1,14 @@
+{
+  "status": "DRAFT_VISUAL_REVIEW_NOT_RUNTIME",
+  "working_name": "Selena",
+  "planning_identity": "Possible redesign of Selene/H03; no runtime ID or name changes authorized yet.",
+  "method": "Original image generation using the user-supplied Selene moon-mage design board in the conversation as reference.",
+  "tool": "image_gen.imagegen",
+  "generated_file": "exec-8014ea6a-5971-4509-be58-bf44330edc78.png",
+  "date": "2026-11-08",
+  "source": {
+    "file": "design-board.png",
+    "sha256": "35f688766bc08b6d1caa2a93093e0ff0a33326584248b5e0859a786f14d75581"
+  },
+  "scope": "Single character concept: main portrait, front/profile/back, staff and expressions. Preserve source PNG bytes. No changes to old heroes, UI, skills, ownership or saves."
+}
