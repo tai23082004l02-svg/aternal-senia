@@ -21,14 +21,14 @@ python3 tests/validate_audio.py --capture work/checks/audio_capture/audio-runtim
 git diff --exit-code
 ```
 
-Runner47 suite:45 suite trước đó cộng caelan và caelan_ui; caelan_gallery chạy thêm khi xem pose/socket. Mỗi test dùng profile riêng,
+Runner48 suite:45 suite trước đó cộng character_previews, caelan và caelan_ui; caelan_gallery chạy thêm khi xem pose/socket. Mỗi test dùng profile riêng,
 stdout/stderr và timeout75 giây, không bỏ qua assertion/parse error.
 Ảnh/PCM/log/results ở **work/checks/**; thư mục có .gdignore, không commit.
 Giữ import log khi cần, không in API token hoặc toàn bộ save người chơi.
 
 Workflow [.github/workflows/verify.yml](../.github/workflows/verify.yml) chạy trên
 main/PR và nhánh dọn repo, contents:read. Kiểm JSON/link/resource, Python syntax,
-import bản đầy đủ và bản xuất Android,47 suite, hash ElevenLabs và mixer.
+import bản đầy đủ và bản xuất Android,48 suite, hash ElevenLabs và mixer.
 Artifact Project verification giữ7 ngày. Không tự commit screenshot hoặc push nhánh.
 
 ## Chạy tập trung
@@ -42,7 +42,7 @@ xvfb-run -a python3 tools/check_project.py --tests character_design character_ui
 
 Có thể thêm tên test ở tests/ bằng --tests; --timeout chỉnh giới hạn.
 --emit-reviews dành cho phiên chat cần xem JPEG qua log CI; mặc định tắt để tránh log
-base64 nặng. Các test gallery/movie khác vẫn giữ để kiểm chuyên sâu khi liên quan.
+base64 nặng. Các test gallery chuyên sâu và tương thích save cũ vẫn giữ; ba recorder legacy đã bỏ ở0.38, xem CLEANUP_0_38.md.
 
 | Thay đổi | Test bổ sung trọng tâm |
 | --- | --- |

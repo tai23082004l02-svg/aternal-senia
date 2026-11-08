@@ -23,6 +23,9 @@ func _ready() -> void:
 	link("afk", "AFK Supplies", Vector2(12, 148), Vector2(100, 44), game._journey_afk)
 	link("gallery", "Gallery", Vector2(380, 96), Vector2(100, 44), game._select_tab.bind(23))
 	link("more", "More", Vector2(380, 148), Vector2(100, 44), game._select_tab.bind(4))
+	var previews := CharacterPreviews.rows()
+	if not previews.is_empty():
+		link("preview", previews[0].name + " · Preview", Vector2(332, 204), Vector2(148, 44), HeroShowcase.show.bind(game, previews[0].id))
 	var plaque := Panel.new()
 	plaque.position = Vector2(12, 396)
 	plaque.size = Vector2(468, 126)
@@ -45,7 +48,7 @@ func _ready() -> void:
 	footer.color = Color("0c152bd9")
 	footer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(footer)
-	UIDesignV2.text(self, "ZORVYKA GAMES", Vector2(12, 686), Vector2(468, 24), 12, UIDesignV2.GOLD).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UIDesignV2.text(self, "ZORVYKA GAMES · v" + str(ProjectSettings.get_setting("application/config/version")), Vector2(12, 686), Vector2(468, 24), 12, UIDesignV2.GOLD).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 func link(key: String, title: String, pos: Vector2, dimensions: Vector2, action: Callable, primary: bool = false) -> void:
 	actions[key] = UIDesignV2.button(game, self, title, pos, dimensions, action, primary)

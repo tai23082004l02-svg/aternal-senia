@@ -12,7 +12,11 @@ Studio **ZORVYKA Games**, hỗ trợ **zorvykagames@gmail.com**.
 Nếu có thay đổi sau mốc này, đọc HEAD/code và yêu cầu mới nhất trước khi tiếp tục.
 Các con số dưới đây lấy từ catalogue/model, không lấy số minh họa trong ảnh.
 
-## Quyết định sản phẩm mới nhất — 2026-11-08 (chưa phải runtime)\n\n**ĐÃ DUYỆT:** [GAME_DESIGN_V1.md](GAME_DESIGN_V1.md) chốt **24 hero, 12 nam/12 nữ, tất cả gốc 5★**, Gallery và Summon Reveal ưu tiên cao, Bond System, truyện ngắn theo nhân vật, tiếp tục repo này. Đây là ưu tiên cao hơn các dải mục tiêu 24–30 và ghi chú \"chưa duyệt 24 hero\" bên dưới. **Các số còn lại trong Launch Content Matrix vẫn là đề xuất.** Codex: WP01 audit chỉ đọc trước khi triển khai; không tự sửa gameplay/economy/save.\n\n## Ưu tiên chiến lược trước đó (bối cảnh, chưa phải runtime)
+## Quyết định sản phẩm mới nhất — 2026-11-08 (chưa phải runtime)
+
+**ĐÃ DUYỆT:** [GAME_DESIGN_V1.md](GAME_DESIGN_V1.md) chốt **24 hero, 12 nam/12 nữ, tất cả gốc 5★**, Gallery và Summon Reveal ưu tiên cao, Bond System, truyện ngắn theo nhân vật, tiếp tục repo này. Đây là ưu tiên cao hơn các dải mục tiêu 24–30 và ghi chú "chưa duyệt 24 hero" bên dưới. **Các số còn lại trong Launch Content Matrix vẫn là đề xuất.** Codex: WP01 audit chỉ đọc trước khi triển khai; không tự sửa gameplay/economy/save.
+
+## Ưu tiên chiến lược trước đó (bối cảnh, chưa phải runtime)
 
 Ngày 2026-11-08, chủ dự án xác nhận mục tiêu **Full Content Launch**: không đưa một game ít hero ra thị trường để thử retention rồi mới làm thêm nội dung. **Dự kiến phát hành Aternal Senia khi đã có roster nam/nữ phong phú, nhiều tinh linh, bộ trang bị, Boss, phó bản, hành trình và hệ kiếm tiền hoạt động thực**. Xem [Game Business & Monetization Plan V0.2](BUSINESS_MONETIZATION_PLAN.md) cho dải mục tiêu đề xuất và lộ trình sản xuất.
 
@@ -47,11 +51,20 @@ tổng kết và xem lại lô đã commit sau khi tải save. Giữ savev12, ch
 pool/pity/giá và art cũ; chưa thêm 20 hero, Bond hoặc combat launch mới.
 Chi tiết tương thích snapshot và kế hoạch migration roster: [HERO_COLLECTION](HERO_COLLECTION.md).
 
+## Cập nhật0.38 — dọn UI và hiển thị Caelan (mốc trước tích hợp)
+
+Ở mốc dọn UI, Caelan hiện qua registry preview riêng; bản tích hợp mới bên dưới đã thay entry này bằng hero runtime. Khi đó dùng đúng
+art mới; ghi rõ **Design preview · Not playable**. Không tự cấp hero, mảnh hoặc
+nhập kit đang đề xuất vào combat. Vẫn4 hero gameplay; thêm1 thiết kế xem trước.
+Đã bỏ UI kỹ năng/tinh linh trùng, helper không dùng và recorder cũ; giữ model và
+renderer singleton để resume save cũ. Home hiện version0.38.0; export Android in
+version/commit để tránh mở nhầm thư mục cũ. [Chi tiết dọn](CLEANUP_0_38.md).
+
 ## UI Design V2 — Showcase, Reveal, Home
 
 Đã có Home riêng khi khởi động (page24), nút Home trên header; Journey giữ page0.
 Showcase xem art/identity/skill copy thật, chọn portrait, mở Equipment/Wardrobe qua
-UI cũ; Bond/Story khóa. Reveal mới trình bày snapshot kết quả đã commit, có summary,
+trang quản lý hiện hành; Bond/Story khóa. Reveal mới trình bày snapshot kết quả đã commit, có summary,
 skip/replay và reduced motion; không gọi summon/RNG. Chọn portrait Home chỉ trong
 RAM, không ghi save/formation/avatar. Module và handoff riêng ở
 [UI_DESIGN_V2](UI_DESIGN_V2.md); artwork, pose, kỹ năng và nhân vật không đổi.
@@ -152,7 +165,7 @@ Bước tiếp theo hợp lý: kiểm thử bản0.37 trên điện thoại củ
 
 Bản0.37 đã qua39 suite trên Godot4.6.3/Linux/Xvfb:
 [biên bản](verification/supplies-0.37.json).
-Sau dọn repo, dùng workflow Project verification, runner47 suite và kiểm tra
+Sau dọn repo, dùng workflow Project verification, runner48 suite và kiểm tra
 tham chiếu/audio. Ảnh/log/PCM mới ở work/checks hoặc artifact của lượt chạy,
 không đưa output trở lại repo. Xem [TESTING](TESTING.md) và
 [REPOSITORY_CLEANUP](REPOSITORY_CLEANUP.md) cho kết quả cụ thể.

@@ -23,11 +23,14 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 
 | Tài liệu | Phạm vi |
 | --- | --- |
-|[GAME_DESIGN_V1](GAME_DESIGN_V1.md)|**Đã duyệt 6 quyết định collector-first**: 24 hero 12/12, 5★, Gallery/Summon Reveal, Bond, truyện ngắn nhân vật, giữ repo; lộ trình Codex WP01–WP08 và ranh giới chưa duyệt|\n|[BUSINESS_MONETIZATION_PLAN](BUSINESS_MONETIZATION_PLAN.md)|**Business Design V0.2 — Full Content Launch**: sản xuất nhiều hero nam/nữ đẹp, tinh linh, gear, Boss và phó bản trước khi phát hành chính thức; rewarded ads + IAP thật, QA nội bộ, kinh tế, business KPI sau phát hành|
+|[GAME_DESIGN_V1](GAME_DESIGN_V1.md)|**Đã duyệt 6 quyết định collector-first**: 24 hero 12/12, 5★, Gallery/Summon Reveal, Bond, truyện ngắn nhân vật, giữ repo; lộ trình Codex WP01–WP08 và ranh giới chưa duyệt|
+|[BUSINESS_MONETIZATION_PLAN](BUSINESS_MONETIZATION_PLAN.md)|**Business Design V0.2 — Full Content Launch**: sản xuất nhiều hero nam/nữ đẹp, tinh linh, gear, Boss và phó bản trước khi phát hành chính thức; rewarded ads + IAP thật, QA nội bộ, kinh tế, business KPI sau phát hành|
 |[LAUNCH_CONTENT_MATRIX](LAUNCH_CONTENT_MATRIX.md)|**Full Content Launch · Partially Approved V0.1**: 24 hero đã duyệt (các mục khác còn draft); 24 hero (12 nam/12 nữ), 12 tinh linh, 12 gear set, 7 vùng, 84 stage, 12 Boss, 8 dungeon, 24 costume variants; bảng sản xuất và điều kiện nghiệm thu|
 |[CONTENT_REGISTRY_DRAFT](launch/CONTENT_REGISTRY_DRAFT.json)|Danh mục JSON cấu trúc cho Codex tra cứu 24 hero, 12 tinh linh, 12 set, 7 region, 84 stage, 12 Boss, 8 dungeon; **không tự import vào runtime**|
 
-**Quyết định mới nhất:** Game Design V1.0 đã duyệt 24 hero 12 nam/12 nữ và 5★ gốc; các mục khác của Launch Content Matrix vẫn là bản thảo. Codex bắt đầu bằng WP01 audit chỉ đọc.\n\n**Ưu tiên:** Hoàn thiện dàn nội dung lớn và hệ kiếm tiền thật trước khi phát hành; QA nội bộ kỹ lưỡng, không public bản thiếu nội dung. Retention/KPI dùng sau phát hành để cải thiện sản phẩm. Giá, mức thưởng và số lượng nội dung trong kế hoạch chưa được chốt.
+**Quyết định mới nhất:** Game Design V1.0 đã duyệt 24 hero 12 nam/12 nữ và 5★ gốc; các mục khác của Launch Content Matrix vẫn là bản thảo. Codex bắt đầu bằng WP01 audit chỉ đọc.
+
+**Ưu tiên:** Hoàn thiện dàn nội dung lớn và hệ kiếm tiền thật trước khi phát hành; QA nội bộ kỹ lưỡng, không public bản thiếu nội dung. Retention/KPI dùng sau phát hành để cải thiện sản phẩm. Giá, mức thưởng và số lượng nội dung trong kế hoạch chưa được chốt.
 
 ## Gameplay và dữ liệu
 
@@ -53,6 +56,8 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 |[EXPANSION](EXPANSION.md)|Traits/talents, tinh linh, nhánh/achievement; mốc0.7|
 |[UNIQUE_COLLECTION](UNIQUE_COLLECTION.md)|Lịch sử mảnh/migration; singleton gear0.23 đã bị0.30 thay thế|
 |[PROGRESSION_09](PROGRESSION_09.md)|Lịch sử skill/triệu hồi; dùng SUMMON_VISUALS/SUPPLIES cho UI/vé hiện tại|
+
+[CLEANUP_0_38](CLEANUP_0_38.md): UI cũ đã bỏ, Caelan preview, file giữ lại và cách mở đúng bản Godot mới.
 
 ## UI và bàn giao riêng
 

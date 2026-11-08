@@ -55,3 +55,9 @@ không sao chép cơ chế lỗi thời trở lại code.
 - Replace Gallery's simple preview with a read-only Showcase, real Information/Skills and guarded Equipment/Wardrobe routes. Bond/Story remain locked.
 - Refresh committed-results Reveal and summary, including hero details and reduced motion. Preserve summon transactions, replay, old saves and pending battle behavior.
 - Document UI/character workstream boundaries in UI_DESIGN_V2; source character art, contracts and mechanics are unchanged.
+
+## 0.38.0 — Cleanup and delivered-character previews
+
+- Register Caelan's canonical delivered illustration in Home/Gallery/Showcase as an explicit non-playable design preview. Keep ownership, pool and save schema unchanged.
+- Remove duplicate legacy skill/spirit screen builders, seven uncalled UI helpers, an unreachable standalone Summon branch and three obsolete movie recorders. Redirect old page6/7 links to current screens.
+- Refresh stale combat/help copy; show version on Home and include commit/version in fresh Android export paths. Preserve source artwork/provenance and old-save battle compatibility.

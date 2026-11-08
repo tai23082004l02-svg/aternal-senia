@@ -50,7 +50,7 @@ func _ready() -> void:
 	affinities.add_theme_constant_override("separation", 6)
 	tabs.add_child(affinities)
 	var values: Array[String] = ["All"]
-	for row in game.catalog.data.heroes:
+	for row in game.catalog.data.heroes + CharacterPreviews.rows():
 		if str(row.element) not in values: values.append(str(row.element))
 	for value in values:
 		var button: Button = game._button(affinities, value.capitalize(), Vector2.ZERO, Vector2(88, 44), set_filter.bind("affinity", value))
@@ -99,9 +99,9 @@ func _ready() -> void:
 		picker.custom_minimum_size = Vector2(190 if field == "ownership" else 194, 44)
 		picker.add_theme_font_size_override("font_size", 13)
 		var options: Array[String] = ["All"]
-		if field == "ownership": options.append_array(["Owned", "Locked"])
+		if field == "ownership": options.append_array(["Owned", "Locked", "Previews"])
 		else:
-			for row in game.catalog.data.heroes:
+			for row in game.catalog.data.heroes + CharacterPreviews.rows():
 				if str(row.role) not in options: options.append(str(row.role))
 		for value in options:
 			picker.add_item(tr("All heroes" if field == "ownership" else "All roles") if value == "All" else tr(value))
@@ -165,14 +165,20 @@ func rebuild() -> void:
 		var values: Array = pickers[field].get_meta("values")
 		pickers[field].select(maxi(0, values.find(get(field))))
 	var rows: Array = game.catalog.data.heroes.duplicate()
+	rows.append_array(CharacterPreviews.rows())
 	rows.sort_custom(func(a,b): return a.gallery_order < b.gallery_order)
 	var owned_count := 0
+	var preview_count := 0
+	var shown_previews := 0
 	for row in rows:
-		var owned: bool = game.store.available_hero(row.id)
+		var preview: bool = row.get("preview", false)
+		var owned: bool = not preview and game.store.available_hero(row.id)
+		if preview: preview_count += 1
 		if owned: owned_count += 1
 		if affinity != "All" and row.element != affinity: continue
 		if role != "All" and row.role != role: continue
-		if ownership == "Owned" and not owned or ownership == "Locked" and owned: continue
+		if ownership == "Owned" and not owned or ownership == "Locked" and (owned or preview) or ownership == "Previews" and not preview: continue
+		if preview: shown_previews += 1
 		visible_ids.append(row.id)
 		var card := Button.new()
 		card.name = "Hero_" + row.id
@@ -181,26 +187,27 @@ func rebuild() -> void:
 		decorate(card)
 		var border: StyleBoxFlat = UIDesignV2.card_frame(owned)
 		card.add_theme_stylebox_override("normal", border)
-		card.tooltip_text = "%s · %s · %s\n%s\n%s" % [row.name, str(row.element).capitalize(), row.role, tr("Owned" if owned else "Not owned"), row.acquisition]
+		card.tooltip_text = "%s · %s · %s\n%s\n%s" % [row.name, str(row.element).capitalize(), row.role, tr("Design preview · Not playable" if preview else ("Owned" if owned else "Not owned")), row.acquisition]
 		card.pressed.connect(game._on_button.bind(showcase.bind(row.id)))
 		cards.add_child(card)
 		card_buttons[row.id] = card
 		var portrait := GalleryPortrait.new()
 		portrait.texture = HeroContract.art_texture(row,"card")
-		portrait.locked = not owned
+		portrait.locked = not owned and not preview
+		portrait.face = row.art.get("face", [])
 		portrait.position = Vector2(3, 3)
 		portrait.size = Vector2(card.custom_minimum_size.x - 6, 162 if detailed else 121)
 		portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(portrait)
-		var badge := text(card, str(row.element).capitalize(), 10, IVORY)
-		badge.position = Vector2(7, 7)
+		var badge := text(card, ("Preview" if preview else str(row.element).capitalize()), 10, IVORY)
+		badge.position = Vector2(7, (140 if detailed else 99) if preview else 7)
 		badge.add_theme_stylebox_override("normal", game._style(Color("101a32e8"), Color("82704d"), 4))
 		var name_label := text(card, row.name, 15 if detailed else 13, IVORY)
 		name_label.position = Vector2(4, 168 if detailed else 125)
 		name_label.size = Vector2(card.custom_minimum_size.x - 8, 22)
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		var status := text(card, "Owned" if owned else "◇ Locked", 11, Color("a8d8cb") if owned else MUTED)
+		var status := text(card, "Preview" if preview else ("Owned" if owned else "◇ Locked"), 11, Color("a8d8cb") if owned else MUTED)
 		status.position = Vector2(4, 192 if detailed else 148)
 		status.size.x = card.custom_minimum_size.x - 8
 		status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -214,20 +221,25 @@ func rebuild() -> void:
 			stars.position = Vector2(4, 165)
 			stars.size.x = card.custom_minimum_size.x - 8
 			stars.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	collection_count.text = tr("Owned %d / %d") % [owned_count, rows.size()]
-	result_count.text = tr("%d heroes shown") % visible_ids.size()
+	collection_count.text = tr("Owned %d / %d") % [owned_count, rows.size() - preview_count]
+	result_count.text = tr("%d entries · %d design preview") % [visible_ids.size(), shown_previews]
 	empty_state.visible = visible_ids.is_empty()
 	scroller.scroll_vertical = 0
 
 class GalleryPortrait extends Control:
 	var texture: Texture2D
 	var locked := false
+	var face: Array = []
 	func _draw() -> void:
 		if texture == null: return
 		var dimensions := texture.get_size()
 		var height := dimensions.y * .86
 		var width := minf(dimensions.x, height * size.x / size.y)
 		var source := Rect2(clampf(dimensions.x * .54 - width / 2, 0, dimensions.x - width), 0, width, height)
+		if face.size() == 4:
+			var crop_height: float = minf(dimensions.y, float(face[3]) * 2.8)
+			var crop_width: float = minf(dimensions.x, crop_height * size.x / size.y)
+			source = Rect2(clampf(float(face[0]) + float(face[2]) / 2 - crop_width / 2, 0, dimensions.x - crop_width), maxf(0, float(face[1]) - float(face[3]) * .1), crop_width, crop_height)
 		draw_texture_rect_region(texture, Rect2(Vector2.ZERO, size), source, Color(.55,.57,.67) if locked else Color.WHITE)
 		if locked: draw_rect(Rect2(Vector2.ZERO, size), Color(.06,.08,.18,.18))
 

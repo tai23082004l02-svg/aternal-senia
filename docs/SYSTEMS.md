@@ -28,6 +28,13 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 |BattleView/TeamBattleUI/CombatEffects|Đọc model/events và vẽ; renderer không đổi HP/RNG/ví|
 |AudioDirector|Tiêu thụ marker/cursor, bus/pool/limiter và nhạc; presentation variation không dùng RNG trận|
 
+## Character delivery previews
+
+`CharacterPreviews` reads `game/data/character_previews.json` for explicit
+presentation-only entries. It does not append to GameCatalog or mutate saves,
+recruitment, ownership or Formation. This registers Caelan's delivered art in
+Gallery/Home/Showcase without pretending his proposed kit is implemented.
+
 ## Presentation V2
 
 `UIDesignV2` owns presentation tokens and controls; `HomeScreen` is startup page24,

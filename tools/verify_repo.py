@@ -34,10 +34,19 @@ for name in tracked:
 catalog=json.loads((ROOT/'game/data/catalog.json').read_text())
 expansion=json.loads((ROOT/'game/data/expansion.json').read_text())
 world=json.loads((ROOT/'game/data/dungeon_world.json').read_text())
+previews=json.loads((ROOT/'game/data/character_previews.json').read_text())
+preview_ids=[]
+hero_ids={row['id'] for row in catalog['heroes']}
+for row in previews['characters']:
+    if row['id'] in preview_ids or row['id'] in hero_ids:errors.append('Preview ID overlaps runtime or another preview: '+row['id'])
+    preview_ids.append(row['id'])
+    for path in [row['art']['banner']]:
+        if not path.startswith('res://') or not (ROOT/path.removeprefix('res://')).is_file():errors.append('Missing character preview art: '+path)
+
 summary={
     'tracked_files':len(tracked),
     'tracked_bytes':sum((ROOT/n).stat().st_size for n in tracked if (ROOT/n).is_file()),
-    'heroes':len(catalog['heroes']),'equipment':len(catalog['items']),'sets':len(catalog['sets']),
+    'heroes':len(catalog['heroes']),'character_previews':len(preview_ids),'equipment':len(catalog['items']),'sets':len(catalog['sets']),
     'playable_stages':len(catalog['stages'])+len(expansion['stages']),
     'dungeon_entries':len(world['entries']),
     'live_dungeon_entries':sum(bool(e['stage']) for e in world['entries']),

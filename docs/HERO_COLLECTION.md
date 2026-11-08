@@ -98,6 +98,16 @@ navigation. Bond/Story stay locked. Reveal and its summary use V2 panels/control
 recorded result labels and reduced-motion handling. Home links to Gallery and
 Showcase; it never changes formation or avatar when cycling portraits.
 
+## Delivered character previews —0.38 (historical milestone)
+
+Caelan has since been promoted to a playable runtime hero; his duplicate preview entry is removed. See CAELAN_RUNTIME for current behavior. The generic preview mechanism is retained.
+
+Caelan's original illustration is now registered separately for Home/Gallery/
+Showcase. Gallery shows4 hero definitions +1 design preview, with a Previews
+filter; ownership totals and summon pools remain based on the four playable hero
+definitions. Preview entries have no management/skill actions or invented stats.
+See [cleanup and update guide](CLEANUP_0_38.md).
+
 ## Player flow
 
 Heroes → Gallery opens the current four-hero collection. Filter by affinity,
