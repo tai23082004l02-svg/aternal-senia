@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Triệu hồi · 0.17
 
 Giao diện hiện hành từ0.33: [SUMMON_VISUALS](SUMMON_VISUALS.md). Cơ chế kho từ0.30: [BAG_INVENTORY](BAG_INVENTORY.md), nhiều bản gear cùng tên, mỗi UID độc lập; không còn gộp gear trùng thành mảnh.
@@ -27,10 +29,10 @@ Lịch sử mở modal cuộn, mới nhất ở trên, giữ tối đa100 lượ
 quay x10 có bảng kết quả đủ10 dòng. Đã gộp bản đồ họa/Lyra, save v6 đọc save v2–v5 cũ, UID/phần thưởng cũ
 giữ nguyên. Bản game cũ trước0.17 không hỗ trợ lịch sử dài hơn10 lượt.
 
-![Thường](previews/summon-normal.png)
-![Cao cấp](previews/summon-premium.png)
-![Sự kiện](previews/summon-event.png)
-![Kết quả x10](previews/summon-results.png)
+![Thường](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-normal.png)
+![Cao cấp](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-premium.png)
+![Sự kiện](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-event.png)
+![Kết quả x10](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-results.png)
 
 Kiểm thử: summon_batch so sánh x10 với10 lần đơn, lỗi ghi/reload, thiếu vàng,
 giữ hai bộ đếm riêng; summon_ui kiểm bố cục, xác nhận, khóa banner chưa mở,

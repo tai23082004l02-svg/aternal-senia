@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Nhiệm vụ & Phần thưởng · 0.20
 
 Ba tab Hằng ngày / Hằng tuần / Tiến trình, giữ tông màu game. Ngày và tuần có
@@ -46,9 +48,9 @@ utilities_ui, player_profile, ui_flow, animation_gallery đạt. Đã gộp Ryn0
 kiểm lại ryn_art, complete_art và visual_ui. Đã xem ảnh Godot
 Linux; chưa thử điện thoại thật.
 
-![Hoạt động60 điểm](previews/missions-active.png)
-![Nhiệm vụ tuần](previews/missions-weekly.png)
-![Tiến trình cũ](previews/missions-progress.png)
-![Quà rương](previews/missions-chest.png)
+![Hoạt động60 điểm](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/missions-active.png)
+![Nhiệm vụ tuần](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/missions-weekly.png)
+![Tiến trình cũ](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/missions-progress.png)
+![Quà rương](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/missions-chest.png)
 
 Từ0.26, giao diện đổi khung fantasy/viền vàng, rương lớn và thẻ ngang; logic và thưởng giữ nguyên. Xem [MISSION_VISUALS.md](MISSION_VISUALS.md).

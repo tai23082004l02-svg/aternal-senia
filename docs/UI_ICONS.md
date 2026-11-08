@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Icon giao diện · 0.8.1
 
 Bộ 16 icon tạo riêng bằng image generation, PNG alpha tại `art/ui/icons.png`.
@@ -27,6 +29,6 @@ không tràn nút kỹ năng), `training_ui.gd`, `animation_gallery.gd`,
 `icon_gallery.gd`. Đã xem ảnh gameplay, trang nhân vật và contact sheet icon.
 Chưa thử cảm ứng hoặc độ rõ trên màn hình điện thoại thật.
 
-![Bộ icon, hai kích thước](previews/icon-gallery.png)
-![Icon trong chiến đấu](previews/icons-combat.png)
-![Trang nhân vật](previews/icons-heroes.png)
+![Bộ icon, hai kích thước](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/icon-gallery.png)
+![Icon trong chiến đấu](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/icons-combat.png)
+![Trang nhân vật](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/icons-heroes.png)

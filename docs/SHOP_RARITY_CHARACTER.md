@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Shop, độ hiếm & nhân vật · 0.12
 
 ## Nhân vật bảy mục
@@ -102,8 +104,8 @@ Regression81, mechanics54 tổ hợp, campaign5, expansion60, expansion_campaign
 combat_presentation đều đạt. ui_flow, mobile_inventory và animation_gallery đạt.
 Ảnh dùng fixture riêng. Chưa thử điện thoại/touch/safe-area thật hoặc hiệu năng.
 
-![Shop vàng](previews/v12-shop-gold.png)
-![Quảng cáo thưởng chưa mở](previews/v12-shop-ads.png)
-![Kỹ năng trong khung phải](previews/v12-character-skills.png)
-![Trang phục](previews/v12-character-outfits.png)
-![Hero5★ gốc, Mở rộng1](previews/v12-character-touch.png)
+![Shop vàng](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/v12-shop-gold.png)
+![Quảng cáo thưởng chưa mở](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/v12-shop-ads.png)
+![Kỹ năng trong khung phải](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/v12-character-skills.png)
+![Trang phục](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/v12-character-outfits.png)
+![Hero5★ gốc, Mở rộng1](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/v12-character-touch.png)

@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Vuốt cuộn nội dung · 0.31.1
 
 Sửa lỗi phải kéo đúng thanh cuộn bên phải trên Godot Android. Các vùng cuộn

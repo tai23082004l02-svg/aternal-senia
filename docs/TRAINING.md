@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Rèn luyện & Sổ tay boss · 0.8
 
 ## Tham khảo và quyết định
@@ -69,5 +71,5 @@ Godot 4.6.3 Linux:
 Chưa thử touch hoặc hiệu năng trên điện thoại thật. Mỹ thuật Ryn/Mira và một số
 vùng/quái vẫn là hình mẫu như trước.
 
-![Điểm thuộc tính](previews/attribute-training.png)
-![Sổ tay boss](previews/boss-guide.png)
+![Điểm thuộc tính](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/attribute-training.png)
+![Sổ tay boss](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/boss-guide.png)

@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 > Từ0.37 có tab Vật phẩm với ledger cộng dồn riêng; savev12 giữ nhiều bản gear và40 ô như cũ. Xem [SUPPLIES.md](SUPPLIES.md).
 
 # Túi đồ & Lò rèn · 0.30
@@ -24,11 +26,11 @@ tên**. Quy tắc mỗi item ID một món của0.23 được thay thế từ b�
 - Lò rèn có tranh riêng, bốn tab chế tạo/cường hóa/hợp thành/phân giải.
   Thanh điều hướng chính luôn có ở dưới, nội dung dài cuộn trong màn.
 
-![Tổng quan](previews/bag-home.png)
-![Kho trang bị](previews/bag-equipment.png)
-![Tinh linh](previews/bag-spirits.png)
-![Nguyên liệu](previews/bag-materials.png)
-![Lò rèn](previews/bag-forge.png)
+![Tổng quan](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/bag-home.png)
+![Kho trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/bag-equipment.png)
+![Tinh linh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/bag-spirits.png)
+![Nguyên liệu](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/bag-materials.png)
+![Lò rèn](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/bag-forge.png)
 
 ## Quy tắc sở hữu và chi phí
 

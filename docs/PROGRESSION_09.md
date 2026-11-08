@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Kỹ năng, nâng cấp, triệu hồi · 0.9
 
 ## Hai cây kỹ năng
@@ -107,11 +109,11 @@ và `animation_gallery` chạy trên X11/Mesa; đã xem ảnh. Các số dư l�
 là fixture test riêng, không phải save người chơi. Chưa test điện thoại thật,
 cảm ứng, FPS/nhiệt hoặc nghe qua loa thật.
 
-![Nâng cấp nhân vật](previews/hero-upgrade.png)
-![Cây nhân vật](previews/hero-skill-tree.png)
-![Cây Tinh linh](previews/spirit-skill-tree.png)
-![Triệu hồi](previews/summoning.png)
-![Kết quả triệu hồi](previews/summon-result.png)
-![Kiếm quang](previews/skill-radiant.png)
-![Hồi phục](previews/skill-restoration.png)
-![Tinh linh](previews/skill-spirit.png)
+![Nâng cấp nhân vật](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/hero-upgrade.png)
+![Cây nhân vật](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/hero-skill-tree.png)
+![Cây Tinh linh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/spirit-skill-tree.png)
+![Triệu hồi](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summoning.png)
+![Kết quả triệu hồi](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-result.png)
+![Kiếm quang](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/skill-radiant.png)
+![Hồi phục](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/skill-restoration.png)
+![Tinh linh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/skill-spirit.png)

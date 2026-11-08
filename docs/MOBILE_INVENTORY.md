@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Giao diện mobile & Túi đồ · 0.10
 
 Theo bố cục người dùng cung cấp, thanh dưới có đúng năm mục từ trái qua phải:
@@ -46,11 +48,11 @@ cuộn trong vùng, trạng thái rỗng, đổi bản đồ, pause/build lock v
 Chạy lại ui_flow, training_ui, animation_gallery và xem ảnh render; regression
 81 checks, mechanics 54 tổ hợp và campaign 5 màn đều đạt. Test dùng profile riêng.
 
-![Hành trình](previews/mobile-home.png)
-![Shop](previews/mobile-shop.png)
-![Phó bản](previews/mobile-dungeons.png)
-![Túi đồ](previews/mobile-bag.png)
-![Kho trang bị](previews/mobile-equipment.png)
-![Chi tiết trang bị](previews/mobile-item-detail.png)
-![Kho nguyên liệu](previews/mobile-materials.png)
-![Tinh linh](previews/mobile-spirit-detail.png)
+![Hành trình](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mobile-home.png)
+![Shop](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mobile-shop.png)
+![Phó bản](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mobile-dungeons.png)
+![Túi đồ](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mobile-bag.png)
+![Kho trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mobile-equipment.png)
+![Chi tiết trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mobile-item-detail.png)
+![Kho nguyên liệu](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mobile-materials.png)
+![Tinh linh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/mobile-spirit-detail.png)

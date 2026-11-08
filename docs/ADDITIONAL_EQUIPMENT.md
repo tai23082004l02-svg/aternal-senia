@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Ba bộ trang bị mới · 0.35
 
 Thêm **18 món, ba bộ**, mỗi bộ gồm kiếm/thương/trượng/giáp/giày/phụ kiện.
@@ -97,6 +99,6 @@ ui_flow/animation_gallery/swipe_scroll đạt. Các fixture cũ không cố nhé
 vào túi40; kiểm mở hero dùng lượt quay đích thật, không lệ thuộc seed của pool
 cũ. Test riêng, Godot4.6.3 Linux/X11/Mesa; chưa kiểm trên điện thoại thật.
 
-![Mặc Lâm Vệ](previews/new-set-grove.png)
-![Mặc Lôi Ảnh](previews/new-set-storm.png)
-![Mặc Nguyệt Tinh](previews/new-set-moon.png)
+![Mặc Lâm Vệ](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/new-set-grove.png)
+![Mặc Lôi Ảnh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/new-set-storm.png)
+![Mặc Nguyệt Tinh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/new-set-moon.png)

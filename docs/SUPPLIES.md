@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Vật phẩm thiết yếu · 0.37
 
 Theo yêu cầu mới nhất: **làm những món cần thiết trước**, không triển khai cả30
@@ -51,10 +53,10 @@ AFK hiện chỉ trả vàng:120 phút × mốc Hành trình đã mở ×2 vàng
 Dùng đồng hồ không sửa last_offline; phần AFK đang tích lũy vẫn giữ nguyên.
 Âm thưởng/nâng cấp/reveal dùng bộ ElevenLabs hiện có và chỉ phát sau commit.
 
-![Danh sách](previews/supplies/supplies-list.png)
-![Thuốc/vé/rương](previews/supplies/supplies-list-bottom.png)
-![Rương chọn](previews/supplies/supplies-chest.png)
-![Chuẩn bị thuốc](previews/supplies/supplies-support.png)
+![Danh sách](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/supplies/supplies-list.png)
+![Thuốc/vé/rương](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/supplies/supplies-list-bottom.png)
+![Rương chọn](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/supplies/supplies-chest.png)
+![Chuẩn bị thuốc](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/supplies/supplies-support.png)
 
 ## Save và transaction
 
@@ -82,11 +84,11 @@ Supplies là model duy nhất quản lý ledger/nguồn/recipe; UI không tự t
 tests/supplies kiểm migration/backup/UID, rollback/claims/rương/cap/ticket đầy túi,
 snapshot thuốc/mở lại/loss/replay, skill/seed/AFK. supplies_ui kiểm confirm/hủy,
 đúng hero/UID, bounds, source navigation, pending khóa và alpha thật.
-Workflow supplies.yml chạy thêm các suite save/combat/inventory/gacha/audio/UI
-cũ trước khi xuất ảnh (39 suite, gồm team_matrix/team_campaign/shop_ui hai suite ba bộ mới cùng các suite cài đặt/âm thanh/tiện ích). Chưa thử cảm ứng/FPS hoặc nghe qua loa điện thoại thật.
+Lượt CI supplies.yml lịch sử chạy các suite save/combat/inventory/gacha/audio/UI
+trước khi xuất ảnh; nay dùng [runner/workflow chung](TESTING.md) (39 suite, gồm team_matrix/team_campaign/shop_ui hai suite ba bộ mới cùng các suite cài đặt/âm thanh/tiện ích). Chưa thử cảm ứng/FPS hoặc nghe qua loa điện thoại thật.
 
 ## Kết quả bản0.37
 
 39/39 suite PASS trên Godot4.6.3/Xvfb. [Lượt chạy đầy đủ](https://github.com/tai23082004l02-svg/aternal-senia/actions/runs/42454548106).
-[Chứng cứ máy đọc](previews/supplies/verification.json) ghi commit nguồn, môi trường và từng suite.
+[Chứng cứ máy đọc](verification/supplies-0.37.json) ghi commit nguồn, môi trường và từng suite.
 Giữ bản cập nhật trang bị0.35 và Cài đặt0.36; v11 thêm ledger rỗng khi đọc lênv12.

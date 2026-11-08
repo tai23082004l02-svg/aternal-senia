@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Lộ trình vật phẩm theo yêu cầu người dùng
 
 Phạm vi hiện hành: [8 món thiết yếu0.37](SUPPLIES.md). Không tạo30 vật phẩm chỉ

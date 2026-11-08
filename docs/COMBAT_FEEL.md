@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Cảm giác chiến đấu · 0.6
 
 ## Nội dung
@@ -27,6 +29,6 @@ Godot 4.6.3, Linux, renderer Compatibility/X11/Mesa:
 - combat_scenarios: 9 ảnh của slash, burst, heal, cảnh báo boss, guard/slam, khiên, vỡ khiên, phản đòn và thua. Đây là fixture thử các trạng thái, không phải toàn bộ ảnh chụp từ một lượt chơi tự nhiên.
 - combat_movie: một trận ải 1 từ profile mới với seed cố định; điều khiển qua API đánh/guard/skill thực, không sửa HP/chỉ số. Kiểm thắng, lưu kết quả và modal trễ. Video 475 frame / 30 FPS, dài 15,83 giây, ghi hình và mixer bằng Godot Movie Maker rồi nén H.264/AAC. Đã xem các frame trích xuất; không xem việc kiểm PCM là đã nghe qua loa.
 
-[Video có âm thanh](previews/combat-demo.mp4) · [Va chạm kiếm](previews/combat-impact.png) · [Boss tụ lực](previews/combat-telegraph.png) · [16 pose mới](previews/eira-motion.png)
+[Video có âm thanh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/combat-demo.mp4) · [Va chạm kiếm](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/combat-impact.png) · [Boss tụ lực](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/combat-telegraph.png) · [16 pose mới](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/eira-motion.png)
 
 Chưa thử điện thoại, touch thật, FPS/nhiệt trên thiết bị hoặc nghe qua loa thật. Ryn/Mira/Ash và các vùng ngoài rừng còn SVG. Chuyển pose sprite vẫn có thể nhận ra, chưa phải animation mượt như game thương mại.

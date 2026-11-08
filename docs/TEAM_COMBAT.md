@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Đội hình 3vN · 0.24
 
 ## Đội hình
@@ -109,11 +111,11 @@ AI chọn kỹ năng thông minh, cơ chế riêng/phim Ultimate từng hero và
 Boss phức tạp hơn vẫn cần phát triển. Ảnh đội thử dùng fixture Ryn/Mira/Eira/Ash,
 không tự đổi đội hình hoặc cấp các nhân vật đó cho tài khoản người chơi.
 
-[Video trận thật](previews/team-battle.mp4)
+[Video trận thật](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/team-battle.mp4)
 
-![Đội hình](previews/team-formation.png)
-![3v3](previews/team-3v3.png)
-![Boss và lính](previews/team-boss-adds.png)
+![Đội hình](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/team-formation.png)
+![3v3](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/team-3v3.png)
+![Boss và lính](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/team-boss-adds.png)
 
 Từ0.25, giao diện đội hình đổi sang một ô trước/hai ô sau, thanh chọn tinh linh và lưới chân dung theo sơ đồ người dùng. Slot/model/save không đổi; xem [FORMATION_SCREEN.md](FORMATION_SCREEN.md).
 

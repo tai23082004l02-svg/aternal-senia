@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 > Từ0.35 thêm Vé Triệu Hồi Thường dùng qua kho vật phẩm, có lối vào từ Cổng Thường. Giá quay bằng vàng/pool/pity cũ giữ nguyên; chưa mở Cao cấp/Sự kiện. Xem [SUPPLIES.md](SUPPLIES.md).
 
 # Cổng triệu hồi fantasy · 0.33
@@ -41,10 +43,10 @@ battle, avatar, lore hoặc kỹ năng Ryn.
 - Lịch sử luôn mở được, tối đa100 lượt, mới nhất ở trên. Không tự chọn lại
   trạng thái/RNG hoặc phát âm reveal khi xem lịch sử/phần thưởng.
 
-![Thường](previews/summon-polished-normal.png)
-![Cao cấp chưa mở, số test riêng](previews/summon-polished-premium.png)
-![Pool chỉ xem](previews/summon-polished-preview.png)
-![Chuỗi dịch dài trong test](previews/summon-polished-long-text.png)
+![Thường](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-polished-normal.png)
+![Cao cấp chưa mở, số test riêng](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-polished-premium.png)
+![Pool chỉ xem](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-polished-preview.png)
+![Chuỗi dịch dài trong test](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/summon-polished-long-text.png)
 
 ## Kiểm chứng
 

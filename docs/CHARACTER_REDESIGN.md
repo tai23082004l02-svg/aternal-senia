@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Nhân vật: năm tab mobile · 0.28
 
 Bố cục tranh/chữ hiện hành: [CharacterPanelPage0.31](CHARACTER_PANEL_UI.md).
@@ -57,12 +59,12 @@ che nhau ở viewport540×960.
 
 ## Ảnh từ game
 
-![Thông tin](previews/character-new-info.png)
-![Bốn ô trang bị và bộ thật](previews/character-new-gear.png)
-![Phát triển](previews/character-new-development.png)
-![Kỹ năng](previews/character-new-skills.png)
-![Trang phục](previews/character-new-wardrobe.png)
-![Thiên phú](previews/character-new-talents.png)
+![Thông tin](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-new-info.png)
+![Bốn ô trang bị và bộ thật](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-new-gear.png)
+![Phát triển](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-new-development.png)
+![Kỹ năng](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-new-skills.png)
+![Trang phục](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-new-wardrobe.png)
+![Thiên phú](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-new-talents.png)
 
 ## Kiểm chứng
 

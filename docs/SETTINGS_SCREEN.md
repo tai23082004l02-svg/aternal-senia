@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Cài đặt · 0.36
 
 Studio: **ZORVYKA Games**. Email hỗ trợ: **zorvykagames@gmail.com**.
@@ -47,6 +49,6 @@ ui_flow và animation_gallery có render và xem ảnh. Music và các bài rend
 chạy trên X11; headless không có frame_post_draw. Chưa kiểm thiết bị thật hoặc
 nghe loa thật. PCM mixer không đồng nghĩa đã nghe âm thanh.
 
-![Cài đặt](previews/settings-home.png)
-![Âm thanh](previews/settings-audio.png)
-![Studio & hỗ trợ](previews/settings-other.png)
+![Cài đặt](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/settings-home.png)
+![Âm thanh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/settings-audio.png)
+![Studio & hỗ trợ](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/settings-other.png)

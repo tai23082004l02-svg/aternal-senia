@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Mục Nhân vật ba cột · 0.11
 
 Theo bản vẽ người dùng:
@@ -66,8 +68,8 @@ combat_presentation, audio93; ui_flow, training_ui và animation_gallery đều 
 Profile trong ảnh là fixture riêng. Chưa test điện thoại/touch/safe area thật.
 Eira dùng PNG; Ryn/Mira vẫn dùng artwork SVG hiện có.
 
-![Thông tin](previews/character-info.png)
-![Trang bị](previews/character-equipment.png)
-![Cường hóa](previews/character-level.png)
-![Mở rộng](previews/character-stars.png)
-![Tiến hóa](previews/character-evolution-ready.png)
+![Thông tin](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-info.png)
+![Trang bị](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-equipment.png)
+![Cường hóa](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-level.png)
+![Mở rộng](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-stars.png)
+![Tiến hóa](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/character-evolution-ready.png)

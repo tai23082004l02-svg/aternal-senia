@@ -1,71 +1,98 @@
-- Vật phẩm0.37: đọc [docs/SUPPLIES.md](docs/SUPPLIES.md) và ITEM_ROADMAP.md. Chỉ8 món ưu tiên,22 món/5 gear còn lại chưa làm. Savev12 thêm ledger supplies riêng8ID, đọc2–11, giữ UID/mảnh/ví/pending; không gộp gear thànhsingleton. Một thuốc/run, trừ cùng commit begin_run, snapshot-only, xóa lựa chọn để auto-next không tự tiêu; resume không áp lần2. Buff mới chuẩn hóa6 chữ số trước khi lưu, không sửa snapshot cũ. Vé dùng poolThường/RNG/pity cũ và rollback×10; không mở bannerPremium/Event. Phó bản101/102/103 chỉ thêm1 nguyên liệu đặc trưng; quàStory1/2/3 một lần có kiểm cleared, không tự phát khi migrate. Registry icon106, nguồn alpha8item giữ byte. Chạy supplies/supplies_ui cùng39 suite trong check_supplies.py; không đưa thuốc/vé vào equipment.items hoặc gear pool.
+# Hướng dẫn cho phiên chat phát triển tiếp
 
-- Cài đặt0.36: đọc docs/SETTINGS_SCREEN.md. Studio ZORVYKA Games, email zorvykagames@gmail.com; không dùng tên/email thiếu s cũ. Art/settings giữ byte, builder chỉ metadata. Optional prefs savev11; audio UI bus riêng chung pool12, fallback SFX cho save cũ. Preview hủy khi đóng; tự chiến khóa pending, ưu tiên heal freeze vào snapshot. Backup cục bộ có kiểm tra/xác nhận, khóa pending/read-only; không thêm cloud/ID/push/voice/sweep giả. Chạy settings/settings_audio/settings_ui và suite audio/team/utilities/ui_flow/animation_gallery.
+Đọc README → docs/GAME_STATE.md → docs/SYSTEMS.md → docs/INDEX.md trước khi sửa.
+Trạng thái tại lần dọn repo 2026-11-08: game0.37.0, Godot4.6.3, savev12.
+Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD và code trước khi làm.
 
-- Phó bản0.34: đọc [docs/DUNGEON_WORLD.md](docs/DUNGEON_WORLD.md). Chỉ giao diện/đồ họa: DungeonWorld catalogue riêng15 mục5/5/4/1; không đưa12 preview vào GameCatalog/save hoặc tạo thưởng giả. Giữ101/102/103 và pending/snapshot/quyền mở/thưởng cũ. Tháp100→500 chỉ thiết kế, chưa có tầng/3★/quét/BXH hay lịch sự kiện. Mọi vùng cuộn dùng SwipeScroll. Nguồn art/dungeons giữ byte; validate_dungeon_art.py chỉ metadata/hash, không chỉnh pixel. Có12 portrait concept,3 vệ giả dự trữ, không phải hero/boss combat mới. Chạy dungeon_world/mobile_inventory/swipe_scroll/ui_flow/animation_gallery cùng các UI liên quan, regression/mechanics/campaign/team_battle. CI nhánh codex/dungeon-world-ui chạy Godot4.6.3/Xvfb và xuất ảnh sau khi pass; không dùng CI tạo âm hay secret.
+## Cộng tác và phạm vi
 
-- Âm thanh0.32: đọc [docs/AUDIO_ADDITIONS.md](docs/AUDIO_ADDITIONS.md) và AUDIO.md. Music thật từ ElevenLabs music_v1, SFX v2; giữ raw/receipt kể cả lỗi401 ban đầu. settings.music_volume tùy chọn, default35%; bus/1player riêng, duck9dB khi combat, mute0/shutdown dừng ngay, app nền pause. Không tạo lại batch đã trả phí hoặc lộ key. Importer mới chỉ hậu kỳ; import_additional_audio trước import_chill_music. Cue thưởng/fuse/dismantle chỉ sau commit; summon một reveal/batch, history im lặng. Chạy audio/additional_audio/music/validate_audio và audio_capture + suite UI/logic liên quan.
+- Người dùng đã cho phép đẩy code lên GitHub. Kiểm main/working tree trước khi sửa
+  và trước khi push; giữ thay đổi của người khác. Không force push hoặc viết lại lịch sử.
+- Không tự mở SDK/quảng cáo/thanh toán/cloud/server hoặc phát thưởng giả từ giao diện.
+  Các dịch vụ chưa có cấu hình phải giữ khóa và giải thích.
+- Không suy diễn tính năng đã xong từ ảnh concept. Dữ liệu và hành vi thật là chuẩn.
+- Không ghi API key, token hoặc secret vào code, tài liệu, log hay runtime.
 
-- Cuộn0.31.1: đọc [docs/MOBILE_SCROLL.md](docs/MOBILE_SCROLL.md). Mọi vùng cuộn mới dùng SwipeScroll, giữ hai cờ emulate_touch_from_mouse/emulate_mouse_from_touch. PASS các thẻ/nút để engine nhận drag và SCROLL_BEGIN hủy click; không tự kéo scroll bằng _input hoặc thêm handler song song. Giữ slider/ô nhập/portrait tương tác, không để cả vùng cha/con cuộn cùng lúc. Chạy swipe_scroll và suite UI của màn sửa, ui_flow/animation_gallery.
+## Save, sở hữu và giao dịch
 
-- Túi đồ0.30: đọc [docs/BAG_INVENTORY.md](docs/BAG_INVENTORY.md). Yêu cầu mới cho phép nhiều bản cùng item base, mỗi UID/enhance/rank độc lập; quy tắc singleton0.23 bên dưới là lịch sử. Save v10 đọc v2–v9, giữ bản vật lý/UID/đầu tư/mảnh cũ/pending snapshot. Túi40 món; loot đầy vào bag_rewards tối đa128, không tự chuyển mảnh; quay/rèn nhiều món atomic. Hợp thành giữ một UID, tiêu thụ hai bản +0 không trang bị cùng base/rank, tăng rank tối đa3; mọi món đang dùng được bảo vệ khi tách. Hero/spirit trùng vẫn10 mảnh đúng ID. Chạy bag_inventory/bag_ui, unique_collection/unique_collection_ui, mobile_inventory, summon_batch/recruitment, equipment_sets/equipment_ui, regression/mechanics/campaign và UI liên quan. Art nguồn art/bag/scenes.png giữ nguyên pixel; tools/build_bag_art.py chỉ kiểm kích thước và ghi provenance.
+- `ProgressStore.VERSION=12`; file `user://first_light_v2.json` và config/name phải
+  giữ ổn định. Đọc v2–v11 qua migration và đường chuyển v1 hiện có. Không xóa/reset
+  save lỗi; giữ backup/corrupt/future-version read-only. Tests dùng profile riêng.
+- Deep copy → validate → ghi/kiểm file → commit thành công mới thay RAM.
+  Reward/run ID, pending snapshot, seed, UID và lịch sử nhận phải được bảo toàn.
+- Gear nhiều bản cùng base, mỗi UID/enhance/rank độc lập; 4 slot weapon/armor/boots/
+  accessory, túi40, +15, rank3. Loot đầy vào bag_rewards tối đa128; không tự đổi
+  gear trùng thành mảnh. Hợp thành giữ1 UID, tiêu thụ2 bản +0 không mặc cùng base/rank.
+- Hero/spirit trùng vẫn thành10 mảnh đúng ID. Không gộp lại mô hình singleton0.23.
+- Năm bậc gear duy nhất: Hiếm/Sử thi/Huyền thoại/Thần thoại/Thần thánh (mã3–7).
+  Độ hiếm hero, tinh linh và nhóm xác suất triệu hồi là các hệ riêng.
+- `Supplies` giữ ledger8ID riêng, không chiếm40 ô gear. Chỉ trừ sau xác nhận và
+  commit. Một thuốc/run; trừ cùng begin_run, ghi buff vào snapshot, xóa lựa chọn.
+  Resume không trừ/cộng lần2; auto-next không tự dùng tiếp. Giá trị buff mới chuẩn
+  hóa6 chữ số; không tái tính snapshot cũ.
+- Vé dùng pool Thường/RNG/pity/history sẵn có; x1/x10 atomic và rollback toàn bộ
+  khi thiếu ô/lỗi ghi. Cao cấp/Sự kiện vẫn khóa. Không tạo bảng rơi tất cả vật phẩm.
+- Mốc ngày/tuần theo UTC chỉ tiến; claimed vĩnh viễn không mất. VIP EXP đã có,
+  nhưng ngưỡng cấp VIP/quyền lợi/thanh toán chưa chốt.
 
-- Chiến đấu0.24: đọc docs/TEAM_COMBAT.md. Save hiện v12 đọc v2–v11, giữ collection/missions và pending singleton; không đổi snapshot đang lưu. Trận mới dùng TeamBattle/TeamBattleUI, tối đa3 hero sở hữu +1 tinh linh, 4 địch đồng thời. Formation không khóa nghề. Damage tại marker model, renderer chỉ đọc; không gọi singleton CombatEffects cho TeamBattle. Chạy team_battle/team_matrix/team_campaign/team_flow/team_ui, regression/mechanics/campaign, unique_collection và UI liên quan. Tự qua ải phải commit reward trước, dừng important Boss. Dữ liệu encounter ở game/data/team_encounters.json.
+## Chiến đấu và giao diện
 
-# Hướng dẫn dự án
+- Trận mới: TeamBattle/TeamBattleUI, tối đa3 hero sở hữu +1 tinh linh, tối đa4 địch.
+  Đội hình không khóa nghề. BattleModel giữ tương thích pending singleton cũ.
+- Model sở hữu damage, RNG, marker và phát sự kiện; renderer/frame/socket/seek
+  không sửa HP, ví hoặc reward. Nhận thưởng phải commit trước khi auto-next;
+  dừng tại Boss quan trọng.
+- Catalogue chiến đấu có18 stage. DungeonWorld riêng15 entry theo nhóm5/5/4/1;
+  chỉ101/102/103 chơi được. Không biến stage0 preview thành màn thật hoặc phát
+  thưởng/quét/3★/BXH giả. Tháp100→500 và sự kiện mùa chưa có màn chơi.
+- Mọi vùng cuộn mới dùng SwipeScroll. Giữ cả hai cờ emulate touch/mouse; PASS thẻ/
+  nút cho engine nhận drag, SCROLL_BEGIN hủy click. Không thêm bộ kéo song song.
+- Chữ/nút/chỉ số là control thật, dùng tr(), wrap/giãn/cuộn. Không bake vào tranh.
+  Xem/chọn hero/portrait/filter không tự đổi đội hình hoặc ghi save.
+  Pending/read-only khóa build/mutation; mở menu trong trận phải pause/resume đúng.
+- Cài đặt: GameOptions/SettingsScreen; studio ZORVYKA Games,
+  zorvykagames@gmail.com. Preview đóng là hủy; backup file có validate/xác nhận,
+  khóa pending/read-only. Ưu tiên heal nằm trong snapshot trận mới, cũ defaulttrue.
 
-- Trang bị0.35: đọc docs/ADDITIONAL_EQUIPMENT.md. Thêm18 item/3 set grove/storm/moon, registry98 icon (ba sheet3x2). tools/build_equipment.py là nguồn catalogue, build_icon_manifest.py hỗ trợ grid riêng; build_complete_art.py giữ alias weapon cùng lớp. Savev11 kiểm map14/26 ID cũ trước khi thêm18 ID=0, giữ UID/bag_rewards/pending, không sửa savev11 hỏng. Grove Rare rèn65 vàng+3 tinh thạch; Storm/Moon summon-only. Giữ nhóm70/25/5, thêm item làm đổi xác suất mỗi mục. Chạy additional_equipment/additional_equipment_ui, equipment_sets, bag_inventory, regression/mechanics/campaign, recruitment/summon_batch, team suites và UI/icon gallery.
+## Mỹ thuật và âm thanh
 
-- Triệu hồi0.33: đọc docs/SUMMON_VISUALS.md. Banner/art/summon không chứa chữ; builder tools/build_summon_art.py chỉ metadata. UI ngang ba loại, x1/x10 từ Recruitment.PRICE, preview chỉ từ pool thật. Giữ Cao cấp/Sự kiện khóa và bộ đếm độc lập chưa ngưỡng; không lấy rate-up/countdown/pity50/vé/giá kim cương từ ảnh mẫu. Không đổi RNG/save/âm thanh hoặc phát quà preview. Chạy summon_ui/summon_batch/recruitment, swipe_scroll/shop_ui/ui_flow/animation_gallery khi sửa.
+- Trước tạo/thay/đổi tên hero phải đọc docs/CHARACTER_BIBLE.md và
+  docs/CHARACTER_CREATION_GUIDE.md, xem ảnh chuẩn thực tế.
+  Ryn27 tuổi tóc đỏ rượu ngang vai; Lyra24 tuổi đuôi ngựa cao là hero khác.
+  Không phục hồi art/painted/ryn_* hoặc art/ryn_*.svg đã bị xóa.
+- Fantasy anime2D vẽ tay, navy/teal, ngà và vàng ấm; chiến đấu hơi chibi.
+  Không lấy asset trích từ repo tham khảo; không gọi nội dung riêng là canon Eternal Senia.
+- Tạo/chỉnh ảnh bằng image generation. Giữ nguồn PNG nguyên byte, alpha/provenance/
+  receipt; builder hiện hành chỉ metadata/region/socket. Không dùng code xóa nền/
+  vẽ lại pixel, không tự thêm rig hoặc thay toàn bộ bộ pose đang có.
+- Registry chung art/icons/manifest.json hiện106 vùng. Sửa builder tương ứng;
+  xem manifest/runtime thay vì coi mọi atlas là4x4. Giữ alias vũ khí cùng lớp.
+- Runtime audio là ElevenLabs:46 WAV,42 cue, ambience và Moonlit Rest music.
+  Giữ toàn bộ raw/receipt/provenance kể cả lỗi Music401 lịch sử.
+  Không tự tái tạo batch trả phí; không thay bằng synth. build_audio.py chỉ từ chối.
+- Audio phát theo marker, RNG presentation riêng; bounded pool12, UI/SFX bus riêng,
+  mute/pause/cursor không phát backlog. Import hậu kỳ không cần key; thứ tự
+  import_elevenlabs_audio → import_additional_audio → import_chill_music.
+  Không gọi generation API trong CI.
 
-- Nhân vật0.31: đọc docs/CHARACTER_PANEL_UI.md. Hai trang Thông tin/Trang bị dùng CharacterPanelPage và art/character_panels, không bake bất kỳ chữ/số/item/nút vào tranh. Nhãn/template dùng tr(), xuống dòng và giãn nội dung/cuộn cho bản dịch dài. Builder tools/build_character_panels.py chỉ metadata. Giữ sở hữu/UID/save0.30, không thêm Trang bị nhanh giả từ ảnh. Chạy character_design (có bản dịch dài giả lập), character_ui/equipment_ui/ui_flow/animation_gallery khi sửa.
+## Kiểm tra và vệ sinh repo
 
-- Banner0.29: đọc docs/CHARACTER_BANNERS.md. Bốn PNG nguồn art/banners giữ byte, builder tools/build_banner_manifest.py chỉ metadata. HeroBanner thay actor ở ba mục Nhân vật, giữ battle/avatar/portrait Ryn phóng lớn. Không gọi đây là rig hay layer tóc mới; chuyển động toàn tranh. Chạy character_design/character_ui/equipment_ui và ui_flow/animation_gallery khi sửa.
-
-- Nhân vật0.28: đọc docs/CHARACTER_REDESIGN.md. Năm tab trên map0/1/2/5/6; thanh chính dưới luôn hiện, không có nút thoát; Phát triển có trang2/4/3, giữ callback/index cũ. Bốn slot quanh portrait dùng EquipmentSystem0.27, node tròn là bốn talent thật. fit_actor của HeroPortrait chỉ bật ở màn mới. Chọn chân dung/node/xem trước không ghi save hoặc thay hero ra trận; pending/read-only khóa mutation. Chạy character_design/character_ui/equipment_ui, wardrobe/portrait_touch/ryn_art/ryn_gallery, ui_flow/animation_gallery khi sửa.
-
-- Trang bị0.27: đọc [docs/EQUIPMENT_SETS.md](docs/EQUIPMENT_SETS.md). Bốn slot weapon/armor/boots/accessory,3 bộ có mốc2/4, cap enhance15. EquipmentSystem áp stats/bộ vào snapshot; BattleModel/TeamBattle sở hữu burn/né/khiên/hồi SP, renderer không có damage/RNG. Save v9 đọc v2–v8; v7/v8 kiểm map14 ID cũ rồi thêm12 ID với0 mảnh, chuyển armor_3 sang accessory, giữ UID/đầu tư/pending. 26 item và80 icon; builder catalogue gọi build_equipment, builder art đầy đủ gọi icon/frame builder. Chạy equipment_sets/equipment_ui, unique_collection, rarity_system, summon_batch/recruitment, regression/mechanics/campaign và UI liên quan. Nội dung slot2/cap10/savev7 bên dưới là lịch sử.
-
-- Sở hữu/trang bị0.23: đọc [docs/UNIQUE_COLLECTION.md](docs/UNIQUE_COLLECTION.md). Save v7 đọc v2–v6, mỗi item base một UID; cấu hình nhiều hero được tham chiếu cùng món phù hợp. Mọi đường nhận gear dùng `_add_item`; trùng gear/hero/spirit thành10 mảnh đúng ID, không đổi spirit trùng thành lõi nữa. Map mới `collection_fragments`, hero giữ `recruitment.fragments`. Trang bị chỉ năm cấp Hiếm/Sử thi/Huyền thoại/Thần thoại/Thần thánh (mã3–7); nhóm quay và cooldown độc lập. Giữ pending snapshot, max enhance/rank, ví và backup khi migrate. Chạy unique_collection, unique_collection_ui, rarity_system, summon_batch/recruitment, regression/mechanics/campaign và UI liên quan. Các mô tả v5/v6, bảy độ hiếm bên dưới là lịch sử.
-
-- Icon0.22: đọc [docs/ICONS.md](docs/ICONS.md); registry chung `art/icons/manifest.json`, source PNG/provenance ở cùng thư mục. Sửa `tools/build_icon_manifest.py` và chạy builder đầy đủ khi thêm icon; không chỉnh pixel nguồn. Kiểm icon_gallery, complete_art và UI bị ảnh hưởng. Icon dự trữ không phải quyền thêm vật phẩm/tính năng mới; giữ ID/save/điều kiện khóa dịch vụ.
-
-- Trước mọi việc tạo/thay/đổi tên nhân vật, bắt buộc đọc [CHARACTER_BIBLE](docs/CHARACTER_BIBLE.md) và [CHARACTER_CREATION_GUIDE](docs/CHARACTER_CREATION_GUIDE.md). Đây là hồ sơ phong cách, canon, nguồn tham khảo và pipeline cho các phiên chat sau. Ryn0.19 tóc ngang vai và Lyra đuôi ngựa cao là hai hero riêng; không phục hồi raw Ryn cũ. Khi đổi thiết kế, cập nhật hồ sơ cùng commit. Yêu cầu mới nhất của người dùng được ưu tiên; tài liệu phiên bản cũ là lịch sử.
-
-
-- Đây là game mới Godot 4, tối đa3 hero +1 tinh linh cho trận mới từ0.24, màn hình dọc đang là mặc định.
-- Đọc README và docs trước khi sửa. Nội dung riêng, không nhập nguyên asset game gốc.
-- Giữ save người chơi; test bằng profile riêng. Không đổi tên project tùy tiện.
-- ProgressStore commit trước khi đổi RAM; run snapshot, UID và reward idempotency phải được giữ.
-- BattleModel owns hit timing; View/FrameLibrary không được sửa HP hoặc ví.
-- Không tự thêm rig, SDK, quảng cáo, server, phí runtime hoặc phá save.
-- Chạy regression.gd, mechanics.gd, campaign.gd sau sửa logic. Với UI/art, chạy ui_flow.gd / animation_gallery.gd trên display và xem ảnh.
-- Báo đúng giới hạn: Eira/Ryn/Mira/Lyra, Ash, năm vùng và các vai trò quái có PNG. Ryn là người trưởng thành 27 tuổi, portrait có lớp thân, tóc và tà áo uốn độc lập; 16 pose chiến đấu dùng thương PNG rời. Ash chuyển động bằng transform một sprite. Chưa test điện thoại thật hoặc nghe audio.
-- Fetch/status trước khi đẩy; không force push, không ghi đè thay đổi của người khác.
-- Thuộc tính 0.8: chạy tests/attribute_training.gd khi sửa điểm hoặc stats; tests/training_ui.gd khi sửa màn thuộc tính/sổ tay. Trường training bổ sung trong save v3 là tùy chọn; save cũ giữ nguyên và có điểm chưa phân bổ theo cấp. Khóa build khi còn pending run.
-- Từ 0.9 save v4 đọc v2/v3, giữ nguyên pending snapshot; cây Tinh linh lưu riêng theo assist. Chạy tests/recruitment.gd, tests/skill_effects.gd, tests/progression_ui.gd và tests/skill_gallery.gd khi sửa tính năng mới. Triệu hồi dùng RNG riêng seed/count đã lưu, chi phí + pity + reward cùng transaction; không thêm RNG vào renderer.
-- Từ 0.12 save v5 đọc v2/v3/v4. Hero 5★ là độ hiếm catalogue, tương tác thiết kế sẵn theo mẫu; không dùng awakening/sao mở rộng để mở khóa tương tác. Nhóm đối thủ 1–4★ ở catalogue opponents. Trang bị 1–7, tinh linh SR/SSR/UR; ba hệ độc lập. Shop quảng cáo/gói thanh toán chưa có dịch vụ, không tự thêm SDK hoặc phát thưởng giả. Đọc docs/SHOP_RARITY_CHARACTER.md và chạy rarity_system, wardrobe, portrait_touch, shop_ui, character_ui khi sửa các phần này.
-- Ryn 0.19: đọc docs/RYN_ART.md; chạy tests/ryn_art.gd và tests/ryn_gallery.gd khi sửa ảnh/nhún. Ryn mới dùng socket thương rời, không bật embedded_weapon. Builder nền phải giữ metadata Ryn khi combat builder chạy lại. Không chỉnh pixel source PNG bằng code hoặc tự thêm rig.
-
-- Âm thanh: đọc docs/AUDIO.md. Model phát cue theo marker; View/Pose Lab không phát âm.
-- Không dùng RNG chiến đấu để chọn âm. Mute phải dừng voice và tiêu thụ cursor; không phát lại backlog.
-- Audio dùng bus/pool riêng; không tăng số node vô hạn, giữ priority/limiter và save volume tương thích v2.
-- Sau sửa audio chạy tests/audio.gd và tests/validate_audio.py; kiểm mixer qua audio_capture.gd nếu đổi gain/asset/UI. Kiểm PCM không đồng nghĩa đã nghe loa thật.
-
-- Từ 0.5, 38 SFX + ambience dùng ElevenLabs; giữ raw MP3/receipt/provenance. Không tự đổi lại synth Python. tools/build_audio.py phải từ chối ghi đè provider audio.
-- Không đưa ElevenLabs key vào runtime, log hoặc source. Generation dùng secret tại GitHub; hậu kỳ local không cần key. Không tự retry request trả phí.
-
-- Từ 0.16: Lyra là hero thứ tư, tách biệt Ryn. Save v6 đọc v2–v5, thêm Lyra ngoài pending snapshot. Ryn được thiết kế lại theo yêu cầu ở0.19, dùng bộ art/ryn; không khôi phục raw cũ. Builder đầy đủ tools/build_complete_art.py phải giữ Ryn/Ash/ruins/lake. Chạy tests/lyra.gd, complete_art.gd và visual_ui.gd sau sửa roster/art; tiếp tục chạy các test hệ mới ở trên. Toàn roster/nền/boss hiển thị PNG; chưa test điện thoại thật.
-- Hồ sơ/VIP0.15: đọc docs/PLAYER_VIP.md, chạy tests/player_profile.gd. identity là trường tùy chọn save v5; Bảng VIP1–10 chưa xếp cấp; từ0.20 có EXP nhiệm vụ theo yêu cầu mới; không tự thêm mốc cấp/quyền lợi/thanh toán hoặc thưởng giả.
-
-- Triệu hồi0.17: đọc docs/SUMMON_SCREEN.md, chạy summon_batch/summon_ui/recruitment. x1/x10 atomic; lịch sử tối đa100. Bộ đếm UI chỉ Cao cấp/Sự kiện, độc lập, mốc/phần thưởng chờ cấu hình; không tự mở hai banner. Pity Thường cũ giữ nội bộ, không dùng chung hai bộ đếm mới.
-
-- Raw Ryn cũ đã xóa theo yêu cầu: không thêm lại art/painted/ryn_* hoặc art/ryn_*.svg. Bộ hiện tại nằm ở art/ryn/. Giữ ID/tên/chỉ số/save Ryn và Lyra độc lập.
-
-- Tiện ích0.18: đọc docs/UTILITIES_MENU.md; chạy utilities_ui khi sửa menu/badge. Badge chỉ từ quest đủ điều kiện chưa nhận; Hộp thư/Giftcode chưa có dịch vụ, không tạo thư/quà/mã thưởng giả.
-
-- Nhiệm vụ0.20: đọc docs/MISSIONS.md; chạy missions/missions_ui và utilities_ui/player_profile khi sửa. Người dùng đã cho nhiệm vụ ngày/tuần nhận VIP EXP; mốc xếp cấp VIP chưa chốt. Record và reward/EXP/claimed cùng transaction, chu kỳ UTC chỉ tiến, bảo toàn claimed vĩnh viễn và save v6 cũ.
-
-- Đội hình0.25: đọc docs/FORMATION_SCREEN.md, chạy formation_layout/team_ui khi sửa bố cục/chọn tướng/tinh linh. Một ô trước, hai ô sau là slot0/1/2 cũ; không thay targeting/nghề/save vì hình minh họa. Khóa chỉnh sửa pending/read-only và hero chưa sở hữu.
-
-- Giao diện nhiệm vụ0.26: đọc docs/MISSION_VISUALS.md; chạy mission_polish/missions_ui khi sửa. Rương/icon/nút chỉ phản ánh trạng thái model, không sao chép số liệu hoặc nhiệm vụ mới từ ảnh minh họa. Không đổi thưởng/reset/claimed vì chỉnh đồ họa.
+- Đọc docs/TESTING.md. Runner chung: `python3 tools/check_project.py` trên display/
+  Xvfb; ảnh/log/results chỉ trong work/checks. Dùng FIRST_LIGHT_SAVE_DIR riêng và
+  FIRST_LIGHT_CAPTURE_DIR cho test. Không chạy render test bằng --headless.
+- Logic: regression/mechanics/campaign; thay combat thêm team_battle/team_matrix/
+  team_campaign/team_flow/team_ui. UI/art: suite màn sửa, ui_flow/animation_gallery,
+  render và xem ảnh. Migrations/economy: supplies, bag_inventory, unique_collection,
+  equipment_sets, additional_equipment, recruitment/summon_batch và UI tương ứng.
+- Hero/art thêm character_design/character_ui/wardrobe/portrait_touch/ryn_art/
+  ryn_gallery/lyra/complete_art khi liên quan. Audio thêm audio/additional_audio/music,
+  settings_audio, tests/validate_audio.py và audio_capture nếu đổi gain/asset/UI.
+- Chạy tools/verify_repo.py sau sửa file/tài liệu. Giữ .uid; không xóa asset chỉ vì
+  không thấy tên literal: manifest, builder, fallback và migration có tham chiếu động.
+- Không commit work/, .godot/, cache, output build, APK, save người chơi, screenshot/
+  video/mixer capture. CI read-only, xuất artifact, không tự push chứng cứ.
+- Media minh họa cũ liên kết ở docs/ARCHIVED_MEDIA.md; 5 biên bản JSON tại
+  docs/verification/. Nguồn canon vẫn ở art/ và docs/concepts/.
+- Báo đúng kiểm tra đã chạy và giới hạn. Linux/Xvfb/PCM không chứng minh đã thử
+  cảm ứng/FPS hoặc nghe loa trên điện thoại thật. Không viết tính năng đang thiết kế
+  thành “đã có” trong bàn giao. Cập nhật GAME_STATE/INDEX khi đổi cơ chế/phạm vi.

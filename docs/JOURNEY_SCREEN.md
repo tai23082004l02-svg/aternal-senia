@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Hành trình · 0.21
 
 Theo wireframe: tiêu đề chuyến đi, tên chương và tiến độ; cảnh đội hình trong
@@ -36,8 +38,8 @@ campaign5, missions, ui_flow, animation_gallery, mobile_inventory và visual_ui 
 Đã xem ảnh Godot Linux; chưa kiểm điện thoại/touch thật. Không sửa save schema,
 BattleModel, chi phí, chỉ số hay phần thưởng.
 
-![Hành trình](previews/journey-top.png)
-![Phần thao tác phía dưới](previews/journey-actions.png)
-![Kho AFK](previews/journey-afk.png)
+![Hành trình](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/journey-top.png)
+![Phần thao tác phía dưới](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/journey-actions.png)
+![Kho AFK](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/journey-afk.png)
 
 Từ0.24, Hành trình preview toàn đội; Đội hình mở màn3 ô +tinh linh. Đánh thường/cơ bản tự động ngay từ đầu, mục Tự chiến thay bằng thiết lập Ultimate/chuyển ải. Tham khảo TEAM_COMBAT.md.

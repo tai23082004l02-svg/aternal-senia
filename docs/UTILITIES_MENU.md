@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 > 0.36: Cài đặt dùng SettingsScreen sáu nhóm; Giới thiệu & Hỗ trợ có ZORVYKA Games / zorvykagames@gmail.com. Badge quà có tùy chọn ẩn. Xem SETTINGS_SCREEN.md.
 
 # Tiện ích · 0.18
@@ -27,8 +29,8 @@ kiểm ba nhóm/tám đích, badge đúng theo thưởng chưa nhận và không
 ui_flow, animation_gallery, regression87, mechanics72, campaign5 đạt. Đã xem ảnh
 render Godot Linux; chưa thử màn hình/touch điện thoại thật.
 
-![Menu](previews/utilities-menu.png)
-![Huy hiệu nhiệm vụ thật từ fixture](previews/utilities-ready.png)
-![Cài đặt](previews/utilities-settings.png)
+![Menu](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/utilities-menu.png)
+![Huy hiệu nhiệm vụ thật từ fixture](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/utilities-ready.png)
+![Cài đặt](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/utilities-settings.png)
 
 Từ0.20, Nhiệm vụ có ngày/tuần/tiến trình và VIP EXP; huy hiệu cộng nhiệm vụ và rương đủ điều kiện chưa nhận. Xem MISSIONS.md.

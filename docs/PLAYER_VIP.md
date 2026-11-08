@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 # Hồ sơ và VIP · 0.15–0.20
 
 Theo phác thảo: avatar tròn ở góc trái, tên bên phải phía trên, trạng thái VIP
@@ -17,9 +19,9 @@ phiên bản, mặc định “Nhà lữ hành” và avatar Eira. Tên/avatar �
 khi commit, lỗi ghi không đổi RAM. Không mở hồ sơ giữa trận; không đổi snapshot.
 Save chỉ đọc vẫn xem được và khóa lưu hồ sơ.
 
-![Trang chính](previews/vip-header.png)
-![Hồ sơ](previews/player-profile.png)
-![VIP1–10](previews/vip-tiers.png)
+![Trang chính](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/vip-header.png)
+![Hồ sơ](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/player-profile.png)
+![VIP1–10](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/vip-tiers.png)
 
 Kiểm chứng trên Godot4.6.3 Linux: player_profile kiểm save cũ, tên tiếng Việt,
 avatar sở hữu, reload, lỗi ghi/read-only, 10 bậc không đổi dữ liệu. Regression81,

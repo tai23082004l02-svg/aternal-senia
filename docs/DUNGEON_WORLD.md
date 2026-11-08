@@ -1,3 +1,5 @@
+> Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
+
 > Từ0.35, ba phó bản chơi được có thêm một nguyên liệu riêng khi thắng:101 hạt,102 mảnh ký ức,103 đá rèn. Xem [SUPPLIES.md](SUPPLIES.md).12 phó bản xem trước vẫn chưa phát thưởng hoặc mở gameplay.
 
 # Thế giới Phó bản · 0.34
@@ -38,10 +40,10 @@ cơ chế đổi mỗi10 tầng. Thiết kế hướng tới100 tầng, mở r�
 hàng trăm map. Hiện chưa lưu tầng, chưa có thưởng lần đầu, quét hoặc xếp hạng.
 Sự kiện có trang trống đẹp; chưa tự tạo mùa, countdown, vé hoặc lịch mở.
 
-![Danh sách](previews/dungeons/dungeons-all.png)
-![Mỏ Tinh Thạch](previews/dungeons/dungeon-crystal_mine.png)
-![Tam Vệ Bình Minh](previews/dungeons/dungeon-dawn_wardens.png)
-![Tháp Vô Tận](previews/dungeons/dungeon-endless_spire.png)
+![Danh sách](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/dungeons/dungeons-all.png)
+![Mỏ Tinh Thạch](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/dungeons/dungeon-crystal_mine.png)
+![Tam Vệ Bình Minh](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/dungeons/dungeon-dawn_wardens.png)
+![Tháp Vô Tận](https://raw.githubusercontent.com/tai23082004l02-svg/aternal-senia/8422241ab7c6361b215b235d75208425d1597207/docs/previews/dungeons/dungeon-endless_spire.png)
 
 ## Art nguồn và brief đối thủ
 
@@ -74,14 +76,14 @@ Không đổi version save hoặc khóa các phó bản cũ bằng lượt thư�
 
 ## Kiểm tra và triển khai
 
-Workflow .github/workflows/dungeon-ui.yml trên nhánh codex/dungeon-world-ui:
+Lịch sử0.34: workflow dungeon-ui.yml trên nhánh codex/dungeon-world-ui (đã thay bằng [CI chung](TESTING.md) khi dọn repo):
 Godot4.6.3, X11/Xvfb, import +19 suite độc lập. tests/dungeon_world.gd kiểm15
 trang, nhóm/lịch trống, bounds art/nút, vuốt trên nút không mở nhầm, xem trước
 không ghi save, lối vào101–103, khóa điều kiện/pending và tiếp tục trận.
 Các suite mobile_inventory/swipe_scroll/ui_flow/animation_gallery/bag_ui/
 character_design/music/audio/team_ui/team_flow/regression/mechanics/campaign/
 team_battle/complete_art cùng summon_ui/summon_batch/recruitment kiểm các luồng chung.
-Đã qua cả19 suite tại [lượt kiểm tra Godot](https://github.com/tai23082004l02-svg/aternal-senia/actions/runs/42449009341). Đã xem ảnh render danh sách/Mỏ/Tam Vệ/Tháp; [biên bản kiểm tra](previews/dungeons/verification.json).
+Đã qua cả19 suite tại [lượt kiểm tra Godot](https://github.com/tai23082004l02-svg/aternal-senia/actions/runs/42449009341). Đã xem ảnh render danh sách/Mỏ/Tam Vệ/Tháp; [biên bản kiểm tra](verification/dungeon-world-0.34.json).
 Ảnh và provenance chỉ được CI ghi lên nhánh sau khi cả bộ pass; log/results
 giữ trong artifact dungeon-ui-checks. Chưa kiểm cảm ứng/FPS trên điện thoại thật.
 
