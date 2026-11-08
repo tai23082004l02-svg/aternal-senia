@@ -19,17 +19,6 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 |[ARCHIVED_MEDIA](ARCHIVED_MEDIA.md)|Ảnh/video/PCM cũ qua link cố định, không tải cùng repo|
 |[verification](verification/)|Biên bản JSON nhỏ đã phát hành|
 
-## Cốt truyện và định hướng sáng tác
-
-| Tài liệu | Dùng khi |
-| --- | --- |
-|[THE_WORLD_THAT_FORGOT_TOMORROW](story/THE_WORLD_THAT_FORGOT_TOMORROW.md)|**Draft V1.0, chưa chốt canon**: đại cốt truyện độc lập với roster hiện có, nhân vật, tinh linh, trang bị, 5 hồi và kế hoạch sản xuất; đọc trước khi lên ý tưởng nội dung mới|
-|[CHARACTER_STORY_BIBLE](story/CHARACTER_STORY_BIBLE.md)|**Draft V0.1, chưa chốt canon**: 8 nhân vật trung tâm, arc năm hồi, quan hệ, cảnh bắt buộc, kiểm tra logic và vấn đề timeline; đọc sau đại cốt truyện|
-|[WORLD_MECHANICS](story/WORLD_MECHANICS.md)|**Draft V0.1**: quy luật Continuity, Nine Bells, Name, Oathsteel, tinh linh, Iria và chuyển đổi hệ thống; P-01…P-09 đều cần duyệt|
-|[MASTER_TIMELINE](story/MASTER_TIMELINE.md)|**Draft V0.1**: lịch sử ~600 năm, prologue → 5 hồi, ma trận tiết lộ bí mật, tuổi và mốc 6 năm đề xuất; TL-01…TL-10 chưa chốt|
-
-**Lưu ý:** Kịch bản sáng tác có thể thay thế toàn bộ nội dung game cũ nhưng không phải lệnh tự đổi ID, xóa asset hoặc thay save. Các thay đổi runtime cần đặc tả và quyết định triển khai riêng.
-
 ## Gameplay và dữ liệu
 
 | Tài liệu | Phạm vi |
