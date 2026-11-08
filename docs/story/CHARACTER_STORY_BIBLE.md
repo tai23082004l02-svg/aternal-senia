@@ -10,6 +10,8 @@
 >
 > **Giọng điệu:** Fantasy anime giàu cảm xúc, bí ẩn và bi tráng; người chơi mục tiêu nói tiếng Anh (US). Hội thoại mẫu bằng tiếng Anh là đề xuất, cần biên tập bản địa hóa trước khi phát hành.
 
+**Đối chiếu cơ chế và thời gian:** [World Mechanics V0.1](WORLD_MECHANICS.md) / [Master Timeline V0.1](MASTER_TIMELINE.md) đề xuất giải quyết C-01…C-08. Mốc **6 năm** và các tuổi minh họa vẫn ở trạng thái *proposed*, không tự khóa canon.
+
 ## 1. Trục nhân vật — Vì sao họ có mặt trong truyện?
 
 Những nhân vật dưới đây trả lời **cùng một câu hỏi đạo đức** từ các vị trí khác nhau:
