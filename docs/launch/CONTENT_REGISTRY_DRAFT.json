@@ -1,6 +1,6 @@
 {
   "document_type": "Aternal Senia planning registry - NOT game runtime data",
-  "version": "draft-0.1",
+  "version": "draft-0.2",
   "status": "PROPOSED_NOT_APPROVED",
   "business_strategy": "Full Content Launch. No public mini roster test. QA internally, then full release.",
   "not_for_direct_runtime_import": true,
@@ -30,7 +30,14 @@
       "ultimate_concept": "First Light: sweeping burst + self ward",
       "passive_concept": "Marked target takes extra skill hit",
       "acquisition": "guaranteed:R1-01",
-      "legacy": "existing identity"
+      "legacy": "existing identity",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Protect the border roads connecting villages",
+      "relationship": "Trusted by Lumi; learns to delegate to Caelan",
+      "signature_story_event": "R1-01 shields a stranded caravan with her own sword",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H02",
@@ -46,7 +53,14 @@
       "ultimate_concept": "Unbroken Dawn: team barrier + brief guard",
       "passive_concept": "Guard reduces damage to rear allies",
       "acquisition": "guaranteed:R1-03",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Redeem a mistake made at an abandoned watchpost",
+      "relationship": "Debates restraint and risk with Eira",
+      "signature_story_event": "R1-03 raises shield against the failing lighthouse beam",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H03",
@@ -62,7 +76,14 @@
       "ultimate_concept": "Grace Chorus: group heal + cleanse one debuff",
       "passive_concept": "Healing stronger on low HP ally",
       "acquisition": "guaranteed:R1-06",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Turn a ceremonial sanctuary into a real emergency shelter",
+      "relationship": "Challenges Lucien, works with Caelan",
+      "signature_story_event": "R1-06 rings the rescue bell as the shrine collapses",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H04",
@@ -78,7 +99,14 @@
       "ultimate_concept": "Radiant Accord: team crit window",
       "passive_concept": "Expose raises coordinated damage",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Discover whose name is engraved inside a family mask",
+      "relationship": "Competes for Selene's trust, decodes the first seal",
+      "signature_story_event": "R1-10 reveals his identity before the expedition",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H05",
@@ -94,7 +122,14 @@
       "ultimate_concept": "Phoenix Spearfall: front AoE + burn",
       "passive_concept": "Resists damage after skill",
       "acquisition": "guaranteed:R2-06",
-      "legacy": "existing identity"
+      "legacy": "existing identity",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "End a feud between the fire lancer companies",
+      "relationship": "Rival commander Lyra, mutual respect grows",
+      "signature_story_event": "R2-06 holds the furnace door while workers flee",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H06",
@@ -110,7 +145,14 @@
       "ultimate_concept": "Twilight Comet: execute low-HP enemy",
       "passive_concept": "Hits gain damage below target HP threshold",
       "acquisition": "summon_shards",
-      "legacy": "existing identity; distinct from Ryn"
+      "legacy": "existing identity; distinct from Ryn",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Prove bold tactics can save people without reckless losses",
+      "relationship": "Strategic rival and ally to Ryn",
+      "signature_story_event": "R2-09 executes a synchronized spear assault with Ryn",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H07",
@@ -126,7 +168,14 @@
       "ultimate_concept": "Crucible Quake: stagger frontline",
       "passive_concept": "Deals bonus damage to shielded targets",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Save forge workers and restore his father's workshop",
+      "relationship": "Owes Seraphine a debt for warning him of Rift fire",
+      "signature_story_event": "R2-04 shatters a dangerous armored guardian",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H08",
@@ -142,7 +191,14 @@
       "ultimate_concept": "Red Meridian: ignite all active burns",
       "passive_concept": "Burn effects stack within cap",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Understand how ancient flame sigils spread outside the forge",
+      "relationship": "Debates discipline with Ryn, protects Varik's smiths",
+      "signature_story_event": "R2-11 seals a chain explosion using a ring of runes",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H09",
@@ -158,7 +214,14 @@
       "ultimate_concept": "Mirror Sanctuary: heal + ward allies",
       "passive_concept": "Healing scales with supportive play",
       "acquisition": "guaranteed:R3-06",
-      "legacy": "existing identity"
+      "legacy": "existing identity",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Heal the contaminated coast without sacrificing residents",
+      "relationship": "Old classmate Eldrin, wary of Iona's mirrors",
+      "signature_story_event": "R3-06 parts a wave to shelter harbor families",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H10",
@@ -174,7 +237,14 @@
       "ultimate_concept": "Frozen Reflection: freeze short window",
       "passive_concept": "Slow foes take enhanced support damage",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Prove the reflections are not inherently cursed",
+      "relationship": "Works with Eldrin, challenges the harbor's prejudices",
+      "signature_story_event": "R3-08 identifies and shatters a false image",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H11",
@@ -190,7 +260,14 @@
       "ultimate_concept": "Alchemical Flood: cleanse + amplify heals",
       "passive_concept": "Uses potion synergy without consuming supplies",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Create a reliable reagent for the poisoned harbor",
+      "relationship": "Former classmate Mira, respects Iona's evidence",
+      "signature_story_event": "R3-05 gives away the only working antidote",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H12",
@@ -206,7 +283,14 @@
       "ultimate_concept": "Blue Comet: multiple aimed shots",
       "passive_concept": "Rewards focused targeting",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Find the stolen prototype from a lost sea vessel",
+      "relationship": "Owes Aveline a life debt",
+      "signature_story_event": "R7-04 fires a rune anchor to save a collapsing bridge",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H13",
@@ -222,7 +306,14 @@
       "ultimate_concept": "Spring Volley: target marked enemies",
       "passive_concept": "Critical hits extend root briefly with cap",
       "acquisition": "guaranteed:R4-06",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Protect the source streams against poachers",
+      "relationship": "Works with Fenric, clashes with Halden's caution",
+      "signature_story_event": "R4-06 pins a charging beast to a harmless root",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H14",
@@ -238,7 +329,14 @@
       "ultimate_concept": "Wild Hunt: coordinated team attacks",
       "passive_concept": "Summons are timed effects, not extra permanent battle slots",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Protect wildlife displaced by Rift storms",
+      "relationship": "Nara's companion, Halden's rebellious apprentice",
+      "signature_story_event": "R4-08 lets a frightened wolf pack escape instead of fighting it",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H15",
@@ -254,7 +352,14 @@
       "ultimate_concept": "Great Canopy: group barrier + taunt-like protect",
       "passive_concept": "Counterattack after guarding",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Keep the forest alive while allowing villagers to live",
+      "relationship": "Guardian-mentor to Nara and Fenric",
+      "signature_story_event": "R4-05 grows a living-wood shield above the spring",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H16",
@@ -270,7 +375,14 @@
       "ultimate_concept": "Heart of Bedrock: brief fortify + crush",
       "passive_concept": "Resists interrupts at low HP",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Recover stolen stone hearts from her homeland",
+      "relationship": "Deceived by relic traders, warned by Vespera",
+      "signature_story_event": "R6-10 breaks open the collector's secret vault",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H17",
@@ -286,7 +398,14 @@
       "ultimate_concept": "Storm Split: multi-hit burst",
       "passive_concept": "Consecutive hits build haste to cap",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Restore honor to the storm courier guild",
+      "relationship": "Competitive friendship with Zeph, mentored by Talos",
+      "signature_story_event": "R5-07 crosses lightning to deliver a warning",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H18",
@@ -302,7 +421,14 @@
       "ultimate_concept": "Skybreak: pierce exposed foe",
       "passive_concept": "Dodge gives short speed boost",
       "acquisition": "guaranteed:R5-06",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Prove evasion can protect a whole team",
+      "relationship": "Disagrees with Kaia's risks, trusts Talos",
+      "signature_story_event": "R5-06 delays riders so the caravan can escape",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H19",
@@ -318,7 +444,14 @@
       "ultimate_concept": "Thunder Choir: stun brief and chain damage",
       "passive_concept": "Chain prioritizes marked opponents",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Repair weather instruments tampered with by thieves",
+      "relationship": "Mentors Zeph and Kaia",
+      "signature_story_event": "R5-09 tunes fork vibrations to reopen a gate",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H20",
@@ -334,7 +467,14 @@
       "ultimate_concept": "Heaven's Circuit: team shield + haste",
       "passive_concept": "Shielded allies resist control briefly",
       "acquisition": "guaranteed:R7-06",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Keep sky routes safe when Astral Spire opens",
+      "relationship": "Owes Kieran a promise; respects Dorian's knowledge",
+      "signature_story_event": "R7-06 blocks a falling bridge with her halberd",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H21",
@@ -350,7 +490,14 @@
       "ultimate_concept": "Nightfall: mass weaken + blind-like miss chance",
       "passive_concept": "Debuffs have bounded uptime",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Retrieve stolen shadow relics before the guild sells them",
+      "relationship": "Distrusts Orin, fights beside Rook and Orla",
+      "signature_story_event": "R6-05 extinguishes her lantern to trap the thief",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H22",
@@ -366,7 +513,14 @@
       "ultimate_concept": "Black Bastion: counter + shield",
       "passive_concept": "Shield scales with hits actually received",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Protect Hollow residents mistaken for enemies",
+      "relationship": "Protects Vespera, distrusts Orin",
+      "signature_story_event": "R6-04 holds a doorway against a swarm",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H23",
@@ -382,7 +536,14 @@
       "ultimate_concept": "Eclipse Step: execute exposed foe",
       "passive_concept": "Backline damage bonus with cap",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Steal records identifying the black-market relic buyers",
+      "relationship": "A tense former deal with Vespera; mistrusted by Rook",
+      "signature_story_event": "R6-07 drops a priceless relic to rescue a witness",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     },
     {
       "code": "H24",
@@ -398,7 +559,14 @@
       "ultimate_concept": "Eventide Lock: delay enemy skills",
       "passive_concept": "Control bosses via reduced effect duration",
       "acquisition": "summon_shards",
-      "legacy": "new"
+      "legacy": "new",
+      "base_rarity_proposed": 5,
+      "awakening_range_proposed": "1-5 separate from base rarity",
+      "evolution_track": "Independent from rarity/awakening; ranks and costs TBD",
+      "motivation": "Decode the clockwork chains sealing the Astral Spire",
+      "relationship": "Disagrees with Aveline about who may enter",
+      "signature_story_event": "R7-10 releases a time-lock moments before allies are trapped",
+      "ability_status": "CONCEPT ONLY - must not replace currently implemented skills before approval and full ability spec"
     }
   ],
   "spirits": [
@@ -411,7 +579,10 @@
       "art_brief": "Small teal-gold winged fairy",
       "combat_concept": "Pulse heal plus low-HP shield",
       "acquisition": "guaranteed:R1-01",
-      "legacy": "existing SR, do not overwrite art"
+      "legacy": "existing SR, do not overwrite art",
+      "rarity_proposed": "SR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": true
     },
     {
       "code": "S02",
@@ -422,7 +593,10 @@
       "art_brief": "Round sun-lantern moth with golden ring wings",
       "combat_concept": "Protect weakest ally at the start of a wave",
       "acquisition": "bond_or_shards:R1",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "SSR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S03",
@@ -433,7 +607,10 @@
       "art_brief": "Orange-gold miniature phoenix",
       "combat_concept": "Phoenix burst strikes multiple enemies",
       "acquisition": "guaranteed:R2-12",
-      "legacy": "existing SSR firebird"
+      "legacy": "existing SSR firebird",
+      "rarity_proposed": "SSR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": true
     },
     {
       "code": "S04",
@@ -444,7 +621,10 @@
       "art_brief": "Magma salamander with glowing crystalline frill",
       "combat_concept": "Apply burn plus burst on existing burn",
       "acquisition": "bond_or_shards:R2",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "SR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S05",
@@ -455,7 +635,10 @@
       "art_brief": "Transparent blue seahorse-dragon with pearl belly",
       "combat_concept": "Remove one debuff and heal a little",
       "acquisition": "guaranteed:R3-12",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "SR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S06",
@@ -466,7 +649,10 @@
       "art_brief": "Six-point ice-star sprite with bell-feet",
       "combat_concept": "Brief slow and temporary frost barrier",
       "acquisition": "bond_or_shards:R3",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "SSR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S07",
@@ -477,7 +663,10 @@
       "art_brief": "Leaf-eared miniature deer with root antlers",
       "combat_concept": "Regeneration over several seconds",
       "acquisition": "guaranteed:R4-12",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "SR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S08",
@@ -488,7 +677,10 @@
       "art_brief": "Round bark turtle with bright sprout shell",
       "combat_concept": "Grant counter shield on focused hero",
       "acquisition": "bond_or_shards:R4",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "SSR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S09",
@@ -499,7 +691,10 @@
       "art_brief": "Electric-yellow feathered sparrow",
       "combat_concept": "Short team attack-speed buff",
       "acquisition": "guaranteed:R5-12",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "SSR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S10",
@@ -510,7 +705,10 @@
       "art_brief": "Floating twin-tuning crystal rings",
       "combat_concept": "Grant bounded SP on skill hit",
       "acquisition": "bond_or_shards:R5",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "UR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S11",
@@ -521,7 +719,10 @@
       "art_brief": "Small purple two-tailed fox with a star eye",
       "combat_concept": "Weaken highest-ATK foe",
       "acquisition": "guaranteed:R6-12",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "SSR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     },
     {
       "code": "S12",
@@ -532,7 +733,10 @@
       "art_brief": "Velvet-black moon bat with silver ears",
       "combat_concept": "Grant temporary evade to most threatened ally",
       "acquisition": "bond_or_shards:R6",
-      "legacy": "new"
+      "legacy": "new",
+      "rarity_proposed": "UR",
+      "rarity_status": "PROPOSED, except existing Lumi SR and Ash SSR",
+      "keep_legacy_identity": false
     }
   ],
   "regions": [
@@ -544,7 +748,7 @@
       "one_sentence_plot": "Border guardians investigate a broken beacon",
       "enemy_family": "Lightward patrol; dusk moth; ancient sentry; shielded pilgrim",
       "boss": "Dawn Colossus",
-      "gear_set": "Dawn Oath"
+      "gear_set": "Dawn"
     },
     {
       "id": "R2",
@@ -554,7 +758,7 @@
       "one_sentence_plot": "Two rival lancer companies must stop a runaway furnace",
       "enemy_family": "Ember jackal; furnace imp; ash guard; magma crawler",
       "boss": "Furnace Monarch",
-      "gear_set": "Ember Pact"
+      "gear_set": "Flamefeather"
     },
     {
       "id": "R3",
@@ -564,7 +768,7 @@
       "one_sentence_plot": "The tides reveal a sea gate to a lost vault",
       "enemy_family": "Tide crawler; mirror eel; coral knight; mist oracle",
       "boss": "Mirror Leviathan",
-      "gear_set": "Tideweave"
+      "gear_set": "Tide"
     },
     {
       "id": "R4",
@@ -574,7 +778,7 @@
       "one_sentence_plot": "The wild forest resists hunters draining its springs",
       "enemy_family": "Briar hound; spore lizard; vine construct; moss bandit",
       "boss": "Briar Matriarch",
-      "gear_set": "Thornwatch"
+      "gear_set": "Forest Warden"
     },
     {
       "id": "R5",
@@ -584,7 +788,7 @@
       "one_sentence_plot": "Broken wind relays threaten sky caravans",
       "enemy_family": "Gale harpy; stormling; cliff raider; lightning crab",
       "boss": "Storm Roc",
-      "gear_set": "Thunderstride"
+      "gear_set": "Stormshadow"
     },
     {
       "id": "R6",
@@ -594,7 +798,7 @@
       "one_sentence_plot": "An order of collectors steals forbidden relics",
       "enemy_family": "Shade wisp; dusk knight; blind crawler; lantern phantom",
       "boss": "Night Archivist",
-      "gear_set": "Nightglass"
+      "gear_set": "Moonstar"
     },
     {
       "id": "R7",
@@ -613,48 +817,60 @@
       "name": "Dawn Colossus",
       "region_or_dungeon": "R1",
       "encounter_mechanic": "Layered protective shields and visible armor weakpoint",
-      "signature_set": "Dawn Oath",
-      "location": "campaign:R1-12"
+      "signature_set": "Dawn",
+      "location": "campaign:R1-12",
+      "story_cause": "Broken beacon commands cause a defensive sentinel to misidentify friends as foes",
+      "story_or_reward_consequence": "Repair the beacon and retrieve Dawnvale seal"
     },
     {
       "id": "B02",
       "name": "Furnace Monarch",
       "region_or_dungeon": "R2",
       "encounter_mechanic": "Overheat telegraph and burn lanes",
-      "signature_set": "Ember Pact",
-      "location": "campaign:R2-12"
+      "signature_set": "Flamefeather",
+      "location": "campaign:R2-12",
+      "story_cause": "A forge-core absorbs Rift energy and overheats",
+      "story_or_reward_consequence": "Evacuate workers, stabilize furnace, retrieve fire seal"
     },
     {
       "id": "B03",
       "name": "Mirror Leviathan",
       "region_or_dungeon": "R3",
       "encounter_mechanic": "Reflection decoys and cleansing windows",
-      "signature_set": "Tideweave",
-      "location": "campaign:R3-12"
+      "signature_set": "Tide",
+      "location": "campaign:R3-12",
+      "story_cause": "The sea gate guardian is driven mad by distorted reflections",
+      "story_or_reward_consequence": "Dispel mirrors, open sea route and retrieve water seal"
     },
     {
       "id": "B04",
       "name": "Briar Matriarch",
       "region_or_dungeon": "R4",
       "encounter_mechanic": "Root trap and minion blooms",
-      "signature_set": "Thornwatch",
-      "location": "campaign:R4-12"
+      "signature_set": "Forest Warden",
+      "location": "campaign:R4-12",
+      "story_cause": "Forest protector mistakes all visitors for threats to the source spring",
+      "story_or_reward_consequence": "Protect water source and restore the forest seal"
     },
     {
       "id": "B05",
       "name": "Storm Roc",
       "region_or_dungeon": "R5",
       "encounter_mechanic": "Charged dive telegraph and interruption window",
-      "signature_set": "Thunderstride",
-      "location": "campaign:R5-12"
+      "signature_set": "Stormshadow",
+      "location": "campaign:R5-12",
+      "story_cause": "Storm bird suffers from a sabotaged relay signal",
+      "story_or_reward_consequence": "Restore aerial relay and acquire storm seal"
     },
     {
       "id": "B06",
       "name": "Night Archivist",
       "region_or_dungeon": "R6",
       "encounter_mechanic": "Summon pages and temporary silence with clear counters",
-      "signature_set": "Nightglass",
-      "location": "campaign:R6-12"
+      "signature_set": "Moonstar",
+      "location": "campaign:R6-12",
+      "story_cause": "Keeper of stolen relics refuses to release the shadow seal",
+      "story_or_reward_consequence": "Break the illegal vault and retrieve shadow seal"
     },
     {
       "id": "B07",
@@ -662,7 +878,9 @@
       "region_or_dungeon": "R7",
       "encounter_mechanic": "Three phases mixing telegraphs learned across regions",
       "signature_set": "Astral Ward",
-      "location": "campaign:R7-12"
+      "location": "campaign:R7-12",
+      "story_cause": "Final sentinel tests whether the seven seals can be wielded safely",
+      "story_or_reward_consequence": "Clear three phases and close the Rift"
     },
     {
       "id": "B08",
@@ -670,7 +888,9 @@
       "region_or_dungeon": "D01",
       "encounter_mechanic": "Heavy armor breaking and stagger timing",
       "signature_set": "Iron Resolve",
-      "location": "dungeon:D01"
+      "location": "dungeon:D01",
+      "story_cause": "Ancient automated forge defense",
+      "story_or_reward_consequence": "Farm Iron Resolve gear and forging materials"
     },
     {
       "id": "B09",
@@ -678,7 +898,9 @@
       "region_or_dungeon": "D05",
       "encounter_mechanic": "Gaze focus and dodge timing",
       "signature_set": "Deep Current",
-      "location": "dungeon:D05"
+      "location": "dungeon:D05",
+      "story_cause": "A captured basilisk guards illegal artifacts",
+      "story_or_reward_consequence": "Farm Deep Current gear and accessory parts"
     },
     {
       "id": "B10",
@@ -686,7 +908,9 @@
       "region_or_dungeon": "D07",
       "encounter_mechanic": "Poison stacks and clearable shadow hazards",
       "signature_set": "Phoenix Crest",
-      "location": "dungeon:D07"
+      "location": "dungeon:D07",
+      "story_cause": "Rift predator consumes natural materials",
+      "story_or_reward_consequence": "Farm Phoenix Crest fragments while practicing cleanse"
     },
     {
       "id": "B11",
@@ -694,7 +918,9 @@
       "region_or_dungeon": "D07",
       "encounter_mechanic": "Debuff consumption and targeted adds",
       "signature_set": "Rift Hunter",
-      "location": "dungeon:D07"
+      "location": "dungeon:D07",
+      "story_cause": "Devourer hunts at junction between realms",
+      "story_or_reward_consequence": "Farm Rift Hunter gear through coordinated single-target damage"
     },
     {
       "id": "B12",
@@ -702,57 +928,71 @@
       "region_or_dungeon": "D08",
       "encounter_mechanic": "Multi-head cycle with focus damage and reviveable heads not heroes",
       "signature_set": "Harmony Sigil",
-      "location": "dungeon:D08"
+      "location": "dungeon:D08",
+      "story_cause": "An echo construct tests advanced teams at tower summit",
+      "story_or_reward_consequence": "Reward Harmony Sigil fragments and tower cosmetic milestone"
     }
   ],
   "sets": [
     {
       "id": "G01",
-      "name": "Dawn Oath",
+      "name": "Dawn",
       "region_or_dungeon": "R1",
-      "bonus_2_piece_concept": "2pc Max HP",
-      "bonus_4_piece_concept": "4pc Ultimate grants short self-and-neighbor barrier with cooldown",
-      "farm_source": "Campaign R1 + regional gear chest"
+      "bonus_2_piece_concept": "+8% Max HP",
+      "bonus_4_piece_concept": "+12% Skill Damage",
+      "farm_source": "Campaign R1 + regional gear chest",
+      "legacy_set_id": "dawn",
+      "proposal_status": "Keep legacy ID/name/bonuses; owner approval pending. Never replace existing equipped gear."
     },
     {
       "id": "G02",
-      "name": "Ember Pact",
+      "name": "Flamefeather",
       "region_or_dungeon": "R2",
-      "bonus_2_piece_concept": "2pc Attack",
-      "bonus_4_piece_concept": "4pc Apply a short burn on skill, capped stacks",
-      "farm_source": "Campaign R2 + forge dungeon"
+      "bonus_2_piece_concept": "+6% ATK",
+      "bonus_4_piece_concept": "+5% Critical Rate",
+      "farm_source": "Campaign R2 + forge dungeon",
+      "legacy_set_id": "ember",
+      "proposal_status": "Keep legacy ID/name/bonuses; owner approval pending. Never replace existing equipped gear."
     },
     {
       "id": "G03",
-      "name": "Tideweave",
+      "name": "Tide",
       "region_or_dungeon": "R3",
-      "bonus_2_piece_concept": "2pc Healing output",
-      "bonus_4_piece_concept": "4pc First allied cleanse grants brief team defense buff",
-      "farm_source": "Campaign R3 + water dungeon"
+      "bonus_2_piece_concept": "+8% DEF",
+      "bonus_4_piece_concept": "+1 SP per second",
+      "farm_source": "Campaign R3 + water dungeon",
+      "legacy_set_id": "tide",
+      "proposal_status": "Keep legacy ID/name/bonuses; owner approval pending. Never replace existing equipped gear."
     },
     {
       "id": "G04",
-      "name": "Thornwatch",
+      "name": "Forest Warden",
       "region_or_dungeon": "R4",
-      "bonus_2_piece_concept": "2pc Damage reduction",
-      "bonus_4_piece_concept": "4pc After taking several hits, counter once with cooldown",
-      "farm_source": "Campaign R4 + nature dungeon"
+      "bonus_2_piece_concept": "+8% Max HP",
+      "bonus_4_piece_concept": "+6% Damage Reduction",
+      "farm_source": "Campaign R4 + nature dungeon",
+      "legacy_set_id": "grove",
+      "proposal_status": "Keep legacy ID/name/bonuses; owner approval pending. Never replace existing equipped gear."
     },
     {
       "id": "G05",
-      "name": "Thunderstride",
+      "name": "Stormshadow",
       "region_or_dungeon": "R5",
-      "bonus_2_piece_concept": "2pc Attack speed",
-      "bonus_4_piece_concept": "4pc After ultimate, grant bounded haste to team",
-      "farm_source": "Campaign R5 + storm dungeon"
+      "bonus_2_piece_concept": "+6% Attack Speed",
+      "bonus_4_piece_concept": "+5% Critical Rate",
+      "farm_source": "Campaign R5 + storm dungeon",
+      "legacy_set_id": "storm",
+      "proposal_status": "Keep legacy ID/name/bonuses; owner approval pending. Never replace existing equipped gear."
     },
     {
       "id": "G06",
-      "name": "Nightglass",
+      "name": "Moonstar",
       "region_or_dungeon": "R6",
-      "bonus_2_piece_concept": "2pc Critical rate",
-      "bonus_4_piece_concept": "4pc Crit marks enemy for next ally damage with cooldown",
-      "farm_source": "Campaign R6 + shadow dungeon"
+      "bonus_2_piece_concept": "+0.5 SP per second",
+      "bonus_4_piece_concept": "+10% Skill Damage",
+      "farm_source": "Campaign R6 + shadow dungeon",
+      "legacy_set_id": "moon",
+      "proposal_status": "Keep legacy ID/name/bonuses; owner approval pending. Never replace existing equipped gear."
     },
     {
       "id": "G07",
@@ -760,7 +1000,8 @@
       "region_or_dungeon": "R7",
       "bonus_2_piece_concept": "2pc Shield strength",
       "bonus_4_piece_concept": "4pc When ally near defeat, shield them once per battle",
-      "farm_source": "Campaign R7 + tower"
+      "farm_source": "Campaign R7 + tower",
+      "proposal_status": "New set proposal; numeric effects, new runtime ID, loot and costs await balance spec."
     },
     {
       "id": "G08",
@@ -768,7 +1009,8 @@
       "region_or_dungeon": "D01",
       "bonus_2_piece_concept": "2pc Defense",
       "bonus_4_piece_concept": "4pc Break enemy shield to gain short guard",
-      "farm_source": "Ironbound Titan in D01"
+      "farm_source": "Ironbound Titan in D01",
+      "proposal_status": "New set proposal; numeric effects, new runtime ID, loot and costs await balance spec."
     },
     {
       "id": "G09",
@@ -776,7 +1018,8 @@
       "region_or_dungeon": "D07",
       "bonus_2_piece_concept": "2pc Skill damage",
       "bonus_4_piece_concept": "4pc First below-threshold HP grants short shield once per battle; no resurrection",
-      "farm_source": "Eclipse Serpent in D07"
+      "farm_source": "Eclipse Serpent in D07",
+      "proposal_status": "New set proposal; numeric effects, new runtime ID, loot and costs await balance spec."
     },
     {
       "id": "G10",
@@ -784,7 +1027,8 @@
       "region_or_dungeon": "D05",
       "bonus_2_piece_concept": "2pc SP regeneration",
       "bonus_4_piece_concept": "4pc Skill hit returns SP with per-interval cap",
-      "farm_source": "Obsidian Basilisk in D05"
+      "farm_source": "Obsidian Basilisk in D05",
+      "proposal_status": "New set proposal; numeric effects, new runtime ID, loot and costs await balance spec."
     },
     {
       "id": "G11",
@@ -792,7 +1036,8 @@
       "region_or_dungeon": "D07",
       "bonus_2_piece_concept": "2pc Single-target damage",
       "bonus_4_piece_concept": "4pc Bonus boss damage after landing multiple unique hits; cap",
-      "farm_source": "Rift Devourer in D07"
+      "farm_source": "Rift Devourer in D07",
+      "proposal_status": "New set proposal; numeric effects, new runtime ID, loot and costs await balance spec."
     },
     {
       "id": "G12",
@@ -800,7 +1045,8 @@
       "region_or_dungeon": "D08",
       "bonus_2_piece_concept": "2pc Support effect duration",
       "bonus_4_piece_concept": "4pc Different hero affinities grant bounded team buff",
-      "farm_source": "Starfall Hydra in D08"
+      "farm_source": "Starfall Hydra in D08",
+      "proposal_status": "New set proposal; numeric effects, new runtime ID, loot and costs await balance spec."
     }
   ],
   "dungeons": [
@@ -1566,5 +1812,48 @@
       "premium_summon_optional"
     ],
     "note": "No live billing/ads authorized by this document."
+  },
+  "review_doc": "docs/LAUNCH_DECISION_REVIEW.md",
+  "owner_status": "Full Content Launch approved as direction; 8 content decisions pending owner review.",
+  "content_counts": {
+    "heroes": 24,
+    "male_heroes": 12,
+    "female_heroes": 12,
+    "spirits": 12,
+    "rarity_sr": 4,
+    "rarity_ssr": 6,
+    "rarity_ur": 2,
+    "gear_sets_total": 12,
+    "legacy_gear_sets_preserved": 6,
+    "new_gear_sets": 6,
+    "regions": 7,
+    "campaign_stages": 84,
+    "regional_bosses": 7,
+    "special_bosses": 5,
+    "dungeons_total": 8
+  },
+  "story_spine_proposed": "The Seven Realm Seals: led by Eira and Lumi as expedition guides and the player as Wayfarer Captain. Collect seven seals from seven realms to close the Astral Rift. Short region arcs, not cancelled memory-bell saga.",
+  "legacy_treatment_proposed": {
+    "hero_ids": [
+      "eira",
+      "ryn",
+      "mira",
+      "lyra"
+    ],
+    "spirit_ids": [
+      "lumi",
+      "ash"
+    ],
+    "set_ids": [
+      "dawn",
+      "ember",
+      "tide",
+      "grove",
+      "storm",
+      "moon"
+    ],
+    "legacy_stage_ids": "1-15 and 101-103 reserved; no reuse; legacy archive or mapping after owner approval",
+    "stage_design_ids": "R1-01...R7-12 are NOT validated runtime IDs",
+    "save_schema": "v12 preserve and design migration before code"
   }
 }
