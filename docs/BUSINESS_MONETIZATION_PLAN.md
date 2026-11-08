@@ -1,6 +1,6 @@
 # Aternal Senia — Game Business & Monetization Plan
 
-> **BUSINESS DESIGN V0.2 · 2026-11-08 · FULL CONTENT LAUNCH FIRST · KẾ HOẠCH, CHƯA CODE**
+> **BUSINESS DESIGN V0.2 · FULL CONTENT LAUNCH · LEGACY PLANNING RANGES**\n> **Latest approved scope:** [GAME_DESIGN_V1.md](GAME_DESIGN_V1.md): exactly **24 heroes, 12 male/12 female, all base 5★**, Gallery/Summon Reveal, Bond, short hero stories, same repo. Earlier 24–30 hero planning range is **superseded**; other business numbers remain unapproved proposals. No runtime implementation is authorized.
 >
 > **Quyết định chủ dự án:** **KHÔNG phát hành bản nhỏ/soft launch với vài hero để thăm dò người chơi.** Chỉ công bố sản phẩm khi đã hoàn thiện dàn nhân vật phong phú, đa dạng nam nữ, nhiều tinh linh, trang bị, Boss, hành trình, nội dung chơi lại, hình ảnh và hệ thống kiếm tiền thực. Không trì hoãn sản xuất roster chỉ vì chưa có dữ liệu D1/D7/D30.
 >
