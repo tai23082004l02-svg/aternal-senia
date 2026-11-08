@@ -15,7 +15,7 @@ func _ready() -> void:
 		if quest.id not in game.store.profile.claimed and game.store.profile.metrics[quest.metric] >= quest.target: ready += 1
 	entry("quests", "Missions & Rewards", "Journey missions and rewards", "quest", game._select_tab.bind(3), ready)
 	entry("mail", "Mailbox", "System gifts, notices, compensation", "mail", game._utility_mail)
-	entry("giftcode", "Redeem Gift Code", "Event gift codes", "gift", game._utility_giftcode)
+	entry("giftcode", "Redeem Gift Code", "Local gift codes and development unlock", "gift", game._utility_giftcode)
 	group("EXPLORE")
 	entry("characters","Characters","Gallery, hero details and collection","hero",game._select_tab.bind(23))
 	entry("adventure","Adventure","Campaign and ongoing battle","journey",game._select_tab.bind(0))

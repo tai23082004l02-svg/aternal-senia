@@ -40,6 +40,10 @@ func fresh() -> Dictionary:
 func valid(p: Variant, legacy_version: int = 0) -> bool:
 	if not p is Dictionary or p.get("version") != (legacy_version if legacy_version > 0 else VERSION):
 		return false
+	if p.has("redeemed_codes"):
+		if not p.redeemed_codes is Array or not Expansion.unique(p.redeemed_codes): return false
+		for code in p.redeemed_codes:
+			if code != "admin": return false
 	for key in fresh():
 		if legacy_version == 6 and key == "collection_fragments": continue
 		if legacy_version in [6,7,8,9] and key == "bag_rewards": continue

@@ -1139,16 +1139,37 @@ func _utility_mail() -> void:
 	_dialog("MAILBOX", "Your mailbox is empty.\n\nSystem gifts, notices, and compensation will appear here when the mailbox service becomes available.", [{"text": "Close", "call": _close_modal}])
 
 func _utility_giftcode() -> void:
-	var column := _dialog("REDEEM GIFT CODE", "Receive gift codes from events. No redemption event is currently open.", [{"text": "Close", "call": _close_modal}])
+	var column := _dialog("REDEEM GIFT CODE", "Enter a local gift code. The admin code unlocks all implemented content and maximizes progression. Development previews and unavailable services stay locked.", [{"text": "Close", "call": _close_modal}])
 	var input := LineEdit.new()
+	input.name = "GiftCodeInput"
 	input.placeholder_text = "Enter gift code"
-	input.editable = false
+	input.max_length = 64
+	input.editable = not _locked()
 	input.custom_minimum_size.y = 46
 	column.add_child(input)
 	column.move_child(input, 2)
-	var redeem := _button(column, "Redeem · Locked", Vector2.ZERO, Vector2(400, 46), func(): pass)
-	redeem.disabled = true
+	var redeem := _button(column, "Redeem", Vector2.ZERO, Vector2(400, 46), func(): _giftcode_confirm(input.text))
+	redeem.name = "RedeemGiftCode"
+	redeem.disabled = _locked()
 	column.move_child(redeem, 3)
+	input.text_submitted.connect(_giftcode_confirm)
+	if input.editable: input.grab_focus.call_deferred()
+
+func _giftcode_confirm(code: String) -> void:
+	if result_transition: return
+	if not AdminUnlock.eligible(store,code):
+		_notify(store.error)
+		return
+	_dialog("Unlock all implemented content?", "ADMIN: all playable heroes, spirits and stages; maximum hero/spirit progression and learned skills; every equipment type; at least 1,000,000 Gold, Crystals and XP; 10,000 of each supply and Cores. Existing equipment is upgraded; overflow goes to Unclaimed Loot. Current formation, outfits and history stay intact. One use per save.", [{"text":"Unlock all","call":_redeem_gift_code.bind(code)},{"text":"Cancel","call":_utility_giftcode}])
+
+func _redeem_gift_code(code: String) -> void:
+	if result_transition: return
+	if AdminUnlock.redeem(store,code):
+		_close_modal()
+		_refresh_panel()
+		_notify("Admin unlock saved. All implemented content is available. Check Bag and Unclaimed Loot for equipment.")
+	else:
+		_notify(store.error)
 
 func _utility_settings() -> void:
 	SettingsScreen.open(self,"home",true)

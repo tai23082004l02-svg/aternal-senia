@@ -7,6 +7,8 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 
 [UI Celestial0.39 — Selena](UI_CELESTIAL_0_39.md): bàn giao UI mới, preview và giới hạn runtime.
 
+[Admin code](ADMIN_CODE.md): mã `admin`, phạm vi unlock, giao dịch và kiểm tra.
+
 ## Bàn giao và thao tác
 
 | Tài liệu | Dùng khi |

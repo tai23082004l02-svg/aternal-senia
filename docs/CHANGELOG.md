@@ -1,5 +1,10 @@
 # Các mốc phát triển
 
+## 0.39.1 · 2026-11-08
+
+Owner-requested local `admin` code in More → Redeem Gift Code. One atomic grant per save unlocks runtime content and maximizes progression with bounded gear overflow, preserving UID/formation/history. Confirm/cancel and pending/read-only/write-failure guards; schema remainsv13. See [Admin code](ADMIN_CODE.md).
+
+
 ## 0.39.0 · 2026-11-08
 
 Celestial navy/gold UI: replaced Home composition, shared menu glyphs/panels, taller Gallery cards and Showcase, left-rail Summon, taller Reveal and portrait battle HUD. Selena remains a labeled visual preview, including a separate non-transactional art reveal. Original art, five playable hero IDs, recruitment economy, combat behavior and savev13 are preserved. See [UI handoff](UI_CELESTIAL_0_39.md).
