@@ -2,6 +2,16 @@
 
 # Hồ sơ và VIP · 0.15–0.20
 
+## Giao diện hồ sơ hiện hành
+
+Cửa sổ navy/teal viền vàng, nền rừng và chân dung tròn lớn; tên hiển thị,
+ô nhập tối đa20 ký tự, bốn thẻ avatar có trạng thái chọn/khóa theo sở hữu,
+khối VIP EXP và nút Lưu hồ sơ vàng. Nội dung dùng SwipeScroll, nút lưu cố định
+phía dưới và nút đóng ở góc phải; chữ/control thật, tái dùng tranh hiện có.
+Chỉ đổi trình bày: giữ PlayerIdentity.save, preview avatar chỉ trong bản nháp,
+đóng là hủy; quyền sở hữu, read-only, VIP1–10, ví và schema không đổi.
+
+
 Theo phác thảo: avatar tròn ở góc trái, tên bên phải phía trên, trạng thái VIP
 phía dưới. Chạm cụm hồ sơ để đổi tên (1–20 ký tự, hỗ trợ tiếng Việt) và chọn
 avatar từ nhân vật đã sở hữu. Avatar hồ sơ độc lập với hero ra trận.
