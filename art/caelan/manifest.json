@@ -1,0 +1,765 @@
+{
+  "version": 1,
+  "delivery_status": "CHARACTER_DESIGN_ONLY_NOT_RUNTIME",
+  "signature_props": {
+    "sword": {
+      "atlas": "caelan/props.png",
+      "region": [
+        160,
+        0,
+        440,
+        1024
+      ],
+      "grip": [
+        196,
+        842
+      ],
+      "recommended_scale": 0.25
+    },
+    "shield": {
+      "atlas": "caelan/props.png",
+      "region": [
+        720,
+        0,
+        680,
+        1024
+      ]
+    }
+  },
+  "heroes": {
+    "caelan": {
+      "idle": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "caelan/pose_00",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              167,
+              304
+            ],
+            "hand": [
+              112,
+              193
+            ],
+            "angle": 10,
+            "grip_rect": [
+              106,
+              187,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.65,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_01",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              314,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              165,
+              304
+            ],
+            "hand": [
+              118,
+              191
+            ],
+            "angle": 12,
+            "grip_rect": [
+              112,
+              185,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.65,
+            "embedded_weapon": false
+          }
+        ]
+      },
+      "run": {
+        "loop": true,
+        "frames": [
+          {
+            "file": "caelan/pose_02",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              627,
+              0,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              164,
+              304
+            ],
+            "hand": [
+              144,
+              164
+            ],
+            "angle": 65,
+            "grip_rect": [
+              138,
+              158,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.11,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_03",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              940,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              181,
+              304
+            ],
+            "hand": [
+              180,
+              148
+            ],
+            "angle": 65,
+            "grip_rect": [
+              174,
+              142,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.11,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_04",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              0,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              166,
+              304
+            ],
+            "hand": [
+              120,
+              178
+            ],
+            "angle": 65,
+            "grip_rect": [
+              114,
+              172,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.11,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_05",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              314,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              182,
+              304
+            ],
+            "hand": [
+              180,
+              152
+            ],
+            "angle": 65,
+            "grip_rect": [
+              174,
+              146,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.11,
+            "embedded_weapon": false
+          }
+        ]
+      },
+      "attack": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "caelan/pose_06",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              627,
+              314,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              166,
+              304
+            ],
+            "hand": [
+              100,
+              48
+            ],
+            "angle": -50,
+            "grip_rect": [
+              94,
+              42,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_07",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              940,
+              314,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              174,
+              304
+            ],
+            "hand": [
+              70,
+              117
+            ],
+            "angle": 110,
+            "grip_rect": [
+              64,
+              111,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_09",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              173,
+              304
+            ],
+            "hand": [
+              88,
+              122
+            ],
+            "angle": 100,
+            "grip_rect": [
+              82,
+              116,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_08",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              167,
+              304
+            ],
+            "hand": [
+              146,
+              134
+            ],
+            "angle": 100,
+            "grip_rect": [
+              140,
+              128,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.1,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_00",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              167,
+              304
+            ],
+            "hand": [
+              112,
+              193
+            ],
+            "angle": 10,
+            "grip_rect": [
+              106,
+              187,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.08,
+            "embedded_weapon": false
+          }
+        ],
+        "hit_time": 0.22
+      },
+      "skill": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "caelan/pose_08",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              0,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              167,
+              304
+            ],
+            "hand": [
+              146,
+              134
+            ],
+            "angle": 100,
+            "grip_rect": [
+              140,
+              128,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_09",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              314,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              173,
+              304
+            ],
+            "hand": [
+              88,
+              122
+            ],
+            "angle": 100,
+            "grip_rect": [
+              82,
+              116,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_10",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              627,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              167,
+              304
+            ],
+            "hand": [
+              114,
+              194
+            ],
+            "angle": 5,
+            "grip_rect": [
+              108,
+              188,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.2,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_00",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              0,
+              0,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              167,
+              304
+            ],
+            "hand": [
+              112,
+              193
+            ],
+            "angle": 10,
+            "grip_rect": [
+              106,
+              187,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.25,
+            "embedded_weapon": false
+          }
+        ],
+        "hit_time": 0.5
+      },
+      "guard": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "caelan/pose_10",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              627,
+              627,
+              313,
+              313
+            ],
+            "size": [
+              313,
+              313
+            ],
+            "anchor": [
+              167,
+              304
+            ],
+            "hand": [
+              114,
+              194
+            ],
+            "angle": 5,
+            "grip_rect": [
+              108,
+              188,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.35,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_11",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              940,
+              627,
+              314,
+              313
+            ],
+            "size": [
+              314,
+              313
+            ],
+            "anchor": [
+              175,
+              304
+            ],
+            "hand": [
+              135,
+              151
+            ],
+            "angle": 95,
+            "grip_rect": [
+              129,
+              145,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.35,
+            "embedded_weapon": false
+          }
+        ]
+      },
+      "hurt": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "caelan/pose_12",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              0,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              168,
+              304
+            ],
+            "hand": [
+              92,
+              204
+            ],
+            "angle": -15,
+            "grip_rect": [
+              86,
+              198,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.12,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_13",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              314,
+              940,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              172,
+              304
+            ],
+            "hand": [
+              144,
+              216
+            ],
+            "angle": 65,
+            "grip_rect": [
+              138,
+              210,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.13,
+            "embedded_weapon": false
+          }
+        ]
+      },
+      "death": {
+        "loop": false,
+        "frames": [
+          {
+            "file": "caelan/pose_14",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              627,
+              940,
+              313,
+              314
+            ],
+            "size": [
+              313,
+              314
+            ],
+            "anchor": [
+              168,
+              304
+            ],
+            "hand": [
+              116,
+              270
+            ],
+            "angle": 35,
+            "grip_rect": [
+              110,
+              264,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.28,
+            "embedded_weapon": false
+          },
+          {
+            "file": "caelan/pose_15",
+            "atlas": "caelan/atlas.png",
+            "region": [
+              940,
+              940,
+              314,
+              314
+            ],
+            "size": [
+              314,
+              314
+            ],
+            "anchor": [
+              175,
+              304
+            ],
+            "hand": [
+              240,
+              280
+            ],
+            "angle": 80,
+            "grip_rect": [
+              234,
+              274,
+              12,
+              12
+            ],
+            "render_scale": 0.64,
+            "duration": 0.72,
+            "embedded_weapon": false
+          }
+        ]
+      }
+    }
+  },
+  "portraits": {
+    "caelan": {
+      "file": "caelan/illustration.png",
+      "face": [
+        390,
+        60,
+        260,
+        260
+      ],
+      "adult_age": 30
+    }
+  },
+  "presentation": {
+    "caelan": {
+      "banner": "caelan/illustration.png",
+      "panel_region": [
+        60,
+        0,
+        904,
+        1120
+      ]
+    }
+  }
+}

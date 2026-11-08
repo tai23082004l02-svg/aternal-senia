@@ -48,6 +48,16 @@ nguyên tác đã phục hồi. Nghiên cứu bone/Spine không có nghĩa game 
 - Không chuyển sang ảnh thật,3D, pixel art hoặc placeholder hình học. Tỷ lệ chibi
   là lựa chọn mỹ thuật, không phải xác nhận tuổi.
 
+## Caelan — mẫu thiết kế nhân vật, chưa đưa vào runtime
+
+Theo phân công mới, phần này chỉ bàn giao thiết kế nhân vật; UI, cảnh nền và tích hợp do người khác phụ trách.
+Caelan / planningH02 / ID đề xuất `caelan`, nam trưởng thành30 tuổi, Light Vanguard5★.
+Tóc vàng tro vuốt về sau có bím nhỏ, mắt teal, giáp ngà chạm vàng, cape navy lót teal,
+khiên lam họa tiết bình minh, kiếm riêng. Bộ nguồn ở `art/caelan/`: minh họa toàn thân,
+turnaround trước/nghiêng/sau, atlas16 pose và props kiếm/khiên. Giữ nguyên byte nguồn.
+[CAELAN_BENCHMARK](CAELAN_BENCHMARK.md) là brief bàn giao và định hướng kit, **không phải code gameplay đã triển khai**.
+Bốn hero đang chơi được dưới đây vẫn giữ nhận diện, asset, chỉ số và kỹ năng runtime hiện tại.
+
 ## Đội hình và nhận diện bắt buộc
 
 Bốn hero chơi được, đều có rarity gốc5★. Sao thức tỉnh1–5 là hệ riêng, không phải

@@ -60,6 +60,8 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 
 ## Nhân vật, mỹ thuật và âm thanh
 
+[CAELAN_BENCHMARK](CAELAN_BENCHMARK.md): gói thiết kế Caelan gồm minh họa, turnaround,16 pose, props và định hướng kỹ năng; chưa tích hợp runtime/UI.
+
 | Tài liệu | Phạm vi |
 | --- | --- |
 |[CHARACTER_BIBLE](CHARACTER_BIBLE.md)|Canon, tuổi/nhận diện, nguồn chuẩn; bắt buộc trước tạo hero|
