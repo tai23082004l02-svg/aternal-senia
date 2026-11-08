@@ -19,7 +19,7 @@ Không cần API key, tài khoản hoặc dịch vụ trả phí để chơi.
 - Hệ thống nhiệm vụ, phát triển nhân vật/tinh linh, triệu hồi Thường, AFK và Cài đặt.
 - Thế giới Phó bản có 15 địa điểm để xem; 12 địa điểm còn là bản thiết kế.
 
-## Tiếp tục phát triển
+## Định hướng sản phẩm đã duyệt\n\n[Game Design V1.0 — Collector First](docs/GAME_DESIGN_V1.md): 24 hero (12 nam/12 nữ), tất cả 5★ gốc, ưu tiên Gallery/Summon Reveal, Bond, truyện ngắn nhân vật và tiếp tục repo hiện tại. Đây là **kế hoạch**, không phải tính năng đã có. Codex bắt đầu WP01 audit chỉ đọc; các con số nội dung khác chưa tự động được duyệt.\n\n## Tiếp tục phát triển
 
 **Phiên chat mới đọc theo thứ tự:**
 
