@@ -14,7 +14,7 @@ func capture(name: String) -> void:
 	await RenderingServer.frame_post_draw
 	var picture := root.get_texture().get_image()
 	assert(picture.save_png(output.path_join(name+".png")) == OK)
-	if name in ["supplies-list","supplies-chest","supplies-support","supplies-stone"]:
+	if name in ["supplies-list","supplies-list-bottom","supplies-chest","supplies-support","supplies-stone"]:
 		print("SUPPLIES_REVIEW:"+name+":"+Marshalls.raw_to_base64(picture.save_jpg_to_buffer(.7)))
 
 func run() -> void:
@@ -37,6 +37,11 @@ func run() -> void:
 	var original: Dictionary = game.store.profile.duplicate(true)
 	game._supply_open("")
 	await capture("supplies-list")
+	var listing: ScrollContainer = game.panel.find_child("BagContentScroll",true,false)
+	listing.scroll_vertical = 10000
+	await capture("supplies-list-bottom")
+	listing.scroll_vertical = 0
+	await settle()
 	for id in Supplies.ORDER:
 		assert(game.panel.find_child("Supply_"+id,true,false)!=null)
 	for group in ["consumable","upgrade","spirit","ticket","all"]:

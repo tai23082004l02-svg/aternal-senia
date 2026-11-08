@@ -109,7 +109,10 @@ static func prepare(p: Dictionary) -> bool:
 	if id=="": return true
 	if id not in SUPPORT or p.supplies.counts[id]<1: return false
 	var key := "atk" if id=="rage_potion" else "defense"
-	for unit in p.pending.team.units: unit.stats[key] *= 1.1
+	# Canonical decimal precision prevents a boosted teammate changing by one
+	# binary ULP across the JSON round-trip; old pending snapshots are untouched.
+	for unit in p.pending.team.units:
+		unit.stats[key] = roundf(float(unit.stats[key])*1.1*1000000.0)/1000000.0
 	p.pending.stats = p.pending.team.units[0].stats.duplicate(true)
 	p.pending.support = {"id":id,"multiplier":1.1}
 	p.supplies.counts[id] -= 1
