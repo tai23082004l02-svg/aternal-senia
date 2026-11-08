@@ -12,7 +12,9 @@ Các con số dưới đây lấy từ catalogue/model, không lấy số minh h
 
 ## Ưu tiên chiến lược mới (kế hoạch, chưa phải runtime)
 
-Ngày 2026-11-08, chủ dự án chuyển ưu tiên sang **khả năng kiếm tiền và giữ chân người chơi** của Aternal Senia thay vì phát triển đại cốt truyện dài. Đọc [Game Business & Monetization Plan V0.1](BUSINESS_MONETIZATION_PLAN.md) trước khi đề xuất các tính năng thương mại: **Hybrid Idle Fantasy RPG**, Android/Mỹ là hướng thử nghiệm, rewarded ads tự nguyện và IAP chỉ sau xác minh/policy/privacy. **Không có ads, thanh toán hay gói nạp hoạt động thực** chỉ vì tài liệu này. Những nhiệm vụ gameplay được liệt kê dưới đây là trạng thái/backlog lịch sử ở 0.37, không thay thế việc xác định ưu tiên bằng retention/UX thực tế.
+Ngày 2026-11-08, chủ dự án xác nhận mục tiêu **Full Content Launch**: không đưa một game ít hero ra thị trường để thử retention rồi mới làm thêm nội dung. **Dự kiến phát hành Aternal Senia khi đã có roster nam/nữ phong phú, nhiều tinh linh, bộ trang bị, Boss, phó bản, hành trình và hệ kiếm tiền hoạt động thực**. Xem [Game Business & Monetization Plan V0.2](BUSINESS_MONETIZATION_PLAN.md) cho dải mục tiêu đề xuất và lộ trình sản xuất.
+
+Các dải 24–30 hero, 10–12 tinh linh, 10–12 gear set là **đề xuất quy hoạch, chưa được chốt/triển khai**. QA và kiểm thử nội bộ vẫn bắt buộc, nhưng **không có public soft launch với 4 hero làm tiền đề**. Retention/LTV đo **sau phát hành chính thức** để cải thiện game và quyết định marketing. Monetization: rewarded ads tự nguyện + IAP có xác minh, cần triển khai thật riêng, hiện **chưa có**. Các hệ thống trong phần dưới phản ánh trạng thái 0.37 đang hoạt động, không phải mức hoàn thiện để phát hành.
 
 ## Hướng sản phẩm và phong cách
 
