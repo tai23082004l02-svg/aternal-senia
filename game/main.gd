@@ -16,6 +16,10 @@ var frames: FrameLibrary
 var view: BattleView
 var ui: Control
 var mission_tab := 0
+var dungeon_group := "all"
+var dungeon_selected := ""
+var dungeon_difficulty := 1
+var dungeon_list_offset := 0
 var profile_vip: Label
 var profile_name: Label
 var profile_button: Button
@@ -771,9 +775,9 @@ func _close_modal() -> void:
 
 func _on_button(action: Callable) -> void:
 	var method := action.get_method()
-	if method in ["_select_tab", "_bag_open", "_mission_tab", "_forge_tab", "_character_section", "_shop_section", "_select_summon_kind"]:
+	if method in ["_select_tab", "_bag_open", "_mission_tab", "_forge_tab", "_character_section", "_shop_section", "_select_summon_kind", "_dungeon_filter", "_dungeon_show", "_dungeon_difficulty"]:
 		audio.play("menu_open")
-	elif method in ["_close_modal", "_cancel_audio_settings"]:
+	elif method in ["_close_modal", "_cancel_audio_settings", "_dungeon_back"]:
 		audio.play("menu_back")
 	elif method not in ["_attack", "_skill", "_guard"]:
 		audio.play("ui_click")
@@ -1423,17 +1427,49 @@ func _show_ryn_portrait() -> void:
 	box.set_deferred("size", Vector2(472, 730))
 
 func _dungeons_panel() -> void:
-	_text("PHÓ BẢN", 25, Color("e5cd9e"))
-	_text("Thử thách để kiếm lõi tinh linh. Không tiêu vé; phần thưởng nhận khi thắng.")
-	_text("Đối thủ thuộc nhóm 1–4★; tách khỏi nhân vật chơi 5★.", 13)
-	for stage in catalog.data.stages:
-		if stage.get("kind") != "challenge": continue
-		_text(stage.name, 20, Color("e5cd9e"))
-		_text("%d đợt · %d vàng · %d XP · %d lõi" % [stage.waves.size(), stage.gold, stage.xp, stage.cores])
-		var record: Dictionary = store.profile.expansion.records.get(str(stage.id), {})
-		if not record.is_empty(): _text("Kỷ lục %d điểm · %.1f giây" % [record.score, record.time])
-		_stage_entry(stage)
-	_row("Chương truyện & Ký ức →", _select_tab.bind(5))
+	var screen := DungeonScreen.new()
+	screen.game = self
+	panel.add_child(screen)
+
+func _dungeon_filter(group: String) -> void:
+	if group not in DungeonWorld.GROUPS: return
+	dungeon_group = group
+	dungeon_selected = ""
+	dungeon_list_offset = 0
+	scroll.scroll_vertical = 0
+	_refresh_panel()
+
+func _dungeon_show(id: String) -> void:
+	if DungeonWorld.new().find(id).is_empty(): return
+	if not panel.get_children().is_empty() and panel.get_child(0) is DungeonScreen:
+		var current: DungeonScreen = panel.get_child(0)
+		if is_instance_valid(current.list_scroll): dungeon_list_offset = current.list_scroll.scroll_vertical
+	dungeon_selected = id
+	dungeon_difficulty = 1
+	scroll.scroll_vertical = 0
+	_refresh_panel()
+
+func _dungeon_back() -> void:
+	dungeon_selected = ""
+	scroll.scroll_vertical = 0
+	_refresh_panel()
+
+func _dungeon_difficulty(index: int) -> void:
+	dungeon_difficulty = clampi(index,0,2)
+	var current: ScrollContainer = panel.find_child("DungeonContentScroll",true,false)
+	var offset := current.scroll_vertical if current != null else 0
+	_refresh_panel()
+	current = panel.find_child("DungeonContentScroll",true,false)
+	if current != null: current.set_deferred("scroll_vertical",offset)
+
+func _dungeon_enter(id: String) -> void:
+	var row := DungeonWorld.new().find(id)
+	if row.is_empty() or row.stage == 0 or _locked(): return
+	if not store.can_enter(row.stage): return
+	_enter_stage(row.stage)
+
+func _dungeon_help() -> void:
+	_dialog("THẾ GIỚI PHÓ BẢN","15 phó bản chia thành Tài nguyên, Chiến thuật, Săn Boss và Chinh phục.\n\nBa phó bản hiện có giữ màn chơi và phần thưởng thật. Các địa điểm sắp mở hiện cho xem trước phong cảnh, đối thủ và cơ chế; thông số, lượt thưởng và quét nhanh sẽ bổ sung cùng màn chơi.\n\nTháp Vô Tận dự kiến100 tầng, có thể mở rộng500. BXH mở sau khi có tài khoản và máy chủ.",[{"text":"Đóng","call":_close_modal}])
 
 func _inspect_character(id: String) -> void:
 	if catalog.find_row("heroes", id).is_empty(): return

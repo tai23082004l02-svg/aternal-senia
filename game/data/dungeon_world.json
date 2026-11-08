@@ -1,0 +1,323 @@
+{
+  "version": 1,
+  "scope": "presentation_only",
+  "groups": {
+    "resource": "Tài nguyên",
+    "tactic": "Chiến thuật",
+    "boss": "Săn Boss",
+    "endless": "Chinh phục"
+  },
+  "entries": [
+    {
+      "id": "grove",
+      "title": "Sân Cổ Thụ",
+      "group": "resource",
+      "art": 0,
+      "stage": 101,
+      "summary": "Một đợt bảo vệ khu rừng cổ, thu thập lõi tinh linh.",
+      "rules": "Đối đầu Cổ thụ thức tỉnh và quái tiếp viện. Giữ đội hình sống sót qua đòn đập diện rộng.",
+      "rewards": [
+        "cores"
+      ],
+      "enemies": [
+        [
+          "Cổ thụ thức tỉnh",
+          "enemy_golem"
+        ]
+      ]
+    },
+    {
+      "id": "crystal_mine",
+      "title": "Mỏ Tinh Thạch",
+      "group": "resource",
+      "art": 1,
+      "stage": 0,
+      "summary": "Khám phá hầm mỏ, phá lớp khiên tinh thể để thu thập tinh thạch.",
+      "rules": "Thiết kế: Golem bảo vệ lõi tinh thể; phá khiên để mở thời điểm gây sát thương.",
+      "rewards": [
+        "shards",
+        "training_item"
+      ],
+      "enemies": [
+        [
+          "Golem Tinh Thạch",
+          0
+        ],
+        [
+          "Thú Tinh Thạch",
+          1
+        ],
+        [
+          "Linh Thạch",
+          2
+        ]
+      ]
+    },
+    {
+      "id": "ancient_forge",
+      "title": "Hầm Rèn Cổ Đại",
+      "group": "resource",
+      "art": 2,
+      "stage": 0,
+      "summary": "Tiến sâu vào lò rèn thất lạc, tìm vật liệu phát triển trang bị.",
+      "rules": "Thiết kế: lính gác cơ khí canh giữ các trạm rèn; vượt Boss thợ rèn ở cuối hành lang.",
+      "rewards": [
+        "training_item",
+        "forge"
+      ],
+      "enemies": [
+        [
+          "Lính gác cơ khí",
+          3
+        ]
+      ]
+    },
+    {
+      "id": "spirit_sanctum",
+      "title": "Thánh Điện Linh Hồn",
+      "group": "resource",
+      "art": 3,
+      "stage": 0,
+      "summary": "Bảo vệ tinh linh giữa những đợt tấn công trong thánh điện.",
+      "rules": "Thiết kế: bảo vệ mục tiêu tinh linh qua nhiều đợt. Kết hợp hồi phục, khiên và khống chế.",
+      "rewards": [
+        "cores",
+        "spirit"
+      ],
+      "enemies": [
+        [
+          "Linh thú thánh điện",
+          7
+        ]
+      ]
+    },
+    {
+      "id": "pirate_treasure",
+      "title": "Kho Báu Hải Tặc",
+      "group": "resource",
+      "art": 4,
+      "stage": 0,
+      "summary": "Đánh bại thủ lĩnh, khám phá kho báu bên xác tàu.",
+      "rules": "Thiết kế: tiêu diệt thủ lĩnh trước khi hết giờ để mở kho báu hải tặc.",
+      "rewards": [
+        "gold",
+        "chest"
+      ],
+      "enemies": [
+        [
+          "Thủ lĩnh hải tặc",
+          11
+        ]
+      ]
+    },
+    {
+      "id": "six_waves",
+      "title": "Tháp Sáu Đợt",
+      "group": "tactic",
+      "art": 5,
+      "stage": 102,
+      "summary": "Giữ HP và năng lượng qua sáu đợt để vượt tầng cuối.",
+      "rules": "Đội hình liên tục qua sáu đợt; dùng kỹ năng đúng thời điểm và bảo toàn đồng đội trước Boss cuối.",
+      "rewards": [
+        "cores"
+      ],
+      "enemies": [
+        [
+          "Sói rừng",
+          "enemy_wolf"
+        ],
+        [
+          "Hộ vệ than hồng",
+          "enemy_guardian"
+        ]
+      ]
+    },
+    {
+      "id": "mist_labyrinth",
+      "title": "Mê Cung Sương Mù",
+      "group": "tactic",
+      "art": 6,
+      "stage": 0,
+      "summary": "Chọn lối đi và sức mạnh phù hợp giữa màn sương.",
+      "rules": "Thiết kế: mỗi tầng chọn một trong hai hiệu ứng để tăng sức mạnh hoặc thay đổi thử thách.",
+      "rewards": [
+        "shards",
+        "xp"
+      ],
+      "enemies": [
+        [
+          "Linh thú sương mù",
+          7
+        ]
+      ]
+    },
+    {
+      "id": "element_arena",
+      "title": "Đấu Trường Nguyên Tố",
+      "group": "tactic",
+      "art": 7,
+      "stage": 0,
+      "summary": "Thay đổi đội hình để đối phó những lớp kháng hệ.",
+      "rules": "Thiết kế: đối thủ có kháng hệ riêng; lựa chọn tướng và tinh linh phù hợp để vượt từng đợt.",
+      "rewards": [
+        "training_item",
+        "xp"
+      ],
+      "enemies": [
+        [
+          "Hộ vệ nguyên tố",
+          3
+        ]
+      ]
+    },
+    {
+      "id": "mirror_hall",
+      "title": "Hành Lang Gương",
+      "group": "tactic",
+      "art": 8,
+      "stage": 0,
+      "summary": "Tìm mục tiêu thật giữa những bản sao trong gương.",
+      "rules": "Thiết kế: một kẻ địch tạo bản sao yếu hơn; nhận biết và tập trung hạ đúng mục tiêu.",
+      "rewards": [
+        "shards",
+        "xp"
+      ],
+      "enemies": [
+        [
+          "Ảo ảnh gương",
+          6
+        ]
+      ]
+    },
+    {
+      "id": "time_ruins",
+      "title": "Phế Tích Thời Gian",
+      "group": "tactic",
+      "art": 9,
+      "stage": 0,
+      "summary": "Thích nghi với những giai đoạn thời gian biến đổi.",
+      "rules": "Thiết kế: hồi chiêu kỹ năng và tốc độ đánh thay đổi theo giai đoạn của phế tích.",
+      "rewards": [
+        "training_item",
+        "xp"
+      ],
+      "enemies": [
+        [
+          "Vệ binh thời gian",
+          3
+        ]
+      ]
+    },
+    {
+      "id": "dawn_wardens",
+      "title": "Tam Vệ Bình Minh",
+      "group": "boss",
+      "art": 10,
+      "stage": 103,
+      "summary": "Đấu liên tiếp ba Boss canh giữ con đường bình minh.",
+      "rules": "Ba đợt Boss hiện có: Cổ thụ thức tỉnh, Hộ vệ than hồng và Ảo ảnh thủy triều. Chuẩn bị kỹ năng cho từng cơ chế.",
+      "rewards": [
+        "cores"
+      ],
+      "enemies": [
+        [
+          "Cổ thụ thức tỉnh",
+          "enemy_golem"
+        ],
+        [
+          "Hộ vệ than hồng",
+          "enemy_guardian"
+        ],
+        [
+          "Ảo ảnh thủy triều",
+          "enemy_wolf"
+        ]
+      ]
+    },
+    {
+      "id": "ancient_dragon",
+      "title": "Hang Rồng Cổ",
+      "group": "boss",
+      "art": 11,
+      "stage": 0,
+      "summary": "Đối mặt Cự Long Hỏa Ngục trong hang nham thạch.",
+      "rules": "Thiết kế: Boss nhiều giai đoạn, gây thiêu đốt và tung đòn diện rộng; tìm nguyên liệu rèn cao cấp.",
+      "rewards": [
+        "forge",
+        "training_item"
+      ],
+      "enemies": [
+        [
+          "Cự Long Hỏa Ngục",
+          8
+        ]
+      ]
+    },
+    {
+      "id": "void_abyss",
+      "title": "Vực Thẳm Hư Không",
+      "group": "boss",
+      "art": 12,
+      "stage": 0,
+      "summary": "Bước vào khe nứt nơi Kẻ Nuốt Ánh Sáng chờ đợi.",
+      "rules": "Thiết kế: Boss triệu hồi bóng tối và tự tạo khiên; cân bằng giữa dọn quái và phá khiên.",
+      "rewards": [
+        "forge",
+        "shards"
+      ],
+      "enemies": [
+        [
+          "Kẻ Nuốt Ánh Sáng",
+          9
+        ]
+      ]
+    },
+    {
+      "id": "eclipse_palace",
+      "title": "Cung Điện Nguyệt Thực",
+      "group": "boss",
+      "art": 13,
+      "stage": 0,
+      "summary": "Thách đấu Nữ Hoàng Nhật Nguyệt dưới bóng nguyệt thực.",
+      "rules": "Thiết kế: Boss luân phiên hai trạng thái ánh sáng và bóng tối, thay đổi cách phòng thủ và tấn công.",
+      "rewards": [
+        "forge",
+        "training_item"
+      ],
+      "enemies": [
+        [
+          "Nữ Hoàng Nhật Nguyệt",
+          10
+        ]
+      ]
+    },
+    {
+      "id": "endless_spire",
+      "title": "Tháp Vô Tận",
+      "group": "endless",
+      "art": 14,
+      "stage": 0,
+      "summary": "Leo cao, chinh phục thử thách và nhận thưởng vượt tầng.",
+      "rules": "Thiết kế: 100 tầng, có thể mở rộng 500. Mỗi 5 tầng Elite, mỗi 10 tầng Boss; thưởng lần đầu từng tầng và thay đổi luật sau mỗi 10 tầng.",
+      "rewards": [
+        "shards",
+        "achievement",
+        "xp"
+      ],
+      "enemies": [
+        [
+          "Hộ vệ tinh thể",
+          0
+        ],
+        [
+          "Kẻ canh vực thẳm",
+          9
+        ],
+        [
+          "Thú tinh thạch",
+          1
+        ]
+      ]
+    }
+  ]
+}
