@@ -6,11 +6,12 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 
 ## Định hướng sản phẩm và nội dung (2026-11-08)
 
-- Chủ dự án đã **hủy các bản thảo cốt truyện lớn vừa xây dựng**. Không sử dụng các bản thảo *The World That Forgot Tomorrow*, *Character Story Bible*, *World Mechanics* và *Master Timeline* làm định hướng hoặc canon khi đề xuất phát triển tiếp.
-- Mục tiêu ưu tiên là xây dựng một **mobile Idle/Auto-Battle RPG có khả năng kiếm tiền bền vững**, hướng đến người chơi Mỹ; phân tích retention, vòng lặp chơi, nội dung tái chơi, **rewarded ads tự nguyện** và **in-app purchases** trước khi mở rộng lore/art.
-- Cốt truyện là công cụ giúp tạo nhân vật, tinh linh, trang bị, quái vật, vùng đất và sự kiện hấp dẫn; **không đầu tư đại truyện dài nếu chưa phục vụ trải nghiệm và mục tiêu sản phẩm**. Các phương án thương mại vẫn cần kiểm chứng, chưa chốt tỷ lệ, giá hay gói nạp.
-- **Tài liệu kinh doanh ưu tiên:** [BUSINESS_MONETIZATION_PLAN](docs/BUSINESS_MONETIZATION_PLAN.md) — kế hoạch hybrid Idle RPG / retention / rewarded ads tự nguyện / IAP xác minh qua cửa hàng. Đọc trước các task product, economy, quảng cáo, thanh toán, onboarding, phát hành và mở rộng roster. Giá/KPI/placements là **giả thuyết**, chưa triển khai. Việc sửa hệ thống phải theo task cụ thể, chống trùng reward, xác minh IAP và giữ tiến trình người chơi.
-- Chưa được phép tự tích hợp SDK quảng cáo, thanh toán hoặc sửa economy/gameplay chỉ vì định hướng này; việc triển khai cần yêu cầu cụ thể, kế hoạch thử nghiệm và tương thích save. Không tự xóa nội dung game đang có.
+- Chủ dự án đã **hủy** các bản thảo *The World That Forgot Tomorrow* và Character/World Story Bible; không dùng chúng làm canon.
+- **QUYẾT ĐỊNH SẢN PHẨM:** Phát hành **một bản Full Content Launch hoàn chỉnh** của Aternal Senia (Hybrid Idle/Auto-Battle Fantasy RPG), **không ra mắt công khai game chỉ có vài hero để thử nghiệm retention**. Chủ dự án ưu tiên **nhiều nhân vật đẹp**, nam/nữ đa dạng, nhiều tinh linh, bộ trang bị, Boss, phó bản và gameplay hoàn thiện **ngay khi phát hành**.
+- **Kế hoạch nguồn chuẩn:** [BUSINESS_MONETIZATION_PLAN V0.2](docs/BUSINESS_MONETIZATION_PLAN.md). Số lượng *đề xuất* để lập Launch Content Matrix: 24–30 hero, 10–12 tinh linh, 10–12 gear set, 6–8 vùng, 60–100 encounter, 8–12 Boss; **chưa chốt** và không được suy thành asset/runtime đã có. Khi chủ dự án duyệt nội dung, sản xuất đủ trước public release. Không được giảm roster xuống 4 hero chỉ vì tiết kiệm thời gian.
+- **Cho phép và bắt buộc:** Làm từng lô nội bộ, QA kỹ thuật, test Godot/Android/billing/ads/save. Những hoạt động này **không phải public soft launch**; không đưa sản phẩm thiếu nội dung ra cửa hàng để hỏi người chơi có muốn thêm hero không.
+- Mô hình kiếm tiền: **rewarded ads tự nguyện + IAP thật** có backend/receipt/entitlement/privacy; chuẩn bị để có thể hoạt động ngày phát hành. Cốt truyện chỉ hỗ trợ tạo ra hero, tinh linh, gear, Boss, vùng đất và nội dung chơi lại; không tiêu tốn nguồn lực vào saga dài nếu không phục vụ game.
+- Plan được quyền định hướng các task tiếp theo nhưng **không là lệnh tự tích hợp SDK, mở gói bán, tự xóa item/hero hoặc sửa economy/save**. Phải có chỉ định công việc cụ thể, kiểm thử và bảo toàn giao dịch. Đo retention/LTV sau phát hành để tối ưu kinh doanh, **không dùng như điều kiện cho phép xây roster gốc**.
 
 ## Cộng tác và phạm vi
 
