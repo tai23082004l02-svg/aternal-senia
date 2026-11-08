@@ -20,7 +20,7 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
 **ĐỌC BẮT BUỘC:** [docs/GAME_DESIGN_V1.md](docs/GAME_DESIGN_V1.md) trước khi lập kế hoạch hoặc triển khai hero, Gallery, Summon Reveal, Bond, cốt truyện nhân vật. Chủ dự án đã duyệt **24 hero (12 nam/12 nữ), tất cả gốc 5★, ưu tiên Gallery/Summon Reveal, bổ sung Bond, truyện ngắn xoay quanh nhân vật, tiếp tục repo hiện tại**. Đây là quyết định mới hơn các câu ghi "24 hero chưa chốt" ở tài liệu cũ; **chỉ phạm vi sáu quyết định này được duyệt**, các con số khác trong Launch Content Matrix và thông số chi tiết vẫn là draft. Không coi tài liệu thiết kế là code đã chạy. **Bước Codex tiếp theo: WP01 audit chỉ đọc, không sửa/commit/push**, trừ khi chủ dự án giao task mới rõ ràng.
 
 
-**QUYẾT ĐỊNH MỚI (2026-11-08):** Mục tiêu đội hình V1.0 là **4 hero + 1 tinh linh**, thay cho 3 hero + 1 tinh linh. Runtime hiện tại vẫn 3+1; không tự sửa combat chỉ vì quyết định này. Codex WP01 phải đánh giá migration save v12, formation, pending battle snapshots, targeting/AI, UI và balance trước khi triển khai. Bố cục 2 trước + 2 sau là đề xuất, chưa chốt quy tắc khóa vị trí.
+**QUYẾT ĐỊNH MỚI (2026-11-08):** Mục tiêu đội hình V1.0 là **4 hero + 1 tinh linh**, thay cho 3 hero + 1 tinh linh. Đã triển khai theo yêu cầu tiếp theo của chủ dự án: 2 trước + 2 sau, không khóa nghề; save v12 nhận đội cũ 3 ô và đội mới 4 ô, snapshot v1 giữ nguyên, trận mới dùng snapshot v2. Địch vẫn ưu tiên slot còn sống nhỏ nhất. Xem docs/TEAM_COMBAT.md.
 
 ## Cộng tác và phạm vi
 
@@ -61,7 +61,7 @@ Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD 
   gồm tiêu đề, nút, chỉ số, mô tả, menu và ô nhập liệu; xem docs/ENGLISH_UI.md.
   Dùng font đóng gói qua UIFonts và Typography, không dùng font hệ thống.
 
-- Trận mới: TeamBattle/TeamBattleUI, tối đa3 hero sở hữu +1 tinh linh, tối đa4 địch.
+- Trận mới: TeamBattle/TeamBattleUI, tối đa4 hero sở hữu +1 tinh linh, tối đa4 địch.
   Đội hình không khóa nghề. BattleModel giữ tương thích pending singleton cũ.
 - Model sở hữu damage, RNG, marker và phát sự kiện; renderer/frame/socket/seek
   không sửa HP, ví hoặc reward. Nhận thưởng phải commit trước khi auto-next;

@@ -14,8 +14,8 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 | --- | --- |
 |GameCatalog|Nạp catalog.json, ghép expansion.json và team_encounters.json; normalize số, validate ID/drop/slot/skill, suy ra stats|
 |ProgressStore|Profile, migration v1–v12, backup/read-only, validate/commit, begin_run/settle và giao dịch gear|
-|Formation|Roster/slot/assist/auto options và snapshot team/encounter; ba slot không khóa nghề|
-|TeamBattle|Trận mới3vN, action/hit marker, HP/năng lượng, target, hiệu ứng/đội, kết quả|
+|Formation|Roster/slot/assist/auto options và snapshot team/encounter; bốn slot không khóa nghề; đọc đội v12 ba ô qua bản sao|
+|TeamBattle|Trận mới4vN, action/hit marker, HP/năng lượng, target, hiệu ứng/đội, kết quả|
 |BattleModel|Nền model và đường chạy pending singleton cũ; không được xóa chỉ vì UI dùng TeamBattle|
 |EquipmentSystem|4 slot, multiplier, bộ2/4, tham chiếu UID, map ID migration|
 |CollectionFragments|Mảnh gear/spirit cũ và kiểm map theo phiên bản; không áp singleton vào gear hiện tại|
@@ -48,7 +48,7 @@ các screen. Screen gọi giao dịch model; không tự tăng tài nguyên ho�
 ## Tạo và kết thúc run
 
 1. Kiểm quyền vào ải/pending/cap hàng chờ; clone profile.
-2. Tạo run ID/seed, team snapshot, stats đầu team, options và encounter.
+2. Tạo run ID/seed, team snapshot v2 (1–4 hero; tiếp tục nhận v1 tối đa3 hero), stats đầu team, options và encounter.
 3. Nếu có thuốc, áp một lần vào candidate snapshot, trừ1 và xóa lựa chọn.
 4. Commit thành công mới khởi động model. Resume đọc snapshot cùng seed;
    không gọi lại prepare hoặc tính stats theo trang bị mới.

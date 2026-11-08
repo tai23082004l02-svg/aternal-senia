@@ -35,8 +35,8 @@ thời điểm triển khai; không áp lại singleton, +10,7 bậc gear hoặc
 
 | Tài liệu | Phạm vi |
 | --- | --- |
-|[TEAM_COMBAT](TEAM_COMBAT.md)|Trận đội3vN, snapshot, model/events, tương thích singleton|
-|[FORMATION_SCREEN](FORMATION_SCREEN.md)|Bố cục đội hình, slot, chọn hero/tinh linh|
+|[TEAM_COMBAT](TEAM_COMBAT.md)|Trận đội4vN, snapshot, model/events, tương thích singleton|
+|[FORMATION_SCREEN](FORMATION_SCREEN.md)|Bố cục 2 trước/2 sau, bốn slot, chọn hero/tinh linh|
 |[BAG_INVENTORY](BAG_INVENTORY.md)|Gear nhiều bản/UID,40 ô, hàng chờ, hợp thành/rèn/tách|
 |[EQUIPMENT_SETS](EQUIPMENT_SETS.md)|4 slot,5 độ hiếm,+15, hiệu ứng và bộ2/4|
 |[ADDITIONAL_EQUIPMENT](ADDITIONAL_EQUIPMENT.md)|18 món/3 bộ mới, pool và migration v10→v11|

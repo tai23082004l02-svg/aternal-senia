@@ -170,8 +170,8 @@ class FormationPreview extends Control:
 	func _draw() -> void:
 		draw_texture_rect(frames.textures["bg_" + stage.zone], Rect2(Vector2.ZERO, size), false)
 		var slots: Array = Formation.state(profile, book).slots
-		var feet := [Vector2(340, 224), Vector2(185, 178), Vector2(116, 226)]
-		for slot in [1, 0, 2]:
+		var feet := [Vector2(340, 164), Vector2(340, 244), Vector2(156, 164), Vector2(156, 244)]
+		for slot in [2, 0, 3, 1]:
 			var id: String = slots[slot]
 			if id.is_empty(): continue
 			var stats := book.stats(profile, id)

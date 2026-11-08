@@ -18,9 +18,9 @@ The earlier **Full Content Launch** decision remains: build and QA internally in
 
 ## Owner-approved formation decision — 2026-11-08
 
-**APPROVED TARGET: 4 heroes + 1 spirit per team.** This supersedes the earlier 3 heroes + 1 spirit target for V1.0. Current runtime remains 3+1 until a separately authorized and tested implementation. A proposed UI arrangement is 2 front + 2 back hero positions, with a separate spirit support slot; this is a layout proposal, not a fixed-class restriction.
+**APPROVED TARGET: 4 heroes + 1 spirit per team.** This supersedes the earlier 3 heroes + 1 spirit target for V1.0. Implemented by the subsequent owner-authorized task: up to 4 owned heroes + 1 spirit, 2 front + 2 back presentation, without class restrictions. Enemy targeting retains lowest living slot priority; two front positions do not split incoming damage automatically.
 
-**Mandatory Codex WP01 extension:** audit formation data, TeamBattle/TeamBattleUI, action economy, targeting, AI, summon/ownership progression, four-hero skill balance, portrait and ultimate HUD, performance, save v12 migrations, and pending-run snapshot backward compatibility. Old 3-hero teams must load safely; no silent save reset or forced mutation. Preserve 3+1 battle resume for old snapshots if needed. Implement only on a later scoped task after owner review.
+**Mandatory Codex WP01 extension:** audit formation data, TeamBattle/TeamBattleUI, action economy, targeting, AI, summon/ownership progression, four-hero skill balance, portrait and ultimate HUD, performance, save v12 migrations, and pending-run snapshot backward compatibility. Old 3-hero teams must load safely; no silent save reset or forced mutation. Preserve 3+1 battle resume for old snapshots if needed. The owner subsequently authorized implementation and pushing to main; compatibility is documented in TEAM_COMBAT.md.
 
 ## 2. Product pillars and experience
 
@@ -30,7 +30,7 @@ Primary player loop: **Discover hero → obtain hero → develop bond and identi
 
 - Character art and recognizability drive discovery and desire to collect.
 - Collection presentation and reveal should feel polished without misleading rarity/odds.
-- Combat must remain meaningful: three owned heroes + one spirit, readable skills, role synergy and real rewards.
+- Combat must remain meaningful: four owned heroes + one spirit, readable skills, role synergy and real rewards.
 - All UI text remains English with the packaged typography rules in `docs/ENGLISH_UI.md`.
 - Character visuals should have distinctive silhouettes, facial features, costumes, weapons, accent palettes and consistent anime art direction. Follow `docs/CHARACTER_BIBLE.md` for Eira/Ryn/Mira/Lyra; Ryn and Lyra are distinct.
 
@@ -125,7 +125,7 @@ WP04–WP06 can be planned concurrently after WP02, but merge only after depende
 
 - Engine Godot 4.6.3; current game 0.37.0, save v12 at planning time. Check current HEAD, not just this snapshot.
 - Preserve `ProgressStore` migrations, backup, pending runs, deterministic snapshots, equipment UID, ownership and idempotent reward settlement.
-- Existing `TeamBattle` supports up to 3 heroes + 1 spirit, up to 4 enemies; legacy `BattleModel` still supports pending singleton saves.
+- Existing `TeamBattle` supports up to 4 heroes + 1 spirit, up to 4 enemies; legacy `BattleModel` still supports pending singleton saves.
 - UI reads model results; renderer/audio do not mutate wallet, RNG, HP or loot.
 - Do not import `docs/launch/CONTENT_REGISTRY_DRAFT.json` into `game/data/catalog.json` directly.
 - Respect `AGENTS.md`, `docs/SYSTEMS.md`, `docs/TESTING.md` and `docs/CHARACTER_BIBLE.md`.

@@ -1,3 +1,11 @@
+> **Cập nhật 2026-11-08 — runtime 4 hero + 1 tinh linh:** Bốn ô trình bày 2 trước + 2 sau, không khóa nghề. Địch ưu tiên slot còn sống theo thứ tự 0 → 1 → 2 → 3; không tự chia sát thương cho hai ô trước. HUD có bốn thẻ hero và thanh Ultimate tinh linh riêng. Hành trình hiển thị cả bốn hero.
+>
+> **Tương thích:** Giữ save v12 và đường dẫn cũ, nhận formation 3 hoặc 4 ô. `Formation.state()` mở rộng bản sao thành 4 ô với ô cuối trống; xem UI không ghi save. Chỉnh đội mới ghi bốn ô qua transaction hiện có. Profile chưa có formation lấy hero sở hữu tối đa4; không cấp hero khóa. Snapshot mới v2 nhận 1–4 hero; snapshot v1 tối đa3 hero và pending singleton vẫn đọc nguyên trạng, không tính lại stats/seed/thuốc/phần thưởng. Renderer v1 giữ vị trí cũ. Quy tắc heal/khiên/energy và chỉ số encounter giữ nguyên; cần cân bằng sâu và kiểm tra điện thoại thật riêng.
+>
+> Phần phiên bản 0.24/0.25 bên dưới là lịch sử, không còn giới hạn runtime hiện hành.
+
+Kiểm chứng thay đổi 4+1 trên Godot 4.6.3/Linux/X11: 23 suite đạt (`team_battle`, `team_matrix`, `team_campaign`, `team_flow`, `team_ui`, `formation_layout`, `journey_ui`, `english_ui`, `supplies_ui`, `regression`, `mechanics`, `campaign`, `ui_flow`, `animation_gallery`, `supplies`, `bag_inventory`, `unique_collection`, `equipment_sets`, `additional_equipment`, `recruitment`, `summon_batch`, `collection_ui`, `hero_contract`), cùng import và verify_repo/validate_english. Matrix gồm108 tổ hợp (6 đội ×18 ải), fixture LV8/seed17; đây là kiểm tra giới hạn/kết thúc hợp lệ, không chứng minh cân bằng sâu. Team campaign qua15 màn Story bằng tài nguyên kiếm được. Đã xem ảnh render đội bốn hero và HUD; kiểm nút Ultimate riêng cho hero thứ tư/tinh linh và không chồng nút. Chưa kiểm FPS/cảm ứng/nhiệt trên điện thoại thật.
+
 > Trạng thái chuẩn: [GAME_STATE](GAME_STATE.md), [mục lục](INDEX.md). Các phần ghi phiên bản cũ là lịch sử; ưu tiên yêu cầu mới và quy tắc hiện hành.
 
 # Đội hình 3vN · 0.24

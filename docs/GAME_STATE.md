@@ -1,6 +1,6 @@
 # Trạng thái dự án — bắt đầu ở đây
 
-> **Mới duyệt 2026-11-08:** Mục tiêu thiết kế đội hình **4 hero + 1 tinh linh** (thay mục tiêu 3+1). **Chưa triển khai:** bản 0.37 hiện vẫn hỗ trợ tối đa 3 hero + 1 tinh linh. Codex phải audit migration, pending snapshots, combat/UI và cân bằng trước khi sửa. Xem [GAME_DESIGN_V1](GAME_DESIGN_V1.md).
+> **Đã triển khai 2026-11-08:** Đội hình tối đa **4 hero + 1 tinh linh**, bố cục 2 trước + 2 sau, không khóa nghề. Save v12 đọc đội 3/4 ô; xem đội cũ chỉ thêm ô trống trên bản sao, ghi 4 ô khi người chơi chỉnh đội. Snapshot v1 và singleton cũ giữ nguyên; trận mới dùng v2. Xem [TEAM_COMBAT](TEAM_COMBAT.md).
 
 Cập nhật2026-11-08. Game **0.37.0**, **Godot4.6.3**, save **v12**.
 Đợt dọn repo không đổi gameplay hoặc schema. Repo triển khai:
@@ -53,8 +53,8 @@ Chi tiết tương thích snapshot và kế hoạch migration roster: [HERO_COLL
 | --- | --- |
 | Hero | Eira/light, Ryn/fire, Mira/water, Lyra/fire;4 hero gốc5★, mở theo tiến trình/triệu hồi; không sở hữu mặc định tất cả |
 | Tinh linh | Lumi/SR, Ash/SSR; hỗ trợ đội, nâng cấp/nhánh/tiến hóa; UR mới là bậc dự trữ |
-| Trận mới | Tối đa3 hero sở hữu +1 tinh linh, auto battle, điều khiển Ultimate/target/tốc độ, tối đa4 địch cùng lúc |
-| Đội hình | Một ô trước, hai ô sau; không khóa nghề; snapshot lúc vào trận |
+| Trận mới | Tối đa4 hero sở hữu +1 tinh linh, auto battle, điều khiển Ultimate/target/tốc độ, tối đa4 địch cùng lúc |
+| Đội hình | Hai ô trước, hai ô sau; không khóa nghề; snapshot lúc vào trận |
 | Hành trình | 5 màn chính ID1–5 và10 màn nhánh ID6–15 |
 | Phó bản chơi thật |101 Săn cổ thụ (UI Sân Cổ Thụ);102 Tháp sáu đợt;103 Tam vệ bình minh |
 | Thế giới Phó bản |15 entry, lọc tài nguyên5/chiến thuật5/Boss4/chinh phục1, trang chi tiết, nguồn thưởng/đối thủ;12 entry stage0 chỉ preview |

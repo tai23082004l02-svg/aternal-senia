@@ -619,7 +619,7 @@ func _enter_stage(id: int) -> void:
 		return
 	selected_stage = id
 	var stage := catalog.find_row("stages", id)
-	_dialog(stage.name, stage.before + "\n\nBring up to 3 heroes and 1 spirit. The front row takes hits first; Auto Ultimate is optional. Defeat occurs when the team falls or 180 seconds elapse."+Supplies.hint(store.profile), [{"text": "Enter Battle", "call": _begin}, {"text":"Formation", "call":_open_formation}, {"text": "Keep Preparing", "call": _close_modal}])
+	_dialog(stage.name, stage.before + "\n\nBring up to 4 heroes and 1 spirit. Living slots take hits in order, front then back; Auto Ultimate is optional. Defeat occurs when the team falls or 180 seconds elapse."+Supplies.hint(store.profile), [{"text": "Enter Battle", "call": _begin}, {"text":"Formation", "call":_open_formation}, {"text": "Keep Preparing", "call": _close_modal}])
 
 func _begin() -> void:
 	_close_modal()

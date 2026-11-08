@@ -8,7 +8,7 @@ func run() -> void:
 	var p := store.profile.duplicate(true)
 	p.cleared = [1,2,3,4,5]
 	for hero in book.data.heroes: p.heroes[hero.id].level = 8
-	var configurations := [["ryn","mira","eira"],["eira","ryn","lyra"],["mira","lyra","eira"],["lyra","mira","ryn"]]
+	var configurations := [["ryn","mira","eira","lyra"],["eira","lyra","ryn","mira"],["ryn","mira","eira"],["eira","ryn","lyra"],["mira","lyra","eira"],["lyra","mira","ryn"]]
 	var total := 0
 	var won := 0
 	for roster in configurations:
@@ -32,6 +32,6 @@ func run() -> void:
 				if ally.hp <= 0: assert(ally.action.is_empty())
 			total += 1
 			if model.state == "won": won += 1
-	assert(total == 72)
-	print("PASS: 72 team/encounter combinations terminate with bounded units, resources and kills; wins=", won)
+	assert(total == 108)
+	print("PASS: 108 team/encounter combinations terminate with bounded units, resources and kills; wins=", won)
 	quit()
