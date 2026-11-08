@@ -4,13 +4,12 @@
 Trạng thái tại lần dọn repo 2026-11-08: game0.37.0, Godot4.6.3, savev12.
 Yêu cầu mới nhất của người dùng ưu tiên tài liệu; kiểm HEAD và code trước khi làm.
 
-## Định hướng cốt truyện mới (đang duyệt)
+## Định hướng sản phẩm và nội dung (2026-11-08)
 
-- Đọc [bản thảo *The World That Forgot Tomorrow*](docs/story/THE_WORLD_THAT_FORGOT_TOMORROW.md) trước khi đề xuất **cốt truyện, nhân vật, tinh linh, trang bị, Boss hoặc World mới**. Đây là bản thảo đại cốt truyện được chủ dự án yêu cầu đưa vào repo để tiếp tục phát triển, **chưa chốt canon**.
-- Đọc thêm [Character Story Bible V0.1](docs/story/CHARACTER_STORY_BIBLE.md) khi nghiên cứu vai trò, động cơ, quan hệ và số phận nhân vật. Hồ sơ hiện là **draft**, không phải danh sách playable hero; xem phần C-01...C-08 về các điểm chưa chốt trước khi suy diễn timeline, quy luật hoặc danh tính.
-- Với luật thế giới/niên đại/cảnh mở đầu, đọc [WORLD_MECHANICS](docs/story/WORLD_MECHANICS.md) và [MASTER_TIMELINE](docs/story/MASTER_TIMELINE.md) sau Story Bible và Character Story Bible. Các nhãn **P-01…P-09** và **TL-01…TL-10** là phương án chưa chốt, không tự coi là canon. Đặc biệt không mặc định năm hồi = năm World game, hoặc sáu năm giữa prologue và hành trình là đã duyệt.
-- Khi sáng tác, **không ép câu chuyện phải khớp** hero, tinh linh, vật phẩm, tên ải hoặc hệ thống có sẵn: chủ dự án sẵn sàng thiết kế lại hoặc loại bỏ nội dung cũ để phục vụ câu chuyện.
-- Điều này **không cấp quyền tự sửa gameplay**: không xóa/đổi ID, asset, item, nhân vật hoặc reset/migrate save chỉ từ bản thảo. Mọi thay đổi runtime phải có yêu cầu triển khai cụ thể, phương án tương thích dữ liệu và kiểm thử. Phân biệt rõ *bản thảo*, *canon đã duyệt* và *đã triển khai*.
+- Chủ dự án đã **hủy các bản thảo cốt truyện lớn vừa xây dựng**. Không sử dụng các bản thảo *The World That Forgot Tomorrow*, *Character Story Bible*, *World Mechanics* và *Master Timeline* làm định hướng hoặc canon khi đề xuất phát triển tiếp.
+- Mục tiêu ưu tiên là xây dựng một **mobile Idle/Auto-Battle RPG có khả năng kiếm tiền bền vững**, hướng đến người chơi Mỹ; phân tích retention, vòng lặp chơi, nội dung tái chơi, **rewarded ads tự nguyện** và **in-app purchases** trước khi mở rộng lore/art.
+- Cốt truyện là công cụ giúp tạo nhân vật, tinh linh, trang bị, quái vật, vùng đất và sự kiện hấp dẫn; **không đầu tư đại truyện dài nếu chưa phục vụ trải nghiệm và mục tiêu sản phẩm**. Các phương án thương mại vẫn cần kiểm chứng, chưa chốt tỷ lệ, giá hay gói nạp.
+- Chưa được phép tự tích hợp SDK quảng cáo, thanh toán hoặc sửa economy/gameplay chỉ vì định hướng này; việc triển khai cần yêu cầu cụ thể, kế hoạch thử nghiệm và tương thích save. Không tự xóa nội dung game đang có.
 
 ## Cộng tác và phạm vi
 
