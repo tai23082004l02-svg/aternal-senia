@@ -132,6 +132,6 @@ func run() -> void:
 	bad = migrated.profile.duplicate(true)
 	bad.collection_fragments.items.unknown = 10
 	assert(not migrated.valid(bad))
-	assert(CollectionFragments.reward_suffix({"kind": "spirit", "duplicate": true}) == " · +2 lõi (lượt cũ)")
+	assert(CollectionFragments.reward_suffix({"kind": "spirit", "duplicate": true}) == " · +2 Cores (legacy run)")
 	print("PASS: multiple gear copies, hero/spirit duplicate fragments, named ledgers, forge/loot, atomic failure/retry, v2-v6 migration, separate paid upgrades, shared gear, unchanged snapshots/backups and strict invalid-save rejection")
 	quit()

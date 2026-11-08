@@ -2,7 +2,7 @@ class_name EquipmentSystem
 extends RefCounted
 
 const SLOTS := ["weapon", "armor", "boots", "accessory"]
-const SLOT_NAMES := {"weapon": "Vũ khí", "armor": "Giáp", "boots": "Giày", "accessory": "Phụ kiện"}
+const SLOT_NAMES := {"weapon": "Weapon", "armor": "Armor", "boots": "Boots", "accessory": "Accessory"}
 const EFFECTS := ["radiance", "burn", "tide", "aegis"]
 const MAX_ENHANCE := 15
 const ADDED_SETS := ["grove", "storm", "moon"]

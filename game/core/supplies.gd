@@ -2,7 +2,7 @@ class_name Supplies
 extends RefCounted
 ## Stackable items have their own ledger; never enter equipment/fragment pools.
 const ORDER := ["forge_stone","memory_shard","ancient_seed","normal_ticket","material_chest","rage_potion","ward_potion","afk_hourglass"]
-const NAMES := {"forge_stone":"Đá Rèn Sáng","memory_shard":"Mảnh Ký Ức","ancient_seed":"Hạt Giống Cổ Thụ","normal_ticket":"Vé Triệu Hồi Thường","material_chest":"Rương Lựa Chọn Nguyên Liệu","rage_potion":"Thuốc Cuồng Nộ","ward_potion":"Thuốc Hộ Vệ","afk_hourglass":"Đồng Hồ Cát AFK"}
+const NAMES := {"forge_stone":"Radiant Forge Stone","memory_shard":"Memory Shard","ancient_seed":"Ancient Tree Seed","normal_ticket":"Standard Summon Ticket","material_chest":"Material Choice Chest","rage_potion":"Rage Potion","ward_potion":"Ward Potion","afk_hourglass":"AFK Hourglass"}
 const GROUPS := {"forge_stone":"upgrade","memory_shard":"upgrade","ancient_seed":"spirit","normal_ticket":"ticket","material_chest":"ticket","rage_potion":"consumable","ward_potion":"consumable","afk_hourglass":"consumable"}
 const SUPPORT := ["rage_potion","ward_potion"]
 const SHOP := {"rage_potion":60,"ward_potion":60}
@@ -126,4 +126,4 @@ static func award(p: Dictionary, stage: int) -> void:
 
 static func hint(p: Dictionary) -> String:
 	var id: String = p.supplies.selected
-	return "" if id=="" else "\n\nVật phẩm chuẩn bị: "+NAMES[id]+" ×1. Tiêu hao khi bắt đầu; chỉ áp dụng một lượt, kể cả thua. Tải lại trận không trừ thêm."
+	return "" if id=="" else "\n\nPrepared item: "+NAMES[id]+" ×1. Consumed at the start of one run, even on defeat. Resuming never consumes another."

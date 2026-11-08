@@ -79,7 +79,7 @@ static func encounter(stage: Dictionary) -> Dictionary:
 			var elite: bool = not boss and i == 1 and j == 0 and stage.id != 1
 			var health: float = row.get("hp", stage.boss_hp if boss else stage.enemy_hp * (1 + i * .35))
 			var atk: float = row.get("atk", stage.boss_atk if boss else stage.enemy_atk)
-			units.append({"type":row.get("enemy_type", boss_type if boss else ("wolf" if j == 0 and i > 0 else "slime")), "name":row.get("name", stage.boss) if boss else ("Tinh anh" if elite else ("Sói rừng" if j == 0 and i > 0 else "Slime")), "hp":health * (1.5 if elite else 1.0), "atk":atk * (1.15 if elite else 1.0), "boss":boss, "elite":elite, "mechanic":row.get("mechanic", stage.mechanic), "element":row.get("element", stage.element)})
+			units.append({"type":row.get("enemy_type", boss_type if boss else ("wolf" if j == 0 and i > 0 else "slime")), "name":row.get("name", stage.boss) if boss else ("Elite" if elite else ("Forest Wolf" if j == 0 and i > 0 else "Slime")), "hp":health * (1.5 if elite else 1.0), "atk":atk * (1.15 if elite else 1.0), "boss":boss, "elite":elite, "mechanic":row.get("mechanic", stage.mechanic), "element":row.get("element", stage.element)})
 		definitions.append({"units":units, "summon_adds":boss and stage.id != 1, "adds_hp":maxf(20, stage.enemy_hp * .7), "adds_atk":maxf(4, stage.enemy_atk * .65)})
 	return {"waves":definitions, "limit":180, "important":stage.id <= 5 or stage.get("kind", "") == "challenge"}
 

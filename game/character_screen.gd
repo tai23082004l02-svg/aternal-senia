@@ -1,7 +1,7 @@
 class_name CharacterScreen
 extends Control
 
-const SECTIONS := ["Thông tin", "Trang bị", "Cường hóa", "Mở rộng", "Tiến hóa", "Kỹ năng", "Trang phục"]
+const SECTIONS := ["Information", "Equipment", "Enhance", "Awakening", "Evolve", "Skills", "Wardrobe"]
 const ICONS := ["hero", "equipment", "training", "awakening", "evolution", "talents", "wardrobe"]
 var game
 var hero := "eira"
@@ -12,7 +12,7 @@ var faces: Array[Button] = []
 var face_buttons: Dictionary = {}
 var section_buttons: Array[Button] = []
 
-const TAB_NAMES := ["Thông tin", "Trang bị", "Phát triển", "Kỹ năng", "Trang phục"]
+const TAB_NAMES := ["Information", "Equipment", "Progression", "Skills", "Wardrobe"]
 const TAB_PAGES := [0, 1, 2, 5, 6]
 const TAB_ICONS := ["journal", "equipment", "evolution", "talents", "wardrobe"]
 var development_buttons: Array[Button] = []
@@ -30,7 +30,7 @@ func _ready() -> void:
 	for row in roster_rows:
 		var face_button: Button = game._button(roster, "", Vector2.ZERO, Vector2(66, 96), game._inspect_character.bind(row.id))
 		var owned: bool = game.store.available_hero(row.id)
-		face_button.tooltip_text = row.name + ("" if owned else " · Chưa sở hữu")
+		face_button.tooltip_text = row.name + ("" if owned else " · Not owned")
 		var face := Face.new()
 		face.frames = game.frames
 		face.hero = row.id
@@ -43,7 +43,7 @@ func _ready() -> void:
 		name_label.size.x = 66
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var level: Label = game._label(face_button, "LV%d" % game.store.profile.heroes[row.id].level if owned else "Chưa có", Vector2(0, 77), 11)
+		var level: Label = game._label(face_button, "LV%d" % game.store.profile.heroes[row.id].level if owned else "None yet", Vector2(0, 77), 11)
 		level.size.x = 66
 		level.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		level.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -103,13 +103,13 @@ func _ready() -> void:
 	game._button(heading, "?", Vector2.ZERO, Vector2(30, 30), game._character_help).add_theme_font_size_override("font_size", 13)
 	text("★".repeat(Recruitment.rarity("hero", hero, game.catalog)), 18, Color("efbf67"))
 	if not game.store.available_hero(hero):
-		text("Chưa sở hữu · Vượt chương %d hoặc triệu hồi để mở." % (row.unlock - 1), 12)
-		button("Đến Shop →", game._select_tab.bind(20))
+		text("Not owned · Clear chapter %d or summon to unlock." % (row.unlock - 1), 12)
+		button("Go to Shop →", game._select_tab.bind(20))
 	if section in [2,3,4]:
 		var development := HBoxContainer.new()
 		development.add_theme_constant_override("separation", 6)
 		body.add_child(development)
-		for pair in [["Nâng cấp",2],["Tiến hóa",4],["Thức tỉnh",3]]:
+		for pair in [["Upgrade",2],["Evolve",4],["Awaken",3]]:
 			var b: Button = game._button(development, pair[0], Vector2.ZERO, Vector2(116, 37), game._character_section.bind(pair[1]))
 			b.add_theme_font_size_override("font_size", 13)
 			if section == pair[1]: b.add_theme_stylebox_override("normal", gold_style(true))
@@ -169,17 +169,17 @@ func make_portrait(parent: Control, height: int) -> HeroPortrait:
 	view.custom_minimum_size = Vector2(230, height)
 	parent.add_child(view)
 	view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	view.tooltip_text = "" if view.interactive else "Nhân vật chưa sở hữu"
+	view.tooltip_text = "" if view.interactive else "Hero not owned"
 	return view
 
 func stats_line(p: Dictionary) -> void:
 	var stats: Dictionary = game.catalog.stats(p, hero)
-	text("HP %.0f\nTấn công %.1f\nPhòng thủ %.2f\nChí mạng %.0f%%" % [stats.hp, stats.atk, stats.defense, stats.crit * 100], 15)
+	text("HP %.0f\nATK %.1f\nDEF %.2f\nCritical Rate %.0f%%" % [stats.hp, stats.atk, stats.defense, stats.crit * 100], 15)
 
 func preview(next: Dictionary) -> void:
 	var current: Dictionary = game.catalog.stats(game.store.profile, hero)
 	var after: Dictionary = game.catalog.stats(next, hero)
-	text("CHỈ SỐ SAU NÂNG", 14, Color("e5cd9e"))
+	text("UPGRADED STATS", 14, Color("e5cd9e"))
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", gold_style())
 	body.add_child(panel)
@@ -188,7 +188,7 @@ func preview(next: Dictionary) -> void:
 	grid.add_theme_constant_override("h_separation", 18)
 	grid.add_theme_constant_override("v_separation", 10)
 	panel.add_child(grid)
-	for pair in [["HP","hp"],["Tấn công","atk"],["Phòng thủ","defense"]]:
+	for pair in [["HP","hp"],["ATK","atk"],["DEF","defense"]]:
 		for value in [pair[0], str(snappedf(current[pair[1]], .01)), "→  " + str(snappedf(after[pair[1]], .01))]:
 			var label := Label.new()
 			label.text = value
@@ -237,66 +237,66 @@ func levels() -> void:
 	experience.add_theme_stylebox_override("background",background)
 	experience.add_theme_stylebox_override("fill",fill)
 	body.add_child(experience)
-	text("XP khả dụng: %d / %d cần cho LV tiếp" % [p.xp, level*15], 12)
+	text("Available XP: %d / %d needed for next LV" % [p.xp, level*15], 12)
 	if level >= 100:
-		text("Đã đạt LV tối đa 100", 16, Color("e5cd9e"))
+		text("Maximum LV 100 reached", 16, Color("e5cd9e"))
 		stats_line(p)
 		return
 	var next: Dictionary = p.duplicate(true)
 	next.heroes[hero].level += 1
 	preview(next)
-	text("Mỗi LV nhận thêm 2 điểm thuộc tính.", 13)
+	text("Gain 2 Attribute Points per level.", 13)
 	resource_tiles([["xp",p.xp,level*15],["gold",p.gold,level*30]])
-	button("Tăng 1 LV", game._character_level.bind(hero, 1), locked() or p.gold < level * 30 or p.xp < level * 15)
+	button("Gain 1 LV", game._character_level.bind(hero, 1), locked() or p.gold < level * 30 or p.xp < level * 15)
 	var count := mini(5, 100 - level)
 	var total: int = count * level + count * (count - 1) / 2
-	text("Tăng %d LV: %d vàng + %d XP" % [count, total * 30, total * 15], 13)
-	button("Tăng %d LV" % count, game._character_level.bind(hero, count), locked() or p.gold < total * 30 or p.xp < total * 15)
+	text("Gain %d LV: %d Gold + %d XP" % [count, total * 30, total * 15], 13)
+	button("Gain %d LV" % count, game._character_level.bind(hero, count), locked() or p.gold < total * 30 or p.xp < total * 15)
 
 func stars_panel() -> void:
 	var p: Dictionary = game.store.profile
 	var r := Recruitment.state(p)
 	var stars: int = r.awakening[hero]
-	text("MỞ RỘNG · TĂNG SAO", 16, Color("e5cd9e"))
-	text("Dùng mảnh đúng nhân vật để tăng sao mở rộng. Mỗi sao thêm 30 HP, 3 ATK, 1 phòng thủ; tách biệt độ hiếm gốc và tương tác đã thiết kế sẵn.", 13)
+	text("AWAKENING · GAIN STARS", 16, Color("e5cd9e"))
+	text("Use matching Hero Fragments to gain Awakening Stars. Each star adds 30 HP, 3 ATK, and 1 DEF, independently of base rarity and existing interactions.", 13)
 	if stars >= 5:
-		text("Đã đạt 5 sao mở rộng tối đa.", 15)
+		text("Maximum 5 Awakening Stars reached.", 15)
 		return
 	var next: Dictionary = p.duplicate(true)
 	Recruitment.ensure(game.store, next)
 	next.recruitment.awakening[hero] += 1
 	preview(next)
-	text("Cần LV %d · hiện tại %d\nMảnh %d / %d\nVàng %d / %d" % [stars * 10, p.heroes[hero].level, r.fragments[hero], stars * 20, p.gold, stars * 200])
-	button("Sao mở rộng %d → %d" % [stars, stars + 1], game._character_stars.bind(hero), locked() or p.heroes[hero].level < stars * 10 or r.fragments[hero] < stars * 20 or p.gold < stars * 200)
+	text("Requires LV %d · Current %d\nFragments %d / %d\nGold %d / %d" % [stars * 10, p.heroes[hero].level, r.fragments[hero], stars * 20, p.gold, stars * 200])
+	button("Awakening Stars %d → %d" % [stars, stars + 1], game._character_stars.bind(hero), locked() or p.heroes[hero].level < stars * 10 or r.fragments[hero] < stars * 20 or p.gold < stars * 200)
 
 func evolution() -> void:
 	var p: Dictionary = game.store.profile
 	var tier := HeroEvolution.rank(p, hero)
-	text("TIẾN HÓA · BẬC %d/3" % tier, 16, Color("a2e5d6"))
-	text("Mỗi bậc tăng 8% HP, ATK, phòng thủ. Tách biệt với tăng sao, dùng tinh thạch và lõi tinh linh.", 13)
+	text("EVOLUTION · RANK %d/3" % tier, 16, Color("a2e5d6"))
+	text("Each rank adds 8% HP, ATK, and DEF. Separate from Awakening Stars; uses Crystals and Spirit Cores.", 13)
 	if tier >= 3:
-		text("Đã tiến hóa tối đa.")
+		text("Maximum evolution reached.")
 		return
 	var next: Dictionary = p.duplicate(true)
 	if not next.has("evolution"): next.evolution = HeroEvolution.fresh()
 	next.evolution[hero] += 1
 	preview(next)
-	text("Cần LV %d · hiện tại %d\nSao mở rộng %d · hiện tại %d\nVàng %d / %d\nTinh thạch %d / %d\nLõi %d / %d" % [tier * 15, p.heroes[hero].level, tier + 1, Recruitment.state(p).awakening[hero], p.gold, tier * 250, p.shards, tier * 10, p.expansion.cores, tier * 3])
-	button("Tiến hóa lên bậc %d" % (tier + 1), game._character_evolve.bind(hero), locked() or not HeroEvolution.eligible(game.store, hero))
+	text("Requires LV %d · Current %d\nAwakening Stars %d · Current %d\nGold %d / %d\nCrystals %d / %d\nCores %d / %d" % [tier * 15, p.heroes[hero].level, tier + 1, Recruitment.state(p).awakening[hero], p.gold, tier * 250, p.shards, tier * 10, p.expansion.cores, tier * 3])
+	button("Evolve to rank %d" % (tier + 1), game._character_evolve.bind(hero), locked() or not HeroEvolution.eligible(game.store, hero))
 
 func skills() -> void:
 	var switch := HBoxContainer.new()
 	switch.add_theme_constant_override("separation", 6)
 	body.add_child(switch)
 	for key in ["overview","tree"]:
-		var b: Button = game._button(switch, "Kỹ năng" if key == "overview" else "Thiên phú", Vector2.ZERO, Vector2(175,37), game._character_skill_view.bind(key))
+		var b: Button = game._button(switch, "Skills" if key == "overview" else "Talents", Vector2.ZERO, Vector2(175,37), game._character_skill_view.bind(key))
 		if game.character_skill_view == key: b.add_theme_stylebox_override("normal", gold_style(true))
 	if game.character_skill_view == "tree":
 		talents_tree()
 		return
 	var p: Dictionary = game.store.profile
 	var unit: Dictionary = p.heroes[hero]
-	for entry in [["Đánh thường","Tự đánh mục tiêu ưu tiên, tích lũy nộ khi ra đòn.","slash","Đánh thường"],["Kỹ năng cơ bản", "Phép tấn công; chuyển sang trị liệu khi đồng đội dưới 85% HP." if hero == "mira" else "Tự dùng kỹ năng gây sát thương theo hồi chiêu.","heal_spell" if hero == "mira" else "slash_spell","Kỹ năng"],["Ultimate", "Hồi phục và tạo khiên cho đồng đội còn sống. Cần 100 nộ." if hero == "mira" else "Gây sát thương nhiều mục tiêu, hồi phục bản thân; Ryn thêm khiên. Cần 100 nộ.","burst","Ultimate"],["Đặc tính", game.catalog.find_row("heroes",hero).passive,"water" if hero == "mira" else "talents","Bị động"]]:
+	for entry in [["Basic Attack","Automatically attack the priority target and build Energy on hits.","slash","Basic Attack"],["Basic Skill", "Attack magic; switches to healing when an ally falls below 85% HP." if hero == "mira" else "Automatically use damage skills when ready.","heal_spell" if hero == "mira" else "slash_spell","Skills"],["Ultimate", "Heal and shield surviving allies. Requires 100 Energy." if hero == "mira" else "Deal damage to multiple targets and heal yourself; Ryn also gains a shield. Requires 100 Energy.","burst","Ultimate"],["Traits", game.catalog.find_row("heroes",hero).passive,"water" if hero == "mira" else "talents","Passive"]]:
 		var panel := PanelContainer.new()
 		panel.add_theme_stylebox_override("panel", gold_style())
 		body.add_child(panel)
@@ -323,8 +323,8 @@ func skills() -> void:
 		description.add_theme_font_size_override("font_size", 12)
 		col.add_child(description)
 	for i in range(2):
-		button("Nâng %s · LV%d/10 · %d vàng" % ["kỹ năng tấn công" if i == 0 else "hồi phục/khiên",unit.skills[i],unit.skills[i]*25],game._character_skill_level.bind(hero,i),locked() or unit.skills[i]>=10 or p.gold<unit.skills[i]*25)
-	button("Cây kỹ năng tinh linh →", game._select_tab.bind(13))
+		button("Upgrade %s · LV %d/10 · %d Gold" % ["damage skills" if i == 0 else "healing/shields",unit.skills[i],unit.skills[i]*25],game._character_skill_level.bind(hero,i),locked() or unit.skills[i]>=10 or p.gold<unit.skills[i]*25)
+	button("Spirit skill tree →", game._select_tab.bind(13))
 
 func talents_tree() -> void:
 	var build: Dictionary = game.store.profile.expansion.builds[hero]
@@ -344,10 +344,10 @@ func talents_tree() -> void:
 	if selected.is_empty(): selected = rows[0]
 	var owned: bool = selected.id in build.learned
 	var chosen: bool = build.selected[selected.slot] == selected.id
-	text(selected.name + (" · Đang chọn" if chosen else ""), 18, Color("e5cd9e"))
+	text(selected.name + (" · Selected" if chosen else ""), 18, Color("e5cd9e"))
 	text(selected.description, 14)
-	text("Cần LV%d · %d vàng + %d tinh thạch" % [selected.level,selected.gold,selected.shards] if not owned else "Đã học · Chọn hoặc bỏ nhánh miễn phí ngoài trận", 12)
-	button("Bỏ chọn" if chosen else ("Chọn nhánh" if owned else "Học thiên phú"),game._character_talent.bind(hero,selected.id),locked() or game.store.profile.heroes[hero].level < selected.level or not owned and (game.store.profile.gold<selected.gold or game.store.profile.shards<selected.shards))
+	text("Requires LV %d · %d Gold + %d Crystals" % [selected.level,selected.gold,selected.shards] if not owned else "Learned · Select or remove branches for free outside battle", 12)
+	button("Deselect" if chosen else ("Choose branch" if owned else "Learn talent"),game._character_talent.bind(hero,selected.id),locked() or game.store.profile.heroes[hero].level < selected.level or not owned and (game.store.profile.gold<selected.gold or game.store.profile.shards<selected.shards))
 
 func outfits() -> void:
 	var p: Dictionary = game.store.profile
@@ -368,17 +368,17 @@ func outfits() -> void:
 		face.size = Vector2(52,52)
 		face.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(face)
-		var name_label: Label = game._label(b,{"original":"Mặc định","dawn":"Bình minh","moon":"Ánh trăng"}[id],Vector2(0,64),12,Color("e7d3a5"))
+		var name_label: Label = game._label(b,{"original":"Default","dawn":"Dawn","moon":"Moonlight"}[id],Vector2(0,64),12,Color("e7d3a5"))
 		name_label.size.x = 112
 		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var status: Label = game._label(b,"✓ Đang dùng" if id == current else "Xem trước",Vector2(0,87),10)
+		var status: Label = game._label(b,"✓ In Use" if id == current else "Preview",Vector2(0,87),10)
 		status.size.x = 112
 		status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		status.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	text("Các phối màu miễn phí hiện có; không đổi chỉ số. Chưa có bộ quần áo mới.",12)
-	button("Đang sử dụng" if current == preview_id else "Áp dụng phối màu", game._apply_character_outfit.bind(hero,preview_id),locked() or current == preview_id)
-	if hero == "ryn": button("Xem Ryn phóng lớn →",game._show_ryn_portrait)
+	text("Free color palettes change appearance only. New outfits are not available yet.",12)
+	button("In use" if current == preview_id else "Apply Palette", game._apply_character_outfit.bind(hero,preview_id),locked() or current == preview_id)
+	if hero == "ryn": button("View Ryn portrait →",game._show_ryn_portrait)
 
 class Face extends Control:
 	var frames: FrameLibrary

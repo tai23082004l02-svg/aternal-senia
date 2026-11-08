@@ -80,7 +80,7 @@ func run() -> void:
 	assert(game.battle.paused)
 	game._character_section(2)
 	for control in screen().body.get_children():
-		if control is Button and control.text.begins_with("Tăng"): assert(control.disabled)
+		if control is Button and control.text.begins_with("Gain"): assert(control.disabled)
 	var frozen: Dictionary = game.store.profile.duplicate(true)
 	game._character_level("ryn", 1)
 	assert(game.store.profile == frozen)

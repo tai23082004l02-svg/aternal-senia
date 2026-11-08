@@ -3,17 +3,17 @@ extends RefCounted
 
 const TASKS := {
 	"daily": [
-		{"id":"offline", "name":"Nhận tiếp tế AFK", "target":1, "gold":30, "shards":0, "vip":5},
-		{"id":"wins", "name":"Thắng 3 trận hành trình", "target":3, "gold":60, "shards":1, "vip":5},
-		{"id":"kills", "name":"Hạ 12 kẻ địch", "target":12, "gold":40, "shards":1, "vip":5},
-		{"id":"enhance", "name":"Cường hóa hoặc tiến bậc 1 lần", "target":1, "gold":30, "shards":1, "vip":5},
-		{"id":"summon", "name":"Triệu hồi 1 lần", "target":1, "gold":40, "shards":1, "vip":5}],
+		{"id":"offline", "name":"Claim AFK Supplies", "target":1, "gold":30, "shards":0, "vip":5},
+		{"id":"wins", "name":"Win 3 Journey battles", "target":3, "gold":60, "shards":1, "vip":5},
+		{"id":"kills", "name":"Defeat 12 enemies", "target":12, "gold":40, "shards":1, "vip":5},
+		{"id":"enhance", "name":"Enhance or rank up once", "target":1, "gold":30, "shards":1, "vip":5},
+		{"id":"summon", "name":"Summon once", "target":1, "gold":40, "shards":1, "vip":5}],
 	"weekly": [
-		{"id":"offline", "name":"Nhận tiếp tế AFK 3 lần", "target":3, "gold":100, "shards":1, "vip":10},
-		{"id":"wins", "name":"Thắng 10 trận hành trình", "target":10, "gold":180, "shards":3, "vip":10},
-		{"id":"kills", "name":"Hạ 60 kẻ địch", "target":60, "gold":120, "shards":2, "vip":10},
-		{"id":"enhance", "name":"Cường hóa hoặc tiến bậc 3 lần", "target":3, "gold":100, "shards":2, "vip":10},
-		{"id":"summon", "name":"Triệu hồi 10 lần", "target":10, "gold":200, "shards":3, "vip":10}]
+		{"id":"offline", "name":"Claim AFK Supplies 3 times", "target":3, "gold":100, "shards":1, "vip":10},
+		{"id":"wins", "name":"Win 10 Journey battles", "target":10, "gold":180, "shards":3, "vip":10},
+		{"id":"kills", "name":"Defeat 60 enemies", "target":60, "gold":120, "shards":2, "vip":10},
+		{"id":"enhance", "name":"Enhance or rank up 3 times", "target":3, "gold":100, "shards":2, "vip":10},
+		{"id":"summon", "name":"Summon 10 times", "target":10, "gold":200, "shards":3, "vip":10}]
 }
 const CHESTS := [20, 40, 60, 80, 100]
 

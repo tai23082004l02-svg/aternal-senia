@@ -5,7 +5,7 @@ extends RefCounted
 const VIP_TIERS := 10
 
 static func state(profile: Dictionary) -> Dictionary:
-	return profile.get("identity", {"name": "Nhà lữ hành", "avatar": "eira"})
+	return profile.get("identity", {"name": "Traveler", "avatar": "eira"})
 
 static func valid(store, profile: Dictionary) -> bool:
 	if not profile.has("identity"): return true # Optional field for existing v5 saves.
@@ -23,7 +23,7 @@ static func valid_name(value: String) -> bool:
 static func save(store, display_name: String, avatar: String) -> bool:
 	var clean := display_name.strip_edges()
 	if not valid_name(clean) or not store.available_hero(avatar):
-		store.error = "Tên cần 1–20 ký tự; avatar cần là nhân vật đã sở hữu."
+		store.error = "Name must be 1–20 characters; avatar must be a hero you own."
 		return false
 	var candidate: Dictionary = store.profile.duplicate(true)
 	candidate.identity = {"name": clean, "avatar": avatar}

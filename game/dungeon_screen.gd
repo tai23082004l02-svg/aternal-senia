@@ -81,8 +81,8 @@ func header() -> void:
 	heading.add_theme_constant_override("separation",8)
 	add_child(heading)
 	if not game.dungeon_selected.is_empty():
-		action(heading,"‹ Quay lại",108,game._dungeon_back)
-	var title := words(heading,"PHÓ BẢN",30,GOLD)
+		action(heading,"‹ Back",108,game._dungeon_back)
+	var title := words(heading,"DUNGEONS",30,GOLD)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.custom_minimum_size.y = 46
 	action(heading,"?",38,game._dungeon_help)
@@ -107,8 +107,8 @@ func listing() -> void:
 		button.add_theme_font_size_override("font_size",12)
 	var overview := HBoxContainer.new()
 	add_child(overview)
-	words(overview,"15 phó bản · 4 nhóm",13,MUTED)
-	action(overview,"Chương truyện ›",144,game._select_tab.bind(5))
+	words(overview,"15 dungeons · 4 categories",13,MUTED)
+	action(overview,"Story chapters ›",144,game._select_tab.bind(5))
 	content_scroll(552)
 	if game.dungeon_group == "seasonal":
 		seasonal()
@@ -128,7 +128,7 @@ func card(row: Dictionary) -> void:
 	line.add_child(art)
 	var thumb := picture(art,DungeonWorld.artwork(row.art),Vector2(140,105))
 	thumb.clip_contents = true
-	var badge := words(art,"Đã có màn chơi" if row.stage > 0 else "Sắp mở",12,GOLD if row.stage > 0 else MUTED)
+	var badge := words(art,"Playable" if row.stage > 0 else "Coming Soon",12,GOLD if row.stage > 0 else MUTED)
 	badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var info := box(line,4)
 	var title := words(info,row.title,19,GOLD)
@@ -142,17 +142,17 @@ func card(row: Dictionary) -> void:
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	foot.add_child(spacer)
-	var open := action(foot,"Xem ›",84,game._dungeon_show.bind(row.id),row.stage > 0)
+	var open := action(foot,"View ›",84,game._dungeon_show.bind(row.id),row.stage > 0)
 	open.name = "DungeonOpen_"+row.id
 
 func seasonal() -> void:
 	var panel := frame(body,true)
 	var column := box(panel,12)
 	picture(column,DungeonWorld.artwork(13),Vector2(456,185))
-	var title := words(column,"Những hành trình theo mùa",25,GOLD)
+	var title := words(column,"Seasonal Journeys",25,GOLD)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	words(column,"Bốn mùa, những cuộc phiêu lưu mới. Phó bản sự kiện sẽ xuất hiện tại đây khi có lịch mở.",17)
-	words(column,"Chưa có sự kiện đang diễn ra.",15,MUTED)
+	words(column,"Four seasons, new adventures. Event dungeons will appear here when scheduled.",17)
+	words(column,"No event is currently running.",15,MUTED)
 
 func detail(row: Dictionary) -> void:
 	content_scroll(644)
@@ -161,8 +161,8 @@ func detail(row: Dictionary) -> void:
 	picture(banner,DungeonWorld.artwork(row.art),Vector2(456,166))
 	var title := words(body,row.title,28,GOLD)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var group: String = {"resource":"Tài nguyên","tactic":"Chiến thuật","boss":"Săn Boss","endless":"Chinh phục"}[row.group]
-	var subtitle := words(body,group+" · "+("Đã có màn chơi" if row.stage > 0 else "Sắp mở"),14,MUTED)
+	var group: String = {"resource":"Resources","tactic":"Tactics","boss":"Boss Hunt","endless":"Conquest"}[row.group]
+	var subtitle := words(body,group+" · "+("Playable" if row.stage > 0 else "Coming Soon"),14,MUTED)
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	words(body,row.summary,16)
 	if row.group == "endless":
@@ -172,39 +172,39 @@ func detail(row: Dictionary) -> void:
 	var status := frame(body)
 	var status_line := HBoxContainer.new()
 	status.add_child(status_line)
-	var power := words(status_line,"Sức mạnh đội: %d" % DungeonWorld.team_power(game),15,GOLD)
+	var power := words(status_line,"Team Power: %d" % DungeonWorld.team_power(game),15,GOLD)
 	power.name = "DungeonTeamPower"
-	words(status_line,"Đề cử: —",15,MUTED)
+	words(status_line,"Recommended: —",15,MUTED)
 	rewards(row)
 	enemies(row)
 	var rules := frame(body)
 	var notes := box(rules,5)
-	words(notes,"✦ Cơ chế phó bản",18,GOLD)
+	words(notes,"✦ Dungeon Mechanics",18,GOLD)
 	words(notes,row.rules,15)
 	if row.stage > 0: live_status(row)
-	else: words(body,"Lượt thưởng và quét nhanh sẽ mở cùng màn chơi.",13,MUTED)
-	challenge_button = action(body,"KHIÊU CHIẾN »" if row.stage > 0 else "ĐANG CHUẨN BỊ",474,game._dungeon_enter.bind(row.id),row.stage > 0)
+	else: words(body,"Reward attempts and sweeps will arrive with playable stages.",13,MUTED)
+	challenge_button = action(body,"BATTLE »" if row.stage > 0 else "PREPARING",474,game._dungeon_enter.bind(row.id),row.stage > 0)
 	challenge_button.name = "DungeonChallenge"
 	challenge_button.disabled = row.stage == 0 or game._locked() or not game.store.can_enter(row.stage)
-	action(body,"Đội hình & tinh linh →",474,game._open_formation)
+	action(body,"Formation & Spirits →",474,game._open_formation)
 
 func difficulties(row: Dictionary) -> void:
 	if row.stage > 0:
 		var stage: Dictionary = game.catalog.find_row("stages",row.stage)
-		words(body,"Chế độ hiện tại · %d đợt · Không tiêu vé" % stage.waves.size(),15,GOLD)
+		words(body,"Current mode · %d waves · No tickets spent" % stage.waves.size(),15,GOLD)
 		return
 	var line := HBoxContainer.new()
 	line.add_theme_constant_override("separation",8)
 	body.add_child(line)
 	for i in range(3):
-		var button := action(line,["Dễ","Thường","Khó"][i],152,game._dungeon_difficulty.bind(i),game.dungeon_difficulty == i)
+		var button := action(line,["Easy","Standard","Hard"][i],152,game._dungeon_difficulty.bind(i),game.dungeon_difficulty == i)
 		difficulty_buttons.append(button)
-	words(body,"Xem trước độ khó · Thông số sẽ mở cùng màn chơi",12,MUTED)
+	words(body,"Difficulty preview · Stats arrive with playable stages",12,MUTED)
 
 func rewards(row: Dictionary) -> void:
 	var panel := frame(body)
 	var column := box(panel,8)
-	var title := words(column,"✦ Thưởng có thể nhận" if row.stage > 0 else "✦ Thưởng dự kiến",19,GOLD)
+	var title := words(column,"✦ Available Rewards" if row.stage > 0 else "✦ Planned Rewards",19,GOLD)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var grid := GridContainer.new()
 	grid.columns = 5
@@ -212,7 +212,7 @@ func rewards(row: Dictionary) -> void:
 	column.add_child(grid)
 	if row.stage > 0:
 		var stage: Dictionary = game.catalog.find_row("stages",row.stage)
-		for reward in [["gold","Vàng",str(stage.gold)],["cores","Lõi",str(stage.cores)],["xp","XP",str(stage.xp)],["shards","Tinh thạch","2"],["equipment","Trang bị","Ngẫu nhiên"]]:
+		for reward in [["gold","Gold",str(stage.gold)],["cores","Cores",str(stage.cores)],["xp","XP",str(stage.xp)],["shards","Crystals","2"],["equipment","Equipment","Random"]]:
 			reward_tile(grid,reward[0],reward[1],reward[2])
 		for id in Supplies.DROPS.get(int(row.stage),{}):
 			var line := HBoxContainer.new()
@@ -220,7 +220,7 @@ func rewards(row: Dictionary) -> void:
 			picture(line,Supplies.icon(id),Vector2(34,34),false)
 			words(line,"+%d %s" % [Supplies.DROPS[int(row.stage)][id],Supplies.NAMES[id]],14,GOLD)
 	else:
-		for key in row.rewards: reward_tile(grid,key,{"shards":"Tinh thạch","gold":"Vàng","xp":"XP","cores":"Lõi tinh linh","spirit":"Mảnh tinh linh","training_item":"Vật liệu nâng cấp","forge":"Vật liệu rèn","chest":"Kho báu","achievement":"Thưởng mốc"}[key],"—")
+		for key in row.rewards: reward_tile(grid,key,{"shards":"Crystals","gold":"Gold","xp":"XP","cores":"Spirit Cores","spirit":"Spirit Fragments","training_item":"Upgrade Materials","forge":"Forge Materials","chest":"Treasure","achievement":"Milestone Rewards"}[key],"—")
 
 func reward_tile(parent: Node, key: String, caption: String, amount: String) -> void:
 	var column := box(parent,3)
@@ -235,7 +235,7 @@ func reward_tile(parent: Node, key: String, caption: String, amount: String) -> 
 func enemies(row: Dictionary) -> void:
 	var panel := frame(body)
 	var column := box(panel,8)
-	var label := words(column,"✦ Đối thủ xuất hiện" if row.stage > 0 else "✦ Đối thủ dự kiến",19,GOLD)
+	var label := words(column,"✦ Enemies" if row.stage > 0 else "✦ Planned Enemies",19,GOLD)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var grid := GridContainer.new()
 	grid.columns = 3
@@ -256,38 +256,38 @@ func live_status(row: Dictionary) -> void:
 	var stage: Dictionary = game.catalog.find_row("stages",row.stage)
 	if not game.store.can_enter(row.stage):
 		var needed: int = stage.requires[0]
-		words(body,"Mở sau khi hoàn thành "+game.catalog.find_row("stages",needed).name,14,GOLD)
+		words(body,"Unlocks after completing "+game.catalog.find_row("stages",needed).name,14,GOLD)
 	var record: Dictionary = game.store.profile.expansion.records.get(str(row.stage),{})
-	if record.is_empty(): words(body,"Chưa có kỷ lục · Thưởng nhận khi chiến thắng",13,MUTED)
-	else: words(body,"Kỷ lục %d điểm · %.1f giây" % [record.score,record.time],14,GOLD)
-	words(body,"Quét nhanh sẽ được bổ sung sau.",13,MUTED)
+	if record.is_empty(): words(body,"No record yet · Rewards on victory",13,MUTED)
+	else: words(body,"Best: %d points · %.1f seconds" % [record.score,record.time],14,GOLD)
+	words(body,"Sweeps will be added later.",13,MUTED)
 
 func tower(row: Dictionary) -> void:
 	var status := frame(body,true)
 	var column := box(status)
-	words(column,"Tầng hiện tại: — / 100",21,GOLD)
-	words(column,"Sức mạnh đội: %d" % DungeonWorld.team_power(game),15)
-	words(column,"100 tầng dự kiến · Có thể mở rộng đến 500 tầng",14,MUTED)
+	words(column,"Current floor: — / 100",21,GOLD)
+	words(column,"Team Power: %d" % DungeonWorld.team_power(game),15)
+	words(column,"100 floors planned · May expand to 500 floors",14,MUTED)
 	var milestones := frame(body)
 	var content := box(milestones,8)
-	words(content,"✦ Những cột mốc chinh phục",20,GOLD)
-	for entry in [["5","Tinh anh","boss"],["10","Boss · đổi cơ chế","achievement"],["20","Boss · đổi cơ chế","achievement"]]:
+	words(content,"✦ Conquest Milestones",20,GOLD)
+	for entry in [["5","Elite","boss"],["10","Boss · Changing mechanics","achievement"],["20","Boss · Changing mechanics","achievement"]]:
 		var line := HBoxContainer.new()
 		line.add_theme_constant_override("separation",12)
 		content.add_child(line)
 		picture(line,game.icons.textures[entry[2]],Vector2(36,36),false)
-		words(line,"Tầng "+entry[0]+" · "+entry[1],16)
+		words(line,"Floor "+entry[0]+" · "+entry[1],16)
 	rewards(row)
 	enemies(row)
 	var rules := frame(body)
 	var notes := box(rules)
-	words(notes,"✦ Luật leo tháp",20,GOLD)
-	words(notes,"Mỗi tầng có thưởng vượt lần đầu. Elite mỗi 5 tầng, Boss mỗi 10 tầng. Sau mỗi 10 tầng, cơ chế kẻ địch thay đổi.",15)
-	words(notes,"Mốc thưởng và kẻ địch từng tầng sẽ mở cùng chế độ.",13,MUTED)
-	challenge_button = action(body,"THÁP ĐANG CHUẨN BỊ",474,game._dungeon_enter.bind(row.id),true)
+	words(notes,"✦ Tower Rules",20,GOLD)
+	words(notes,"Each floor has first-clear rewards. Elites appear every 5 floors and bosses every 10. Enemy mechanics change after every 10 floors.",15)
+	words(notes,"Reward milestones and floor enemies will arrive with this mode.",13,MUTED)
+	challenge_button = action(body,"TOWER COMING SOON",474,game._dungeon_enter.bind(row.id),true)
 	challenge_button.name = "DungeonChallenge"
 	challenge_button.disabled = true
-	var ranks := action(body,"Bảng xếp hạng · Sắp có",474,game._dungeon_help)
+	var ranks := action(body,"Rankings · Coming soon",474,game._dungeon_help)
 	ranks.disabled = true
 
 class Frame extends PanelContainer:

@@ -2,7 +2,7 @@ class_name DungeonWorld
 extends RefCounted
 ## Presentation catalogue: future dungeons never enter GameCatalog or a save.
 const GROUPS := ["all","resource","tactic","boss","endless","seasonal"]
-const LABELS := ["Tất cả","Tài nguyên","Chiến thuật","Boss","Chinh phục","Sự kiện"]
+const LABELS := ["All","Resources","Tactics","Boss","Conquest","Events"]
 static var sources: Dictionary = {}
 var entries: Array = []
 

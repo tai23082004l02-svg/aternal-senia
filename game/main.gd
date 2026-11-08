@@ -98,6 +98,7 @@ func _ready() -> void:
 	if not catalog.errors.is_empty():
 		push_error(str(catalog.errors))
 		return
+	get_node("/root/Typography").configure(catalog)
 	store = Store.new(catalog)
 	frames = Frames.new()
 	view = View.new()
@@ -113,11 +114,11 @@ func _ready() -> void:
 	_apply_presentation()
 	_refresh_panel()
 	if store.read_only:
-		_dialog("Tiến trình được bảo vệ", store.error, [{"text": "Đã hiểu", "call": _close_modal}])
+		_dialog("Progress Protected", store.error, [{"text": "Got It", "call": _close_modal}])
 	elif not store.profile.pending.is_empty():
-		_dialog("Trận chưa hoàn tất", "Tiếp tục sẽ chạy lại từ đầu trận với cùng nhân vật, trang bị và hạt ngẫu nhiên đã lưu.", [{"text": "Tiếp tục", "call": _resume}, {"text": "Bỏ trận · không thưởng", "call": _abandon}])
+		_dialog("Unfinished Battle", "Resume restarts this battle with the same saved heroes, equipment, and random seed.", [{"text": "Continue", "call": _resume}, {"text": "Abandon · No rewards", "call": _abandon}])
 	else:
-		_notify("Vào ải để chiến đấu. Quản lý vật phẩm trong Túi đồ.")
+		_notify("Enter a stage to battle. Manage your items in Bag.")
 
 func _build_ui() -> void:
 	add_child(MenuBackdrop.new())
@@ -126,6 +127,11 @@ func _build_ui() -> void:
 	ui.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var theme := Theme.new()
 	theme.default_font_size = 16
+	theme.default_font = UIFonts.font("regular")
+	theme.set_font("font", "Button", UIFonts.font("medium"))
+	theme.set_font("font", "LineEdit", UIFonts.font("regular"))
+	theme.set_font("font", "OptionButton", UIFonts.font("medium"))
+	theme.set_font("font", "ItemList", UIFonts.font("medium"))
 	var normal := _style(Color("17313e"), Color("57615b"), 12)
 	var hover := _style(Color("294b56"), Color("d2bb83"), 12)
 	theme.set_stylebox("normal", "Button", normal)
@@ -139,7 +145,7 @@ func _build_ui() -> void:
 	add_child(ui)
 	profile_button = _button(ui, "", Vector2(24, 17), Vector2(332, 61), _show_player_profile)
 	profile_button.flat = true
-	profile_button.tooltip_text = "Hồ sơ và VIP"
+	profile_button.tooltip_text = "Profile & VIP"
 	profile_avatar = PlayerProfilePanel.RoundAvatar.new()
 	profile_avatar.position = Vector2(3, 3)
 	profile_avatar.size = Vector2(54, 54)
@@ -149,7 +155,7 @@ func _build_ui() -> void:
 	profile_name.size = Vector2(246, 29)
 	profile_name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	profile_name.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	profile_vip = _label(profile_button, "VIP · Chưa kích hoạt  ›", Vector2(70, 35), 13, Color("e1c38d"))
+	profile_vip = _label(profile_button, "VIP · Inactive  ›", Vector2(70, 35), 13, Color("e1c38d"))
 	profile_vip.size = Vector2(270, 22)
 	profile_vip.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	profile_vip.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -173,9 +179,10 @@ func _build_ui() -> void:
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		ui.add_child(icon)
 		currency_labels[key] = _label(ui, "", Vector2(58 + i * 166, 91), 14, Color("e1c38d"))
-	mute_button = _button(ui, "Âm: bật", Vector2(422, 25), Vector2(94, 34), _toggle_sound)
+	mute_button = _button(ui, "Sound: On", Vector2(422, 25), Vector2(94, 34), _toggle_sound)
 	_button(ui, "≡", Vector2(374, 25), Vector2(40, 34), _select_tab.bind(4)).tooltip_text = "Menu"
 	stage_label = _label(ui, "", Vector2(24, 143), 19, Color("eee8d6"))
+	stage_label.set_meta("font_role", "display")
 	var tap := Button.new()
 	tap_target = tap
 	tap.position = Vector2(50, 250)
@@ -190,21 +197,21 @@ func _build_ui() -> void:
 	enemy_bar = _bar(Vector2(286, 535), Vector2(230, 7), Color("d49a99"))
 	sp_bar = _bar(Vector2(24, 548), Vector2(226, 4), Color("a1badb"))
 	warning_label = _label(ui, "", Vector2(24, 562), 14, Color("efba8f"))
-	skill_group_labels.append(_label(ui, "NHÂN VẬT", Vector2(24, 583), 11, Color("e5cd9e")))
-	skill_group_labels.append(_label(ui, "TINH LINH", Vector2(356, 583), 11, Color("a2e5d6")))
+	skill_group_labels.append(_label(ui, "HEROES", Vector2(24, 583), 11, Color("e5cd9e")))
+	skill_group_labels.append(_label(ui, "SPIRIT", Vector2(356, 583), 11, Color("a2e5d6")))
 	for i in range(3):
 		skill_buttons.append(_button(ui, "", Vector2(24 + i * 166, 598), Vector2(160, 44), _skill.bind(i)))
 		icons.apply(skill_buttons[i], ["slash", "heal", "spirit"][i], 28)
 		skill_buttons[i].add_theme_font_size_override("font_size", 12)
-	attack_button = _button(ui, "Đánh", Vector2(24, 651), Vector2(82, 36), _attack)
-	guard_button = _button(ui, "Thủ thế", Vector2(112, 651), Vector2(113, 36), _guard)
+	attack_button = _button(ui, "Attack", Vector2(24, 651), Vector2(82, 36), _attack)
+	guard_button = _button(ui, "Guard", Vector2(112, 651), Vector2(113, 36), _guard)
 	icons.apply(guard_button, "guard", 22)
 	guard_button.add_theme_font_size_override("font_size", 13)
-	auto_button = _button(ui, "Tự đánh", Vector2(231, 651), Vector2(99, 36), _toggle_auto)
-	pause_button = _button(ui, "Dừng", Vector2(336, 651), Vector2(90, 36), _toggle_pause)
+	auto_button = _button(ui, "Auto Attack", Vector2(231, 651), Vector2(99, 36), _toggle_auto)
+	pause_button = _button(ui, "Stop", Vector2(336, 651), Vector2(90, 36), _toggle_pause)
 	speed_button = _button(ui, "×1", Vector2(432, 651), Vector2(84, 36), _speed)
 	for i in range(5):
-		tabs.append(_button(ui, ["Shop", "Nhân vật", "Hành trình", "Phó bản", "Túi đồ"][i], Vector2(24 + i * 99, 876), Vector2(93, 56), _select_tab.bind(NAV_PAGES[i])))
+		tabs.append(_button(ui, ["Shop", "Heroes", "Journey", "Dungeons", "Bag"][i], Vector2(24 + i * 99, 876), Vector2(93, 56), _select_tab.bind(NAV_PAGES[i])))
 		icons.tab(tabs[i], ["gold", "hero", "journey", "boss", "equipment"][i])
 	for control in [attack_button, guard_button, auto_button, pause_button, speed_button]:
 		control.custom_minimum_size.y = 44
@@ -287,34 +294,34 @@ func _physics_process(delta: float) -> void:
 			_present_result()
 	_refresh_hud()
 	message_time = maxf(0, message_time - delta)
-	status_label.text = message if message_time > 0 else ("Chọn Bản đồ để đổi ải · Túi đồ để chuẩn bị" if battle == null else ("Tự đánh và kỹ năng cơ bản · Chạm quái để chọn mục tiêu · AUTO ULT bật/tắt" if battle is TeamBattle else "Tự đánh + tap combo · Thủ thế giảm 80% sát thương trong 0,7 giây"))
+	status_label.text = message if message_time > 0 else ("Use Map to change stages · Open Bag to prepare" if battle == null else ("Auto attacks and basic skills · Tap enemies to target · Toggle AUTO ULT" if battle is TeamBattle else "Auto attacks + tap combo · Guard reduces damage by 80% for 0.7 seconds"))
 
 func _refresh_hud() -> void:
 	var p: Dictionary = store.profile
 	profile_name.text = PlayerIdentity.state(p).name
-	profile_vip.text = "VIP · %d EXP · Chờ xếp hạng ›" % MissionBoard.state(p).vip_exp
+	profile_vip.text = "VIP · %d EXP · Unranked ›" % MissionBoard.state(p).vip_exp
 	profile_avatar.update_avatar(frames, PlayerIdentity.state(p).avatar)
 	wallet.text = ""
 	for key in currency_labels:
-		currency_labels[key].text = "%d %s" % [p[key], {"gold": "Vàng", "shards": "Tinh thạch", "xp": "XP"}[key]]
+		currency_labels[key].text = "%d %s" % [p[key], {"gold": "Gold", "shards": "Crystals", "xp": "XP"}[key]]
 	if battle is TeamBattle:
-		mute_button.text = "Âm: bật" if p.settings.sound else "Âm: tắt"
+		mute_button.text = "Sound: On" if p.settings.sound else "Sound: Off"
 		return
 	var active := battle != null
 	var stats: Dictionary = battle.stats if active else catalog.stats(p)
 	var hero := catalog.find_row("heroes", stats.hero)
 	hp_label.text = "%s · %d / %d HP" % [hero.name, battle.hp if active else stats.hp, stats.hp]
 	hp_bar.value = (battle.hp if active else stats.hp) / stats.hp * 100
-	enemy_label.text = "%s · %d / %d" % [(battle.stage.boss if battle.is_boss() else "Bóng tối") if active else "Bóng tối", battle.enemy_hp if active else 55, battle.enemy_max if active else 55]
+	enemy_label.text = "%s · %d / %d" % [(battle.stage.boss if battle.is_boss() else "Dark") if active else "Dark", battle.enemy_hp if active else 55, battle.enemy_max if active else 55]
 	if active and battle.move_clock > 0:
-		enemy_label.text = "Đang tiến sang đợt tiếp theo…"
+		enemy_label.text = "Advancing to the next wave…"
 	enemy_bar.value = battle.enemy_hp / battle.enemy_max * 100 if active else 100
 	sp_bar.value = battle.sp if active else 100
 	stage_label.text = "%s%s" % [catalog.find_row("stages", selected_stage).name, (" · %d/%d" % [battle.wave + 1, battle.wave_count()]) if active else ""]
-	warning_label.text = battle.warning() if active else "Một kiếm sĩ. Một tinh linh. Một bình minh mới."
+	warning_label.text = battle.warning() if active else "One swordswoman. One spirit. A new dawn."
 	var can_play := active and battle.state == "battle" and modal == null and not battle.paused
-	skill_group_labels[0].text = "NHÂN VẬT · " + catalog.find_row("heroes", battle.stats.hero if active else p.hero).name
-	skill_group_labels[1].text = "TINH LINH · " + catalog.find_row("assists", battle.stats.assist if active else p.assist).name
+	skill_group_labels[0].text = "HERO · " + catalog.find_row("heroes", battle.stats.hero if active else p.hero).name
+	skill_group_labels[1].text = "SPIRIT · " + catalog.find_row("assists", battle.stats.assist if active else p.assist).name
 	for i in range(3):
 		var def: Dictionary = catalog.data.skills[i]
 		var cd: float = battle.cooldowns[i] if active else 0.0
@@ -322,12 +329,12 @@ func _refresh_hud() -> void:
 		skill_buttons[i].disabled = not can_play or cd > 0 or battle.sp < (25 if i == 2 and battle.variant("flow") else def.cost) or not battle.actions.is_empty() or battle.move_clock > 0 if active else true
 	attack_button.disabled = not can_play
 	guard_button.disabled = not can_play or (active and battle.guard_cd > 0)
-	guard_button.text = "Thủ · %ds" % ceili(battle.guard_cd) if active and battle.guard_cd > 0 else "Thủ thế"
+	guard_button.text = "Guard · %ds" % ceili(battle.guard_cd) if active and battle.guard_cd > 0 else "Guard"
 	pause_button.disabled = not active or battle.state != "battle"
-	pause_button.text = "Tiếp tục" if active and battle.paused else "Dừng"
-	auto_button.text = "Tự: bật" if not active or battle.auto_attack else "Tự: tắt"
+	pause_button.text = "Continue" if active and battle.paused else "Stop"
+	auto_button.text = "Auto: On" if not active or battle.auto_attack else "Auto: Off"
 	speed_button.text = "×%d" % (battle.speed if active else p.settings.speed)
-	mute_button.text = "Âm: bật" if p.settings.sound else "Âm: tắt"
+	mute_button.text = "Sound: On" if p.settings.sound else "Sound: Off"
 
 func _select_tab(index: int) -> void:
 	if index == 11:
@@ -447,16 +454,16 @@ func _campaign_panel() -> void:
 		return
 	if battle == null:
 		var p: Dictionary = store.profile
-		_text("%s · Cấp %d   /   %s đồng hành" % [catalog.find_row("heroes", p.hero).name, p.heroes[p.hero].level, catalog.find_row("assists", p.assist).name], 17, Color("e5cd9e"))
+		_text("%s · Level %d   /   %s accompanying" % [catalog.find_row("heroes", p.hero).name, p.heroes[p.hero].level, catalog.find_row("assists", p.assist).name], 17, Color("e5cd9e"))
 	if _locked() and battle != null and battle.state == "battle":
-		_row("Rút lui · không nhận thưởng", _confirm_abandon)
+		_row("Retreat · No rewards", _confirm_abandon)
 	else:
-		_row("VÀO ẢI · " + catalog.find_row("stages", selected_stage).name, _enter_stage.bind(selected_stage), _locked())
+		_row("ENTER STAGE · " + catalog.find_row("stages", selected_stage).name, _enter_stage.bind(selected_stage), _locked())
 	var supplies := store.offline_preview(int(Time.get_unix_time_from_system()))
 	var shortcuts := HBoxContainer.new()
 	shortcuts.add_theme_constant_override("separation", 6)
 	panel.add_child(shortcuts)
-	for entry in [["Bản đồ", _select_tab.bind(15), "journey"], ["Triệu hồi", _select_tab.bind(11), "spirit"], ["Tiếp tế +%d" % supplies, _offline, "gold"]]:
+	for entry in [["Map", _select_tab.bind(15), "journey"], ["Summon", _select_tab.bind(11), "spirit"], ["Supplies +%d" % supplies, _offline, "gold"]]:
 		var button := _button(shortcuts, entry[0], Vector2.ZERO, Vector2(156, 50), entry[1])
 		icons.apply(button, entry[2], 23)
 		button.add_theme_font_size_override("font_size", 13)
@@ -480,8 +487,8 @@ func _heroes_panel() -> void:
 func _equipment_detail_panel() -> void:
 	var item := EquipmentSystem.item_for(store.profile, selected_item)
 	if item.is_empty():
-		_row("← Kho trang bị", _bag_open.bind("equipment"))
-		_text("Trang bị không còn trong kho.")
+		_row("← Equipment Bag", _bag_open.bind("equipment"))
+		_text("This equipment is no longer in your bag.")
 		return
 	var screen := EquipmentDetailScreen.new()
 	screen.game = self
@@ -500,20 +507,20 @@ func _mission_tab(index: int) -> void:
 	_refresh_panel()
 
 func _mission_claim(period: String, id: String) -> void:
-	_outcome(MissionBoard.claim(store, period, id), "Đã nhận tài nguyên và VIP EXP.", "quest_claim")
+	_outcome(MissionBoard.claim(store, period, id), "Resources and VIP EXP claimed.", "quest_claim")
 
 func _mission_chest(period: String, threshold: int) -> void:
 	var section: Dictionary = MissionBoard.state(store.profile)[period]
 	var reward := MissionBoard.chest_reward(period, threshold)
 	var can_claim: bool = threshold not in section.chests and MissionBoard.points(section, period) >= threshold and not _locked()
-	var column := _dialog("RƯƠNG %d ĐIỂM" % threshold, "%d vàng · %d tinh thạch · %d VIP EXP\n\n%s" % [reward.gold, reward.shards, reward.vip, "Đã nhận" if threshold in section.chests else ("Đủ điểm nhận quà" if can_claim else "Chưa đủ điểm hoạt động")], [{"text":"Đóng", "call":_close_modal}])
-	var button := _button(column, "Nhận rương", Vector2.ZERO, Vector2(400, 46), _mission_claim_chest.bind(period, threshold))
+	var column := _dialog("%d-POINT CHEST" % threshold, "%d Gold · %d Crystals · %d VIP EXP\n\n%s" % [reward.gold, reward.shards, reward.vip, "Claimed" if threshold in section.chests else ("Reward ready to claim" if can_claim else "Not enough Activity Points")], [{"text":"Close", "call":_close_modal}])
+	var button := _button(column, "Claim Chest", Vector2.ZERO, Vector2(400, 46), _mission_claim_chest.bind(period, threshold))
 	button.disabled = not can_claim
 	column.move_child(button, column.get_child_count() - 2)
 
 func _mission_claim_chest(period: String, threshold: int) -> void:
 	_close_modal()
-	_outcome(MissionBoard.claim(store, period, "", threshold), "Đã nhận rương hoạt động.", "quest_claim")
+	_outcome(MissionBoard.claim(store, period, "", threshold), "Activity chest claimed.", "quest_claim")
 
 func _mission_go(id: String) -> void:
 	match id:
@@ -523,14 +530,14 @@ func _mission_go(id: String) -> void:
 		_: _select_tab(0)
 
 func _journal_panel() -> void:
-	_row("SỔ TAY BOSS →", _select_tab.bind(10))
-	_text("NHẬT KÝ HÀNH TRÌNH", 17, Color("e5cd9e"))
+	_row("BOSS GUIDE →", _select_tab.bind(10))
+	_text("JOURNEY JOURNAL", 17, Color("e5cd9e"))
 	for stage in catalog.data.stages:
 		for part in ["before", "after"]:
 			var key := "%d_%s" % [stage.id, part]
 			if key in store.profile.seen_story:
-				_art_card(stage.name + (" · Khởi đầu" if part == "before" else " · Kết thúc"), stage[part], "bg_" + stage.zone, _replay_story.bind(stage[part]))
-	_text("Thế giới, nhân vật và hội thoại ở đây là nội dung mới. Nghiên cứu Eternal Senia 2 giúp tổ chức dữ liệu; không khẳng định phục hồi thuật toán gốc.")
+				_art_card(stage.name + (" · Beginning" if part == "before" else " · Ending"), stage[part], "bg_" + stage.zone, _replay_story.bind(stage[part]))
+	_text("The world, characters, and dialogue here are original. Research into Eternal Senia 2 informs data organization; this is not a restoration of its original algorithms.")
 
 func _notify(text: String) -> void:
 	message = text
@@ -539,7 +546,7 @@ func _notify(text: String) -> void:
 func _outcome(success: bool, text: String, cue: String = "confirm") -> void:
 	if success:
 		audio.play(cue)
-	_notify(text if success else (store.error if not store.error.is_empty() else "Chưa đủ điều kiện hoặc trận chưa kết thúc."))
+	_notify(text if success else (store.error if not store.error.is_empty() else "Requirements not met or the battle has not ended."))
 	_refresh_panel()
 
 func _hero(id: String) -> void:
@@ -547,15 +554,15 @@ func _hero(id: String) -> void:
 		character_inspected = id
 		battle = null
 		view.battle = null
-		_outcome(true, "Đã đổi nhân vật.")
+		_outcome(true, "Hero switched.")
 	else:
 		_outcome(false, "")
 
 func _assist(id: String) -> void:
-	_outcome(store.change_assist(id), "Đã đổi trợ chiến.", "spirit_select")
+	_outcome(store.change_assist(id), "Companion switched.", "spirit_select")
 
 func _upgrade(kind: String, index: int) -> void:
-	_outcome(store.upgrade(kind, index), "Đã nâng cấp. Chỉ số mới được áp dụng từ trận tiếp theo.", "upgrade")
+	_outcome(store.upgrade(kind, index), "Upgraded. New stats apply from the next battle.", "upgrade")
 
 func _item_detail(uid: String) -> void:
 	equipment_target = store.profile.hero
@@ -568,19 +575,19 @@ func _character_item_detail(uid: String, hero: String) -> void:
 	_select_tab(17)
 
 func _equip(uid: String) -> void:
-	_outcome(store.equip(uid), "Đã trang bị.", "equip")
+	_outcome(store.equip(uid), "Equipped.", "equip")
 
 func _unequip(uid: String) -> void:
-	_outcome(store.unequip(uid), "Đã tháo trang bị về túi.", "equip")
+	_outcome(store.unequip(uid), "Equipment returned to your bag.", "equip")
 
 func _enhance(uid: String, rank_up: bool) -> void:
-	_outcome(store.enhance(uid, rank_up), "Đã nâng trang bị.", "forge")
+	_outcome(store.enhance(uid, rank_up), "Equipment upgraded.", "forge")
 
 func _forge(id: String) -> void:
-	_outcome(store.forge(id), "Đã chế tạo một bản trang bị mới.", "forge")
+	_outcome(store.forge(id), "Crafted a new equipment copy.", "forge")
 
 func _dismantle_confirm(uid: String) -> void:
-	_dialog("Phân giải trang bị?", "Món đồ chưa trang bị sẽ đổi thành tinh thạch. Không thể lấy lại món cũ.", [{"text": "Phân giải", "call": _dismantle.bind(uid)}, {"text": "Giữ lại", "call": _close_modal}])
+	_dialog("Dismantle equipment?", "Unequipped items will become Crystals. This cannot be undone.", [{"text": "Dismantle", "call": _dismantle.bind(uid)}, {"text": "Keep", "call": _close_modal}])
 
 func _dismantle(uid: String) -> void:
 	_close_modal()
@@ -589,20 +596,20 @@ func _dismantle(uid: String) -> void:
 		selected_item = ""
 		bag_section = "equipment"
 		tab = 2
-	_outcome(success, "Đã phân giải trang bị.", "dismantle")
+	_outcome(success, "Equipment dismantled.", "dismantle")
 
 func _quest(id: String) -> void:
-	_outcome(store.claim_quest(id), "Đã nhận thưởng nhiệm vụ.", "quest_claim")
+	_outcome(store.claim_quest(id), "Mission rewards claimed.", "quest_claim")
 
 func _offline() -> void:
-	_outcome(store.claim_offline(int(Time.get_unix_time_from_system())), "Đã nhận tiếp tế. Đồng hồ máy ảnh hưởng lượng nhận; tối đa 2 giờ.", "reward")
+	_outcome(store.claim_offline(int(Time.get_unix_time_from_system())), "Supplies claimed. Rewards use device time, up to 2 hours.", "reward")
 
 func _enter_stage(id: int) -> void:
 	if _locked() or not store.can_enter(id):
 		return
 	selected_stage = id
 	var stage := catalog.find_row("stages", id)
-	_dialog(stage.name, stage.before + "\n\nĐội tối đa 3 tướng + 1 tinh linh. Hàng trước chịu đòn trước; có thể chọn tự dùng Ultimate. Thua khi toàn đội bị hạ hoặc hết 180 giây."+Supplies.hint(store.profile), [{"text": "Tiến vào", "call": _begin}, {"text":"Xếp đội hình", "call":_open_formation}, {"text": "Chuẩn bị thêm", "call": _close_modal}])
+	_dialog(stage.name, stage.before + "\n\nBring up to 3 heroes and 1 spirit. The front row takes hits first; Auto Ultimate is optional. Defeat occurs when the team falls or 180 seconds elapse."+Supplies.hint(store.profile), [{"text": "Enter Battle", "call": _begin}, {"text":"Formation", "call":_open_formation}, {"text": "Keep Preparing", "call": _close_modal}])
 
 func _begin() -> void:
 	_close_modal()
@@ -641,23 +648,23 @@ func _finish() -> void:
 	for item in store.profile.items:
 		old_uids.append(item.uid)
 	if not store.settle(battle.run.id, won, battle.kills, battle.time):
-		_dialog("Chưa lưu được kết quả", store.error + "\nTrận vẫn được giữ. Hãy thử ghi lại; không nhận thưởng hai lần.", [{"text": "Thử lưu lại", "call": _retry_settle}])
+		_dialog("Unable to save results", store.error + "\nYour battle is preserved. Try saving again; rewards cannot be claimed twice.", [{"text": "Retry Save", "call": _retry_settle}])
 		return
 	if won:
 		var stage: Dictionary = battle.stage
-		var loot := "Trang bị đã được giữ ở Chiến lợi phẩm chờ nhận." if store.profile.bag_rewards.size() > queued_before else ""
+		var loot := "Equipment saved in Unclaimed Loot." if store.profile.bag_rewards.size() > queued_before else ""
 		for id in store.profile.collection_fragments.items:
 			var amount: int = store.profile.collection_fragments.items[id] - fragments_before[id]
-			if amount > 0: loot = "Trang bị trùng: +%d mảnh %s" % [amount, catalog.find_row("items", id).name]
+			if amount > 0: loot = "Duplicate equipment: +%d %s Fragments" % [amount, catalog.find_row("items", id).name]
 		for item in store.profile.items:
 			if item.uid not in old_uids:
-				loot = "Nhận trang bị: " + catalog.find_row("items", item.base).name
+				loot = "Equipment received: " + catalog.find_row("items", item.base).name
 		for id in Supplies.ORDER:
 			var gained: int = store.profile.supplies.counts[id]-supply_before[id]
 			if gained>0: loot += "\n+%d × %s" % [gained,Supplies.NAMES[id]]
-		_queue_result("CHIẾN THẮNG", "%s\n\n+%d vàng · +%d XP · +%d tinh thạch\n%s" % [(stage.after + ("\n+%d lõi tinh linh · Điểm tốt nhất %d" % [stage.cores, store.profile.expansion.records[str(stage.id)].score] if stage.get("kind") == "challenge" else "")), store.profile.gold - gold_before, stage.xp, store.profile.shards - shards_before, loot], [{"text": "Về hành trình", "call": _return_to_camp}, {"text": "Đánh lại", "call": _replay}])
+		_queue_result("VICTORY", "%s\n\n+%d Gold · +%d XP · +%d Crystals\n%s" % [(stage.after + ("\n+%d Spirit Cores · Best score %d" % [stage.cores, store.profile.expansion.records[str(stage.id)].score] if stage.get("kind") == "challenge" else "")), store.profile.gold - gold_before, stage.xp, store.profile.shards - shards_before, loot], [{"text": "Back to Journey", "call": _return_to_camp}, {"text": "Retry", "call": _replay}])
 	else:
-		_queue_result("ÁNH SÁNG CHƯA TẮT", (battle.defeat_reason + "\nHãy đổi vị trí, nâng nhân vật/trang bị hoặc điều chỉnh Ultimate." if battle is TeamBattle else "Chưa nhận thưởng. Hãy nâng vũ khí, đổi trợ chiến hoặc dùng Thủ thế đúng nhịp."), [{"text": "Chuẩn bị lại", "call": _return_to_camp}, {"text": "Thử lại", "call": _replay}])
+		_queue_result("THE LIGHT ENDURES", (battle.defeat_reason + "\nTry changing formation, upgrading heroes or equipment, or adjusting Ultimates." if battle is TeamBattle else "No rewards claimed. Upgrade your weapon, switch companions, or time your Guard."), [{"text": "Prepare Again", "call": _return_to_camp}, {"text": "Try Again", "call": _replay}])
 	_refresh_panel()
 
 func _queue_result(title: String, body: String, actions: Array) -> void:
@@ -682,8 +689,8 @@ func _present_result() -> void:
 				_begin()
 				return
 			if battle.auto_next and Formation.encounter(next_definition).important:
-				payload.body += "\n\nDừng trước Boss chương để chuẩn bị đội hình."
-			payload.actions.insert(0, {"text":"Chuẩn bị ải tiếp →", "call":_prepare_team_next.bind(next_stage)})
+				payload.body += "\n\nStop before the chapter boss to prepare your team."
+			payload.actions.insert(0, {"text":"Prepare next stage →", "call":_prepare_team_next.bind(next_stage)})
 	_dialog(payload.title, payload.body, payload.actions)
 	_refresh_panel()
 
@@ -709,7 +716,7 @@ func _replay() -> void:
 func _confirm_abandon() -> void:
 	if battle != null:
 		battle.paused = true
-	_dialog("Rút lui?", "Trận này không có thưởng. Tiến trình đã lưu được giữ nguyên.", [{"text": "Rút lui", "call": _abandon}, {"text": "Tiếp tục trận", "call": _cancel_abandon}])
+	_dialog("Retreat?", "No rewards for this battle. Saved progress is preserved.", [{"text": "Retreat", "call": _abandon}, {"text": "Resume Battle", "call": _cancel_abandon}])
 
 func _cancel_abandon() -> void:
 	_close_modal()
@@ -757,7 +764,7 @@ func _toggle_sound() -> void:
 		_notify(store.error)
 
 func _replay_story(text: String) -> void:
-	_dialog("Nhật ký", text, [{"text": "Đóng", "call": _close_modal}])
+	_dialog("Journal", text, [{"text": "Close", "call": _close_modal}])
 
 func _dialog(title: String, body: String, actions: Array) -> VBoxContainer:
 	_close_modal()
@@ -781,7 +788,7 @@ func _dialog(title: String, body: String, actions: Array) -> VBoxContainer:
 	column.add_theme_constant_override("separation", 18)
 	margin.add_child(column)
 	var medal := TextureRect.new()
-	medal.texture = frames.textures["icon_victory" if title == "CHIẾN THẮNG" else "icon_cores"]
+	medal.texture = frames.textures["icon_victory" if title == "VICTORY" else "icon_cores"]
 	medal.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	medal.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	medal.custom_minimum_size = Vector2(58, 58)
@@ -870,29 +877,29 @@ func _request_quit() -> void:
 	get_tree().quit()
 
 func _expansion_panel(page: int) -> void:
-	_row("← Trở về " + ("nhân vật" if page in [6, 7] else "hành trình"), _select_tab.bind(1 if page in [6, 7] else 0))
+	_row("← Back to " + ("hero" if page in [6, 7] else "journey"), _select_tab.bind(1 if page in [6, 7] else 0))
 	var p: Dictionary = store.profile
 	match page:
 		5:
-			_text("THỬ THÁCH", 21, Color("e5cd9e"))
-			_text("Săn boss kiếm lõi tinh linh để tiến hóa đồng hành. Điểm = số quái hạ × 100 + tối đa 300 điểm tốc độ. Không tiêu vé; thua không nhận thưởng.")
+			_text("CHALLENGES", 21, Color("e5cd9e"))
+			_text("Hunt bosses for Spirit Cores to evolve companions. Score = enemies defeated × 100 + up to 300 speed points. No tickets spent; defeat grants no rewards.")
 			for stage in catalog.data.stages:
 				if stage.get("kind") != "challenge": continue
 				var record: Dictionary = p.expansion.records.get(str(stage.id), {})
-				_text(stage.name + " · %d đợt · +%d lõi" % [stage.waves.size(), stage.cores], 18, Color("e5cd9e"))
-				_text("%d vàng · %d XP · 2 tinh thạch + loot" % [stage.gold, stage.xp])
-				if not record.is_empty(): _text("Kỷ lục %d điểm · nhanh nhất %.1f giây mô phỏng" % [record.score, record.time])
+				_text(stage.name + " · %d waves · +%d Cores" % [stage.waves.size(), stage.cores], 18, Color("e5cd9e"))
+				_text("%d Gold · %d XP · 2 Crystals + loot" % [stage.gold, stage.xp])
+				if not record.is_empty(): _text("Best: %d points · Fastest %.1f simulated seconds" % [record.score, record.time])
 				_stage_entry(stage)
-			_text("CHƯƠNG TRUYỆN", 21, Color("e5cd9e"))
-			_text("Mỗi chương có một màn chính và hai màn ký ức nối tiếp. Nhánh mới có thưởng đầu, loot và đối thoại riêng.")
+			_text("STORY CHAPTERS", 21, Color("e5cd9e"))
+			_text("Each chapter has one main stage and two sequential memory stages. New branches have their own first-clear rewards, loot, and dialogue.")
 			for chapter in catalog.data.chapters:
 				_text("%d · %s" % [chapter.id, chapter.name], 18, Color("e5cd9e"))
 				_stage_entry(catalog.find_row("stages", chapter.id))
 				for id in [6 + (chapter.id - 1) * 2, 7 + (chapter.id - 1) * 2]: _stage_entry(catalog.find_row("stages", id))
 		6:
-			_text("CÂY KỸ NĂNG · " + catalog.find_row("heroes", p.hero).name, 21, Color("e5cd9e"))
-			_text("NHÂN VẬT → KỸ NĂNG GỐC → NHÁNH. Hai kỹ năng riêng của nhân vật, mỗi kỹ năng chọn một trong hai nhánh. Học một lần, đổi miễn phí ngoài trận. Kỹ năng Tinh linh có cây riêng.")
-			_row("Cây kỹ năng Tinh linh →", _select_tab.bind(13))
+			_text("SKILL TREE · " + catalog.find_row("heroes", p.hero).name, 21, Color("e5cd9e"))
+			_text("HERO → BASE SKILL → BRANCH. Each of the hero's two skills offers two branches. Learn once and switch for free outside battle. Spirits have a separate skill tree.")
+			_row("Spirit Skill Tree →", _select_tab.bind(13))
 			var build: Dictionary = p.expansion.builds[p.hero]
 			for i in range(2):
 				_text(catalog.data.skills[i].name.to_upper(), 18, Color("e5cd9e"))
@@ -901,102 +908,102 @@ func _expansion_panel(page: int) -> void:
 					_text(row.name + " · " + row.description)
 					var learned: bool = row.id in build.learned
 					var selected: bool = build.selected[i] == row.id
-					_row(("✓ Bỏ chọn · " if selected else ("Chọn · " if learned else "Học · ")) + row.name + ("" if learned else " · cấp %d / %d vàng + %d tinh thạch" % [row.level, row.gold, row.shards]), _talent.bind(row.id), _locked() or p.heroes[p.hero].level < row.level or (not learned and (p.gold < row.gold or p.shards < row.shards)))
+					_row(("✓ Deselect · " if selected else ("Select · " if learned else "Learn · ")) + row.name + ("" if learned else " · Level %d / %d Gold + %d Crystals" % [row.level, row.gold, row.shards]), _talent.bind(row.id), _locked() or p.heroes[p.hero].level < row.level or (not learned and (p.gold < row.gold or p.shards < row.shards)))
 		7:
-			_text("TIẾN HÓA ĐỒNG HÀNH", 21, Color("e5cd9e"))
-			_text("Lõi tinh linh: %d · kiếm từ phụ bản hoặc thành tựu." % p.expansion.cores)
+			_text("COMPANION EVOLUTION", 21, Color("e5cd9e"))
+			_text("Spirit Cores: %d · Earned from side stages or achievements." % p.expansion.cores)
 			for assist in catalog.data.assists:
 				var rank: int = p.expansion.ranks[assist.id]
-				_text("%s · cấp %d · bậc %d/3" % [assist.name, p.assists[assist.id], rank], 18, Color("e5cd9e"))
-				_text("Bậc 2: mỗi lần hồi máu tạo khiên 8% HP trong 5 giây. Bậc 3: lượng hồi +25%." if assist.id == "lumi" else "Bậc 2: đòn trợ chiến gây 70% sát thương qua khiên. Bậc 3: đánh dấu, đòn vũ khí tiếp theo +20% sát thương.")
-				_row("✓ Đang đi cùng" if p.assist == assist.id else "Đi cùng " + assist.name, _assist.bind(assist.id), _locked() or not store.available_assist(assist.id) or p.assist == assist.id)
+				_text("%s · Level %d · Rank %d/3" % [assist.name, p.assists[assist.id], rank], 18, Color("e5cd9e"))
+				_text("Rank 2: each heal grants an 8% HP shield for 5 seconds. Rank 3: healing +25%." if assist.id == "lumi" else "Rank 2: assist attacks deal 70% damage through shields. Rank 3: applies a mark; the next weapon attack deals +20% damage.")
+				_row("✓ Accompanying" if p.assist == assist.id else "Accompany with " + assist.name, _assist.bind(assist.id), _locked() or not store.available_assist(assist.id) or p.assist == assist.id)
 				if p.assist == assist.id:
-					_row("Nâng cấp · %d vàng" % (p.assists[p.assist] * 35), _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
-					_row("Đã đạt bậc tối đa" if rank == 3 else "Tiến hóa · cần cấp %d / %d vàng + %d lõi" % [rank * 3, rank * 80, 2 if rank == 1 else 5], _rank_assist, _locked() or rank == 3 or p.assists[p.assist] < rank * 3 or p.gold < rank * 80 or p.expansion.cores < (2 if rank == 1 else 5))
+					_row("Upgrade · %d Gold" % (p.assists[p.assist] * 35), _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
+					_row("Maximum rank reached" if rank == 3 else "Evolve · Requires level %d / %d Gold + %d Cores" % [rank * 3, rank * 80, 2 if rank == 1 else 5], _rank_assist, _locked() or rank == 3 or p.assists[p.assist] < rank * 3 or p.gold < rank * 80 or p.expansion.cores < (2 if rank == 1 else 5))
 		8:
-			_text("BỘ SƯU TẬP & THÀNH TỰU", 21, Color("e5cd9e"))
-			_text("Vũ khí/giáp đã tìm thấy được ghi nhớ kể cả khi phân giải. Thành tựu nhận một lần, lưu cùng tài nguyên.")
+			_text("COLLECTION & ACHIEVEMENTS", 21, Color("e5cd9e"))
+			_text("Discovered weapons and armor remain recorded after dismantling. Achievements can be claimed once and are saved with your resources.")
 			for achievement in catalog.data.achievements:
 				var count := Expansion.metric(p, achievement.metric)
 				_text("%s · %d/%d" % [achievement.name, mini(count, achievement.target), achievement.target], 18, Color("e5cd9e"))
-				_row("Đã nhận" if achievement.id in p.expansion.claimed else "Nhận %d vàng + %d tinh thạch + %d lõi" % [achievement.gold, achievement.shards, achievement.cores], _achievement.bind(achievement.id), store.read_only or achievement.id in p.expansion.claimed or count < achievement.target)
-			_text("TRANG BỊ ĐÃ KHÁM PHÁ · %d/%d" % [p.expansion.discovered.size(), catalog.data.items.size()], 18, Color("e5cd9e"))
+				_row("Claimed" if achievement.id in p.expansion.claimed else "Claim %d Gold + %d Crystals + %d Cores" % [achievement.gold, achievement.shards, achievement.cores], _achievement.bind(achievement.id), store.read_only or achievement.id in p.expansion.claimed or count < achievement.target)
+			_text("EQUIPMENT DISCOVERED · %d/%d" % [p.expansion.discovered.size(), catalog.data.items.size()], 18, Color("e5cd9e"))
 			for item in catalog.data.items:
-				_text(("✓ " if item.id in p.expansion.discovered else "○ Chưa tìm · ") + item.name + " · " + item.passive)
-			_text("BOSS ĐÃ HẠ", 18, Color("e5cd9e"))
+				_text(("✓ " if item.id in p.expansion.discovered else "○ Undiscovered · ") + item.name + " · " + item.passive)
+			_text("BOSS DEFEATED", 18, Color("e5cd9e"))
 			for stage in catalog.data.stages:
 				if stage.id <= 5: _text(("✓ " if stage.id in p.cleared else "○ ") + stage.boss)
-			_text("ĐỒNG HÀNH", 18, Color("e5cd9e"))
+			_text("COMPANION", 18, Color("e5cd9e"))
 			for assist in catalog.data.assists:
-				_text("%s · %s · bậc %d" % [assist.name, "Đã mở" if store.available_assist(assist.id) else "Chưa mở", p.expansion.ranks[assist.id]])
+				_text("%s · %s · Rank %d" % [assist.name, "Unlocked" if store.available_assist(assist.id) else "Locked", p.expansion.ranks[assist.id]])
 
 func _stage_entry(stage: Dictionary) -> void:
 	var available := store.can_enter(stage.id)
 	var requirement := ""
 	if not available:
 		var id: int = stage.requires[0] if stage.has("requires") else stage.id - 1
-		requirement = " · cần qua " + catalog.find_row("stages", id).name
+		requirement = " · Clear " + catalog.find_row("stages", id).name
 	if not requirement.is_empty(): _text(requirement.trim_prefix(" · "), 14)
-	_art_card(stage.name, "%d vàng · %d XP" % [stage.gold, stage.xp], "bg_" + stage.zone, _enter_stage.bind(stage.id), _locked() or not available, stage.id in store.profile.cleared)
+	_art_card(stage.name, "%d Gold · %d XP" % [stage.gold, stage.xp], "bg_" + stage.zone, _enter_stage.bind(stage.id), _locked() or not available, stage.id in store.profile.cleared)
 
 func _talent(id: String) -> void:
-	_outcome(Expansion.talent(store, id), "Đã cập nhật nhánh kỹ năng.", "upgrade")
+	_outcome(Expansion.talent(store, id), "Skill branch updated.", "upgrade")
 
 func _rank_assist() -> void:
-	_outcome(Expansion.rank_up(store), "Đồng hành đã tiến hóa!", "upgrade")
+	_outcome(Expansion.rank_up(store), "Companion evolved!", "upgrade")
 
 func _achievement(id: String) -> void:
-	_outcome(Expansion.claim(store, id), "Đã nhận thành tựu.", "reward")
+	_outcome(Expansion.claim(store, id), "Achievement claimed.", "reward")
 
 func _training_panel() -> void:
-	_row("← Trở về nhân vật", _select_tab.bind(1))
+	_row("← Back to Heroes", _select_tab.bind(1))
 	var p: Dictionary = store.profile
 	var points := AttributeTraining.allocation(p, p.hero)
 	var remaining := AttributeTraining.remaining(p, p.hero)
 	var stats := catalog.stats(p)
-	_text("ĐIỂM THUỘC TÍNH · " + catalog.find_row("heroes", p.hero).name, 21, Color("e5cd9e"))
-	_text("Mỗi cấp sau cấp 1 cho 2 điểm riêng cho nhân vật. Còn %d điểm. Cộng, bớt và hoàn điểm miễn phí ngoài trận." % remaining)
-	_text("HP %.0f · ATK %.1f · Thủ %.2f" % [stats.hp, stats.atk, stats.defense], 18, Color("e5cd9e"))
+	_text("ATTRIBUTE POINTS · " + catalog.find_row("heroes", p.hero).name, 21, Color("e5cd9e"))
+	_text("Each level after LV 1 grants 2 points for this hero. %d points available. Add, remove, or refund points for free outside battle." % remaining)
+	_text("HP %.0f · ATK %.1f · DEF %.2f" % [stats.hp, stats.atk, stats.defense], 18, Color("e5cd9e"))
 	for stat in AttributeTraining.ATTRIBUTES:
 		var row: Dictionary = AttributeTraining.ATTRIBUTES[stat]
-		_text("%s · %d điểm · tổng +%s" % [row.name, points[stat], str(points[stat] * row.bonus)], 18, Color("e5cd9e"))
-		_row("+1 điểm · +%s %s" % [str(row.bonus), row.name], _train_attribute.bind(stat, 1), _locked() or remaining <= 0)
-		_row("−1 điểm · hoàn lại 1 điểm", _train_attribute.bind(stat, -1), _locked() or points[stat] <= 0)
-	_row("Hoàn toàn bộ điểm · miễn phí", _reset_attributes, _locked() or remaining == (p.heroes[p.hero].level - 1) * 2)
+		_text("%s · %d points · Total +%s" % [row.name, points[stat], str(points[stat] * row.bonus)], 18, Color("e5cd9e"))
+		_row("+1 point · +%s %s" % [str(row.bonus), row.name], _train_attribute.bind(stat, 1), _locked() or remaining <= 0)
+		_row("−1 point · Refund 1 point", _train_attribute.bind(stat, -1), _locked() or points[stat] <= 0)
+	_row("Refund all points · Free", _reset_attributes, _locked() or remaining == (p.heroes[p.hero].level - 1) * 2)
 	if not p.pending.is_empty():
-		_text("Đang có trận chưa kết thúc: điểm đã khóa theo build lúc vào trận.")
+		_text("A battle is unfinished: points are locked to the build used at entry.")
 
 func _train_attribute(stat: String, amount: int) -> void:
-	_outcome(AttributeTraining.change(store, stat, amount), "Đã cập nhật điểm thuộc tính.", "upgrade")
+	_outcome(AttributeTraining.change(store, stat, amount), "Attribute Points updated.", "upgrade")
 
 func _reset_attributes() -> void:
-	_outcome(AttributeTraining.reset(store), "Đã hoàn điểm thuộc tính.")
+	_outcome(AttributeTraining.reset(store), "Attribute Points refunded.")
 
 func _boss_guide_panel() -> void:
-	_row("← Trở về nhật ký", _select_tab.bind(4))
-	_text("SỔ TAY BOSS", 21, Color("e5cd9e"))
-	_text("Mở thông tin khi đường đến chương được mở. Chỉ số dưới đây là boss màn chính; ký ức và phụ bản có chỉ số riêng.")
-	var elements := {"nature": "Tự nhiên", "fire": "Lửa", "water": "Nước", "light": "Ánh sáng", "dark": "Bóng tối"}
-	var counters := {"nature": "Lửa", "fire": "Nước", "water": "Tự nhiên", "light": "Bóng tối", "dark": "Ánh sáng"}
+	_row("← Back to Journal", _select_tab.bind(4))
+	_text("BOSS GUIDE", 21, Color("e5cd9e"))
+	_text("Details unlock when the chapter path opens. These stats belong to the main-stage boss; memories and side stages have their own stats.")
+	var elements := {"nature": "Natural", "fire": "Fire", "water": "Water", "light": "Light", "dark": "Dark"}
+	var counters := {"nature": "Fire", "fire": "Water", "water": "Natural", "light": "Dark", "dark": "Light"}
 	var hints := {
-		"smash": "Đòn nặng: thủ thế ngay trước khi vòng báo đầy để giảm 80% sát thương. Giữ kỹ năng hồi phục khi máu thấp.",
-		"shield": "Khiên: kỹ năng Tinh linh phá khiên. Đòn không có nội tại xuyên khiên chỉ gây 35% sát thương khi khiên còn hoạt động.",
-		"counter": "Phản đòn: ngưng kỹ năng gây sát thương khi boss đang tụ lực. Đòn thường và thủ thế giúp chờ qua thời điểm nguy hiểm."
+		"smash": "Heavy attacks: Guard just before the warning ring fills to reduce damage by 80%. Save healing skills for low HP.",
+		"shield": "Shields: Spirit skills break shields. Attacks without shield penetration deal only 35% damage while a shield is active.",
+		"counter": "Counter: stop using damage skills while the boss charges. Basic attacks and Guard help you wait out the danger."
 	}
 	for stage in catalog.data.stages:
 		if stage.id > 5:
 			continue
 		if not store.can_enter(stage.id):
-			_text("Chương %d · Chưa mở · cần vượt chương trước" % stage.id)
+			_text("Chapter %d · Locked · Clear the previous chapter" % stage.id)
 			continue
-		_text(stage.boss + (" · Đã hạ" if stage.id in store.profile.cleared else " · Chưa hạ"), 19, Color("e5cd9e"))
+		_text(stage.boss + (" · Defeated" if stage.id in store.profile.cleared else " · Undefeated"), 19, Color("e5cd9e"))
 		_text(stage.name + " · " + elements[stage.element])
-		_text("HP %d · ATK %d · Vũ khí hệ %s tăng 20%% sát thương" % [stage.boss_hp, stage.boss_atk, counters[stage.element]])
+		_text("HP %d · ATK %d · %s weapons deal 20%% more damage" % [stage.boss_hp, stage.boss_atk, counters[stage.element]])
 		_text(hints[stage.mechanic])
 		var drops: Array[String] = []
 		for id in stage.drops:
 			drops.append(catalog.find_row("items", id).name)
-		_text("Có thể rơi: " + ", ".join(drops), 14)
+		_text("Possible drops: " + ", ".join(drops), 14)
 
 func _rarity(kind: String, id: String) -> String:
 	return Recruitment.label(kind, id, catalog, store.profile)
@@ -1005,7 +1012,7 @@ func _entity_name(kind: String, id: String) -> String:
 	return catalog.find_row({"hero": "heroes", "spirit": "assists", "item": "items"}[kind], id).name
 
 func _summon_panel(embedded: bool = false) -> void:
-	if not embedded: _row("← Trở về hành trình", _select_tab.bind(0))
+	if not embedded: _row("← Back to Journey", _select_tab.bind(0))
 	var screen := SummonScreen.new()
 	screen.game = self
 	panel.add_child(screen)
@@ -1016,7 +1023,7 @@ func _select_summon_kind(index: int) -> void:
 
 func _summon_confirm(count: int) -> void:
 	if summon_kind != 0 or _locked(): return
-	_dialog("Triệu hồi ×%d?" % count, "Chi phí: %d vàng.\nMỗi lượt có bảo hiểm riêng theo bộ đếm. Trang bị nhận riêng từng bản; nhân vật/tinh linh trùng đổi thành10 mảnh. Nếu túi không đủ chỗ cho cả lượt quay, giao dịch không trừ vàng." % (Recruitment.PRICE * count), [{"text": "Triệu hồi", "call": _summon_execute.bind(count)}, {"text": "Hủy", "call": _close_modal}])
+	_dialog("Summon ×%d?" % count, "Cost: %d Gold.\nEach summon advances its own pity counter. Equipment is kept as individual copies; duplicate heroes and spirits become 10 Fragments. If the bag cannot hold the entire summon batch, no Gold is spent." % (Recruitment.PRICE * count), [{"text": "Summon", "call": _summon_execute.bind(count)}, {"text": "Cancel", "call": _close_modal}])
 
 func _summon_execute(count: int) -> void:
 	if summon_kind != 0 or _locked(): return
@@ -1030,7 +1037,7 @@ func _summon_execute(count: int) -> void:
 	_refresh_panel()
 	_refresh_hud()
 	_summon_sound(Recruitment.state(store.profile).history.slice(0, 10))
-	SummonScreen.show_results(self, "KẾT QUẢ ×10", Recruitment.state(store.profile).history.slice(0, 10))
+	SummonScreen.show_results(self, "SUMMON RESULTS ×10", Recruitment.state(store.profile).history.slice(0, 10))
 
 func _summon_sound(results: Array) -> void:
 	var rare := false
@@ -1041,18 +1048,18 @@ func _summon_sound(results: Array) -> void:
 	audio.play("rarity_reveal" if rare else "summon_reveal")
 
 func _summon_history() -> void:
-	SummonScreen.show_results(self, "LỊCH SỬ TRIỆU HỒI", Recruitment.state(store.profile).history)
+	SummonScreen.show_results(self, "SUMMON HISTORY", Recruitment.state(store.profile).history)
 
 func _summon_rates() -> void:
-	var text := "Trang bị nhận thành từng bản riêng. Nhân vật/tinh linh trùng đổi thành10 mảnh đúng loại.\nThường: 70% · Nâng cao: 25% · Cao cấp: 5%. Sau 19 lượt chưa ra nhóm Cao cấp, lượt 20 bảo đảm nhóm này. Đây là nhóm quay, độc lập độ hiếm.\n"
+	var text := "Equipment is kept as individual copies. Duplicate heroes and spirits become 10 matching Fragments.\nStandard: 70% · Advanced: 25% · Premium: 5%. After 19 summons without Premium, summon 20 guarantees that group. Summon groups are independent of rarity.\n"
 	for tier in [1, 2, 3]:
 		var candidates := Recruitment.pool(catalog, tier)
 		var total := 0
 		for entry in candidates: total += int(entry.weight)
 		text += "\n" + Recruitment.GROUP_NAMES[tier] + ":\n"
 		for entry in candidates:
-			text += "%s [%s]: %.2f%% trong nhóm\n" % [_entity_name(entry.kind, entry.id), _rarity(entry.kind, entry.id), float(entry.weight) / total * 100]
-	SummonScreen.show_text(self, "TỶ LỆ TRIỆU HỒI THƯỜNG", text)
+			text += "%s [%s]: %.2f%% within the group\n" % [_entity_name(entry.kind, entry.id), _rarity(entry.kind, entry.id), float(entry.weight) / total * 100]
+	SummonScreen.show_text(self, "STANDARD SUMMON RATES", text)
 
 func _summon() -> void:
 	if not Recruitment.summon(store):
@@ -1061,9 +1068,9 @@ func _summon() -> void:
 	_refresh_panel()
 	var result: Dictionary = store.profile.recruitment.history[0]
 	_summon_sound([result])
-	var detail := "Trang bị đã vào túi." if result.kind == "item" else "Đã mở khóa để chọn trong Nhân vật."
-	if result["duplicate"]: detail = "Nhận trùng" + CollectionFragments.reward_suffix(result) + " · " + _entity_name(result.kind, result.id)
-	var column := _dialog(Recruitment.label(result.kind, result.id, catalog) + " · " + _entity_name(result.kind, result.id), detail, [{"text": "Đóng", "call": _close_modal}])
+	var detail := "Equipment added to your bag." if result.kind == "item" else "Unlocked for selection in Heroes."
+	if result["duplicate"]: detail = "Duplicates" + CollectionFragments.reward_suffix(result) + " · " + _entity_name(result.kind, result.id)
+	var column := _dialog(Recruitment.label(result.kind, result.id, catalog) + " · " + _entity_name(result.kind, result.id), detail, [{"text": "Close", "call": _close_modal}])
 	column.get_child(0).modulate = Recruitment.color(result.kind, result.id, catalog)
 	var image := TextureRect.new()
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -1077,41 +1084,41 @@ func _summon() -> void:
 	image.create_tween().tween_property(image, "modulate:a", 1.0, .25)
 
 func _batch_level() -> void:
-	_outcome(Recruitment.level_batch(store), "Đã tăng cấp nhân vật.", "upgrade")
+	_outcome(Recruitment.level_batch(store), "Hero leveled up.", "upgrade")
 
 func _awaken() -> void:
-	_outcome(Recruitment.awaken(store), "Nhân vật đã thức tỉnh.", "upgrade")
+	_outcome(Recruitment.awaken(store), "Hero awakened.", "upgrade")
 
 func _spirit_tree_panel() -> void:
-	_row("← Trở về nhân vật", _select_tab.bind(1))
+	_row("← Back to Heroes", _select_tab.bind(1))
 	var p: Dictionary = store.profile
 	var b: Dictionary = SpiritSkills.builds(p)[p.assist]
-	_text("CÂY TINH LINH · " + catalog.find_row("assists", p.assist).name, 22, Color("a2e5d6"))
-	_text("Đồng hành cấp %d/20 · Kỹ năng chủ động cấp %d/10" % [p.assists[p.assist], b.level])
-	_text("Cấp chủ động và nhánh được lưu riêng theo tinh linh. Đổi nhân vật không đổi cây này. Đổi nhánh đã học miễn phí; mỗi tầng chọn một nhánh.")
-	_text("◆ GỐC · Tinh linh phá khiên · cấp %d/10" % b.level, 18, Color("e5cd9e"))
-	_row("Nâng kỹ năng tinh linh · %d vàng" % (b.level * 25), _upgrade.bind("skill", 2), _locked() or b.level >= 10 or p.gold < b.level * 25)
-	_text("│\n├─ TẦNG 1 · Đồng hành cấp 4", 17, Color("a2e5d6"))
+	_text("SPIRIT TREE · " + catalog.find_row("assists", p.assist).name, 22, Color("a2e5d6"))
+	_text("Companion level %d/20 · Active skill level %d/10" % [p.assists[p.assist], b.level])
+	_text("Active skill levels and branches are saved per spirit. Switching heroes does not change this tree. Switch learned branches for free; choose one branch per tier.")
+	_text("◆ ROOT · Shield-breaking Spirit · Level %d/10" % b.level, 18, Color("e5cd9e"))
+	_row("Upgrade spirit skill · %d Gold" % (b.level * 25), _upgrade.bind("skill", 2), _locked() or b.level >= 10 or p.gold < b.level * 25)
+	_text("│\n├─ TIER 1 · Companion level 4", 17, Color("a2e5d6"))
 	for id in ["nova", "flow"]:
 		var row := catalog.find_row("talents", id)
 		_text(row.name + " · " + row.description)
-		_row(("✓ Bỏ chọn · " if b.selected == id else ("Chọn · " if id in b.learned else "Học · ")) + row.name + ("" if id in b.learned else " · 80 vàng + 3 tinh thạch"), _spirit_talent.bind(id), _locked() or p.assists[p.assist] < 4 or (id not in b.learned and (p.gold < 80 or p.shards < 3)))
-	_text("│\n└─ TẦNG 2 · Đồng hành cấp 6 + một nhánh tầng 1", 17, Color("a2e5d6"))
+		_row(("✓ Deselect · " if b.selected == id else ("Select · " if id in b.learned else "Learn · ")) + row.name + ("" if id in b.learned else " · 80 Gold + 3 Crystals"), _spirit_talent.bind(id), _locked() or p.assists[p.assist] < 4 or (id not in b.learned and (p.gold < 80 or p.shards < 3)))
+	_text("│\n└─ TIER 2 · Companion level 6 + one tier 1 branch", 17, Color("a2e5d6"))
 	for id in SpiritSkills.ADVANCED:
 		var row: Dictionary = SpiritSkills.ADVANCED[id]
 		_text(row.name + " · " + row.description)
-		_row(("✓ Bỏ chọn · " if b.advanced == id else ("Chọn · " if id in b.advanced_learned else "Học · ")) + row.name + ("" if id in b.advanced_learned else " · 100 vàng + 3 tinh thạch"), _spirit_talent.bind(id), _locked() or p.assists[p.assist] < 6 or b.selected == "" or (id not in b.advanced_learned and (p.gold < 100 or p.shards < 3)))
+		_row(("✓ Deselect · " if b.advanced == id else ("Select · " if id in b.advanced_learned else "Learn · ")) + row.name + ("" if id in b.advanced_learned else " · 100 Gold + 3 Crystals"), _spirit_talent.bind(id), _locked() or p.assists[p.assist] < 6 or b.selected == "" or (id not in b.advanced_learned and (p.gold < 100 or p.shards < 3)))
 
 func _spirit_talent(id: String) -> void:
-	_outcome(SpiritSkills.choose(store, id), "Đã cập nhật cây kỹ năng tinh linh.", "upgrade")
+	_outcome(SpiritSkills.choose(store, id), "Spirit skill tree updated.", "upgrade")
 
 func _map_panel() -> void:
-	_row("← Trở về chiến đấu", _select_tab.bind(0))
-	_text("BẢN ĐỒ HÀNH TRÌNH", 23, Color("e5cd9e"))
+	_row("← Back to Battle", _select_tab.bind(0))
+	_text("JOURNEY MAP", 23, Color("e5cd9e"))
 	for stage in catalog.data.stages:
 		if stage.id > 5: continue
-		_art_card(stage.name, "%d vàng · %d XP" % [stage.gold, stage.xp], "bg_" + stage.zone, _map_stage.bind(stage.id), _locked() or not store.can_enter(stage.id), stage.id == selected_stage)
-	_row("Chương truyện & Phụ bản →", _select_tab.bind(5))
+		_art_card(stage.name, "%d Gold · %d XP" % [stage.gold, stage.xp], "bg_" + stage.zone, _map_stage.bind(stage.id), _locked() or not store.can_enter(stage.id), stage.id == selected_stage)
+	_row("Story & Side Stages →", _select_tab.bind(5))
 
 func _map_stage(id: int) -> void:
 	_choose_stage(id)
@@ -1123,17 +1130,17 @@ func _more_panel() -> void:
 	panel.add_child(screen)
 
 func _utility_mail() -> void:
-	_dialog("HỘP THƯ", "Hộp thư trống.\n\nQuà hệ thống, thông báo và đền bù sẽ xuất hiện tại đây khi dịch vụ hộp thư mở.", [{"text": "Đóng", "call": _close_modal}])
+	_dialog("MAILBOX", "Your mailbox is empty.\n\nSystem gifts, notices, and compensation will appear here when the mailbox service becomes available.", [{"text": "Close", "call": _close_modal}])
 
 func _utility_giftcode() -> void:
-	var column := _dialog("ĐỔI MÃ QUÀ TẶNG", "Nhận giftcode từ các sự kiện. Hiện chưa có đợt đổi mã đang mở.", [{"text": "Đóng", "call": _close_modal}])
+	var column := _dialog("REDEEM GIFT CODE", "Receive gift codes from events. No redemption event is currently open.", [{"text": "Close", "call": _close_modal}])
 	var input := LineEdit.new()
-	input.placeholder_text = "Nhập mã quà tặng"
+	input.placeholder_text = "Enter gift code"
 	input.editable = false
 	input.custom_minimum_size.y = 46
 	column.add_child(input)
 	column.move_child(input, 2)
-	var redeem := _button(column, "Đổi mã · Chưa mở", Vector2.ZERO, Vector2(400, 46), func(): pass)
+	var redeem := _button(column, "Redeem · Locked", Vector2.ZERO, Vector2(400, 46), func(): pass)
 	redeem.disabled = true
 	column.move_child(redeem, 3)
 
@@ -1144,7 +1151,7 @@ func _utility_graphics() -> void:
 	SettingsScreen.open(self,"graphics",true)
 
 func _utility_help() -> void:
-	SummonScreen.show_text(self, "TRỢ GIÚP & HỖ TRỢ", "HƯỚNG DẪN\nChọn nhân vật và trang bị trước khi vào ải. Dùng tinh linh phá khiên, thủ thế trước đòn mạnh của Boss.\n\nNâng cấp nhân vật ở mục Nhân vật; quản lý trang bị và nguyên liệu trong Túi đồ. Xem tỷ lệ trước khi triệu hồi.\n\nBÁO LỖI\nKhi gửi lỗi cho nhóm phát triển, kèm phiên bản game, thiết bị, các bước tái hiện và ảnh hoặc video. Giữ bản sao save trước khi cài lại.\n\nPhiên bản: " + str(ProjectSettings.get_setting("application/config/version", "")) + "\n\nStudio: ZORVYKA Games\nEmail hỗ trợ: zorvykagames@gmail.com\nBạn chủ động gửi email; game không tự gửi dữ liệu.")
+	SummonScreen.show_text(self, "HELP & SUPPORT", "HOW TO PLAY\nChoose heroes and equipment before entering a stage. Use spirits to break shields and Guard before heavy boss attacks.\n\nUpgrade heroes in Heroes; manage equipment and materials in Bag. Check summon rates before summoning.\n\nREPORT A BUG\nInclude your game version, device, steps to reproduce, and a screenshot or video. Back up your save before reinstalling.\n\nVersion: " + str(ProjectSettings.get_setting("application/config/version", "")) + "\n\nStudio: ZORVYKA Games\nSupport: zorvykagames@gmail.com\nYou choose whether to send an email; the game never sends your data automatically.")
 
 func _bag_open(section: String) -> void:
 	bag_section = section
@@ -1156,7 +1163,7 @@ func _bag_type_count() -> int:
 	return types.size()
 
 func _bag_help() -> void:
-	SummonScreen.show_text(self,"HƯỚNG DẪN TÚI ĐỒ","Trang bị có thể có nhiều bản cùng tên. Mỗi bản có UID, cường hóa và bậc riêng. Túi có40 ô.\n\nE: đang được nhân vật sử dụng. Chọn Tách để phân giải nhiều món; trang bị đang dùng được bảo vệ.\n\nHợp thành: giữ một bản, dùng hai bản +0 cùng món/cùng bậc để tăng một bậc; tối đa bậc3.\n\nNhân vật/tinh linh trùng vẫn đổi thành10 mảnh đúng loại. Mảnh trang bị cũ vẫn giữ. Đồ rơi khi túi đầy nằm ở Chiến lợi phẩm chờ nhận.")
+	SummonScreen.show_text(self,"BAG GUIDE","Equipment can have multiple copies with the same name. Each has its own UID, enhancement, and rank. The bag holds 40 items.\n\nE: equipped by a hero. Choose Dismantle to select multiple copies; equipped items are protected.\n\nFusion: keep one copy and consume two +0 copies of the same item and rank to gain one rank, up to rank 3.\n\nDuplicate heroes and spirits still become 10 matching Fragments. Legacy Equipment Fragments are preserved. Drops from a full bag go to Unclaimed Loot.")
 
 func _bag_sort_next() -> void:
 	bag_sort = (bag_sort+1)%3
@@ -1183,8 +1190,8 @@ func _bag_dismantle_confirm() -> void:
 		var item := EquipmentSystem.item_for(store.profile,uid)
 		if item.is_empty(): return
 		amount += 1+int(item.rank)
-		lines.append("%s +%d · bậc%d · %s" % [catalog.find_row("items",item.base).name,item.enhance,item.rank,uid])
-	_dialog("Phân giải %d trang bị?" % bag_selected.size(),"Nhận %d tinh thạch. Các bản được chọn và nâng cấp của chúng sẽ bị tiêu thụ.\n\n" % amount+"\n".join(lines),[{"text":"Phân giải","call":_bag_dismantle_execute.bind(bag_selected.duplicate())},{"text":"Hủy","call":_close_modal}])
+		lines.append("%s +%d · Rank %d · %s" % [catalog.find_row("items",item.base).name,item.enhance,item.rank,uid])
+	_dialog("Dismantle %d equipment items?" % bag_selected.size(),"Receive %d Crystals. Selected copies and all their upgrades will be consumed.\n\n" % amount+"\n".join(lines),[{"text":"Dismantle","call":_bag_dismantle_execute.bind(bag_selected.duplicate())},{"text":"Cancel","call":_close_modal}])
 
 func _bag_dismantle_execute(uids: Array) -> void:
 	_close_modal()
@@ -1192,32 +1199,32 @@ func _bag_dismantle_execute(uids: Array) -> void:
 	if ok:
 		bag_selected.clear()
 		bag_selecting = false
-	_outcome(ok,"Đã phân giải các bản đã chọn.","dismantle")
+	_outcome(ok,"Selected copies dismantled.","dismantle")
 
 func _bag_claim_loot() -> void:
-	_outcome(store.claim_bag_rewards(),"Đã chuyển chiến lợi phẩm vào chỗ trống trong túi.","reward")
+	_outcome(store.claim_bag_rewards(),"Loot moved into free bag slots.","reward")
 
 func _bag_spirit_select(id: String) -> void:
 	selected_spirit = id
 	_refresh_panel()
 
 func _bag_upgrade_spirit(id: String) -> void:
-	_outcome(store.upgrade_assist(id),"Đã nâng cấp "+catalog.find_row("assists",id).name,"upgrade")
+	_outcome(store.upgrade_assist(id),"Upgraded "+catalog.find_row("assists",id).name,"upgrade")
 
 func _bag_material_detail(key: String) -> void:
-	var title := "NGUYÊN LIỆU"
+	var title := "MATERIALS"
 	var lines: Array[String] = []
 	match key:
-		"gold": lines.append("Vàng: %d\nDùng nâng cấp, chế tạo và triệu hồi." % store.profile.gold)
-		"shards": lines.append("Tinh thạch: %d\nDùng cường hóa, tiến bậc, chế tạo và học kỹ năng." % store.profile.shards)
-		"xp": lines.append("XP: %d\nDùng tăng cấp nhân vật cùng với vàng." % store.profile.xp)
-		"cores": lines.append("Lõi tinh linh: %d\nDùng tiến hóa nhân vật và tinh linh." % store.profile.expansion.cores)
+		"gold": lines.append("Gold: %d\nUsed to upgrade, craft, and summon." % store.profile.gold)
+		"shards": lines.append("Crystals: %d\nUsed to enhance, rank up, craft, and learn skills." % store.profile.shards)
+		"xp": lines.append("XP: %d\nUsed with Gold to level up heroes." % store.profile.xp)
+		"cores": lines.append("Spirit Cores: %d\nUsed to evolve heroes and spirits." % store.profile.expansion.cores)
 		"fragments":
-			for row in catalog.data.heroes: lines.append("Mảnh %s: %d" % [row.name,Recruitment.state(store.profile).fragments[row.id]])
+			for row in catalog.data.heroes: lines.append("%s Fragments: %d" % [row.name,Recruitment.state(store.profile).fragments[row.id]])
 		"spirit":
-			for row in catalog.data.assists: lines.append("Mảnh %s: %d" % [row.name,store.profile.collection_fragments.spirits[row.id]])
+			for row in catalog.data.assists: lines.append("%s Fragments: %d" % [row.name,store.profile.collection_fragments.spirits[row.id]])
 		"weapon_category":
-			for row in catalog.data.items: lines.append("Mảnh %s: %d" % [row.name,store.profile.collection_fragments.items[row.id]])
+			for row in catalog.data.items: lines.append("%s Fragments: %d" % [row.name,store.profile.collection_fragments.items[row.id]])
 	SummonScreen.show_text(self,title,"\n\n".join(lines))
 
 func _forge_tab(index: int) -> void:
@@ -1227,22 +1234,22 @@ func _forge_tab(index: int) -> void:
 func _forge_batch_confirm(id: String) -> void:
 	if _locked(): return
 	var count := forge_count
-	_dialog("Chế tạo %d × %s?" % [count,catalog.find_row("items",id).name],"Cần %d vàng +%d tinh thạch và %d ô túi. Mỗi bản có nâng cấp riêng." % [65*count,3*count,count],[{"text":"Chế tạo","call":_forge_batch_execute.bind(id,count)},{"text":"Hủy","call":_close_modal}])
+	_dialog("Craft %d × %s?" % [count,catalog.find_row("items",id).name],"Requires %d Gold + %d Crystals and %d bag slots. Each copy has independent upgrades." % [65*count,3*count,count],[{"text":"Craft","call":_forge_batch_execute.bind(id,count)},{"text":"Cancel","call":_close_modal}])
 
 func _forge_batch_execute(id: String, count: int) -> void:
 	_close_modal()
-	_outcome(store.forge(id,count),"Đã chế tạo %d bản trang bị." % count,"forge")
+	_outcome(store.forge(id,count),"Crafted %d equipment copies." % count,"forge")
 
 func _forge_fuse_confirm(uid: String) -> void:
 	if _locked(): return
 	var donors := store.fusion_donors(uid)
 	var item := EquipmentSystem.item_for(store.profile,uid)
 	if donors.size() != 2 or item.is_empty(): return
-	_dialog("Hợp thành "+catalog.find_row("items",item.base).name+"?","Giữ %s +%d và nâng bậc%d → %d.\nTiêu thụ hai bản +0: %s. Các bản bị tiêu thụ không thể lấy lại." % [uid,item.enhance,item.rank,item.rank+1,", ".join(donors)],[{"text":"Hợp thành","call":_forge_fuse_execute.bind(uid,donors)},{"text":"Hủy","call":_close_modal}])
+	_dialog("Fuse "+catalog.find_row("items",item.base).name+"?","Keep %s +%d and increase rank %d → %d.\nConsume two +0 copies: %s. Consumed copies cannot be recovered." % [uid,item.enhance,item.rank,item.rank+1,", ".join(donors)],[{"text":"Fuse","call":_forge_fuse_execute.bind(uid,donors)},{"text":"Cancel","call":_close_modal}])
 
 func _forge_fuse_execute(uid: String, donors: Array) -> void:
 	_close_modal()
-	_outcome(store.fuse(uid,donors),"Đã hợp thành, giữ nguyên cường hóa của bản chính.","equipment_fuse")
+	_outcome(store.fuse(uid,donors),"Fusion complete. The main copy's enhancement is preserved.","equipment_fuse")
 
 
 func _supply_open(id: String = "") -> void:
@@ -1266,12 +1273,12 @@ func _supply_source(id: String) -> void:
 	_dungeon_show(id)
 
 func _supply_milestones() -> void:
-	var column := _dialog("QUÀ TIẾN TRÌNH","Mỗi mốc nhận một lần. Giữ quyền nhận cho người đã vượt từ phiên bản trước.",[{"text":"Đóng","call":_close_modal}])
-	var names := {"story_1":"Rương chọn nguyên liệu ×1","story_2":"Vé Thường ×1","story_3":"Đồng Hồ Cát AFK ×1"}
+	var column := _dialog("PROGRESS GIFTS","Claim each milestone once. Players who cleared stages in earlier versions remain eligible.",[{"text":"Close","call":_close_modal}])
+	var names := {"story_1":"Material Choice Chest ×1","story_2":"Standard Ticket ×1","story_3":"AFK Hourglass ×1"}
 	for id in Supplies.MILESTONES:
 		var row: Dictionary = Supplies.MILESTONES[id]
 		var claimed: bool = id in store.profile.supplies.claimed
-		var action := _button(column,("Đã nhận · " if claimed else "Qua ải%d · " % row.stage)+names[id],Vector2.ZERO,Vector2(400,44),_supply_confirm.bind("claim",id,0))
+		var action := _button(column,("Claimed · " if claimed else "Clear stage %d · " % row.stage)+names[id],Vector2.ZERO,Vector2(400,44),_supply_confirm.bind("claim",id,0))
 		action.add_theme_font_size_override("font_size",14)
 		action.disabled = Supplies.busy(store) or claimed or row.stage not in store.profile.cleared
 		column.move_child(action,column.get_child_count()-2)
@@ -1282,31 +1289,31 @@ func _supply_confirm(kind: String, id: String = "", value: int = 0) -> void:
 	match kind:
 		"buy":
 			if id not in Supplies.SHOP: return
-			text = "Mua1 "+Supplies.NAMES[id]+" với%d vàng." % Supplies.SHOP[id]
+			text = "Buy 1 "+Supplies.NAMES[id]+" for %d Gold." % Supplies.SHOP[id]
 		"claim":
 			if id not in Supplies.MILESTONES: return
-			text = "Nhận1 "+Supplies.NAMES[Supplies.MILESTONES[id].item]+". Mốc này chỉ nhận một lần."
+			text = "Receive 1 "+Supplies.NAMES[Supplies.MILESTONES[id].item]+". This milestone can only be claimed once."
 		"chest":
 			if id not in Supplies.CHEST: return
-			text = "Tiêu1 rương để nhận%d × %s. Đây là phần thưởng bạn chọn, không ngẫu nhiên." % [Supplies.CHEST[id],Supplies.NAMES[id]]
+			text = "Use 1 chest to receive %d × %s. You choose the reward; it is not random." % [Supplies.CHEST[id],Supplies.NAMES[id]]
 		"stone":
 			var item := EquipmentSystem.item_for(store.profile,id)
 			if item.is_empty(): return
-			text = "%s +%d → +%d\nCần%d vàng +1 Đá Rèn Sáng, không trừ tinh thạch.\nGiữ bản: %s." % [catalog.find_row("items",item.base).name,item.enhance,item.enhance+1,(item.enhance+1)*20,id]
+			text = "%s +%d → +%d\nRequires %d Gold + 1 Radiant Forge Stone. No Crystals consumed.\nKeep: %s." % [catalog.find_row("items",item.base).name,item.enhance,item.enhance+1,(item.enhance+1)*20,id]
 		"train":
 			if value not in [0,1] or not store.available_hero(id): return
 			var level: int = store.profile.heroes[id].skills[value]
-			text = "%s · Kỹ năng%d\nLV%d → LV%d, cần%d Mảnh Ký Ức. Không trừ vàng." % [catalog.find_row("heroes",id).name,value+1,level,level+1,level]
-		"seed": text = "Tiêu3 Hạt Giống Cổ Thụ để nhận1 Lõi tinh linh."
-		"hourglass": text = "Tiêu1 Đồng Hồ Cát AFK để nhận%d vàng (2 giờ). Giữ nguyên thời gian AFK đang tích lũy." % store.offline_amount(7200)
+			text = "%s · Skill %d\nLV %d → LV %d. Requires %d Memory Shards. No Gold consumed." % [catalog.find_row("heroes",id).name,value+1,level,level+1,level]
+		"seed": text = "Use 3 Ancient Tree Seeds to receive 1 Spirit Core."
+		"hourglass": text = "Use 1 AFK Hourglass to receive %d Gold (2 hours). Preserves accumulated AFK time." % store.offline_amount(7200)
 		"ticket":
 			if value not in [1,10]: return
-			text = "Tiêu%d Vé Triệu Hồi Thường cho%d lượt theo pool hiện có, không trừ vàng. Thiếu ô hoặc lưu lỗi không mất vé." % [value,value]
+			text = "Spend %d Standard Summon Tickets for %d summons from the existing pool. No Gold spent. A full bag or failed save will not consume tickets." % [value,value]
 		"select":
 			if id not in [""]+Supplies.SUPPORT: return
-			text = "Bỏ vật phẩm chuẩn bị, không mất thuốc." if id=="" else "Chuẩn bị1 "+Supplies.NAMES[id]+". Chưa trừ lúc chọn; tiêu khi bắt đầu1 lượt, kể cả thua. Không tự dùng cho lượt tiếp theo."
+			text = "Clear the prepared item without consuming the potion." if id=="" else "Prepare 1 "+Supplies.NAMES[id]+". Selecting does not consume it. Consumed when the run begins, even on defeat. Never used automatically in the next run."
 		_: return
-	_dialog("XÁC NHẬN VẬT PHẨM",text,[{"text":"Xác nhận","call":_supply_execute.bind(kind,id,value)},{"text":"Hủy","call":_close_modal}])
+	_dialog("CONFIRM ITEM",text,[{"text":"Confirm","call":_supply_execute.bind(kind,id,value)},{"text":"Cancel","call":_close_modal}])
 
 func _supply_execute(kind: String, id: String = "", value: int = 0) -> void:
 	_close_modal()
@@ -1326,21 +1333,21 @@ func _supply_execute(kind: String, id: String = "", value: int = 0) -> void:
 				_refresh_panel()
 				_refresh_hud()
 				_summon_sound(Recruitment.state(store.profile).history.slice(0,value))
-				SummonScreen.show_results(self,"KẾT QUẢ · DÙNG VÉ",Recruitment.state(store.profile).history.slice(0,value))
+				SummonScreen.show_results(self,"TICKET RESULTS",Recruitment.state(store.profile).history.slice(0,value))
 				return
 		_: return
 	var cue := "forge" if kind=="stone" else ("upgrade" if kind in ["train","seed"] else "reward")
-	var result_text := "Đã xử lý vật phẩm."
+	var result_text := "Item processed."
 	if ok:
 		match kind:
-			"buy": result_text = "Đã mua1 "+Supplies.NAMES[id]+"."
-			"claim": result_text = "Đã nhận "+Supplies.NAMES[Supplies.MILESTONES[id].item]+"."
-			"chest": result_text = "Đã nhận%d × %s." % [Supplies.CHEST[id],Supplies.NAMES[id]]
-			"stone": result_text = "Đã cường hóa đúng bản trang bị đã chọn."
-			"train": result_text = "Đã nâng1 cấp kỹ năng của "+catalog.find_row("heroes",id).name+"."
-			"seed": result_text = "Đã nhận1 Lõi tinh linh."
-			"hourglass": result_text = "Đã nhận%d vàng từ đồng hồAFK." % store.offline_amount(7200)
-			"select": result_text = "Đã bỏ vật phẩm chuẩn bị." if id=="" else "Đã chuẩn bị "+Supplies.NAMES[id]+". Chưa trừ thuốc."
+			"buy": result_text = "Purchased 1 "+Supplies.NAMES[id]+"."
+			"claim": result_text = "Received "+Supplies.NAMES[Supplies.MILESTONES[id].item]+"."
+			"chest": result_text = "Received %d × %s." % [Supplies.CHEST[id],Supplies.NAMES[id]]
+			"stone": result_text = "Enhanced the selected equipment copy."
+			"train": result_text = "Upgraded 1 skill level for "+catalog.find_row("heroes",id).name+"."
+			"seed": result_text = "Received 1 Spirit Core."
+			"hourglass": result_text = "Received %d Gold from the AFK Hourglass." % store.offline_amount(7200)
+			"select": result_text = "Prepared item cleared." if id=="" else "Prepared "+Supplies.NAMES[id]+". Potion not consumed yet."
 	_outcome(ok,result_text,cue)
 
 func _items_panel() -> void:
@@ -1380,13 +1387,13 @@ func _inventory_card(parent: Node, key: String, title: String, subtitle: String,
 
 func _equipment_inventory() -> void:
 	var p: Dictionary = store.profile
-	_text("%d loại · %d món trang bị" % [_bag_type_count(),p.items.size()], 16, Color("b4c8bf"))
+	_text("%d types · %d equipment items" % [_bag_type_count(),p.items.size()], 16, Color("b4c8bf"))
 	var filters := HBoxContainer.new()
 	panel.add_child(filters)
 	for is_rarity in [false, true]:
 		var select := OptionButton.new()
 		select.custom_minimum_size = Vector2(214, 44)
-		var titles: Array = ["Mọi độ hiếm"] if is_rarity else ["Tất cả trang bị", "Vũ khí", "Giáp", "Giày", "Phụ kiện"]
+		var titles: Array = ["All Rarities"] if is_rarity else ["All Equipment", "Weapon", "Armor", "Boots", "Accessory"]
 		if is_rarity:
 			for tier in Recruitment.RARITIES: titles.append(Recruitment.RARITIES[tier].name)
 		for title in titles: select.add_item(title)
@@ -1399,7 +1406,7 @@ func _equipment_inventory() -> void:
 	grid.add_theme_constant_override("v_separation", 8)
 	panel.add_child(grid)
 	var sort_button := _button(filters,"↕",Vector2.ZERO,Vector2(48,44),_bag_sort_next)
-	sort_button.tooltip_text = ["Sắp xếp: Độ hiếm","Sắp xếp: Cường hóa","Sắp xếp: Mới nhận"][bag_sort]
+	sort_button.tooltip_text = ["Sort: Rarity","Sort: Enhancement","Sort: Newest"][bag_sort]
 	var items: Array = p.items.duplicate()
 	if bag_sort == 2: items.reverse()
 	else: items.sort_custom(func(a, b):
@@ -1434,8 +1441,8 @@ func _equipment_inventory() -> void:
 		var badge := _label(card,("✓" if item.uid in bag_selected else "○") if bag_selecting else ("E" if not owner.is_empty() else "+%d" % item.enhance),Vector2(127,7),14,Color("f4d486"))
 		badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		shown += 1
-	if shown == 0: _text("Không có trang bị phù hợp bộ lọc.")
-	_text("%d món hiển thị · chạm để xem hoặc trang bị" % shown, 13)
+	if shown == 0: _text("No equipment matches this filter.")
+	_text("%d items shown · Tap to inspect or equip" % shown, 13)
 
 func _bag_filter(index: int, is_rarity: bool) -> void:
 	if is_rarity: bag_rarity = ([0] + Recruitment.RARITIES.keys())[index]
@@ -1451,11 +1458,11 @@ func _spirit_rarity_filter(index: int) -> void:
 	_refresh_panel()
 
 func _spirit_inventory_detail() -> void:
-	_row("← Kho tinh linh", _bag_open.bind("spirits"))
+	_row("← Spirit Collection", _bag_open.bind("spirits"))
 	var p: Dictionary = store.profile
 	var spirit := catalog.find_row("assists", selected_spirit)
 	_text(spirit.name + " · " + _rarity("spirit", spirit.id), 24, Recruitment.color("spirit", spirit.id, catalog))
-	_text("Mảnh %s · %d" % [spirit.name, p.collection_fragments.spirits[spirit.id]], 16, Color("a2e5d6"))
+	_text("%s Fragments · %d" % [spirit.name, p.collection_fragments.spirits[spirit.id]], 16, Color("a2e5d6"))
 	var image := TextureRect.new()
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.texture = frames.textures["companion_" + spirit.id]
@@ -1463,15 +1470,15 @@ func _spirit_inventory_detail() -> void:
 	image.custom_minimum_size = Vector2(0, 170)
 	panel.add_child(image)
 	if not store.available_assist(spirit.id):
-		_text("Chưa mở · vượt chương %d hoặc nhận từ triệu hồi." % (spirit.unlock - 1))
-		_row("Đến triệu hồi →", _select_tab.bind(11))
+		_text("Locked · Clear chapter %d or obtain through summons." % (spirit.unlock - 1))
+		_row("Go to Summon →", _select_tab.bind(11))
 		return
-	_text("%s · cấp %d/20 · tiến hóa %d/3" % [spirit.role, p.assists[spirit.id], p.expansion.ranks[spirit.id]])
-	_row("✓ Đang đi cùng" if p.assist == spirit.id else "Chọn đi cùng", _assist.bind(spirit.id), _locked() or p.assist == spirit.id)
+	_text("%s · Level %d/20 · Evolution %d/3" % [spirit.role, p.assists[spirit.id], p.expansion.ranks[spirit.id]])
+	_row("✓ Accompanying" if p.assist == spirit.id else "Choose companion", _assist.bind(spirit.id), _locked() or p.assist == spirit.id)
 	if p.assist == spirit.id:
-		_row("Nâng cấp · %d vàng" % (p.assists[p.assist] * 35), _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
-		_row("Cây kỹ năng tinh linh →", _select_tab.bind(13))
-		_row("Tiến hóa tinh linh →", _select_tab.bind(7))
+		_row("Upgrade · %d Gold" % (p.assists[p.assist] * 35), _upgrade.bind("assist", 0), _locked() or p.assists[p.assist] >= 20 or p.gold < p.assists[p.assist] * 35)
+		_row("Spirit skill tree →", _select_tab.bind(13))
+		_row("Evolve Spirit →", _select_tab.bind(7))
 
 func _forge_panel() -> void:
 	var screen := BagScreen.new()
@@ -1492,14 +1499,14 @@ func _shop_section(index: int) -> void:
 func _shop_buy_confirm(id: String) -> void:
 	if id not in LocalShop.OFFERS: return
 	var offer: Dictionary = LocalShop.OFFERS[id]
-	_dialog(offer.name, "Mua với %d vàng?" % offer.gold, [{"text": "Mua", "call": _shop_buy.bind(id)}, {"text": "Hủy", "call": _close_modal}])
+	_dialog(offer.name, "Buy for %d Gold?" % offer.gold, [{"text": "Buy", "call": _shop_buy.bind(id)}, {"text": "Cancel", "call": _close_modal}])
 
 func _shop_buy(id: String) -> void:
 	_close_modal()
-	_outcome(LocalShop.buy(store, id), "Đã nhận hàng từ cửa hàng vàng.", "reward")
+	_outcome(LocalShop.buy(store, id), "Items received from the Gold Shop.", "reward")
 
 func _show_ryn_portrait() -> void:
-	var column := _dialog("RYN · Thương thủ hỏa vũ", "Chạm/kéo rồi thả để xem chuyển động.", [{"text": "Đóng", "call": _close_modal}])
+	var column := _dialog("RYN · Flamefeather Lancer", "Tap or drag and release to preview movement.", [{"text": "Close", "call": _close_modal}])
 	var view := HeroPortrait.new()
 	view.library = frames
 	view.hero = "ryn"
@@ -1555,7 +1562,7 @@ func _dungeon_enter(id: String) -> void:
 	_enter_stage(row.stage)
 
 func _dungeon_help() -> void:
-	_dialog("THẾ GIỚI PHÓ BẢN","15 phó bản chia thành Tài nguyên, Chiến thuật, Săn Boss và Chinh phục.\n\nBa phó bản hiện có giữ màn chơi và phần thưởng thật. Các địa điểm sắp mở hiện cho xem trước phong cảnh, đối thủ và cơ chế; thông số, lượt thưởng và quét nhanh sẽ bổ sung cùng màn chơi.\n\nTháp Vô Tận dự kiến100 tầng, có thể mở rộng500. BXH mở sau khi có tài khoản và máy chủ.",[{"text":"Đóng","call":_close_modal}])
+	_dialog("DUNGEON WORLD","15 dungeons across Resources, Tactics, Boss Hunt, and Conquest.\n\nThree dungeons are playable with real rewards. Upcoming locations preview scenery, enemies, and mechanics; stats, reward attempts, and sweeps will arrive with their playable stages.\n\nThe Endless Tower is planned for 100 floors, potentially expanding to 500. Rankings require accounts and a server.",[{"text":"Close","call":_close_modal}])
 
 func _inspect_character(id: String) -> void:
 	if catalog.find_row("heroes", id).is_empty(): return
@@ -1570,25 +1577,25 @@ func _character_section(index: int) -> void:
 
 func _character_level(id: String, count: int) -> void:
 	var success: bool = store.upgrade("hero", 0, id) if count == 1 else Recruitment.level_batch(store, count, id)
-	_outcome(success, "Đã cường hóa, tăng LV nhân vật.", "upgrade")
+	_outcome(success, "Enhanced equipment and leveled up the hero.", "upgrade")
 
 func _character_stars(id: String) -> void:
-	_outcome(Recruitment.awaken(store, id), "Đã mở rộng, tăng sao nhân vật.", "upgrade")
+	_outcome(Recruitment.awaken(store, id), "Hero gained an Awakening Star.", "upgrade")
 
 func _character_evolve(id: String) -> void:
-	_outcome(HeroEvolution.evolve(store, id), "Nhân vật đã tiến hóa.", "upgrade")
+	_outcome(HeroEvolution.evolve(store, id), "Hero evolved.", "upgrade")
 
 func _character_equip(uid: String, id: String) -> void:
-	_outcome(store.equip(uid, id), "Đã trang bị cho nhân vật.", "equip")
+	_outcome(store.equip(uid, id), "Equipped to hero.", "equip")
 
 func _character_unequip(uid: String, id: String) -> void:
-	_outcome(store.unequip(uid, id), "Đã tháo trang bị.", "equip")
+	_outcome(store.unequip(uid, id), "Equipment unequipped.", "equip")
 
 func _character_skill_level(hero: String, index: int) -> void:
-	_outcome(store.upgrade("skill", index, hero), "Đã nâng kỹ năng nhân vật.", "upgrade")
+	_outcome(store.upgrade("skill", index, hero), "Hero skill upgraded.", "upgrade")
 
 func _character_talent(hero: String, id: String) -> void:
-	_outcome(Expansion.talent(store, id, hero), "Đã cập nhật cây kỹ năng.", "upgrade")
+	_outcome(Expansion.talent(store, id, hero), "Skill tree updated.", "upgrade")
 
 func _preview_character_outfit(id: String) -> void:
 	if id not in Wardrobe.LOOKS: return
@@ -1596,7 +1603,7 @@ func _preview_character_outfit(id: String) -> void:
 	_refresh_panel()
 
 func _apply_character_outfit(hero: String, id: String) -> void:
-	_outcome(Wardrobe.apply(store, hero, id), "Đã áp dụng phối màu.")
+	_outcome(Wardrobe.apply(store, hero, id), "Palette applied.")
 
 func _art_card(title: String, description: String, key: String, action: Callable, disabled: bool = false, selected: bool = false) -> Button:
 	var card := _button(panel, "", Vector2.ZERO, Vector2(464, 112), action)
@@ -1653,7 +1660,7 @@ func _item_illustration(id: String) -> void:
 
 func _show_player_profile() -> void:
 	if battle != null:
-		message = "Mở hồ sơ sau khi kết thúc trận."
+		message = "Open your profile after the battle ends."
 		message_time = 3
 		return
 	PlayerProfilePanel.show_profile(self)
@@ -1663,8 +1670,8 @@ func _show_vip(tier: int = 1) -> void:
 
 func _journey_afk() -> void:
 	var amount := store.offline_preview(int(Time.get_unix_time_from_system()))
-	var column := _dialog("KHO TIẾP TẾ AFK", "Đang có: %d vàng\nTốc độ: %d vàng/phút · Tối đa 2 giờ\n\nSản lượng tăng theo chương Story chính đã mở. Thưởng dựa trên thời gian tích lũy của đồng hồ máy." % [amount, store.unlocked_stage() * 2], [{"text":"Đóng", "call":_close_modal}])
-	var button := _button(column, "Nhận %d vàng" % amount, Vector2.ZERO, Vector2(400, 46), _journey_claim_afk)
+	var column := _dialog("AFK SUPPLIES", "Available: %d Gold\nRate: %d Gold/min · Up to 2 hours\n\nProduction scales with unlocked main story chapters. Rewards use accumulated device time." % [amount, store.unlocked_stage() * 2], [{"text":"Close", "call":_close_modal}])
+	var button := _button(column, "Claim %d Gold" % amount, Vector2.ZERO, Vector2(400, 46), _journey_claim_afk)
 	button.disabled = amount <= 0 or _locked()
 	column.move_child(button, column.get_child_count() - 2)
 
@@ -1674,7 +1681,7 @@ func _journey_claim_afk() -> void:
 
 func _journey_auto() -> void:
 	if _locked(): return
-	_dialog("TỰ CHIẾN ẢI ĐANG CHỌN", "Tướng tự đánh thường và dùng kỹ năng cơ bản. Có thể bật/tắt Ultimate tự động và chọn tự sang ải tiếp trong Đội hình; dừng trước Boss chương. Không quét nhận thưởng.", [{"text":"Thiết lập đội hình", "call":_open_formation}, {"text":"Bắt đầu", "call":_begin}, {"text":"Hủy", "call":_close_modal}])
+	_dialog("AUTO BATTLE SELECTED STAGE", "Heroes use basic attacks and skills automatically. Toggle Auto Ultimate and Auto Advance in Formation; stop before chapter bosses. No sweeps or instant rewards.", [{"text":"Formation Settings", "call":_open_formation}, {"text":"Start", "call":_begin}, {"text":"Cancel", "call":_close_modal}])
 
 func _formation_panel() -> void:
 	var screen := FormationScreen.new()
@@ -1687,10 +1694,10 @@ func _formation_slot(index: int) -> void:
 	_refresh_panel()
 
 func _formation_assign(index: int, id: String) -> void:
-	_outcome(Formation.assign(store, index, id), "Đã cập nhật đội hình.")
+	_outcome(Formation.assign(store, index, id), "Formation updated.")
 
 func _formation_option(enabled: bool, key: String) -> void:
-	_outcome(Formation.option(store, key, enabled), "Đã lưu tùy chọn đội hình.")
+	_outcome(Formation.option(store, key, enabled), "Formation options saved.")
 
 func _next_team_stage() -> int:
 	if battle == null or battle.stage.get("kind", "") == "challenge": return 0
@@ -1712,7 +1719,7 @@ func _open_formation() -> void:
 	_select_tab(22)
 
 func _formation_spirits() -> void:
-	var column := _dialog("CHỌN TINH LINH", "Tinh linh hỗ trợ toàn đội, không chiếm ô tướng.", [{"text":"Đóng", "call":_close_modal}])
+	var column := _dialog("SELECT SPIRIT", "Spirits support the whole team without using a hero slot.", [{"text":"Close", "call":_close_modal}])
 	for spirit in catalog.data.assists:
 		var button := _button(column, ("✓ " if store.profile.assist == spirit.id else "") + spirit.name, Vector2.ZERO, Vector2(400, 46), _formation_choose_spirit.bind(spirit.id))
 		icons.apply(button, "spirit", 24)
@@ -1724,7 +1731,7 @@ func _formation_choose_spirit(id: String) -> void:
 	_assist(id)
 
 func _character_help() -> void:
-	_dialog("NHÂN VẬT", "Chọn chân dung bên trái để xem. Phát triển gồm nâng LV, tiến hóa và thức tỉnh bằng mảnh. Kỹ năng có danh sách và cây thiên phú riêng.\n\nDữ liệu trang bị, chỉ số và điều kiện nâng đều theo tài khoản hiện tại.", [{"text":"Đóng","call":_close_modal}])
+	_dialog("HEROES", "Select a portrait on the left to inspect. Progression includes leveling, evolution, and awakening with Fragments. Skills have their own list and talent tree.\n\nEquipment, stats, and upgrade requirements reflect your current profile.", [{"text":"Close","call":_close_modal}])
 
 func _character_skill_view(key: String) -> void:
 	if key not in ["overview","tree"]: return
@@ -1736,7 +1743,7 @@ func _character_talent_focus(id: String) -> void:
 	_refresh_panel()
 
 func _character_gear_picker(id: String, slot_name: String) -> void:
-	var column := _dialog("CHỌN TRANG BỊ", "Chọn món phù hợp cho " + catalog.find_row("heroes",id).name, [{"text":"Đóng","call":_close_modal}])
+	var column := _dialog("SELECT EQUIPMENT", "Choose equipment for " + catalog.find_row("heroes",id).name, [{"text":"Close","call":_close_modal}])
 	column.get_child(2).size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	column.get_child(2).add_theme_font_size_override("font_size",14)
 	var scroller := SwipeScroll.new()
@@ -1756,7 +1763,7 @@ func _character_gear_picker(id: String, slot_name: String) -> void:
 		b.disabled = _locked() or not store.available_hero(id) or equipped
 	var uid: String = store.profile.heroes[id].equipment[slot_name]
 	if not uid.is_empty():
-		var remove := _button(list,"Tháo về túi",Vector2.ZERO,Vector2(380,44),_character_choose_gear.bind(uid,id,true))
+		var remove := _button(list,"Unequip to bag",Vector2.ZERO,Vector2(380,44),_character_choose_gear.bind(uid,id,true))
 		remove.disabled = _locked() or not store.available_hero(id)
 
 func _character_choose_gear(uid: String, id: String, remove: bool) -> void:

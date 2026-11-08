@@ -53,13 +53,13 @@ func _ready() -> void:
 	body.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	body.resized.connect(func(): custom_minimum_size.y = body.size.y)
 	var active: bool = game.summon_kind == 0
-	words(body,tr("✦ CỔNG TRIỆU HỒI ✦"),26,Color("f2d18b"),true)
-	words(body,tr("Chọn banner để bắt đầu"),13,Color("ded2ae"),true)
+	words(body,tr("✦ SUMMON GATE ✦"),26,Color("f2d18b"),true)
+	words(body,tr("Choose a banner to begin"),13,Color("ded2ae"),true)
 	var kinds := HBoxContainer.new()
 	kinds.add_theme_constant_override("separation",8)
 	body.add_child(kinds)
 	for i in range(3):
-		var choice := button(kinds,tr(["Thường","Cao cấp","Sự kiện"][i]),game._select_summon_kind.bind(i),Vector2(140,36),game.summon_kind == i)
+		var choice := button(kinds,tr(["Standard","Premium","Events"][i]),game._select_summon_kind.bind(i),Vector2(140,36),game.summon_kind == i)
 		game.icons.apply(choice,["summon","vip","event"][i],23)
 		kind_buttons.append(choice)
 	var banner := Control.new()
@@ -80,15 +80,15 @@ func _ready() -> void:
 	title.offset_right = -4
 	title.offset_top = 35
 	title.add_theme_constant_override("separation",8)
-	words(title,tr(["CỔNG\nBÌNH MINH","CỔNG\nCAO CẤP","CỔNG\nSỰ KIỆN"][game.summon_kind]),27,Color("f7d68c"))
-	words(title,tr("Nhân vật · Tinh linh · Trang bị") if active else tr("Đang chuẩn bị"),12,Color("eee1be"))
+	words(title,tr(["DAWN\nGATE","PREMIUM\nGATE","EVENT\nGATE"][game.summon_kind]),27,Color("f7d68c"))
+	words(title,tr("Heroes · Spirits · Equipment") if active else tr("Preparing"),12,Color("eee1be"))
 	var badge := PanelContainer.new()
 	badge.add_theme_stylebox_override("panel",style())
 	banner.add_child(badge)
 	badge.anchor_left = .68
 	badge.anchor_right = .97
 	badge.offset_top = 10
-	words(badge,tr("Minh họa Ryn") if active else tr("Sắp ra mắt"),11,Color("f3d28c"),true)
+	words(badge,tr("Ryn Preview") if active else tr("Coming Soon"),11,Color("f3d28c"),true)
 	if not active:
 		pity_counter = PanelContainer.new()
 		pity_counter.name = "BannerPityCounter"
@@ -99,7 +99,7 @@ func _ready() -> void:
 		pity_counter.anchor_top = .77
 		pity_counter.offset_bottom = 0
 		var key := "premium" if game.summon_kind == 1 else "event"
-		words(pity_counter,tr("Bảo hiểm: %d lượt · Mốc chưa cấu hình") % Recruitment.banner_pity(game.store.profile,key),12,Color("f3d28c"),true)
+		words(pity_counter,tr("Pity: %d summons · Milestone pending") % Recruitment.banner_pity(game.store.profile,key),12,Color("f3d28c"),true)
 	var fit_banner := func():
 		var reserved: float = pity_counter.get_combined_minimum_size().y+20 if pity_counter != null else 16.0
 		banner.custom_minimum_size.y = maxf(218,title.offset_top+title.get_combined_minimum_size().y+reserved)
@@ -115,7 +115,7 @@ func _ready() -> void:
 	var reward_col := VBoxContainer.new()
 	reward_col.add_theme_constant_override("separation",5)
 	reward_box.add_child(reward_col)
-	words(reward_col,tr("✦ Một số phần thưởng trong pool ✦") if active else tr("Pool phần thưởng chưa cấu hình"),13,Color("ead19a"),true)
+	words(reward_col,tr("✦ Selected Pool Rewards ✦") if active else tr("Reward pool not configured"),13,Color("ead19a"),true)
 	var items := HBoxContainer.new()
 	items.add_theme_constant_override("separation",8)
 	reward_col.add_child(items)
@@ -128,16 +128,16 @@ func _ready() -> void:
 					featured.append(entry)
 					feature(items,entry)
 	else:
-		words(items,tr("Tỷ lệ và phần thưởng sẽ được công bố khi mở banner."),12,Color("bacdcb"),true)
+		words(items,tr("Rates and rewards will be announced when the banner opens."),12,Color("bacdcb"),true)
 	var wallet := HBoxContainer.new()
 	body.add_child(wallet)
-	words(wallet,tr("Vàng: %d") % game.store.profile.gold,14,Color("e9cc82"),true)
-	words(wallet,tr("Túi đồ: %d/%d") % [game.store.profile.items.size(),ProgressStore.BAG_CAP],13,Color("b9d4d0"),true)
+	words(wallet,tr("Gold: %d") % game.store.profile.gold,14,Color("e9cc82"),true)
+	words(wallet,tr("Bag: %d/%d") % [game.store.profile.items.size(),ProgressStore.BAG_CAP],13,Color("b9d4d0"),true)
 	var draws := HBoxContainer.new()
 	draws.add_theme_constant_override("separation",10)
 	body.add_child(draws)
-	draw_one = button(draws,tr("Triệu hồi ×1\n%d vàng") % Recruitment.PRICE if active else tr("Triệu hồi ×1\nChưa mở"),game._summon_confirm.bind(1),Vector2(220,60))
-	draw_ten = button(draws,tr("Triệu hồi ×10\n%d vàng") % (Recruitment.PRICE*10) if active else tr("Triệu hồi ×10\nChưa mở"),game._summon_confirm.bind(10),Vector2(220,60),true)
+	draw_one = button(draws,tr("Summon ×1\n%d Gold") % Recruitment.PRICE if active else tr("Summon ×1\nLocked"),game._summon_confirm.bind(1),Vector2(220,60))
+	draw_ten = button(draws,tr("Summon ×10\n%d Gold") % (Recruitment.PRICE*10) if active else tr("Summon ×10\nLocked"),game._summon_confirm.bind(10),Vector2(220,60),true)
 	var ten_style := style(true)
 	ten_style.bg_color = Color("654824")
 	ten_style.border_color = Color("f6d18a")
@@ -149,19 +149,19 @@ func _ready() -> void:
 	draw_one.disabled = not active or game._locked() or game.store.profile.gold < Recruitment.PRICE
 	draw_ten.disabled = not active or game._locked() or game.store.profile.gold < Recruitment.PRICE*10
 	if active:
-		var tickets := button(body,tr("Vé Thường: %d · Chọn dùng vé →") % Supplies.count(game.store.profile,"normal_ticket"),game._supply_open.bind("normal_ticket"),Vector2(440,44))
+		var tickets := button(body,tr("Standard Tickets: %d · Use tickets →") % Supplies.count(game.store.profile,"normal_ticket"),game._supply_open.bind("normal_ticket"),Vector2(440,44))
 		game.icons.apply(tickets,"normal_ticket",26)
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation",7)
 	body.add_child(actions)
-	var rates := button(actions,tr("Tỷ lệ & quy tắc"),game._summon_rates,Vector2(140,36))
+	var rates := button(actions,tr("Rates & Rules"),game._summon_rates,Vector2(140,36))
 	rates.disabled = not active
-	button(actions,tr("Lịch sử triệu hồi"),game._summon_history,Vector2(140,36))
-	button(actions,tr("Xem phần thưởng"),preview_rewards,Vector2(140,36))
+	button(actions,tr("Summon History"),game._summon_history,Vector2(140,36))
+	button(actions,tr("View Rewards"),preview_rewards,Vector2(140,36))
 	var note := PanelContainer.new()
 	note.add_theme_stylebox_override("panel",style())
 	body.add_child(note)
-	words(note,tr("Banner minh họa Ryn · Không tăng tỷ lệ riêng. Xem quy tắc trước khi quay.") if active else tr("Banner chưa mở · Mốc bảo hiểm chờ cấu hình. Chưa tiêu tài nguyên."),12,Color("c7d5ca"),true)
+	words(note,tr("Ryn illustration · No featured rate boost. Read the rules before summoning.") if active else tr("Banner locked · Pity milestone pending. No resources spent."),12,Color("c7d5ca"),true)
 
 func feature(parent: Node,entry: Dictionary) -> void:
 	var tile := button(parent,"",show_feature.bind(entry),Vector2(64,60),entry.kind == "hero")
@@ -201,17 +201,17 @@ func center_art(control: Control,dimension: float) -> void:
 	control.offset_bottom = dimension*.5
 
 func show_feature(entry: Dictionary) -> void:
-	SummonScreen.show_text(game,tr("XEM PHẦN THƯỞNG"),tr("%s · %s\n\nCó trong pool triệu hồi Thường. Hình minh họa không tăng tỷ lệ hoặc bảo đảm nhận món này.") % [tr(game._entity_name(entry.kind,entry.id)),tr(game._rarity(entry.kind,entry.id))])
+	SummonScreen.show_text(game,tr("VIEW REWARDS"),tr("%s · %s\n\nAvailable in the Standard summon pool. Artwork does not increase the rate or guarantee this item.") % [tr(game._entity_name(entry.kind,entry.id)),tr(game._rarity(entry.kind,entry.id))])
 
 func preview_rewards() -> void:
 	if game.summon_kind != 0:
-		SummonScreen.show_text(game,tr("PHẦN THƯỞNG"),tr("Pool phần thưởng chưa được cấu hình cho banner này."))
+		SummonScreen.show_text(game,tr("REWARDS"),tr("This banner's reward pool has not been configured."))
 		return
 	var lines: Array[String] = []
 	for tier in [1,2,3]:
-		lines.append(tr("NHÓM %s") % tr(Recruitment.GROUP_NAMES[tier]))
+		lines.append(tr("GROUP %s") % tr(Recruitment.GROUP_NAMES[tier]))
 		for entry in Recruitment.pool(game.catalog,tier): lines.append("• %s · %s" % [tr(game._entity_name(entry.kind,entry.id)),tr(game._rarity(entry.kind,entry.id))])
-	SummonScreen.show_text(game,tr("POOL PHẦN THƯỞNG"),"\n".join(lines))
+	SummonScreen.show_text(game,tr("REWARD POOL"),"\n".join(lines))
 
 class GoldTrim extends Control:
 	func _draw() -> void:
@@ -221,7 +221,7 @@ class GoldTrim extends Control:
 			draw_polyline(PackedVector2Array([c+Vector2(0,-7),c+Vector2(3,0),c+Vector2(0,7),c+Vector2(-3,0),c+Vector2(0,-7)]),color,1,true)
 
 static func show_text(game, title: String, text: String) -> void:
-	var column: VBoxContainer = game._dialog(title, "", [{"text": "Đóng", "call": game._close_modal}])
+	var column: VBoxContainer = game._dialog(title, "", [{"text": "Close", "call": game._close_modal}])
 	var box: PanelContainer = column.get_parent().get_parent()
 	box.position.y = 150
 	box.set_deferred("size", Vector2(472, 650))
@@ -243,4 +243,4 @@ static func show_results(game, title: String, entries: Array) -> void:
 		var entry: Dictionary = entries[i]
 		var suffix := CollectionFragments.reward_suffix(entry)
 		lines.append("%d. %s · %s%s" % [i + 1, game._rarity(entry.kind, entry.id), game._entity_name(entry.kind, entry.id), suffix])
-	show_text(game, title, "Mới nhất ở trên · Lưu tối đa 100 lượt\n\n" + ("\n\n".join(lines) if not lines.is_empty() else "Chưa có lịch sử triệu hồi."))
+	show_text(game, title, "Newest first · Up to 100 summons saved\n\n" + ("\n\n".join(lines) if not lines.is_empty() else "No summon history yet."))

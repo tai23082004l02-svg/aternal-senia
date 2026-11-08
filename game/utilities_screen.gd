@@ -8,21 +8,21 @@ var quest_badge: Label
 func _ready() -> void:
 	custom_minimum_size = Vector2(492, 0)
 	add_theme_constant_override("separation", 7)
-	label("TIỆN ÍCH", 24, Color("e5cd9e"))
-	group("HOẠT ĐỘNG")
+	label("UTILITIES", 24, Color("e5cd9e"))
+	group("ACTIVITY")
 	var ready := MissionBoard.ready_count(game.store.profile)
 	for quest in game.catalog.data.quests:
 		if quest.id not in game.store.profile.claimed and game.store.profile.metrics[quest.metric] >= quest.target: ready += 1
-	entry("quests", "Nhiệm vụ & Phần thưởng", "Nhiệm vụ và phần thưởng hành trình", "quest", game._select_tab.bind(3), ready)
-	entry("mail", "Hộp thư", "Quà hệ thống, thông báo, đền bù", "mail", game._utility_mail)
-	entry("giftcode", "Đổi mã quà tặng", "Giftcode từ sự kiện", "gift", game._utility_giftcode)
-	group("KHÁM PHÁ")
-	entry("story", "Nhật ký câu chuyện", "Xem lại cốt truyện đã mở khóa", "journal", game._select_tab.bind(16))
-	entry("boss", "Sổ tay Boss", "Kỹ năng, điểm yếu, chiến lợi phẩm", "boss", game._select_tab.bind(10))
-	entry("collection", "Bộ sưu tập & Thành tựu", "Bộ sưu tập, thành tích, phần thưởng", "achievement", game._select_tab.bind(8))
-	group("HỆ THỐNG")
-	entry("settings", "Cài đặt", "Âm thanh, đồ họa, tài khoản", "settings", game._utility_settings)
-	entry("help", "Trợ giúp & Hỗ trợ", "Hướng dẫn chơi và thông tin báo lỗi", "help", game._utility_help)
+	entry("quests", "Missions & Rewards", "Journey missions and rewards", "quest", game._select_tab.bind(3), ready)
+	entry("mail", "Mailbox", "System gifts, notices, compensation", "mail", game._utility_mail)
+	entry("giftcode", "Redeem Gift Code", "Event gift codes", "gift", game._utility_giftcode)
+	group("EXPLORE")
+	entry("story", "Story Journal", "Replay unlocked story scenes", "journal", game._select_tab.bind(16))
+	entry("boss", "Boss Guide", "Skills, weaknesses, loot", "boss", game._select_tab.bind(10))
+	entry("collection", "Collection & Achievements", "Collection, achievements, rewards", "achievement", game._select_tab.bind(8))
+	group("SYSTEM")
+	entry("settings", "Settings", "Audio, graphics, account", "settings", game._utility_settings)
+	entry("help", "Help & Support", "How to play and report bugs", "help", game._utility_help)
 
 func label(text: String, font_size: int, color: Color) -> Label:
 	var item := Label.new()
@@ -99,4 +99,4 @@ class UtilityIcon extends Control:
 					draw_line(Vector2(13, 13) + ray * 8, Vector2(13, 13) + ray * 12, color, 2)
 			"help":
 				draw_circle(Vector2(13, 13), 11, color, false, 1.7)
-				draw_string(ThemeDB.fallback_font, Vector2(8, 20), "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 19, color)
+				draw_string(UIFonts.font("medium"), Vector2(8, 20), "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 19, color)

@@ -2,9 +2,9 @@ class_name AttributeTraining
 extends RefCounted
 
 const ATTRIBUTES := {
-	"hp": {"name": "Sinh lực", "bonus": 10.0},
-	"atk": {"name": "Tấn công", "bonus": 1.5},
-	"defense": {"name": "Phòng thủ", "bonus": .75}
+	"hp": {"name": "Vitality", "bonus": 10.0},
+	"atk": {"name": "ATK", "bonus": 1.5},
+	"defense": {"name": "DEF", "bonus": .75}
 }
 
 static func fresh(book: GameCatalog) -> Dictionary:

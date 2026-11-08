@@ -2,8 +2,8 @@ class_name LocalShop
 extends RefCounted
 
 const OFFERS := {
-	"xp": {"name": "Sách kinh nghiệm", "gold": 100, "xp": 50, "shards": 0},
-	"shards": {"name": "Túi tinh thạch", "gold": 120, "xp": 0, "shards": 3}
+	"xp": {"name": "Experience Book", "gold": 100, "xp": 50, "shards": 0},
+	"shards": {"name": "Crystal Pouch", "gold": 120, "xp": 0, "shards": 3}
 }
 
 static func buy(store: ProgressStore, id: String) -> bool:

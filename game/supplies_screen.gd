@@ -30,15 +30,15 @@ func _ready() -> void:
 	detail(game.supply_selected)
 
 func listing() -> void:
-	words(self,"VẬT PHẨM THIẾT YẾU",22,GOLD)
-	words(self,"Cộng dồn riêng · Không chiếm40 ô trang bị",13)
-	button(self,"Quà tiến trình · Xem điều kiện nhận →",game._supply_milestones)
+	words(self,"ESSENTIAL ITEMS",22,GOLD)
+	words(self,"Separate stacks · No equipment slots used",13)
+	button(self,"Progress Gifts · View requirements →",game._supply_milestones)
 	var selected: String = game.store.profile.supplies.selected
-	if selected!="": words(self,"Đã chuẩn bị: "+Supplies.NAMES[selected]+" · Tiêu khi bắt đầu1 lượt",14,GOLD)
+	if selected!="": words(self,"Prepared: "+Supplies.NAMES[selected]+" · Consumed at the start of one run",14,GOLD)
 	var filters := HBoxContainer.new()
 	filters.add_theme_constant_override("separation",5)
 	add_child(filters)
-	for pair in [["all","Tất cả"],["consumable","Tiêu hao"],["upgrade","Nâng cấp"],["spirit","Tinh linh"],["ticket","Vé / rương"]]:
+	for pair in [["all","All"],["consumable","Consumables"],["upgrade","Upgrade"],["spirit","Spirit"],["ticket","Tickets / Chests"]]:
 		var action: Button = game._button(filters,pair[1],Vector2.ZERO,Vector2(88,44),game._supply_filter.bind(pair[0]))
 		action.clip_text = true
 		action.add_theme_font_size_override("font_size",12)
@@ -72,7 +72,7 @@ func listing() -> void:
 		count.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func detail(id: String) -> void:
-	button(self,"‹ Danh sách vật phẩm",game._supply_open.bind(""))
+	button(self,"‹ Item List",game._supply_open.bind(""))
 	var art := TextureRect.new()
 	art.texture = Supplies.icon(id)
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -82,23 +82,23 @@ func detail(id: String) -> void:
 	add_child(art)
 	var title := words(self,Supplies.NAMES[id],24,GOLD)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	words(self,"Đang có: %d" % Supplies.count(game.store.profile,id),19,GOLD)
-	words(self,{"forge_stone":"Cường hóa1 cấp bằng1 đá + vàng theo cấp hiện tại, thay cho1 tinh thạch. Không đổi chi phí tiến bậc.",
-	"memory_shard":"Tăng1 cấp một trong hai kỹ năng nhân vật bằng số mảnh bằng LV kỹ năng hiện tại. Không tốn vàng; tối đa LV10. Cách nâng bằng vàng vẫn giữ.",
-	"ancient_seed":"Tinh luyện3 hạt thành1 Lõi tinh linh. Lõi dùng trong hệ tiến hóa hiện có.",
-	"normal_ticket":"1 vé đổi1 lượt triệu hồi Thường theo pool và bảo hiểm hiện có. Không trừ vàng. Túi đầy hoặc lưu lỗi sẽ không mất vé.",
-	"material_chest":"Mở1 rương và chọn đúng một phần thưởng:3 Đá Rèn Sáng,2 Mảnh Ký Ức hoặc3 Hạt Giống Cổ Thụ. Không ngẫu nhiên.",
-	"rage_potion":"Chuẩn bị trước trận: +10% ATK cho đội trong1 lượt. Chỉ chọn1 loại thuốc. Tiêu khi bắt đầu, kể cả thua; tải lại trận không trừ thêm.",
-	"ward_potion":"Chuẩn bị trước trận: +10% phòng thủ cho đội trong1 lượt. Chỉ chọn1 loại thuốc. Tiêu khi bắt đầu, kể cả thua; tải lại trận không trừ thêm.",
-	"afk_hourglass":"Nhận ngay lượng vàng của2 giờ AFK theo mốc Hành trình hiện tại. Không làm mất thời gian AFK đang tích lũy; hiện AFK chỉ trả vàng."}[id],15)
+	words(self,"Available: %d" % Supplies.count(game.store.profile,id),19,GOLD)
+	words(self,{"forge_stone":"Enhance by one level using one Stone and the current Gold cost instead of one Crystal. Rank-up costs remain unchanged.",
+	"memory_shard":"Upgrade either of two hero skills by one level using Shards equal to its current level. No Gold cost; max LV 10. Gold upgrades remain available.",
+	"ancient_seed":"Refine 3 Seeds into 1 Spirit Core for the existing evolution system.",
+	"normal_ticket":"One ticket grants one Standard summon using the existing pool and pity rules. No Gold consumed. A full bag or failed save will not consume tickets.",
+	"material_chest":"Open one chest and choose one reward: 3 Radiant Forge Stones, 2 Memory Shards, or 3 Ancient Tree Seeds. No random rewards.",
+	"rage_potion":"Pre-battle: +10% team ATK for one run. Select one potion only. Consumed at the start, even on defeat; resuming does not consume another.",
+	"ward_potion":"Pre-battle: +10% team DEF for one run. Select one potion only. Consumed at the start, even on defeat; resuming does not consume another.",
+	"afk_hourglass":"Instantly receive 2 hours of AFK Gold based on your current Journey progress. Preserves accumulated AFK time; AFK currently grants Gold only."}[id],15)
 	var busy := Supplies.busy(game.store)
 	var owned := Supplies.count(game.store.profile,id)
 	match id:
 		"forge_stone":
-			words(self,"Chọn đúng bản trang bị · Giữ UID và bậc",16,GOLD)
+			words(self,"Choose an equipment copy · UID and rank preserved",16,GOLD)
 			for item in game.store.profile.items:
 				var row: Dictionary = game.catalog.find_row("items",item.base)
-				button(self,"%s +%d · %s\n%d vàng +1 đá" % [row.name,item.enhance,item.uid,(item.enhance+1)*20],game._supply_confirm.bind("stone",item.uid,0),busy or owned<1 or item.enhance>=15 or game.store.profile.gold<(item.enhance+1)*20)
+				button(self,"%s +%d · %s\n%d Gold + 1 Stone" % [row.name,item.enhance,item.uid,(item.enhance+1)*20],game._supply_confirm.bind("stone",item.uid,0),busy or owned<1 or item.enhance>=15 or game.store.profile.gold<(item.enhance+1)*20)
 		"memory_shard":
 			var hero: String = game.supply_hero if not game.supply_hero.is_empty() else game.store.profile.hero
 			var heroes := HBoxContainer.new()
@@ -109,34 +109,34 @@ func detail(id: String) -> void:
 				if hero==row.id: select.modulate = GOLD
 			for i in range(2):
 				var level: int = game.store.profile.heroes[hero].skills[i]
-				button(self,"%s · Kỹ năng%d · LV%d/10\nNâng1 cấp · %d mảnh" % [game.catalog.find_row("heroes",hero).name,i+1,level,level],game._supply_confirm.bind("train",hero,i),busy or level>=10 or owned<level or not game.store.available_hero(hero))
+				button(self,"%s · Skill %d · LV %d/10\nUpgrade 1 level · %d Shards" % [game.catalog.find_row("heroes",hero).name,i+1,level,level],game._supply_confirm.bind("train",hero,i),busy or level>=10 or owned<level or not game.store.available_hero(hero))
 		"ancient_seed":
-			button(self,"Tinh luyện3 hạt →1 Lõi tinh linh",game._supply_confirm.bind("seed","",0),busy or owned<3)
+			button(self,"Refine 3 Seeds → 1 Spirit Core",game._supply_confirm.bind("seed","",0),busy or owned<3)
 		"material_chest":
 			for choice in Supplies.CHEST:
-				button(self,"Chọn %d × %s" % [Supplies.CHEST[choice],Supplies.NAMES[choice]],game._supply_confirm.bind("chest",choice,0),busy or owned<1)
+				button(self,"Choose %d × %s" % [Supplies.CHEST[choice],Supplies.NAMES[choice]],game._supply_confirm.bind("chest",choice,0),busy or owned<1)
 		"normal_ticket":
 			for amount in [1,10]:
-				button(self,"Triệu hồi ×%d · %d vé · Không trừ vàng" % [amount,amount],game._supply_confirm.bind("ticket","",amount),busy or owned<amount)
+				button(self,"Summon ×%d · %d Tickets · No Gold spent" % [amount,amount],game._supply_confirm.bind("ticket","",amount),busy or owned<amount)
 		"rage_potion","ward_potion":
-			button(self,"Đã chuẩn bị" if game.store.profile.supplies.selected==id else "Chuẩn bị cho1 lượt",game._supply_confirm.bind("select",id,0),busy or owned<1 or game.store.profile.supplies.selected==id)
-			if not game.store.profile.supplies.selected.is_empty(): button(self,"Bỏ vật phẩm chuẩn bị · Không mất thuốc",game._supply_confirm.bind("select","",0),busy)
-			button(self,"Mua1 · %d vàng" % Supplies.SHOP[id],game._supply_confirm.bind("buy",id,0),busy or game.store.profile.gold<Supplies.SHOP[id])
+			button(self,"Prepared" if game.store.profile.supplies.selected==id else "Prepare for one run",game._supply_confirm.bind("select",id,0),busy or owned<1 or game.store.profile.supplies.selected==id)
+			if not game.store.profile.supplies.selected.is_empty(): button(self,"Clear prepared item · Keep potion",game._supply_confirm.bind("select","",0),busy)
+			button(self,"Buy 1 · %d Gold" % Supplies.SHOP[id],game._supply_confirm.bind("buy",id,0),busy or game.store.profile.gold<Supplies.SHOP[id])
 		"afk_hourglass":
-			button(self,"Dùng1 đồng hồ · +%d vàng" % game.store.offline_amount(7200),game._supply_confirm.bind("hourglass","",0),busy or owned<1)
-	words(self,"✦ Nơi nhận",18,GOLD)
+			button(self,"Use 1 Hourglass · +%d Gold" % game.store.offline_amount(7200),game._supply_confirm.bind("hourglass","",0),busy or owned<1)
+	words(self,"✦ Sources",18,GOLD)
 	match id:
 		"forge_stone":
-			words(self,"Thắng Tam Vệ:2 đá/lượt. Có trong rương lựa chọn. Hầm Rèn Cổ Đại sẽ bổ sung nguồn sau.",14)
-			button(self,"Đến Tam Vệ Bình Minh →",game._supply_source.bind("dawn_wardens"))
+			words(self,"Clear Dawn Triad: 2 Stones per run. Also available in Choice Chests. The Ancient Forge will offer another source later.",14)
+			button(self,"Go to Dawn Triad →",game._supply_source.bind("dawn_wardens"))
 		"memory_shard":
-			words(self,"Thắng Tháp Sáu Đợt:2 mảnh/lượt. Có trong rương lựa chọn.",14)
-			button(self,"Đến Tháp Sáu Đợt →",game._supply_source.bind("six_waves"))
+			words(self,"Clear Six-Wave Tower: 2 Shards per run. Also available in Choice Chests.",14)
+			button(self,"Go to Six-Wave Tower →",game._supply_source.bind("six_waves"))
 		"ancient_seed":
-			words(self,"Thắng Sân Cổ Thụ:1 hạt/lượt. Có trong rương lựa chọn.",14)
-			button(self,"Đến Sân Cổ Thụ →",game._supply_source.bind("grove"))
+			words(self,"Clear Elder Tree Grove: 1 Seed per run. Also available in Choice Chests.",14)
+			button(self,"Go to Elder Tree Grove →",game._supply_source.bind("grove"))
 		"material_chest","normal_ticket","afk_hourglass":
-			words(self,"Quà tiến trình một lần sau khi vượt ải1/2/3, tương ứng rương/vé/đồng hồ. Người đã vượt vẫn nhận được nếu chưa nhận quà này.",14)
-			button(self,"Xem quà tiến trình →",game._supply_milestones)
+			words(self,"One-time progress gifts after clearing stages 1/2/3: a chest, ticket, and hourglass respectively. Previous clears remain eligible if these gifts have not been claimed.",14)
+			button(self,"View Progress Gifts →",game._supply_milestones)
 		_:
-			words(self,"Có tại Cửa hàng vàng · 60 vàng/món.",14)
+			words(self,"Available in the Gold Shop · 60 Gold each.",14)

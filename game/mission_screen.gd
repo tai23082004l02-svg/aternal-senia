@@ -11,7 +11,7 @@ const GOLD := Color("e7c277")
 func _ready() -> void:
 	custom_minimum_size.x = 492
 	add_theme_constant_override("separation", 10)
-	var heading := words(self, "NHIỆM VỤ & PHẦN THƯỞNG", 23, Color("ffe3a0"))
+	var heading := words(self, "MISSIONS & REWARDS", 23, Color("ffe3a0"))
 	heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var rule := GoldRule.new()
 	rule.custom_minimum_size.y = 8
@@ -20,7 +20,7 @@ func _ready() -> void:
 	strip.add_theme_constant_override("separation", 6)
 	add_child(strip)
 	for i in range(3):
-		var button: Button = game._button(strip, ["Hằng ngày", "Hằng tuần", "Tiến trình"][i], Vector2.ZERO, Vector2(160, 46), game._mission_tab.bind(i))
+		var button: Button = game._button(strip, ["Daily", "Weekly", "Progress"][i], Vector2.ZERO, Vector2(160, 46), game._mission_tab.bind(i))
 		button.add_theme_font_size_override("font_size", 16)
 		game.icons.apply(button, ["daily", "weekly", "achievement"][i], 23)
 		button.add_theme_stylebox_override("normal", frame(Color("4e4025") if i == game.mission_tab else Color("102c39"), GOLD if i == game.mission_tab else Color("8a7954"), i == game.mission_tab))
@@ -41,7 +41,7 @@ func _ready() -> void:
 	var content := VBoxContainer.new()
 	content.add_theme_constant_override("separation", 10)
 	board.add_child(content)
-	icon_line(content, "light", "Điểm hoạt động %s · %d/100" % ["hôm nay" if period == "daily" else "tuần này", points], 18, GOLD)
+	icon_line(content, "light", "Activity %s · %d/100" % ["today" if period == "daily" else "this week", points], 18, GOLD)
 	var progress := ActivityBar.new()
 	progress.value = points
 	progress.custom_minimum_size.y = 14
@@ -58,30 +58,30 @@ func _ready() -> void:
 	for threshold in MissionBoard.CHESTS:
 		chest_buttons[threshold] = chest(chests, period, threshold, points >= threshold, threshold in section.chests)
 	var reward := MissionBoard.chest_reward(period, 100)
-	icon_line(content, "gift", "Mốc 100: %d vàng · %d tinh thạch · %d VIP EXP" % [reward.gold, reward.shards, reward.vip], 12, GOLD)
-	icon_line(content, "daily", "Làm mới 00:00 UTC mỗi ngày" if period == "daily" else "Làm mới thứ Hai, 00:00 UTC", 12)
-	icon_line(content, "vip_exp", "VIP EXP: %d · Mốc lên cấp chờ cấu hình" % state.vip_exp, 12)
+	icon_line(content, "gift", "100-point reward: %d Gold · %d Crystals · %d VIP EXP" % [reward.gold, reward.shards, reward.vip], 12, GOLD)
+	icon_line(content, "daily", "Resets daily at 00:00 UTC" if period == "daily" else "Resets Monday at 00:00 UTC", 12)
+	icon_line(content, "vip_exp", "VIP EXP: %d · Level thresholds pending" % state.vip_exp, 12)
 	var done := 0
 	for task in MissionBoard.TASKS[period]:
 		if section.counts[task.id] >= task.target: done += 1
 	var ribbon := OrnatePanel.new()
 	ribbon.add_theme_stylebox_override("panel", frame(Color("0e2935"), Color("af935a")))
 	add_child(ribbon)
-	var summary := words(ribbon, "Hoàn thành %d/5 · Mỗi nhiệm vụ +20 hoạt động" % done, 14, Color("f5dba5"))
+	var summary := words(ribbon, "Completed %d/5 · +20 Activity per mission" % done, 14, Color("f5dba5"))
 	summary.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	for task in MissionBoard.TASKS[period]:
 		var count: int = section.counts[task.id]
 		var claimed: bool = task.id in section.claimed
 		var ready: bool = count >= task.target
-		var reward_text := "%d/%d · %d vàng · %d tinh thạch · %d VIP EXP" % [count, task.target, task.gold, task.shards, task.vip]
-		claim_buttons[task.id] = card(task.name, reward_text, "Đã nhận" if claimed else ("Nhận thưởng" if ready else "Đến làm"), game._mission_claim.bind(period, task.id) if ready else game._mission_go.bind(task.id), claimed or game._locked(), {"offline":"afk","wins":"slash","kills":"boss","enhance":"training","summon":"summon"}[task.id], count, task.target, claimed, ready, true)
+		var reward_text := "%d/%d · %d Gold · %d Crystals · %d VIP EXP" % [count, task.target, task.gold, task.shards, task.vip]
+		claim_buttons[task.id] = card(task.name, reward_text, "Claimed" if claimed else ("Claim Rewards" if ready else "Go"), game._mission_claim.bind(period, task.id) if ready else game._mission_go.bind(task.id), claimed or game._locked(), {"offline":"afk","wins":"slash","kills":"boss","enhance":"training","summon":"summon"}[task.id], count, task.target, claimed, ready, true)
 
 func chest(parent: Control, period: String, threshold: int, reached: bool, claimed: bool) -> Button:
 	var button: Button = game._button(parent, "", Vector2.ZERO, Vector2(86, 122), game._mission_chest.bind(period, threshold))
 	var ready := reached and not claimed
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	button.add_theme_stylebox_override("normal", frame(Color("173b30") if ready else Color("122e3d"), GOLD if ready else Color("9c895e"), ready))
-	button.tooltip_text = "%d điểm · %s" % [threshold, "Đã nhận" if claimed else ("Nhận quà" if reached else "Chưa đạt")]
+	button.tooltip_text = "%d points · %s" % [threshold, "Claimed" if claimed else ("Claim Gift" if reached else "Not reached")]
 	var body := VBoxContainer.new()
 	body.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	body.offset_left = 5
@@ -93,21 +93,21 @@ func chest(parent: Control, period: String, threshold: int, reached: bool, claim
 	button.add_child(body)
 	var picture := icon(body, "chest_open" if claimed else "chest", 51)
 	picture.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	var caption := words(body, "%d điểm" % threshold, 14, Color("ffdfa1") if reached else Color("e0e6df"))
+	var caption := words(body, "%d points" % threshold, 14, Color("ffdfa1") if reached else Color("e0e6df"))
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var status := words(body, "✓ Đã nhận" if claimed else ("Nhận quà" if reached else "Chưa đạt"), 11, Color("bceac6") if reached else Color("abbec5"))
+	var status := words(body, "✓ Claimed" if claimed else ("Claim Gift" if reached else "Not reached"), 11, Color("bceac6") if reached else Color("abbec5"))
 	status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	status.add_theme_stylebox_override("normal", frame(Color("244d31") if reached else Color("29414d"), Color("80af70") if reached else Color("627c84"), false, 7, 3))
 	return button
 
 func permanent() -> void:
-	words(self, "TIẾN TRÌNH HÀNH TRÌNH · PHẦN THƯỞNG VĨNH VIỄN", 13, GOLD)
+	words(self, "JOURNEY PROGRESS · PERMANENT REWARDS", 13, GOLD)
 	for quest in game.catalog.data.quests:
 		var count: int = mini(game.store.profile.metrics[quest.metric], quest.target)
 		var claimed: bool = quest.id in game.store.profile.claimed
 		var ready: bool = count >= quest.target
-		claim_buttons[quest.id] = card(quest.name, "%d/%d · %d vàng · %d tinh thạch" % [count, quest.target, quest.gold, quest.shards], "Đã nhận" if claimed else ("Nhận thưởng" if ready else "Chưa đạt"), game._quest.bind(quest.id), claimed or not ready or game.store.read_only, "achievement", count, quest.target, claimed, ready, false)
-	var collection: Button = game._button(self, "Bộ sưu tập & Thành tựu →", Vector2.ZERO, Vector2(492, 46), game._select_tab.bind(8))
+		claim_buttons[quest.id] = card(quest.name, "%d/%d · %d Gold · %d Crystals" % [count, quest.target, quest.gold, quest.shards], "Claimed" if claimed else ("Claim Rewards" if ready else "Not reached"), game._quest.bind(quest.id), claimed or not ready or game.store.read_only, "achievement", count, quest.target, claimed, ready, false)
+	var collection: Button = game._button(self, "Collection & Achievements →", Vector2.ZERO, Vector2(492, 46), game._select_tab.bind(8))
 	game.icons.apply(collection, "achievement", 25)
 
 func card(title: String, reward: String, action: String, callback: Callable, disabled: bool, picture: String, count: int, target: int, claimed: bool, ready: bool, activity: bool) -> Button:

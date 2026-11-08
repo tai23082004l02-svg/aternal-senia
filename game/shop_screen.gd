@@ -1,7 +1,7 @@
 class_name ShopScreen
 extends Control
 
-const SECTIONS := ["Cửa hàng vàng", "Cửa hàng kim cương", "Triệu hồi", "Cửa hàng sự kiện", "Gói ưu đãi", "Quảng cáo thưởng"]
+const SECTIONS := ["Gold Shop", "Diamond Shop", "Summon", "Event Shop", "Special Offers", "Rewarded Ads"]
 const ICONS := ["gold", "crystal", "summon", "event", "gift", "chest_open"]
 var game
 var selected := 0
@@ -46,28 +46,28 @@ func _ready() -> void:
 		game._text(SECTIONS[selected].to_upper(), 23, Color("e5cd9e"))
 		match selected:
 			0:
-				game._text("Dùng vàng kiếm trong hành trình để mua nguyên liệu và kinh nghiệm.")
+				game._text("Spend Gold earned on your journey on materials and experience.")
 				for id in LocalShop.OFFERS:
 					var offer: Dictionary = LocalShop.OFFERS[id]
 					game._text(offer.name, 19, Color("e5cd9e"))
-					game._text("+%d XP" % offer.xp if offer.xp > 0 else "+%d tinh thạch" % offer.shards)
-					game._row("Mua · %d vàng" % offer.gold, game._shop_buy_confirm.bind(id), game._locked() or game.store.profile.gold < offer.gold)
+					game._text("+%d XP" % offer.xp if offer.xp > 0 else "+%d Crystals" % offer.shards)
+					game._row("Buy · %d Gold" % offer.gold, game._shop_buy_confirm.bind(id), game._locked() or game.store.profile.gold < offer.gold)
 				for id in Supplies.SHOP:
-					var offer: Button = game._row(Supplies.NAMES[id]+" · %d vàng" % Supplies.SHOP[id],game._supply_confirm.bind("buy",id,0),game._locked() or game.store.profile.gold<Supplies.SHOP[id])
+					var offer: Button = game._row(Supplies.NAMES[id]+" · %d Gold" % Supplies.SHOP[id],game._supply_confirm.bind("buy",id,0),game._locked() or game.store.profile.gold<Supplies.SHOP[id])
 					offer.icon = Supplies.icon(id)
 					offer.expand_icon = true
 					offer.add_theme_constant_override("icon_max_width",32)
-				game._row("Đến lò rèn →", game._select_tab.bind(19))
+				game._row("Go to Forge →", game._select_tab.bind(19))
 			1:
-				game._text("Mặt hàng kim cương sẽ xuất hiện tại đây khi cửa hàng được mở.")
-				game._row("Chưa mở bán", Callable(), true)
+				game._text("Diamond items will appear here when the shop opens.")
+				game._row("Not on sale yet", Callable(), true)
 			3:
-				game._text("Chưa có sự kiện đang diễn ra.")
-				game._row("Chưa có mặt hàng sự kiện", Callable(), true)
+				game._text("No event is currently running.")
+				game._row("No event items yet", Callable(), true)
 			4:
-				game._text("Chưa có gói ưu đãi đang mở bán.")
-				game._row("Chưa có gói khả dụng", Callable(), true)
+				game._text("No special offers are on sale yet.")
+				game._row("No packs available", Callable(), true)
 			5:
-				game._text("Quảng cáo thưởng hiện chưa khả dụng.")
-				game._row("Chưa thể xem quảng cáo", Callable(), true)
+				game._text("Rewarded ads are not available yet.")
+				game._row("Ads are not available yet", Callable(), true)
 	game.panel = previous

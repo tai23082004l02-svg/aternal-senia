@@ -34,7 +34,7 @@ func run() -> void:
 	var filters: Array = game.panel.find_children("*", "OptionButton", true, false)
 	assert(filters.size() == 2 and filters[1].item_count == 6)
 	for i in range(6):
-		assert(filters[1].get_item_text(i) == ["Mọi độ hiếm", "Hiếm", "Sử thi", "Huyền thoại", "Thần thoại", "Thần thánh"][i])
+		assert(filters[1].get_item_text(i) == ["All Rarities", "Rare", "Epic", "Legendary", "Mythic", "Divine"][i])
 	for i in range(1, 6):
 		game._bag_filter(i, true)
 		assert(game.bag_rarity == [3, 4, 5, 6, 7][i-1])

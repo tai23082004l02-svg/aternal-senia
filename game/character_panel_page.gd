@@ -24,7 +24,7 @@ func _ready() -> void:
 	add_child(art)
 	art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var help: Button = game._button(self,"?",Vector2(370,12),Vector2(32,32),game._character_help)
-	help.tooltip_text = tr("Trợ giúp nhân vật")
+	help.tooltip_text = tr("Hero Help")
 	if not equipment_page:
 		name_plate = NamePlate.new()
 		name_plate.position = Vector2(6,286)
@@ -48,8 +48,8 @@ func _ready() -> void:
 	if equipment_page: equipment()
 	else: info()
 	if not game.store.available_hero(hero):
-		label(lower,tr("Chưa sở hữu"),13,Color("f1cf91"))
-		action(tr("Đến Shop →"),game._select_tab.bind(20))
+		label(lower,tr("Not owned"),13,Color("f1cf91"))
+		action(tr("Go to Shop →"),game._select_tab.bind(20))
 	lower.resized.connect(_fit_content)
 	title_box.resized.connect(_fit_content)
 	call_deferred("_fit_content")
@@ -118,11 +118,11 @@ func info() -> void:
 	var p: Dictionary = game.store.profile
 	var stats: Dictionary = game.catalog.stats(p,hero)
 	var power := panel(lower,true)
-	center_label(power,tr("✦ Lực chiến ước tính %d") % int(stats.hp+stats.atk*10+stats.defense*6),16,Color("f7d791"))
+	center_label(power,tr("✦ Estimated Power %d") % int(stats.hp+stats.atk*10+stats.defense*6),16,Color("f7d791"))
 	var chips := HBoxContainer.new()
 	chips.add_theme_constant_override("separation",5)
 	lower.add_child(chips)
-	for value in [tr("LV %d/100") % p.heroes[hero].level,tr("Tiến hóa %d/3") % HeroEvolution.rank(p,hero),tr("Thức tỉnh %d/5") % Recruitment.state(p).awakening[hero]]:
+	for value in [tr("LV %d/100") % p.heroes[hero].level,tr("Evolution %d/3") % HeroEvolution.rank(p,hero),tr("Awakening %d/5") % Recruitment.state(p).awakening[hero]]:
 		var box := panel(chips)
 		box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		center_label(box,value,10,Color("e8d8ae"))
@@ -130,7 +130,7 @@ func info() -> void:
 	grid.columns = 4
 	grid.add_theme_constant_override("h_separation",5)
 	lower.add_child(grid)
-	for pair in [[tr("HP"),str(int(stats.hp)),"heal"],[tr("Tấn công"),str(int(stats.atk)),"slash"],[tr("Phòng thủ"),str(snappedf(stats.defense,.01)),"guard"],[tr("Chí mạng"),"%d%%" % (stats.crit*100),"talents"]]:
+	for pair in [[tr("HP"),str(int(stats.hp)),"heal"],[tr("ATK"),str(int(stats.atk)),"slash"],[tr("DEF"),str(snappedf(stats.defense,.01)),"guard"],[tr("Critical"),"%d%%" % (stats.crit*100),"talents"]]:
 		var box := panel(grid)
 		box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var col := VBoxContainer.new()
@@ -147,11 +147,11 @@ func info() -> void:
 	var passive := panel(lower)
 	var content := VBoxContainer.new()
 	passive.add_child(content)
-	label(content,tr("ĐẶC TÍNH"),12,Color("efc677"))
+	label(content,tr("TRAITS"),12,Color("efc677"))
 	label(content,tr(game.catalog.find_row("heroes",hero).passive),12)
-	action(tr("Xếp vào đội hình →"),game._select_tab.bind(22))
-	if hero == "ryn": action(tr("Xem Ryn phóng lớn →"),game._show_ryn_portrait)
-	if p.hero == hero: action(tr("Điểm thuộc tính →"),game._select_tab.bind(9))
+	action(tr("Assign to Formation →"),game._select_tab.bind(22))
+	if hero == "ryn": action(tr("View Ryn portrait →"),game._show_ryn_portrait)
+	if p.hero == hero: action(tr("Attribute Points →"),game._select_tab.bind(9))
 
 func equipment() -> void:
 	var p: Dictionary = game.store.profile
@@ -187,7 +187,7 @@ func equipment() -> void:
 		else:
 			var row: Dictionary = game.catalog.find_row("items",item.base)
 			EquipmentArt.add_to(icon_holder,game,item.base,row.rarity,68)
-		center_label(content,tr("Chưa mặc") if item.is_empty() else tr("Bậc %d · +%d") % [item.rank,item.enhance],11,Color("eee1c2"))
+		center_label(content,tr("Not equipped") if item.is_empty() else tr("Rank %d · +%d") % [item.rank,item.enhance],11,Color("eee1c2"))
 		content.minimum_size_changed.connect(_fit_content)
 	var counts := EquipmentSystem.set_counts(game.catalog,p,hero)
 	for definition in game.catalog.data.sets:
@@ -195,12 +195,12 @@ func equipment() -> void:
 		var box := panel(lower)
 		var text_col := VBoxContainer.new()
 		box.add_child(text_col)
-		label(text_col,tr("BỘ %s · %d/4") % [tr(definition.name).to_upper(),counts[definition.id]],17,Color("f2ce85"))
+		label(text_col,tr("SET %s · %d/4") % [tr(definition.name).to_upper(),counts[definition.id]],17,Color("f2ce85"))
 		for bonus in definition.bonuses:
-			label(text_col,("◆ " if counts[definition.id] >= bonus.pieces else "◇ ")+tr("%d món: %s") % [bonus.pieces,tr(bonus.description)],12)
-	if counts.is_empty(): label(lower,tr("Chưa kích hoạt bộ trang bị."),13)
-	center_label(lower,tr("Chạm món để xem chỉ số và cường hóa; chạm ô trống để chọn đồ."),12,Color("eee6d0"))
-	action(tr("Mở kho trang bị →"),game._bag_open.bind("equipment"))
+			label(text_col,("◆ " if counts[definition.id] >= bonus.pieces else "◇ ")+tr("%d pieces: %s") % [bonus.pieces,tr(bonus.description)],12)
+	if counts.is_empty(): label(lower,tr("No equipment set active."),13)
+	center_label(lower,tr("Tap an item to inspect stats and enhance it; tap an empty slot to choose equipment."),12,Color("eee6d0"))
+	action(tr("Open equipment bag →"),game._bag_open.bind("equipment"))
 
 class NamePlate extends Control:
 	func _draw() -> void:

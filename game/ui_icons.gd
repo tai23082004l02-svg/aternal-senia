@@ -47,6 +47,7 @@ func tab(button: Button, key: String) -> void:
 	label.size = Vector2(93, 19)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.add_theme_font_size_override("font_size", 12)
+	label.set_meta("font_role", "medium")
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(label)
 

@@ -88,7 +88,7 @@ func has_trait(id: String) -> bool:
 func _barrier(amount: float) -> void:
 	barrier = maxf(barrier, amount)
 	barrier_left = 5
-	_emit("guard", "Khiên bảo hộ", 0, "guard_ready")
+	_emit("guard", "Protective Shield", 0, "guard_ready")
 
 func _spawn() -> void:
 	burn_left = 0
@@ -107,7 +107,7 @@ func _spawn() -> void:
 	shield = false
 	hero_pose = "idle"
 	hero_pose_time = 0
-	_emit("wave", "BOSS · " + stage.boss if is_boss() else "Đợt %d / %d" % [wave + 1, wave_count()], 0, "boss_arrive" if is_boss() else "stage_start")
+	_emit("wave", "BOSS · " + stage.boss if is_boss() else "Wave %d / %d" % [wave + 1, wave_count()], 0, "boss_arrive" if is_boss() else "stage_start")
 
 func advance(delta: float) -> void:
 	if paused or state != "battle":
@@ -208,7 +208,7 @@ func _step() -> void:
 					_hit(stats.atk * action.power * (1.15 if action.burst and stats.get("spirit_advanced", "") == "echo" else 1.0), true, "weapon", action.id)
 					if counter and state == "battle" and move_clock <= 0:
 						_take_damage(stage.boss_atk * .65)
-						_emit("warning", "Phản đòn!", 1, "counter", action.id)
+						_emit("warning", "Counterattack!", 1, "counter", action.id)
 		if action.elapsed >= action.duration:
 			actions.erase(action)
 		if state != "battle" or move_clock > 0:
@@ -265,7 +265,7 @@ func guard() -> bool:
 		return false
 	guard_left = .7
 	guard_cd = 2.5
-	_emit("guard", "Thủ thế", 0, "guard_ready")
+	_emit("guard", "Guard", 0, "guard_ready")
 	return true
 
 func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: int = 0) -> void:
@@ -299,7 +299,7 @@ func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: i
 	if source == "weapon" and not last_action.get("skill", false) and "burn" in stats.get("gear_effects", []) and enemy_hp > 0 and rng.randf() < .15:
 		burn_left = 3.0
 		burn_clock = 0.0
-		_emit("warning", "Thiêu đốt", 1)
+		_emit("warning", "Burn", 1)
 	if enemy_hp <= 0:
 		kills += 1
 		_sound("enemy_down", action_id)
@@ -307,7 +307,7 @@ func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: i
 		if wave == wave_count() - 1:
 			state = "won"
 			hero_pose = "idle"
-			_emit("result", "CHIẾN THẮNG", 0, "victory")
+			_emit("result", "VICTORY", 0, "victory")
 		else:
 			wave += 1
 			move_clock = .8
@@ -317,17 +317,17 @@ func _hit(amount: float, can_crit: bool, source: String = "weapon", action_id: i
 func _take_damage(amount: float) -> void:
 	last_enemy_strike = time
 	if stats.get("dodge", 0) > 0 and rng.randf() < stats.dodge:
-		_emit("guard", "Né tránh", 0, "guard_hit")
+		_emit("guard", "Evasion", 0, "guard_hit")
 		return
 	amount = maxf(1, amount - stats.defense) * (1 - stats.get("damage_reduction", 0))
 	if guard_left > 0:
 		amount *= .2
 		if has_trait("riposte"): empowered = 4
-		_emit("guard", "Đỡ đòn", 0, "guard_hit")
+		_emit("guard", "Tank", 0, "guard_hit")
 	var absorbed := minf(barrier, amount)
 	barrier -= absorbed
 	amount -= absorbed
-	if absorbed > 0 and guard_left <= 0: _emit("guard", "Khiên hấp thụ", 0, "guard_hit")
+	if absorbed > 0 and guard_left <= 0: _emit("guard", "Absorption Shield", 0, "guard_hit")
 	if amount <= 0: return
 	hp = maxf(0, hp - amount)
 	hurt_left = .25
@@ -337,7 +337,7 @@ func _take_damage(amount: float) -> void:
 		hero_pose = "death"
 		hero_pose_time = 0
 		actions.clear()
-		_emit("result", "HÃY THỬ LẠI", 0, "defeat")
+		_emit("result", "TRY AGAIN", 0, "defeat")
 
 func _sound(cue: String, action_id: int = 0) -> void:
 	_emit("sound", "", 0, cue, action_id)
@@ -355,12 +355,12 @@ func warning() -> String:
 		return ""
 	if is_boss():
 		if stage.mechanic == "counter" and enemy_clock >= 2:
-			return "PHẢN ĐÒN · Ngưng kỹ năng, chuẩn bị thủ thế"
+			return "COUNTER · Stop skills and prepare to Guard"
 		if shield:
-			return "KHIÊN · Kiếm quang hoặc Tinh linh để phá" if variant("breaker") else "KHIÊN · Tinh linh có thể phá khiên"
+			return "SHIELD · Break with Lightblade or Spirit" if variant("breaker") else "SHIELD · Spirits can break shields"
 	if enemy_clock >= 2:
-		return "BOSS TỤ LỰC · Bấm Thủ thế!" if is_boss() else "Quái chuẩn bị đánh"
-	if barrier > 0: return "KHIÊN BẢO HỘ · %d HP · %.1fs" % [barrier, barrier_left]
-	if empowered > 0: return "NHẬT QUANG · Đòn tiếp theo +30%"
-	if marked: return "DẤU ASH · Đòn tiếp theo +20%"
+		return "BOSS CHARGING · Use Guard!" if is_boss() else "Enemy preparing to strike"
+	if barrier > 0: return "PROTECTIVE SHIELD · %d HP · %.1fs" % [barrier, barrier_left]
+	if empowered > 0: return "SUNLIGHT · Next attack +30%"
+	if marked: return "ASH MARK · Next attack +20%"
 	return ""

@@ -14,13 +14,14 @@ CI dùng Python/numpy hệ thống Ubuntu, không gọi API tạo tài nguyên.
 
 ```bash
 python3 tools/verify_repo.py
+python3 tools/validate_english.py
 godot --headless --editor --path . --import
 xvfb-run -a python3 tools/check_project.py
 python3 tests/validate_audio.py --capture work/checks/audio_capture/audio-runtime.wav
 git diff --exit-code
 ```
 
-Runner40 suite:39 suite của bản0.37 cộng audio_capture. Mỗi test dùng profile riêng,
+Runner41 suite:39 suite của bản0.37 cộng audio_capture và english_ui. Mỗi test dùng profile riêng,
 stdout/stderr và timeout75 giây, không bỏ qua assertion/parse error.
 Ảnh/PCM/log/results ở **work/checks/**; thư mục có .gdignore, không commit.
 Giữ import log khi cần, không in API token hoặc toàn bộ save người chơi.

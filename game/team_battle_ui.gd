@@ -52,11 +52,11 @@ func _ready() -> void:
 	auto_button = game._button(self, "", Vector2(24, 522), Vector2(148, 44), _auto)
 	auto_button.add_theme_font_size_override("font_size", 14)
 	speed_button = game._button(self, "×1", Vector2(180, 522), Vector2(64, 44), game._speed)
-	pause_button = game._button(self, "Dừng", Vector2(252, 522), Vector2(96, 44), game._toggle_pause)
+	pause_button = game._button(self, "Stop", Vector2(252, 522), Vector2(96, 44), game._toggle_pause)
 	next_button = game._button(self, "", Vector2(356, 522), Vector2(160, 44), _next)
 	next_button.add_theme_font_size_override("font_size", 14)
-	game._button(self, "Rút lui · Không nhận thưởng", Vector2(24, 581), Vector2(492, 46), game._confirm_abandon)
-	game._button(self, "Đội hình & Nhân vật", Vector2(24, 640), Vector2(492, 46), game._select_tab.bind(22))
+	game._button(self, "Retreat · No rewards", Vector2(24, 581), Vector2(492, 46), game._confirm_abandon)
+	game._button(self, "Formation & Heroes", Vector2(24, 640), Vector2(492, 46), game._select_tab.bind(22))
 	notice = game._label(self, "", Vector2(24, 698), 12)
 	notice.size = Vector2(492, 24)
 	notice.clip_text = true
@@ -75,17 +75,17 @@ func _process(_delta: float) -> void:
 	field.position = Vector2(0,46) + (field.position-Vector2(0,46)).limit_length(3.2)
 	field.queue_redraw()
 	var code := JourneyScreen.stage_code(game.catalog, model.stage)
-	heading.text = "ẢI %s · %s · %02d:%02d · Đợt %d/%d" % [code, model.stage.name, int(model.time) / 60, int(model.time) % 60, model.wave + 1, model.wave_count()]
+	heading.text = "STAGE %s · %s · %02d:%02d · Wave %d/%d" % [code, model.stage.name, int(model.time) / 60, int(model.time) % 60, model.wave + 1, model.wave_count()]
 	heading.add_theme_font_size_override("font_size", 14)
 	var can_play := model.state == "battle" and not model.paused and game.modal == null
 	for i in range(4):
 		if i < 3:
 			if i >= model.allies.size():
-				names[i].text = "Ô trống"
-				hp_texts[i].text = "Chưa có tướng"
+				names[i].text = "Empty slot"
+				hp_texts[i].text = "No hero"
 				health[i].value = 0
 				energy[i].value = 0
-				ultimates[i].text = "Chưa xếp"
+				ultimates[i].text = "Unassigned"
 				ultimates[i].disabled = true
 				continue
 			var ally: Dictionary = model.allies[i]
@@ -93,20 +93,20 @@ func _process(_delta: float) -> void:
 			hp_texts[i].text = "%d / %d HP" % [ally.hp, ally.stats.hp]
 			health[i].value = ally.hp / ally.stats.hp * 100
 			energy[i].value = ally.energy
-			ultimates[i].text = "Đã hạ" if ally.hp <= 0 else "Nộ %d%%" % ally.energy
+			ultimates[i].text = "Defeated" if ally.hp <= 0 else "Energy %d%%" % ally.energy
 			ultimates[i].disabled = not can_play or ally.hp <= 0 or ally.energy < 100 or not ally.action.is_empty()
 		else:
 			names[i].text = game.catalog.find_row("assists", model.stats.assist).name
-			hp_texts[i].text = "Hỗ trợ toàn đội"
+			hp_texts[i].text = "Team Support"
 			health[i].visible = false
 			energy[i].value = model.spirit_energy
-			ultimates[i].text = "Nộ %d%%" % model.spirit_energy
+			ultimates[i].text = "Energy %d%%" % model.spirit_energy
 			ultimates[i].disabled = not can_play or model.spirit_energy < 100 or not model.spirit_action.is_empty()
-	auto_button.text = "AUTO ULT: " + ("BẬT" if model.auto_ultimate else "TẮT")
-	next_button.text = "Tự qua ải: " + ("Bật" if model.auto_next else "Tắt")
+	auto_button.text = "AUTO ULT: " + ("ON" if model.auto_ultimate else "OFF")
+	next_button.text = "Auto Advance: " + ("On" if model.auto_next else "Off")
 	speed_button.text = "×%d" % model.speed
-	pause_button.text = "Tiếp tục" if model.paused else "Dừng"
-	notice.text = model.warning() + " · Chạm quái để chọn mục tiêu"
+	pause_button.text = "Continue" if model.paused else "Stop"
+	notice.text = model.warning() + " · Tap an enemy to target"
 
 func _bar_style(bar: ProgressBar, color: Color) -> void:
 	var background := StyleBoxFlat.new()
@@ -155,9 +155,9 @@ class TeamField extends Control:
 		draw_texture_rect(library.textures["bg_" + model.stage.zone], Rect2(0, 0, 540, 330), false)
 		var options: Dictionary = game.presentation_options
 		if options.lighting and options.quality != "low" and not options.battery_saver: EnvironmentMotion.draw_motes(self, model.stage.zone, model.time, false)
-		var font := ThemeDB.fallback_font
-		draw_string(font, Vector2(20, 22), "ĐỘI MÌNH", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
-		draw_string(font, Vector2(407, 22), "KẺ ĐỊCH", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
+		var font := UIFonts.font("medium")
+		draw_string(font, Vector2(20, 22), "OUR TEAM", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
+		draw_string(font, Vector2(407, 22), "ENEMIES", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
 		var order := []
 		for i in range(model.allies.size()): order.append({"enemy":false,"index":i,"y":ALLY_FEET[model.allies[i].slot].y})
 		for i in range(model.enemies.size()): order.append({"enemy":true,"index":i,"y":ENEMY_FEET[i].y})
@@ -234,7 +234,7 @@ class TeamField extends Control:
 		var anchor := Vector2(spec.anchor[0], spec.anchor[1])
 		draw_texture_rect(texture, Rect2(foot - anchor * factor, texture.get_size() * factor), false, Color(1, .83 if enemy.elite else 1.0, .75 if enemy.elite else 1.0, alpha))
 		_bar(foot + Vector2(-27, 5), enemy.hp / enemy.max_hp, Color("dd918c"))
-		draw_string(ThemeDB.fallback_font, foot + Vector2(-30, 18), "BOSS" if enemy.boss else enemy.name, HORIZONTAL_ALIGNMENT_LEFT, 96, 10, Color("e5cd9e"))
+		draw_string(UIFonts.font("display") if enemy.boss else UIFonts.font("medium"), foot + Vector2(-30, 18), "BOSS" if enemy.boss else UIFonts.enemy_name(enemy.name), HORIZONTAL_ALIGNMENT_LEFT, 96, 10, Color("e5cd9e"))
 		if model.focus == index and enemy.hp > 0: draw_arc(foot - Vector2(0, 25), 28, 0, TAU, 24, Color("e5c278"), 2, true)
 		if enemy.boss and enemy.mechanic == "shield" and not enemy.shield_broken: draw_arc(foot - Vector2(0, 60), 45, PI, TAU, 24, Color(.6,.8,1,.8), 3, true)
 	func _bar(point: Vector2, value: float, color: Color) -> void:
