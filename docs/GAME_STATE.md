@@ -47,6 +47,13 @@ tổng kết và xem lại lô đã commit sau khi tải save. Giữ savev12, ch
 pool/pity/giá và art cũ; chưa thêm 20 hero, Bond hoặc combat launch mới.
 Chi tiết tương thích snapshot và kế hoạch migration roster: [HERO_COLLECTION](HERO_COLLECTION.md).
 
+## Gallery — giao diện mới 2026-11-08
+
+Gallery dùng lưới chân dung4 cột, khung vàng/navy, bộ đếm sở hữu thật, tab hệ,
+lọc vai trò/sở hữu, reset và chế độ thẻ chi tiết2 cột. Hero khóa vẫn xem được;
+xem/lọc/preview không đổi đội hình hoặc save. Hiện có4 hero runtime, không tạo
+hero giả cho đủ24. Xem [HERO_COLLECTION](HERO_COLLECTION.md).
+
 ## Đã hoạt động
 
 | Phần | Trạng thái thực |

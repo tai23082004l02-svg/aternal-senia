@@ -14,13 +14,13 @@ func pointer(position: Vector2, pressed: bool, touch: bool) -> void:
 	if touch:
 		var event := InputEventScreenTouch.new()
 		event.index = 0
-		event.position = position
+		event.position = root.get_screen_transform() * position
 		event.pressed = pressed
 		Input.parse_input_event(event)
 	else:
 		var event := InputEventMouseButton.new()
-		event.position = position
-		event.global_position = position
+		event.position = root.get_screen_transform() * position
+		event.global_position = root.get_screen_transform() * position
 		event.button_index = MOUSE_BUTTON_LEFT
 		event.button_mask = MOUSE_BUTTON_MASK_LEFT if pressed else 0
 		event.pressed = pressed
@@ -34,14 +34,14 @@ func swipe(position: Vector2, delta: Vector2, touch: bool) -> void:
 		if touch:
 			var event := InputEventScreenDrag.new()
 			event.index = 0
-			event.position = next
-			event.relative = delta/8
+			event.position = root.get_screen_transform() * next
+			event.relative = root.get_screen_transform().basis_xform(delta/8)
 			Input.parse_input_event(event)
 		else:
 			var event := InputEventMouseMotion.new()
-			event.position = next
-			event.global_position = next
-			event.relative = delta/8
+			event.position = root.get_screen_transform() * next
+			event.global_position = root.get_screen_transform() * next
+			event.relative = root.get_screen_transform().basis_xform(delta/8)
 			event.button_mask = MOUSE_BUTTON_MASK_LEFT
 			Input.parse_input_event(event)
 		await process_frame

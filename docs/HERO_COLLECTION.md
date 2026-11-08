@@ -61,6 +61,32 @@ Catalogue-driven Recruitment/HeroEvolution/Wardrobe defaults are prepared for an
 expanded roster, but adding catalogue rows alone is not a migration. This patch
 intentionally does not claim the remaining 20 heroes can be imported safely yet.
 
+## Gallery visual refresh — 2026-11-08
+
+The Gallery now uses a navy panel, warm gold borders, four-column portrait cards,
+a live owned/total counter and horizontally scrollable affinity tabs derived from
+runtime heroes. Owned heroes have gold borders; locked portraits are dimmed and
+labeled, but remain clickable for preview. The Details control switches to a
+2-column view with combat roles. Ownership/role filters combine with affinity;
+Reset filters restores all three. Empty results have an explicit message.
+
+The card area uses the existing SwipeScroll; filters and navigation stay outside
+it. The four existing canonical banner textures are cropped at draw time without
+modifying source artwork. Actual catalogue order, ownership, acquisition sources
+and showcase/details routing are preserved. No planned heroes, rate-up banner,
+Bond state or ownership rewards are added. The current total is 4, not the planned
+24. Tests use 20 extra fixture rows only to verify a 24-entry scroll and then
+restore the real catalogue; this is not runtime content or device performance QA.
+Native touch gestures over cards are checked for inner scrolling and canceled
+preview clicks. Synthetic input converts viewport positions with the window screen
+transform, so scaled desktop windows receive the intended gesture coordinates.
+
+Gallery refresh validation: `collection_ui`, `swipe_scroll`, `english_ui`,
+`ui_flow`, `animation_gallery` and `hero_contract` pass on Godot 4.6.3/Linux/X11,
+plus resource/link and English/font validators. Compact, detailed, empty and
+24-entry scroll captures were reviewed under ignored `work/checks/collection_ui/`.
+Physical phone touch, texture RAM, FPS and heat remain unverified.
+
 ## Player flow
 
 Heroes → Gallery opens the current four-hero collection. Filter by affinity,
