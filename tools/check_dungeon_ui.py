@@ -4,8 +4,8 @@ import json,os,subprocess,sys
 ROOT=Path(__file__).resolve().parents[1]
 work=ROOT/'work/dungeon-check'
 work.mkdir(parents=True,exist_ok=True)
-tests=['dungeon_world','mobile_inventory','swipe_scroll','ui_flow','animation_gallery','bag_ui','character_design','music','audio','team_ui','team_flow','regression','mechanics','campaign','team_battle','complete_art']
-headless={'regression','mechanics','campaign','team_battle','complete_art'}
+tests=['dungeon_world','mobile_inventory','swipe_scroll','ui_flow','animation_gallery','bag_ui','character_design','music','audio','team_ui','team_flow','regression','mechanics','campaign','team_battle','complete_art','summon_ui','summon_batch','recruitment']
+headless={'regression','mechanics','campaign','team_battle','complete_art','summon_batch','recruitment'}
 results=[]
 for test in tests:
     env=os.environ.copy()

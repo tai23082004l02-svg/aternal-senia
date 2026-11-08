@@ -1,4 +1,4 @@
-# Thế giới Phó bản · 0.33
+# Thế giới Phó bản · 0.34
 
 Theo yêu cầu: **cài giao diện và đồ họa trước, từng màn chơi thêm sau**.
 Danh mục riêng15 phó bản, bốn nhóm5/5/4/1, không thêm encounter hoặc đổi save.
@@ -73,12 +73,12 @@ Không đổi version save hoặc khóa các phó bản cũ bằng lượt thư�
 ## Kiểm tra và triển khai
 
 Workflow .github/workflows/dungeon-ui.yml trên nhánh codex/dungeon-world-ui:
-Godot4.6.3, X11/Xvfb, import +16 suite độc lập. tests/dungeon_world.gd kiểm15
+Godot4.6.3, X11/Xvfb, import +19 suite độc lập. tests/dungeon_world.gd kiểm15
 trang, nhóm/lịch trống, bounds art/nút, vuốt trên nút không mở nhầm, xem trước
 không ghi save, lối vào101–103, khóa điều kiện/pending và tiếp tục trận.
 Các suite mobile_inventory/swipe_scroll/ui_flow/animation_gallery/bag_ui/
 character_design/music/audio/team_ui/team_flow/regression/mechanics/campaign/
-team_battle/complete_art kiểm các luồng chung.
+team_battle/complete_art cùng summon_ui/summon_batch/recruitment kiểm các luồng chung.
 Ảnh và provenance chỉ được CI ghi lên nhánh sau khi cả bộ pass; log/results
 giữ trong artifact dungeon-ui-checks. Chưa kiểm cảm ứng/FPS trên điện thoại thật.
 

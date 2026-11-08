@@ -160,6 +160,10 @@ Theo yêu cầu mới, `art/banners/{eira,mira,ryn,lyra}.png` là tranh splash n
 
 Bốn ảnh art/character_panels thay bố cục banner ghép ở Thông tin/Trang bị: tranh dọc1024×1536, nền và viền hoa vàng liền mạch, giữ nhận diện từng hero từ0.29. Ảnh không chứa chữ, số, trang bị hay nút; tên/chức danh/sao/chỉ số/ô đồ được render riêng, sẵn cho bản dịch. Không đổi canon/tuổi hoặc sprite battle; ảnh banner0.29 tiếp tục dùng trong xem trang phục. [Chi tiết](CHARACTER_PANEL_UI.md).
 
-## Concept đối thủ phó bản · 0.33
+## Ryn minh họa cổng triệu hồi · 0.33
+
+Art/summon/gateway.png dùng Ryn hiện hành làm mẫu, tóc ngang vai/bím nhỏ, thương và giáp ngà/cape crimson. Tranh toàn cảnh bình minh có vùng chữ trống, không đổi thiết kế sprite hay nhân vật. Không dùng tranh Ryn để khẳng định rate-up hoặc bảo đảm nhận Ryn. [Giao diện](SUMMON_VISUALS.md).
+
+## Concept đối thủ phó bản · 0.34
 
 Đọc [DUNGEON_WORLD.md](DUNGEON_WORLD.md) trước khi dùng art/dungeons/enemies.png. Có12 portrait concept, người hình humanoid là người trưởng thành; ba vệ giả là concept dự trữ, chưa thay actor của Tam Vệ. Không đưa những tranh này vào roster hero, không đổi Ryn/Lyra/Ash/Lumi hoặc lore/tuổi đã chốt. Các cảnh/portrait mới hiện chỉ phục vụ trang giới thiệu; gameplay và kỹ năng sẽ làm sau theo yêu cầu.

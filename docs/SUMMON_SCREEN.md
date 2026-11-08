@@ -1,5 +1,7 @@
 # Triệu hồi · 0.17
 
+Giao diện hiện hành từ0.33: [SUMMON_VISUALS](SUMMON_VISUALS.md). Cơ chế kho từ0.30: [BAG_INVENTORY](BAG_INVENTORY.md), nhiều bản gear cùng tên, mỗi UID độc lập; không còn gộp gear trùng thành mảnh.
+
 > Cơ chế nhận trùng và độ hiếm đã cập nhật ở [0.23](UNIQUE_COLLECTION.md): mỗi ID một bản, trùng gear/hero/spirit thành10 mảnh đúng ID, trang bị chỉ năm cấp. Quy tắc lõi/đầy túi và save v6 trong lịch sử dưới đây đã được thay.
 
 Theo phác thảo người dùng: banner bên trái, ba nút Thường/Cao cấp/Sự kiện xếp

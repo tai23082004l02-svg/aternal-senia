@@ -6,6 +6,8 @@ on:
       - game/dungeon*.gd
       - game/data/dungeon_world.json
       - game/main.gd
+      - game/summon_screen.gd
+      - tests/summon_ui.gd
       - tests/dungeon_world.gd
       - art/dungeons/*.png
       - art/dungeons/manifest.json
