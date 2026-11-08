@@ -66,6 +66,13 @@ func _process(_delta: float) -> void:
 	if not visible: return
 	var model: TeamBattle = game.battle
 	field.model = model
+	field.position = Vector2(0,46)
+	if game.presentation_options.screen_shake and not game.presentation_options.battery_saver:
+		for event in model.events:
+			var age: float = model.time-event.time
+			if event.kind == "hurt" and age >= 0 and age < .15:
+				field.position += Vector2(sin(age*110+event.id),cos(age*133+event.id))*1.5*(1-age/.15)
+	field.position = Vector2(0,46) + (field.position-Vector2(0,46)).limit_length(3.2)
 	field.queue_redraw()
 	var code := JourneyScreen.stage_code(game.catalog, model.stage)
 	heading.text = "ẢI %s · %s · %02d:%02d · Đợt %d/%d" % [code, model.stage.name, int(model.time) / 60, int(model.time) % 60, model.wave + 1, model.wave_count()]
@@ -146,7 +153,8 @@ class TeamField extends Control:
 		if model == null: return
 		var library: FrameLibrary = game.frames
 		draw_texture_rect(library.textures["bg_" + model.stage.zone], Rect2(0, 0, 540, 330), false)
-		EnvironmentMotion.draw_motes(self, model.stage.zone, model.time, false)
+		var options: Dictionary = game.presentation_options
+		if options.lighting and options.quality != "low" and not options.battery_saver: EnvironmentMotion.draw_motes(self, model.stage.zone, model.time, false)
 		var font := ThemeDB.fallback_font
 		draw_string(font, Vector2(20, 22), "ĐỘI MÌNH", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
 		draw_string(font, Vector2(407, 22), "KẺ ĐỊCH", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ecd095"))
@@ -160,7 +168,7 @@ class TeamField extends Control:
 		var spirit := Vector2(177, 95) + Vector2(0, sin(model.time * 2) * 4)
 		var flash := clampf(1 - (model.time - model.spirit_last) * 2, 0, 1)
 		draw_texture_rect(library.textures["companion_" + model.stats.assist], Rect2(spirit - Vector2(26, 26), Vector2(52, 52)), false)
-		if flash > 0: draw_arc(spirit, 27 + flash * 10, 0, TAU, 24, Color(.6, 1, .8, flash), 2, true)
+		if flash > 0 and options.lighting: draw_arc(spirit, 27 + flash * 10, 0, TAU, 24, Color(.6, 1, .8, flash), 2, true)
 		for event in model.events:
 			var age: float = model.time - event.time
 			if age < 0 or age > .7 or event.wave != model.wave or event.target < 0: continue
@@ -171,10 +179,10 @@ class TeamField extends Control:
 			var point: Vector2 = ALLY_FEET[model.allies[event.target].slot] if ally_target else ENEMY_FEET[event.target]
 			var color := Color("87e6b5") if event.kind == "heal" else (Color("ffcb78") if event.kind == "critical" else Color("f5ddd2"))
 			color.a = 1 - age / .7
-			draw_string(font, point + Vector2(-10, -82 - age * 25), event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, color)
-			if age < .18:
+			if options.damage_numbers: draw_string(font, point + Vector2(-10, -82 - age * 25), event.text, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, color)
+			if age < .18 and options.quality != "low" and options.lighting and not options.reduced_effects and not options.battery_saver:
 				CombatEffects.stamp(self, library, "heal_ring" if event.kind == "heal" else "impact", point - Vector2(0,35), Vector2.ONE * 65, 1 - age / .18)
-				draw_arc(point - Vector2(0, 35), 12 + age * 80, 0, TAU, 16, color, 2, true)
+				if options.quality == "high": draw_arc(point - Vector2(0, 35), 12 + age * 80, 0, TAU, 16, color, 2, true)
 	func _ally(index: int, library: FrameLibrary) -> void:
 		var ally: Dictionary = model.allies[index]
 		var foot: Vector2 = ALLY_FEET[ally.slot]

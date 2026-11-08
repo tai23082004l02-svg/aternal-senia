@@ -1,3 +1,5 @@
+> 0.36: UI có bus FirstLightUI và ui_volume riêng; limiter tương đương SFX, chung pool12. Save cũ fallback SFX. Xem SETTINGS_SCREEN.md cho cửa sổ mới. Không thêm giọng thoại riêng.
+
 > Từ0.32 có [nhạc nền chill và8 hiệu ứng mới](AUDIO_ADDITIONS.md), ba thanh âm lượng riêng và hỗ trợ pause khi app ra nền. Phần0.5 bên dưới ghi lại batch/timeline gốc, tiếp tục áp dụng cho38 SFX cũ.
 
 # Âm thanh 0.5 · ElevenLabs

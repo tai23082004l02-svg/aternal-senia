@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-08",
+  "method": "Original image generation, referenced art/character_panels/mira.png for forest/navy/gold palette only. Empty modal background, no character, text, icons or controls. Copied byte-for-byte; builder validates metadata only.",
+  "sources": [
+    {
+      "file": "art/settings/window.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "sha256": "4ffc57660e9533d40f3836585533526bc07f0bc98fe6e4e25fb1c88e9008d675"
+    }
+  ]
+}

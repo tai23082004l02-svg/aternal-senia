@@ -1,4 +1,11 @@
-# Aternal Senia — First Light · 0.35
+# Aternal Senia — First Light · 0.36
+
+## Cài đặt & thông tin studio · 0.36
+
+Cửa sổ cài đặt xanh đêm/viền vàng, âm lượng UI riêng, hiệu ứng2D, tự chiến,
+nhắc thưởng và sao lưu/khôi phục bằng tệp. Chữ và nút tách khỏi tranh.
+Phát triển bởi **ZORVYKA Games** · **zorvykagames@gmail.com**.
+[Xem thiết kế, kiểm tra và giới hạn](docs/SETTINGS_SCREEN.md).
 
 ## Ba bộ trang bị mới · 0.35
 

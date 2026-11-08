@@ -5,6 +5,9 @@ const VOICES := 12
 const SFX_BUS := "FirstLightSFX"
 const AIR_BUS := "FirstLightAmbience"
 const MUSIC_BUS := "FirstLightMusic"
+const UI_BUS := "FirstLightUI"
+var ui_level := .8
+var owns_ui_bus := false
 var manifest: Dictionary
 var streams: Dictionary = {}
 var players: Array[AudioStreamPlayer] = []
@@ -38,11 +41,13 @@ func _ready() -> void:
 	owns_sfx_bus = _make_bus(SFX_BUS)
 	owns_air_bus = _make_bus(AIR_BUS)
 	owns_music_bus = _make_bus(MUSIC_BUS)
-	if owns_sfx_bus:
+	owns_ui_bus = _make_bus(UI_BUS)
+	for bus_name in [SFX_BUS,UI_BUS]:
+		if (bus_name == SFX_BUS and not owns_sfx_bus) or (bus_name == UI_BUS and not owns_ui_bus): continue
 		var limiter := AudioEffectLimiter.new()
 		limiter.ceiling_db = -3
 		limiter.threshold_db = -6
-		AudioServer.add_bus_effect(AudioServer.get_bus_index(SFX_BUS), limiter)
+		AudioServer.add_bus_effect(AudioServer.get_bus_index(bus_name), limiter)
 	for cue in manifest.cues.values():
 		for file in cue.files:
 			if not streams.has(file):
@@ -95,12 +100,13 @@ func _make_bus(bus_name: String) -> bool:
 	AudioServer.set_bus_send(AudioServer.get_bus_index(bus_name), "Master")
 	return true
 
-func configure(master_enabled: bool, sfx: float, air: float, song_level: float = -1) -> void:
+func configure(master_enabled: bool, sfx: float, air: float, song_level: float = -1, interface_level: float = -1) -> void:
 	if shutting_down:
 		return
 	var previously_audible := enabled and effects_level > 0
 	enabled = master_enabled
 	effects_level = clampf(sfx, 0, 1)
+	ui_level = clampf(interface_level if interface_level >= 0 else sfx,0,1)
 	air_level = clampf(air, 0, 1)
 	if song_level >= 0: music_level = clampf(song_level,0,1)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS),linear_to_db(maxf(.00001,music_level)))
@@ -114,16 +120,18 @@ func configure(master_enabled: bool, sfx: float, air: float, song_level: float =
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(AIR_BUS), linear_to_db(maxf(.00001, air_level)))
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(SFX_BUS), not enabled or effects_level <= 0)
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(AIR_BUS), not enabled or air_level <= 0)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(UI_BUS),linear_to_db(maxf(.00001,ui_level)))
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(UI_BUS),not enabled or ui_level <= 0)
 	if not enabled or effects_level <= 0:
 		if previously_audible:
 			cancel_preview()
-		for player in players:
-			player.stop()
+	for i in range(players.size()):
+		if not enabled or (players[i].bus == UI_BUS and ui_level <= 0) or (players[i].bus == SFX_BUS and effects_level <= 0): players[i].stop()
 	if not enabled or air_level <= 0:
 		ambience.stop()
 
 func apply_profile(profile: Dictionary) -> void:
-	configure(profile.settings.sound, profile.settings.get("sfx_volume", .8), profile.settings.get("ambience_volume", .35), profile.settings.get("music_volume", .35))
+	configure(profile.settings.sound, profile.settings.get("sfx_volume", .8), profile.settings.get("ambience_volume", .35), profile.settings.get("music_volume", .35),profile.settings.get("ui_volume",profile.settings.get("sfx_volume",.8)))
 
 func context(zone: String, paused: bool, visible_world: bool = true, combat: bool = false) -> void:
 	if shutting_down:
@@ -174,7 +182,7 @@ func play(cue: String, preview: bool = false) -> bool:
 		return false
 	var config: Dictionary = manifest.cues[cue]
 	var world: bool = config.bus == "battle" and not preview
-	if not enabled or effects_level <= 0 or (world and world_paused):
+	if not enabled or (ui_level <= 0 if config.bus == "ui" else effects_level <= 0) or (world and world_paused):
 		return false
 	var now := Time.get_ticks_msec()
 	if now - int(last_played.get(cue, -100000)) < config.cooldown * 1000:
@@ -210,6 +218,7 @@ func play(cue: String, preview: bool = false) -> bool:
 	variants[cue] = variant + 1
 	var file: String = config.files[variant % config.files.size()]
 	var player := players[slot]
+	player.bus = UI_BUS if config.bus == "ui" else SFX_BUS
 	player.stream = streams[file]
 	# Small deterministic presentation variation, never combat RNG or speed.
 	player.pitch_scale = 1.0 + config.pitch_variation * [0, .7, -.6][variant % 3]
@@ -260,8 +269,8 @@ func shutdown() -> void:
 
 func _exit_tree() -> void:
 	shutdown()
-	for bus_name in [SFX_BUS, AIR_BUS, MUSIC_BUS]:
-		if (bus_name == SFX_BUS and owns_sfx_bus) or (bus_name == AIR_BUS and owns_air_bus) or (bus_name == MUSIC_BUS and owns_music_bus):
+	for bus_name in [SFX_BUS, AIR_BUS, MUSIC_BUS, UI_BUS]:
+		if (bus_name == SFX_BUS and owns_sfx_bus) or (bus_name == AIR_BUS and owns_air_bus) or (bus_name == MUSIC_BUS and owns_music_bus) or (bus_name == UI_BUS and owns_ui_bus):
 			var index := AudioServer.get_bus_index(bus_name)
 			if index >= 0:
 				AudioServer.remove_bus(index)

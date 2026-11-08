@@ -11,6 +11,7 @@ var world_time := 0.0
 var post_time := 0.0
 var hero_frame: Dictionary
 var effects := CombatEffects.new()
+var options: Dictionary = GameOptions.DEFAULTS.duplicate(true)
 var tracked_battle: BattleModel
 var world: WorldLayer
 var pose: Dictionary = {}
@@ -51,7 +52,7 @@ func _process(delta: float) -> void:
 		world_time = clock
 		pose = {"state": "idle", "time": clock, "offset": Vector2.ZERO, "marker": -1.0, "duration": -1.0}
 	if is_instance_valid(world):
-		world.position = Vector2(0, -178) + (effects.shake() if battle != null else Vector2.ZERO)
+		world.position = Vector2(0, -178) + (effects.shake() if battle != null and options.screen_shake and not options.battery_saver else Vector2.ZERO)
 		world.queue_redraw()
 
 func draw_world(canvas: CanvasItem) -> void:
@@ -61,7 +62,7 @@ func draw_world(canvas: CanvasItem) -> void:
 	var stats: Dictionary = battle.stats if active else preview
 	var stage: Dictionary = battle.stage if active else selected_stage
 	canvas.draw_texture_rect(library.textures["bg_" + stage.zone], Rect2(-4, 174, 548, 338), false)
-	EnvironmentMotion.draw_motes(canvas, stage.zone, world_time, false)
+	if options.lighting and options.quality != "low" and not options.battery_saver: EnvironmentMotion.draw_motes(canvas, stage.zone, world_time, false)
 	var hero_foot: Vector2 = (Vector2(142, 475) if active else Vector2(385, 490)) + pose.offset
 	var enemy_foot := Vector2(391, 477)
 	if active:
@@ -83,7 +84,7 @@ func draw_world(canvas: CanvasItem) -> void:
 		if battle.shield:
 			CombatEffects.stamp(canvas, library, "guard_arc", enemy_foot + Vector2(-30, -83), Vector2(166, 205), .43)
 		effects.draw(canvas, library, false, hero_foot, enemy_foot)
-	EnvironmentMotion.draw_motes(canvas, stage.zone, world_time, true)
+	if options.lighting and options.quality == "high" and not options.battery_saver: EnvironmentMotion.draw_motes(canvas, stage.zone, world_time, true)
 
 func _companion(canvas: CanvasItem, stats: Dictionary) -> void:
 	var flash: float = battle.assist_flash if battle != null else 0.0

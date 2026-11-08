@@ -62,7 +62,7 @@ static func snapshot(book: GameCatalog, p: Dictionary, stage: Dictionary) -> Dic
 		var id: String = f.slots[slot]
 		if id.is_empty(): continue
 		units.append({"slot":slot, "stats":book.stats(p, id)})
-	return GameCatalog.normalize({"version":1, "units":units, "assist":p.assist, "auto_ult":f.auto_ult, "auto_next":f.auto_next, "encounter":encounter(stage)})
+	return GameCatalog.normalize({"version":1, "units":units, "assist":p.assist, "auto_ult":f.auto_ult, "auto_next":f.auto_next, "prioritize_heal":p.settings.get("prioritize_heal",true), "encounter":encounter(stage)})
 
 static func encounter(stage: Dictionary) -> Dictionary:
 	if stage.has("team_encounter"): return stage.team_encounter.duplicate(true)
@@ -89,6 +89,7 @@ static func kill_cap(encounter_data: Dictionary) -> int:
 	return total
 
 static func valid_snapshot(store, team: Variant) -> bool:
+	if team is Dictionary and team.has("prioritize_heal") and not team.prioritize_heal is bool: return false
 	if not team is Dictionary or team.get("version") != 1 or not team.get("units") is Array or team.units.is_empty() or team.units.size() > 3: return false
 	if not team.get("auto_ult") is bool or not team.get("auto_next") is bool or store.catalog.find_row("assists", team.get("assist")).is_empty(): return false
 	var ids := []

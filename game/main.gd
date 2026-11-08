@@ -56,6 +56,7 @@ var message_time := 0.0
 var audio_players: Array[AudioStreamPlayer] = []
 var audio: AudioDirector
 var audio_menu_open := false
+var presentation_options: Dictionary = GameOptions.DEFAULTS.duplicate(true)
 var audio_menu_paused := false
 var sound_sliders: Dictionary = {}
 var sound_labels: Dictionary = {}
@@ -104,6 +105,7 @@ func _ready() -> void:
 	audio.apply_profile(store.profile)
 	audio_players = audio.players
 	_build_ui()
+	_apply_presentation()
 	_refresh_panel()
 	if store.read_only:
 		_dialog("Tiến trình được bảo vệ", store.error, [{"text": "Đã hiểu", "call": _close_modal}])
@@ -768,6 +770,9 @@ func _dialog(title: String, body: String, actions: Array) -> VBoxContainer:
 	return column
 
 func _close_modal() -> void:
+	if modal is SettingsScreen:
+		modal.finish()
+		return
 	if is_instance_valid(modal):
 		ui.remove_child(modal)
 		modal.queue_free()
@@ -789,81 +794,35 @@ func _sync_audio() -> void:
 	var zone: String = catalog.find_row("stages", selected_stage).zone
 	audio.context(zone, battle != null and battle.paused, tab == 0, tab == 0 and battle != null and battle.state == "battle")
 
+func _apply_presentation(values: Dictionary = {}) -> void:
+	presentation_options = GameOptions.state(store.profile) if values.is_empty() else values.duplicate(true)
+	Engine.max_fps = 30 if presentation_options.battery_saver else presentation_options.fps_limit
+	view.options = presentation_options
+	view.effects.show_numbers = presentation_options.damage_numbers
+	view.effects.reduced = presentation_options.reduced_effects or presentation_options.quality == "low" or presentation_options.battery_saver
+	view.effects.lighting = presentation_options.lighting
+
 func _play_events() -> void:
 	audio.consume(battle)
 
 func _audio_settings() -> void:
-	if modal != null or result_transition:
-		return
-	audio_menu_open = true
-	audio_menu_paused = battle != null and battle.state == "battle" and not battle.paused
-	if audio_menu_paused:
-		battle.paused = true
-	var column := _dialog("ÂM THANH", "Chỉnh mức âm, nghe thử rồi áp dụng. Trận được tạm dừng khi mở bảng này.", [{"text": "Áp dụng", "call": _apply_audio_settings}, {"text": "Hủy", "call": _cancel_audio_settings}])
-	audio_notice = column.get_child(1)
-	var box: PanelContainer = column.get_parent().get_parent()
-	box.position.y = 140
-	box.size.y = 680
-	var insert := 2
-	sound_enabled = CheckButton.new()
-	sound_enabled.text = "Bật âm thanh"
-	sound_enabled.button_pressed = store.profile.settings.sound
-	column.add_child(sound_enabled)
-	column.move_child(sound_enabled, insert)
-	insert += 1
-	sound_sliders.clear()
-	sound_labels.clear()
-	for key in ["sfx_volume", "ambience_volume", "music_volume"]:
-		var label := _label(column, "")
-		column.move_child(label, insert)
-		insert += 1
-		var slider := HSlider.new()
-		slider.min_value = 0
-		slider.max_value = 1
-		slider.step = .01
-		slider.custom_minimum_size = Vector2(400, 24)
-		slider.value = store.profile.settings.get(key, .8 if key == "sfx_volume" else .35)
-		column.add_child(slider)
-		column.move_child(slider, insert)
-		insert += 1
-		sound_sliders[key] = slider
-		sound_labels[key] = label
-		slider.value_changed.connect(_preview_audio_levels)
-	sound_enabled.toggled.connect(_preview_audio_levels)
-	var preview_button := _button(column, "Nghe thử: kiếm / hồi phục / thủ thế", Vector2.ZERO, Vector2(400, 42), _audition)
-	column.move_child(preview_button, insert)
-	_preview_audio_levels(0)
-	box.set_deferred("size", Vector2(472, 680))
+	if modal != null or result_transition: return
+	SettingsScreen.open(self,"audio",false)
 
 func _preview_audio_levels(_value: Variant) -> void:
-	for key in sound_sliders:
-		sound_labels[key].text = {"sfx_volume":"Hiệu ứng", "ambience_volume":"Không gian rừng", "music_volume":"Nhạc nền"}[key] + " · %d%%" % roundi(sound_sliders[key].value * 100)
-	audio.configure(sound_enabled.button_pressed, sound_sliders.sfx_volume.value, sound_sliders.ambience_volume.value, sound_sliders.music_volume.value)
+	if modal is SettingsScreen: modal.preview_audio()
 
 func _audition() -> void:
 	audio.audition()
 
 func _apply_audio_settings() -> void:
-	if store.audio_settings(sound_enabled.button_pressed, sound_sliders.sfx_volume.value, sound_sliders.ambience_volume.value, sound_sliders.music_volume.value):
-		_close_audio_settings()
-		audio.play("confirm")
-	else:
-		_notify(store.error)
-		audio_notice.text = store.error + "\nBạn có thể thử lại hoặc Hủy."
+	if modal is SettingsScreen: modal.save()
 
 func _cancel_audio_settings() -> void:
-	_close_audio_settings()
+	_close_modal()
 
 func _close_audio_settings() -> void:
-	audio.cancel_preview()
-	audio_menu_open = false
-	audio.apply_profile(store.profile)
 	_close_modal()
-	if audio_menu_paused and battle != null and battle.state == "battle":
-		battle.paused = false
-	audio_menu_paused = false
-	sound_sliders.clear()
-	sound_labels.clear()
 
 func _exit_tree() -> void:
 	if is_instance_valid(audio):
@@ -1151,13 +1110,13 @@ func _utility_giftcode() -> void:
 	column.move_child(redeem, 3)
 
 func _utility_settings() -> void:
-	_dialog("CÀI ĐẶT", "Tùy chỉnh trải nghiệm và hồ sơ người chơi.", [{"text": "Âm thanh & mức âm lượng", "call": _audio_settings}, {"text": "Đồ họa & hiển thị", "call": _utility_graphics}, {"text": "Tài khoản & Hồ sơ", "call": _show_player_profile}, {"text": "Đóng", "call": _close_modal}])
+	SettingsScreen.open(self,"home",true)
 
 func _utility_graphics() -> void:
-	_dialog("ĐỒ HỌA & HIỂN THỊ", "Game dùng giao diện dọc, tự co theo cửa sổ.\n\nHiện dùng cấu hình đồ họa mặc định. Tùy chọn chất lượng và giới hạn FPS sẽ được bổ sung sau.", [{"text": "Về cài đặt", "call": _utility_settings}, {"text": "Đóng", "call": _close_modal}])
+	SettingsScreen.open(self,"graphics",true)
 
 func _utility_help() -> void:
-	SummonScreen.show_text(self, "TRỢ GIÚP & HỖ TRỢ", "HƯỚNG DẪN\nChọn nhân vật và trang bị trước khi vào ải. Dùng tinh linh phá khiên, thủ thế trước đòn mạnh của Boss.\n\nNâng cấp nhân vật ở mục Nhân vật; quản lý trang bị và nguyên liệu trong Túi đồ. Xem tỷ lệ trước khi triệu hồi.\n\nBÁO LỖI\nKhi gửi lỗi cho nhóm phát triển, kèm phiên bản game, thiết bị, các bước tái hiện và ảnh hoặc video. Giữ bản sao save trước khi cài lại.\n\nPhiên bản: " + str(ProjectSettings.get_setting("application/config/version", "")) + "\n\nKênh liên hệ và gửi báo lỗi trong game chưa được cấu hình.")
+	SummonScreen.show_text(self, "TRỢ GIÚP & HỖ TRỢ", "HƯỚNG DẪN\nChọn nhân vật và trang bị trước khi vào ải. Dùng tinh linh phá khiên, thủ thế trước đòn mạnh của Boss.\n\nNâng cấp nhân vật ở mục Nhân vật; quản lý trang bị và nguyên liệu trong Túi đồ. Xem tỷ lệ trước khi triệu hồi.\n\nBÁO LỖI\nKhi gửi lỗi cho nhóm phát triển, kèm phiên bản game, thiết bị, các bước tái hiện và ảnh hoặc video. Giữ bản sao save trước khi cài lại.\n\nPhiên bản: " + str(ProjectSettings.get_setting("application/config/version", "")) + "\n\nStudio: ZORVYKA Games\nEmail hỗ trợ: zorvykagames@gmail.com\nBạn chủ động gửi email; game không tự gửi dữ liệu.")
 
 func _bag_open(section: String) -> void:
 	bag_section = section

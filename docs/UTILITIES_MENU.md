@@ -1,3 +1,5 @@
+> 0.36: Cài đặt dùng SettingsScreen sáu nhóm; Giới thiệu & Hỗ trợ có ZORVYKA Games / zorvykagames@gmail.com. Badge quà có tùy chọn ẩn. Xem SETTINGS_SCREEN.md.
+
 # Tiện ích · 0.18
 
 Giữ nền xanh/vàng của game, thay danh sách nút đơn bằng ba nhóm theo mẫu:

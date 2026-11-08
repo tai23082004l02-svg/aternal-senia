@@ -7,6 +7,9 @@ var cursor := 0
 var items: Array[Dictionary] = []
 var emitted := 0
 var now := 0.0
+var show_numbers := true
+var reduced := false
+var lighting := true
 
 func reset(id: String = "") -> void:
 	run_id = id
@@ -74,6 +77,8 @@ func draw(canvas: CanvasItem, library: FrameLibrary, floor_layer: bool, hero_foo
 		var age: float = now - item.start
 		if age < 0 or age >= item.duration:
 			continue
+		if item.kind == "number" and not show_numbers: continue
+		if (reduced or not lighting) and item.kind not in ["number","impact","hurt","heal","block","guard","shatter"]: continue
 		var p: float = age / item.duration
 		var fade := pow(1 - p, 1.4)
 		var event: Dictionary = item.event
