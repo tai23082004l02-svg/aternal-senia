@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-08",
+  "workflow_run": "https://github.com/tai23082004l02-svg/aternal-senia/actions/runs/42449009341",
+  "tested_commit": "2a98eab9bff0b8cda7322fb39fdf8aaf37277950",
+  "engine": "Godot4.6.3",
+  "platform": "Ubuntu24.04, Xvfb/X11, software rendering",
+  "tests": [
+    {
+      "test": "dungeon_world",
+      "passed": true
+    },
+    {
+      "test": "mobile_inventory",
+      "passed": true
+    },
+    {
+      "test": "swipe_scroll",
+      "passed": true
+    },
+    {
+      "test": "ui_flow",
+      "passed": true
+    },
+    {
+      "test": "animation_gallery",
+      "passed": true
+    },
+    {
+      "test": "bag_ui",
+      "passed": true
+    },
+    {
+      "test": "character_design",
+      "passed": true
+    },
+    {
+      "test": "music",
+      "passed": true
+    },
+    {
+      "test": "audio",
+      "passed": true
+    },
+    {
+      "test": "team_ui",
+      "passed": true
+    },
+    {
+      "test": "team_flow",
+      "passed": true
+    },
+    {
+      "test": "regression",
+      "passed": true
+    },
+    {
+      "test": "mechanics",
+      "passed": true
+    },
+    {
+      "test": "campaign",
+      "passed": true
+    },
+    {
+      "test": "team_battle",
+      "passed": true
+    },
+    {
+      "test": "complete_art",
+      "passed": true
+    },
+    {
+      "test": "summon_ui",
+      "passed": true
+    },
+    {
+      "test": "summon_batch",
+      "passed": true
+    },
+    {
+      "test": "recruitment",
+      "passed": true
+    }
+  ],
+  "reviewed_screens": [
+    "dungeons-all",
+    "dungeon-crystal_mine",
+    "dungeon-dawn_wardens",
+    "dungeon-endless_spire"
+  ],
+  "preserved_parallel_update": "1c43bc035d17b827dc1714ac2bc4146d155f87c9",
+  "limits": "No physical Android touch/FPS test;12 dungeons remain presentation-only previews. Save and existing combat are unchanged."
+}

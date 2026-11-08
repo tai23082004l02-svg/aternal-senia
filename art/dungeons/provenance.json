@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-08",
+  "method": "Original image generation, fantasy teal/gold style referenced from the user dungeon mockups. Environment atlas15 panoramas; enemy concept atlas12 illustrations. PNG sources preserved byte-for-byte, no pixel edits. Reviewed regions with2px inset; three guardian portraits remain reserved concepts, not replacement combat actors.",
+  "sources": [
+    {
+      "file": "art/dungeons/worlds.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "2ddb6691e01bd83ece527d1c8727d2375f8b27c6929b0fc65a2575b01908ac78",
+      "cells": 15
+    },
+    {
+      "file": "art/dungeons/enemies.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "d411c02b9016dfb0ac6926ed352c422535d2bb4f842bc9f06aca07c3b5e81b5e",
+      "cells": 12
+    }
+  ]
+}

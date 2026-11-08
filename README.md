@@ -1,4 +1,11 @@
-# Aternal Senia — First Light · 0.33
+# Aternal Senia — First Light · 0.34
+
+## Thế giới Phó bản · 0.34
+
+Danh sách15 địa điểm theo4 nhóm, bộ lọc/sự kiện, tranh phong cảnh riêng,
+trang chi tiết thưởng/đối thủ/cơ chế và Tháp Vô Tận. Ba phó bản hiện có giữ
+màn chơi;12 địa điểm mới mở xem trước đồ họa, màn chơi sẽ bổ sung sau.
+[Xem thiết kế, ảnh và phạm vi](docs/DUNGEON_WORLD.md).
 
 ## Cổng triệu hồi fantasy · 0.33
 
